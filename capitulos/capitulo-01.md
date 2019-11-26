@@ -1,3 +1,10 @@
+---
+description: >-
+  O primeiro capítulo aborda quem é o instrutor, o que será desenvolvido no
+  decorrer do projeto, o que é a linguagem Python e como instalar todas os
+  recursos necessários ao início do projeto.
+---
+
 # Capítulo 01
 
 ## Conhecendo o instrutor e sabendo mais sobre o curso
@@ -6,19 +13,25 @@
 
 Olá, meu nome é Thiago Brasil e na internet eu sou o @tchaguitos.
 
-Cursei Ciência da Computação e sou desenvolvedor full-stack há aproximadamente 3 anos. Nesse tempo trabalhei principalmente com as linguagens Python e Javascript e me aventurei em vários projetos utilizando Django framework, NodeJS, React, Angular, Vue, React Native e outras tecnologias do mundo front-end e mobile híbrido.
+Cursei Ciência da Computação e sou desenvolvedor full-stack há aproximadamente 3 anos. Nesse tempo trabalhei principalmente com as linguagens Python e Javascript e me aventurei em vários projetos utilizando Django framework, NodeJS, React, Angular, Vue, React Native e outras tecnologias dos mundos back-end, front-end e mobile híbrido.
 
 ### **Sobre o curso**
 
-No curso "Django Framework na prática" você vai iniciar sua carreira como desenvolvedor full-stack utilizando a linguagem Python para desenvolver aplicações web seguras e escaláveis numa velocidade incrível.
+No curso "Django Framework na prática" você vai iniciar sua carreira como desenvolvedor full-stack utilizando a linguagem Python e desenvolver aplicações web seguras e escaláveis numa velocidade incrível.
 
 Nesse curso a gente vai construir junto uma aplicação web do zero com Python utilizando o framework Django. Essa nossa aplicação consiste num sistema de controle de visitantes para condomínios. Nossa aplicação deverá ser capaz de cadastrar porteiros que terão acesso a uma dashboard para cadastro de visitantes do condomínio. 
 
-Depois desse curso você estará apto para desenvolver aplicações web robustas utilizando Django framework, tendo visão ampla das principais funcionalidades e facilidades que o framework nos dá.
+Depois desse curso você estará apto para desenvolver aplicações web robustas utilizando Django framework, tendo visão ampla das principais funcionalidades e facilidades que o framework nos permite aproveitar.
 
 ## A linguagem de programação Python
 
-Python é uma linguagem de programação poderosa, rápida, amigável e bastante popular. Com ela é possível desenvolver sites, jogos, software científicos, gráficos e muito mais. A linguagem foi criada em 1980 com o objetivo de ser uma linguagem legível e fácil para que humanos compreendam, se parecendo bastante com a forma que a gente escreve textos mesmo.
+Python é uma linguagem de programação de código aberto poderosa, rápida, amigável e bastante popular. Com ela é possível desenvolver sistemas web, trabalhar com análise de dados, inteligência artificial e machine learning, além de desenvolver aplicativos móveis e aplicações para desktop.
+
+A linguagem foi criada por Guido van Rossum em 1991 com o objetivo de ser uma linguagem produtiva e legível, de modo que fosse fácil para humanos trabalharem em seus códigos, tornando menos custoso o processo de desenvolvimento e manutenção de sistemas.
+
+Além da grande variedade de ferramentas que a própria linguagem disponibiliza, Python tem se tornado cada vez mais comum devido a sua utilização em áreas como Data Science, Machine Learning e Inteligência Artificial e, com isso, ganhado diversas bibliotecas e módulos que facilitam o dia a dia do desenvolvedor Python.
+
+E ah, por último e não menos importante: Python tem caminhado rumo ao status de linguagem de programação mais popular do mundo!
 
 ## O que é Django Framework?
 
