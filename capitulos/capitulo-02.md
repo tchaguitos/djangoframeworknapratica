@@ -6,15 +6,25 @@ Conforme visto, vamos desenvolver uma dashboard para controle de visantes, mas, 
   
 Felizmente, o Django já nos dá alguns scripts que servem para executar tarefas específicas do nosso projeto e, dentre elas, criar o esqueleto de um novo projeto. Ao fim da execução do script, teremos algumas pastas e arquivos que deverão ser alterados conforme nossa necessidade.  
   
-Para iniciar um novo projeto Django, basta ativar o ambiente virtual e utilizar o seguinte comando:
+Para iniciar um novo projeto Django, vamos ativar nosso ambiente virtual e utilizar o comando `startproject`. Para ativar o ambiente virtual, basta acessar a pasta do projeto \(`controle-visitantes`\) e utilizar o comando `source`:
+
+```python
+$ source env/bin/activate
+```
+
+Após a ativação do ambiente, vamos criar um novo projeto utilizando o `django-admin`:
 
 ```text
 (env)$ django-admin startproject controle_visitantes .
 ```
 
-O `django-admin` é um pacote de comandos úteis para tarefas administrativas dentro da aplicação e dispõe de comandos para criar o projeto, iniciar o servidor de desenvolvimento, verificar erros dentro do projeto e muito mais.  
+{% hint style="info" %}
+Estamos iniciando nosso projeto com nome `controle_visitantes` na pasta em que estamos trabalhando, isto é, na pasta `controle-visitantes` \(note o ponto especificando o diretório atual\). O comando `startproject` pode receber, além do nome que o projeto terá, o diretório em que o mesmo deverá ser iniciado \(caso o diretório não seja informado, o Django criará um diretório de mesmo nome do projeto\). Além disso, o Django permite apenas letras, números e o underline em nomes de projetos.
+{% endhint %}
+
+O `django-admin` é um pacote de comandos úteis para tarefas administrativas dentro da aplicação e dispõe de comandos para criar o projeto, iniciar o servidor de desenvolvimento, verificar erros e muito mais.  
   
-Como o Django já possui um servidor de desenvolvimento integrado que nos possibilita rodar a aplicação localmente em modo de desenvolvimento, vamos iniciá-lo e verificar se está tudo funcionando conforme esperado. Para isso, basta utilizar o seguinte comando:
+Como o Django já possui um servidor de desenvolvimento integrado que nos possibilita rodar a aplicação localmente, vamos iniciá-lo e verificar se está tudo funcionando conforme esperado. Para isso, basta utilizar o seguinte comando:
 
 ```text
 (env)$ python manage.py runserver
@@ -28,23 +38,23 @@ Por enquanto, vamos ignorar os avisos referentes às migrações no banco de dad
 
 ## Entendendo a estrutura do projeto
 
-Como vimos anteriormente, o `django-admin` cria o esqueleto de um novo projeto e é isso que nós vamos entender agora: a estrutura que foi criada.  
-  
+Como vimos anteriormente, o `django-admin` cria o esqueleto de um novo projeto e é isso que nós vamos entender agora: a estrutura que foi criada.
+
 Abaixo temos a lista de todos os diretórios e arquivos que foram criados pelo `django-admin`. Vamos passar por cada um deles e entender o motivo pelo qual estão aí. A lista é a seguinte:
 
 ```text
-controle_visitantes/    
+controle-visitantes/    
     manage.py    
     controle_visitantes/
-    __init__.py
-    settings.py
-    urls.py
-    wsgi.py
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
 ```
 
-* O primeiro diretório nomeado `controle_visitantes/` é apenas um container para armazenar os arquivos do nosso projeto. O nome do diretório não é importante para o Django e pode ser alterado a qualquer momento. 
-* O arquivo manage.py é um utilitário de linha de comando que permite que a gente interaja com o projeto Django de diversas maneiras, conforme vimos anteriormente. 
-* O segundo diretório nomeado `controle_visitantes/` é o diretório que agrupa o pacote Python referente ao nosso projeto. O nome do diretório é o nome do nosso pacote e ele é importante pois nos auxilia no processo de importação de arquivos e funções. Sendo assim, alterar o nome deste diretório nos trará alguns problemas. 
+* O primeiro diretório nomeado `controle-visitantes/` é apenas um container para armazenar os arquivos do nosso projeto. O nome do diretório não é importante para o Django e pode ser alterado a qualquer momento. 
+* O arquivo `manage.py` é um utilitário de linha de comando que permite que a gente interaja com o projeto Django de diversas maneiras, conforme vimos anteriormente. 
+* O segundo diretório nomeado `controle_visitantes/` é o diretório que agrupa o pacote Python referente ao nosso projeto. O nome do diretório é o nome do nosso pacote e ele é importante pois nos auxilia no processo de importação de arquivos e funções. Sendo assim, alterar o nome deste diretório nos trará sérios problemas. 
 * O arquivo `controle_visitantes/__init__.py` é um arquivo vazio que diz ao Python que aquele diretório deve ser reconhecido e tratado como um pacote Python. 
 * O arquivo `controle_visitantes/settings.py` é o arquivo de configurações do nosso projeto Django. Nele nós podemos detalhar como o projeto funciona e quais definições estão disponíveis. 
 * O arquivo `controle_visitantes/urls.py` é o arquivo que declara as URLs do nosso projeto. Para uma URL ser acessível através do nosso projeto, temos que declará-la neste arquivo. 
@@ -52,10 +62,11 @@ controle_visitantes/
 
 ## Criando nosso primeiro aplicativo Django
 
-Agora que o ambiente está configurado, é hora da gente começar a colocar a mão na massa!  
-Conforme vimos, um projeto Django nada mais é que um pacote Python que deve seguir algumas convenções, como nomenclatura de arquivos e diretórios. O mesmo, obviamente, se estende para os aplicativos deste projeto. Sendo assim, devemos seguir uma estrutura básica dentro dos nossos aplicativos, que nada mais são que outros pacotes Python. A diferença básica entre eles é que um aplicativo deve executar uma tarefa em específico, como o gerenciamento de usuários do sistema, quando um projeto é, na verdade, um conjunto de configurações e aplicativos que executam tarefas distintas. Um projeto pode ter vários aplicativos e um aplicativo pode estar presente em vários projetos.  
-  
-Felizmente, podemos usar o nosso bom e velho amigo manage.py para nos auxiliar nessa tarefa de criar toda a estrutura necessária para um novo aplicativo. Vamos iniciá-lo utilizando o comando abaixo:
+Agora que o ambiente está configurado, é hora da gente começar a colocar a mão na massa!
+
+Conforme vimos, um projeto Django nada mais é que um pacote Python que deve seguir algumas convenções, como nomenclatura de arquivos e diretórios. O mesmo, obviamente, se estende para os aplicativos deste projeto. Sendo assim, devemos seguir uma estrutura básica dentro dos nossos aplicativos, que nada mais são que outros pacotes Python. A diferença básica entre eles é que um aplicativo deve executar uma tarefa em específico, como o gerenciamento de usuários do sistema, quando um projeto é, na verdade, um conjunto de configurações e aplicativos que executam tarefas distintas. Um projeto pode ter vários aplicativos e um aplicativo pode estar presente em vários projetos.
+
+Felizmente, podemos usar o nosso bom e velho amigo `manage.py` para nos auxiliar nessa tarefa de criar toda a estrutura necessária para um novo aplicativo. Vamos iniciá-lo utilizando o comando abaixo:
 
 ```text
 (env)$ python manage.py startapp usuarios
@@ -75,7 +86,7 @@ usuarios/
     views.py
 ```
 
-Todos os aplicativos do seu projeto Django terão essa mesma estrutura devido às convenções e padrões que falamos anteriormente. Isso nos ajuda a manter uma organização no código, que nos facilita bastante em casos de manutenções e geram maior previsibilidade no código, por exemplo.
+Todos os aplicativos do seu projeto Django terão essa mesma estrutura devido às convenções e padrões que falamos anteriormente. Os padrões são legais pois nos ajudam a manter uma certa organização, o que nos facilita bastante em casos de manutenções e deixa nosso código mais previsível.
 
 Antes de começarmos a trabalhar no código de um novo aplicativo, temos que registrá-lo nas configurações do nosso projeto para que o mesmo seja reconhecido. Caso esse passo não seja executado, o projeto não saberá o que é o aplicativo `usuarios`.
 
