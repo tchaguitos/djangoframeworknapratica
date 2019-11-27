@@ -37,9 +37,7 @@ Agora que criamos e registramos nosso aplicativo, vamos partir para a construç�
 
 A ideia de representar as entidades do sistema em classes é interessante pois nos permite programar características e comportamentos específicos de cada entidade. Assim como escrevemos a classe `Usuario` como subclasse de `models.Model` para representar e descrever nossos usuários, vamos escrever a classe `Porteiro` que será a representação de nossos porteiros. 
 
-Dentre as necessidades que nos foram passadas, é sabido que os porteiros 
-
- é possível identificar que porteiros devem possuir os seguintes atributos:
+Dentre as necessidades que nos foram passadas, é possível identificar que porteiros devem possuir os seguintes atributos:
 
 * Usuário para acesso ao sistema
 * Nome completo
