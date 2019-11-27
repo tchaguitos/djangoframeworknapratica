@@ -521,7 +521,7 @@ Vamos abrir o arquivo `usuarios/admin.py` e importar nossa classe `Usuario`:
 
 ```python
 from django.contrib import admin
-    from usuarios.models import Usuario
+from usuarios.models import Usuario
 ```
 
 Após a importação, temos apenas que registrar a classe no admin. Para isso, basta utilizar `admin.site.register` passando a classe `Usuario` como argumento:
