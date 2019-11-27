@@ -2,11 +2,36 @@
 
 ## Criando aplicativo para gerenciar porteiros
 
-Bora lá! Esse curso vai ficar FODA! **FODA!**
+Aprendemos como instalar nossas dependências, como iniciar um novo projeto e já até escrevemos um modelo personalizado de usuários para nosso projeto. Com isso, podemos dizer que já temos uma base sólida para iniciar, de fato, a construção dos módulos que estarão diretamente ligados aos requisitos que o sistema deverá cumprir.
 
-## Registrando nosso aplicativo nas configurações do projeto
+A partir dos requisitos que temos, é possível identificar que existe a necessidade de que os porteiros do condomínio tenham acesso a uma página para registrar os visitantes. Com isso em mente, podemos concluir:
 
+* Deverá existir um modelo para representar os porteiros do condomínio
+* Os porteiros deverão ter acesso a uma dashboard com funcionalidades específicas
+* Deverá existir uma página para um porteiro registrar um visitante no condomínio
 
+Vamos nos concentrar em cada item separadamente e, por agora, estaremos focados em desenvolver um modelo que represente nossos porteiros. 
+
+Já falamos que aplicativos Django devem executar tarefas específicas, como gerenciar os usuários do sistema - que é exatamente o que o nosso aplicativo `usuarios` faz. Sendo assim, vamos iniciar um novo aplicativo com nome de "porteiros" que será responsável por gerenciar tudo referente aos porteiros do sistema. Para isso, vamos utilizar nosso bom e velho amigo `manage.py`:
+
+```text
+(env)$ python manage.py startapp porteiros
+```
+
+Conforme vimos, será criado um diretório com o nome informado para representar nosso aplicativo e, além disso, temos que inserir nosso novo aplicativo nas configurações do projeto. Vamos abrir nosso arquivo de configurações e inserir o aplicativo "porteiros" na variável `INSTALLED_APPS`:
+
+```python
+INSTALLED_APPS += [
+    "usuarios",
+    "porteiros",
+]
+```
+
+{% hint style="info" %}
+Caso não se lembre, tudo bem... nosso arquivo de configurações é o `settings.py`.
+{% endhint %}
+
+Agora que criamos e registramos nosso aplicativo, vamos partir para a construção dos modelos que vão representar nossos porteiros.
 
 ## Escrevendo as models do nosso aplicativo de porteiros
 
@@ -25,8 +50,6 @@ Bora lá! Esse curso vai ficar FODA! **FODA!**
 ## Registrando nossa aplicação no Admin do Django
 
 
-
-## Registrando nossa aplicação no Admin do Django
 
 
 
