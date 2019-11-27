@@ -37,6 +37,8 @@ Agora que criamos e registramos nosso aplicativo, vamos partir para a construç�
 
 
 
+
+
 ### Conhecendo o campo UUIDField
 
 ### Conhecendo o campo OneToOneField
@@ -48,6 +50,8 @@ Agora que criamos e registramos nosso aplicativo, vamos partir para a construç�
 
 
 ## Registrando nossa aplicação no Admin do Django
+
+## Aplicando as alterações em nosso banco de dados
 
 
 
