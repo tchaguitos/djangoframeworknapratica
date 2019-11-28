@@ -20,7 +20,7 @@ Módulo 1
 
 ## Módulo 3
 
-* [ ] Criando nosso aplicativo para gerenciar clientes
+* [x] Criando nosso aplicativo para gerenciar clientes
 * [ ] Escrevendo as models do nosso aplicativo de Clientes
   * [ ] Conhecendo o campo UUIDField
 * [ ] Registrando nossa aplicação no Admin do Django
