@@ -49,22 +49,33 @@ Em nosso documento de requisitos é possível verificar que os porteiros devem p
 Como nosso usuário é composto de um `e-mail` e um `tipo`, e o porteiro está vinculado a um usuário, obrigatoriamente o porteiro terá um e-mail
 {% endhint %}
 
-Começaremos trabalhando no arquivo `models.py` no aplicativo porteiros:
+O primeiro passo será criar a classe `Porteiro` no arquivo `porteiros/models.py.` Como já sabemos os atributos que um porteiro deve ter e já usamos o campo do tipo `CharField` anteriormente, começaremos trabalhando nos atributos que são deste tipo \(nome completo, cpf e telefone\):
 
 ```python
 from django.db import models
 
 class Porteiro(models.Model):
-    tomorrow = its_a_new_day()
+    nome_completo = models.CharField(
+        verbose_name="Nome completo",
+        max_length=194
+    )
+
+    cpf = models.CharField(
+        verbose_name="CPF",
+        max_length=11,
+    )
+
+    telefone = models.CharField(
+        verbose_name="Telefone de contato",
+        max_length=11,
+    )
 ```
 
-
-
-### Conhecendo o campo UUIDField
+### Conhecendo o campo CharField
 
 ### Conhecendo o campo OneToOneField
 
-### Conhecendo o campo CharField
+### Conhecendo o campo UUIDField
 
 ### Conhecendo o campo DateField
 
