@@ -37,7 +37,7 @@ Agora que criamos e registramos nosso aplicativo, vamos partir para a construç�
 
 A ideia de representar as entidades do sistema em classes é interessante pois nos permite programar características e comportamentos específicos de cada entidade. Assim como escrevemos a classe `Usuario` como subclasse de `models.Model` para representar e descrever nossos usuários, vamos escrever a classe `Porteiro` que será a representação de nossos porteiros. 
 
-Dentre as necessidades que nos foram passadas, é possível identificar que porteiros devem possuir os seguintes atributos:
+Em nosso documento de requisitos é possível verificar que os porteiros devem possuir os seguintes atributos:
 
 * Usuário para acesso ao sistema
 * Nome completo
@@ -45,7 +45,18 @@ Dentre as necessidades que nos foram passadas, é possível identificar que port
 * Telefone
 * Data de nascimento
 
-Atributos são 
+{% hint style="success" %}
+Como nosso usuário é composto de um `e-mail` e um `tipo`, e o porteiro está vinculado a um usuário, obrigatoriamente o porteiro terá um e-mail
+{% endhint %}
+
+Começaremos trabalhando no arquivo `models.py` no aplicativo porteiros:
+
+```python
+from django.db import models
+
+class Porteiro(models.Model):
+    tomorrow = its_a_new_day()
+```
 
 
 
