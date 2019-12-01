@@ -47,5 +47,5 @@ Módulo 1
   * [ ] Conhecendo o campo DateTimeField
 * [ ] Aplicando as alterações nas models no banco de dados
 * [ ] Registrando nossa aplicação no Admin do Django
-* [ ] Listando vistantes na página inicial 
+* [ ] Listando vistantes na página inicial
 
