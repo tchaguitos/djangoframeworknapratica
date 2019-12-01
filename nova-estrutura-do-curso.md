@@ -31,5 +31,12 @@ Módulo 1
 
 ## Módulo 4
 
+* [ ] Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
+* [ ] Configurando a aplicação para trabalhar com a pasta templates
+* [ ] Explicando as adaptações realizadas no template para funcionar no Django
+* [ ] Atualizar função de home para usar o template
+* [ ] Exibir funcionando
+* [ ] Passando variáveis para o template
+
 ## Módulo 5
 
