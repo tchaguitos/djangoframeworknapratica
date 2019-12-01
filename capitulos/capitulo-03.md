@@ -2,7 +2,7 @@
 
 ## Criando aplicativo para gerenciar porteiros
 
-Aprendemos como instalar nossas dependências, como iniciar um novo projeto e já até escrevemos um modelo personalizado de usuários para nosso projeto. Com isso, podemos dizer que já temos uma base sólida para iniciar, de fato, a construção dos módulos que estarão diretamente ligados aos requisitos que o sistema deverá cumprir.
+Aprendemos como instalar nossas dependências, como iniciar um novo projeto e já até escrevemos um modelo personalizado de usuários. Com isso, podemos dizer que já temos uma base sólida para iniciar, de fato, a construção dos módulos que estarão diretamente ligados aos requisitos que o sistema deverá atender.
 
 A partir dos requisitos que temos, é possível identificar que existe a necessidade de que os porteiros do condomínio tenham acesso a uma página para registrar os visitantes. Com isso em mente, podemos concluir:
 
@@ -18,7 +18,7 @@ Já falamos que aplicativos Django devem executar tarefas específicas, como ger
 (env)$ python manage.py startapp porteiros
 ```
 
-Conforme vimos, será criado um diretório com o nome informado para representar nosso aplicativo e, além disso, temos que inserir nosso novo aplicativo nas configurações do projeto. Vamos abrir nosso arquivo de configurações e inserir o aplicativo "porteiros" na variável `INSTALLED_APPS`:
+Conforme vimos, será criado um diretório com o nome informado para representar o módulo do nosso aplicativo e, além disso, temos que instalar nosso novo aplicativo nas configurações do projeto. Vamos abrir nosso arquivo de configurações e inserir o aplicativo "porteiros" na variável `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS += [
