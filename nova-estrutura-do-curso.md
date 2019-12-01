@@ -49,3 +49,7 @@ Módulo 1
 * [ ] Registrando nossa aplicação no Admin do Django
 * [ ] Listando vistantes na página inicial
 
+## Módulo 6
+
+* [ ] Criando template para registrar visitante
+
