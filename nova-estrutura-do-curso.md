@@ -43,7 +43,6 @@ Módulo 1
 
 * [ ] Criando nosso aplicativo para gerenciar visitantes
 * [ ] Escrevendo as models do nosso aplicativo de visitantes
-  * [ ] Conhecendo o campo TextField
   * [ ] Conhecendo o campo ForeignKey
   * [ ] Conhecendo o campo DateTimeField
 * [ ] Aplicando as alterações nas models no banco de dados
