@@ -22,10 +22,9 @@ Módulo 1
 
 * [x] Criando nosso aplicativo para gerenciar porteiros
 * [x] Escrevendo as models do nosso aplicativo de porteiros
+  * [x] Conhecendo o campo DateField
   * [ ] Conhecendo o campo UUIDField
   * [ ] Conhecendo o campo OneToOneField
-  * [ ] Conhecendo o campo CharField
-  * [ ] Conhecendo o campo DateField
 * [ ] Aplicando as alterações nas models no banco de dados
 * [ ] Registrando nossa aplicação no Admin do Django
 
