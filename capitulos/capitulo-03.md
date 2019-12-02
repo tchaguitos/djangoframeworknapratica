@@ -45,10 +45,6 @@ Em nosso documento de requisitos é possível verificar que os porteiros devem p
 * Telefone
 * Data de nascimento
 
-{% hint style="success" %}
-Como nosso usuário é composto de um `e-mail` e um `tipo`, e o porteiro está vinculado a um usuário, obrigatoriamente o porteiro terá um e-mail
-{% endhint %}
-
 O primeiro passo será criar a classe `Porteiro` no arquivo `porteiros/models.py.` Como já sabemos os atributos que um porteiro deve ter e já usamos o campo do tipo `CharField` anteriormente, começaremos trabalhando nos atributos que são deste tipo \(nome completo, cpf e telefone\):
 
 ```python
@@ -71,13 +67,17 @@ class Porteiro(models.Model):
     )
 ```
 
-### Conhecendo o campo CharField
+Nossos três primeiros campos são do tipo texto simples \(mais conhecido como `CharField` por aqui\) e receberão apenas os argumentos `verbose_name` e `max_length`. O primeiro para dizer por qual nome devemos chamar o campo e o segundo para dizer o tamanho máximo permitido.
+
+{% hint style="warning" %}
+Apesar de CPF e telefone serem representados por números, possuem características e particularidades que fazem com que a gente trabalhe como se fossem texto. Além disso, o telefone está com tamanho 11 pois vamos trabalhar com o DDD + 9 dígitos.
+{% endhint %}
+
+### Conhecendo o campo DateField
 
 ### Conhecendo o campo OneToOneField
 
 ### Conhecendo o campo UUIDField
-
-### Conhecendo o campo DateField
 
 
 
