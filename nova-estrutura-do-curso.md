@@ -53,4 +53,22 @@ Módulo 1
   * [ ] Criar template "index.html" utilizando a tag "block" e "extends
   * [ ] Adaptando template "registrar\_visitante.html" para trabalhar com a engine do Django
 * [ ] Criando view para registrar visitante
+* [ ] Trabalhando com formulários no Django
+  * [ ] Criando intimidade com os formulários \(falar sobre atributo fields e alterar para se adequar às nossas necessidades\)
+* [ ] Melhorando a exibição do nosso formulário
+* [ ] Estilizando nosso formulário com django-widget-tweaks
+  * [ ] Como instalar \(inserindo nas configurações\)
+  * [ ] Importando no template \(tags, etc\)
+  * [ ] Utilizando o add\_class
+* [ ] Preparando nossa view para receber uma requisição do tipo POST
+  * [ ] Falar sobre o objeto "request"
+  * [ ] Falar sobre as validações dos formulários do Django \(modelForm\)
+  * [ ] Falar sobre redirect
+  * [ ] Falar sobre csrf\_token
+* [ ] Exibindo uma mensagem para o usuário ao cadastrar novo visitante
+  * [ ] Conhecendo o Django messages
+  * [ ] Adicionando uma mensagem
+  * [ ] Alterando o template para exibir as mensagens
+    * [ ] Adicionar o HTML do alert na página "base.html" e explicar que o Django messages é um middleware global, etc
+* [ ] Adicionando função para botão "cancelar" de formulário de cadastro de visitante
 
