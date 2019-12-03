@@ -33,9 +33,7 @@ Módulo 1
 * [ ] Configurando a aplicação para trabalhar com arquivos estáticos e pasta templates
 * [ ] Explicando as adaptações realizadas no template para funcionar no Django
   * [ ] Alterar o caminho para arquivos estáticos
-  * [ ] Falar da tag static
 * [ ] Atualizar função de home para usar o template
-  * [ ] Exibir funcionando
 * [ ] Passando variáveis para o template
 
 ## Módulo 5
@@ -46,15 +44,13 @@ Módulo 1
   * [ ] Conhecendo o campo DateTimeField
 * [ ] Aplicando as alterações nas models no banco de dados
 * [ ] Registrando nossa aplicação no Admin do Django
-* [ ] Listando vistantes na página inicial
 
 ## Módulo 6
 
-* [ ] Criando template para registrar visitante
+* [ ] Criando tela para registro de visitante
 * [ ] Adaptando o template para trabalhar com a template engine do Django
   * [ ] Criando o template "base.html"
-  * [ ] Criar template "index.html" utilizando a tag "block" e "extends" \(explicar tags\)
-  * [ ] Adaptar template "registrar\_visitante.html" para trabalhar com a engine do Django
+  * [ ] Criar template "index.html" utilizando a tag "block" e "extends
+  * [ ] Adaptando template "registrar\_visitante.html" para trabalhar com a engine do Django
 * [ ] Criando view para registrar visitante
-  * [ ] Registrando uma URL para a view
-* [ ] 
+
