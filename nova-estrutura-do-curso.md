@@ -53,7 +53,6 @@ Módulo 1
 * [ ] Criando template para registrar visitante
 * [ ] Adaptando o template para trabalhar com a template engine do Django
   * [ ] Criando o template "base.html"
-    * [ ] Explicar tag "block"
   * [ ] Criar template "index.html" utilizando a tag "block" e "extends" \(explicar tags\)
   * [ ] Adaptar template "registrar\_visitante.html" para trabalhar com a engine do Django
 * [ ] Criando view para registrar visitante
