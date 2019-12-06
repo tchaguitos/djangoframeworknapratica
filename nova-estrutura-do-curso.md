@@ -68,5 +68,4 @@ Módulo 1
   * [ ] Conhecendo o Django messages
   * [ ] Adicionando uma mensagem
   * [ ] Alterando o template para exibir as mensagens
-* [ ] Adicionando função para botão "cancelar" de formulário de cadastro de visitante
 
