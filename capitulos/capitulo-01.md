@@ -72,7 +72,7 @@ $ sudo apt-get install python3-pip
 Antes de instalar o Django, vamos instalar o Virtualenv para nos ajudar a organizar e isolar os ambientes de desenvolvimento dentro da nossa máquina. Com isso, a gente ganha a possibilidade de trabalhar em diversos projetos utilizando diferentes versões do Python e do Django na mesma máquina, sem correr o risco de ocorrerem conflitos ou outros problemas. Para instalar o Virtualenv é muito fácil:
 
 ```bash
-$ pip install virtualenv
+$ sudo apt-get install virtualenv
 ```
 
 Com o Virtualenv instalado, podemos criar um ambiente totalmente isolado para instalar as dependências relacionadas ao nosso projeto. Com o terminal aberto na pasta Home, vamos criar um diretório chamado "dev" para mantermos nossos projetos. Para criar e acessar o diretório, vamos utilizar o seguinte comando:
