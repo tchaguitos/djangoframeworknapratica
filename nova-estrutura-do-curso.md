@@ -63,9 +63,20 @@ Módulo 1
   * [ ] Como instalar \(inserindo nas configurações\)
   * [ ] Importando no template \(tags, etc\)
   * [ ] Utilizando o add\_class
-* [ ] Preparando nossaição do tipo POST \(falar sobre "request", validações dos formulários do Django \(modelForm\), falar sobre redirect e csrf\_token\)
+* [ ] Preparando view para receber requisição do tipo POST \(falar sobre "request", validações dos formulários do Django \(modelForm\), falar sobre redirect e csrf\_token\)
 * [ ] Exibindo uma mensagem para o usuário ao cadastrar novo visitante
   * [ ] Conhecendo o Django messages
   * [ ] Adicionando uma mensagem
   * [ ] Alterando o template para exibir as mensagens
 
+## Módulo 8
+
+* [ ] Criando tela para exibir informações de visitante
+  * [ ] Criando view
+    * [ ] Recebendo token em view
+    * [ ] Utilizando o get\_model\_or\_404
+  * [ ] Criando template
+  * [ ] Criando URL para acessar informações de visitante
+    * [ ] Recebendo variáveis através da URL no Django
+* [ ] Melhorando a exibição do formulário
+* [ ] 
