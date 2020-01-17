@@ -78,5 +78,4 @@ Módulo 1
   * [ ] Criando template
   * [ ] Criando URL para acessar informações de visitante
     * [ ] Recebendo variáveis através da URL no Django
-* [ ] Melhorando a exibição do formulário
 * [ ] 
