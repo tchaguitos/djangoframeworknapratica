@@ -53,8 +53,10 @@ Módulo 1
   * [ ] Adaptando template "registrar\_visitante.html" para trabalhar com a engine do Django
 * [ ] Criando view para registrar visitante
 * [ ] Trabalhando com formulários no Django
+  * [ ] Preparando view para receber requisição do tipo POST \(falar sobre "request", validações dos formulários do Django \(modelForm\), falar sobre redirect e csrf\_token\)
   * [ ] Criando intimidade com os formulários \(falar sobre atributo fields e alterar para se adequar às nossas necessidades\)
 * [ ] Conhecendo um pouco mais dos formulários \(tratar problema de valor nulo para campo "autorizado\_por"\)
+  * [ ] Falar sobre relacionamento entre FKs
 
 ## Módulo 7
 
@@ -63,11 +65,11 @@ Módulo 1
   * [ ] Como instalar \(inserindo nas configurações\)
   * [ ] Importando no template \(tags, etc\)
   * [ ] Utilizando o add\_class
-* [ ] Preparando view para receber requisição do tipo POST \(falar sobre "request", validações dos formulários do Django \(modelForm\), falar sobre redirect e csrf\_token\)
-* [ ] Exibindo uma mensagem para o usuário ao cadastrar novo visitante
+* [ ] Exibindo uma mensagem para o usuário ao cadastrar novo visitante \([https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b](https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b)\)
   * [ ] Conhecendo o Django messages
   * [ ] Adicionando uma mensagem
   * [ ] Alterando o template para exibir as mensagens
+* [ ] Utilizando o Django para renderizar nossas URLs
 
 ## Módulo 8
 
