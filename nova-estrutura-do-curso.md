@@ -86,5 +86,18 @@ Módulo 1
 * [ ] Aprendendo um pouco mais sobre URLs no Django
 * [ ] Modelos do Django e seus métodos \([https://docs.djangoproject.com/en/2.2/ref/models/instances/\#django.db.models.Model.get\_FOO\_display](https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model.get_FOO_display)\)
   * [ ] get\_status\_display\(\)
-* [ ] Criando métodos personalizados
+* [ ] Criando métodos personalizados para nosso modelo de Visitante
+  * [ ] Exibindo atributos somente quando preenchidos
+    * [ ] Criando método get\_horario\_autorizacao
+    * [ ] Criando método get\_autorizado\_por
+    * [ ] Criando método get\_horario\_saida
+* [ ] Utilizando métodos no template
+
+## Módulo 9
+
+* [ ] Criando função para autorizar visitante
+  * [ ] Criando view para autorizar visitante 
+  * [ ] Utilizando formulários para atualizar atributos específicos
+
+
 
