@@ -44,6 +44,9 @@ Módulo 1
   * [ ] Conhecendo o campo DateTimeField
 * [ ] Aplicando as alterações nas models no banco de dados
 * [ ] Registrando nossa aplicação no Admin do Django
+* [ ] Listando visitantes na página inicial da dashboard
+  * [ ] Buscando registros de visitantes no banco de dados
+  * [ ] Listando registros de visitantes no HTML
 
 ## Módulo 6
 
