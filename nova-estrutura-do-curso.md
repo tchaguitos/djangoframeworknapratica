@@ -84,6 +84,7 @@ Módulo 1
   * [ ] Criando URL para acessar informações de visitante
     * [ ] Recebendo variáveis através da URL no Django
 * [ ] Aprendendo um pouco mais sobre URLs no Django
-* [ ] Models no Django e seus métodos
-  * [ ] 
+* [ ] Modelos do Django e seus métodos \([https://docs.djangoproject.com/en/2.2/ref/models/instances/\#django.db.models.Model.get\_FOO\_display](https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model.get_FOO_display)\)
+  * [ ] get\_status\_display\(\)
+* [ ] Criando métodos personalizados
 
