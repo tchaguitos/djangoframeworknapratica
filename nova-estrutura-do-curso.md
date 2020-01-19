@@ -80,6 +80,7 @@ Módulo 1
   * [ ] Criando template
   * [ ] Criando URL para acessar informações de visitante
     * [ ] Recebendo variáveis através da URL no Django
+* [ ] Aprendendo um pouco mais sobre URLs no Django
 * [ ] Models no Django e seus métodos
   * [ ] 
 
