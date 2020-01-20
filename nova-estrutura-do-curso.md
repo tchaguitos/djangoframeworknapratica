@@ -108,6 +108,8 @@ Módulo 1
   * [ ] Alterar método
   * [ ] Alterar action
   * [ ] Falar sobre o nome do campo
-* [ ] 
+* [ ] Entendo os erros em nosso formulário \(melhorar esse nome, pois precisamos entender os erros na view\)
+* [ ] Conhecendo o HttpResponseBadRequest
+
 
 
