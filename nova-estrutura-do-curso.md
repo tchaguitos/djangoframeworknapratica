@@ -73,7 +73,8 @@ Módulo 1
   * [ ] Adicionando uma mensagem
   * [ ] Alterando o template para exibir as mensagens
 * [ ] Tratando possíveis erros em nosso formulário
-* [ ] Melhorando nossas mensagens de erro
+  * [ ] Alterando template para exibir mensagem de erro em formulário
+* [ ] Deixando nossas mensagens de erro mais claras
 
 ## Módulo 8
 
