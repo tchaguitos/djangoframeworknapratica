@@ -96,8 +96,13 @@ Módulo 1
 ## Módulo 9
 
 * [ ] Criando função para autorizar visitante
-  * [ ] Criando view para autorizar visitante 
-  * [ ] Utilizando formulários para atualizar atributos específicos
-
+  * [ ] Criando view para autorizar visitante
+* [ ] Utilizando formulários para atualizar atributos específicos
+* [ ] Aprendendo um pouco mais sobre redirecionamentos no Django
+* [ ] Conhecendo o django.http
+  * [ ] Utilizando o HttpResponseNotAllowed
+* [ ] Criando URL para atualizar visitante
+  * [ ] Testar método GET na URL
+* [ ] 
 
 
