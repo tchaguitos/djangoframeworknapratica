@@ -72,7 +72,8 @@ Módulo 1
   * [ ] Conhecendo o Django messages
   * [ ] Adicionando uma mensagem
   * [ ] Alterando o template para exibir as mensagens
-* [ ] Utilizando o Django para renderizar nossas URLs
+* [ ] Tratando possíveis erros em nosso formulário
+* [ ] Melhorando nossas mensagens de erro
 
 ## Módulo 8
 
@@ -83,6 +84,7 @@ Módulo 1
   * [ ] Criando template
   * [ ] Criando URL para acessar informações de visitante
     * [ ] Recebendo variáveis através da URL no Django
+* [ ] Utilizando o Django para renderizar nossas URLs
 * [ ] Aprendendo um pouco mais sobre URLs no Django
 * [ ] Modelos do Django e seus métodos \([https://docs.djangoproject.com/en/2.2/ref/models/instances/\#django.db.models.Model.get\_FOO\_display](https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model.get_FOO_display)\)
   * [ ] get\_status\_display\(\)
