@@ -1,4 +1,4 @@
-# Nova estrutura do curso
+# Estrutura do curso
 
 Módulo 1
 

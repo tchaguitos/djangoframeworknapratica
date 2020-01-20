@@ -4,7 +4,7 @@
 
 ## Geral
 
-* [Nova estrutura do curso](nova-estrutura-do-curso.md)
+* [Estrutura do curso](nova-estrutura-do-curso.md)
 
 ## Capítulos
 
