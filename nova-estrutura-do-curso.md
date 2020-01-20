@@ -95,7 +95,7 @@ Módulo 1
 
 ## Módulo 9
 
-* [ ] Criando função para autorizar visitante
+* [ ] Criando função para autorizar entrada de visitante
   * [ ] Criando view para autorizar visitante
 * [ ] Utilizando formulários para atualizar atributos específicos
 * [ ] Aprendendo um pouco mais sobre redirecionamentos no Django
@@ -112,6 +112,10 @@ Módulo 1
 * [ ] Conhecendo o HttpResponseBadRequest
 * [ ] Atualizando os campos horario\_autorizacao e status
   * [ ] Conhecendo o datetime do Python
-* [ ] 
+
+## Módulo 10
+
+* [ ] Criando função para finalizar visita
+
 
 
