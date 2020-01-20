@@ -89,7 +89,7 @@ Módulo 1
 * [ ] Aprendendo um pouco mais sobre URLs no Django
 * [ ] Modelos do Django e seus métodos \([https://docs.djangoproject.com/en/2.2/ref/models/instances/\#django.db.models.Model.get\_FOO\_display](https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model.get_FOO_display)\)
   * [ ] get\_status\_display\(\)
-* [ ] Criando métodos personalizados para nosso modelo de Visitante
+* [ ] Criando métodos personalizados para exibir informações do nosso modelo de Visitante
   * [ ] Exibindo atributos somente quando preenchidos
     * [ ] Criando método get\_horario\_autorizacao
     * [ ] Criando método get\_autorizado\_por
@@ -101,24 +101,30 @@ Módulo 1
 * [ ] Criando função para autorizar entrada de visitante
   * [ ] Criando view para autorizar visitante
 * [ ] Utilizando formulários para atualizar atributos específicos
-* [ ] Aprendendo um pouco mais sobre redirecionamentos no Django
 * [ ] Conhecendo o django.http
   * [ ] Utilizando o HttpResponseNotAllowed
 * [ ] Criando URL para atualizar visitante
   * [ ] Testar método GET na URL
 * [ ] Alterando template para exibir modal com formulário
-* [ ] Alterando formulário para se adequar às nossas necessidades
+* [ ] Alterando formulário HTML para se adequar às nossas necessidades
   * [ ] Alterar método
   * [ ] Alterar action
   * [ ] Falar sobre o nome do campo
-* [ ] Entendo os erros em nosso formulário \(melhorar esse nome, pois precisamos entender os erros na view\)
-* [ ] Conhecendo o HttpResponseBadRequest
+* [ ] Entendo os erros em nosso formulário \(melhorar esse nome, pois precisamos entender os erros na view\) - \(item sendo revisado\)
+* [ ] Conhecendo o HttpResponseBadRequest \(item sendo revisado\)
 * [ ] Atualizando os campos horario\_autorizacao e status
   * [ ] Conhecendo o datetime do Python
 
 ## Módulo 10
 
 * [ ] Criando função para finalizar visita
+  * [ ] Escrevendo view para finalizar visita 
+  * [ ] Criando URL
+
+
+
+* [ ] Prevenindo erros e operações desnecessárias
+  * [ ] Exibição condicional de botões para autorizar entrada e finalizar visita
 
 
 
