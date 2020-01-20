@@ -110,6 +110,8 @@ Módulo 1
   * [ ] Falar sobre o nome do campo
 * [ ] Entendo os erros em nosso formulário \(melhorar esse nome, pois precisamos entender os erros na view\)
 * [ ] Conhecendo o HttpResponseBadRequest
-
+* [ ] Atualizando os campos horario\_autorizacao e status
+  * [ ] Conhecendo o datetime do Python
+* [ ] 
 
 
