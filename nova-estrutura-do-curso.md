@@ -103,6 +103,11 @@ Módulo 1
   * [ ] Utilizando o HttpResponseNotAllowed
 * [ ] Criando URL para atualizar visitante
   * [ ] Testar método GET na URL
+* [ ] Alterando template para exibir modal com formulário
+* [ ] Alterando formulário para se adequar às nossas necessidades
+  * [ ] Alterar método
+  * [ ] Alterar action
+  * [ ] Falar sobre o nome do campo
 * [ ] 
 
 
