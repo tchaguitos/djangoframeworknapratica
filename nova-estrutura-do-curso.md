@@ -94,24 +94,15 @@ Módulo 1
     * [ ] Criando método get\_horario\_autorizacao
     * [ ] Criando método get\_autorizado\_por
     * [ ] Criando método get\_horario\_saida
-* [ ] Utilizando métodos no template
+* [ ] Utilizando métodos para exibir informações no template
 
 ## Módulo 9
 
 * [ ] Criando função para autorizar entrada de visitante
-  * [ ] Criando view para autorizar visitante
-* [ ] Utilizando formulários para atualizar atributos específicos
-* [ ] Conhecendo o django.http
-  * [ ] Utilizando o HttpResponseNotAllowed
-* [ ] Criando URL para atualizar visitante
-  * [ ] Testar método GET na URL
+* [ ] Utilizando formulários para atualizar atributos específico
 * [ ] Alterando template para exibir modal com formulário
 * [ ] Alterando formulário HTML para se adequar às nossas necessidades
   * [ ] Alterar método
-  * [ ] Alterar action
-  * [ ] Falar sobre o nome do campo
-* [ ] Entendo os erros em nosso formulário \(melhorar esse nome, pois precisamos entender os erros na view\) - \(item sendo revisado\)
-* [ ] Conhecendo o HttpResponseBadRequest \(item sendo revisado\)
 * [ ] Atualizando os campos horario\_autorizacao e status
   * [ ] Conhecendo o datetime do Python
 
@@ -120,9 +111,7 @@ Módulo 1
 * [ ] Criando função para finalizar visita
   * [ ] Escrevendo view para finalizar visita 
   * [ ] Criando URL
-
-
-
+* [ ] Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento do visita
 * [ ] Prevenindo erros e operações desnecessárias
   * [ ] Exibição condicional de botões para autorizar entrada e finalizar visita
 
