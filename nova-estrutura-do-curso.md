@@ -46,6 +46,7 @@ Módulo 1
 * [ ] Registrando nossa aplicação no Admin do Django
 * [ ] Listando visitantes na página inicial da dashboard
   * [ ] Buscando registros de visitantes no banco de dados
+    * [ ] Falar sobre Queryset API
   * [ ] Listando registros de visitantes no HTML
 
 ## Módulo 6
@@ -114,8 +115,6 @@ Módulo 1
 * [ ] Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento do visita
 * [ ] Prevenindo erros e operações desnecessárias
   * [ ] Exibição condicional de botões para autorizar entrada e finalizar visita
-* [ ] 
-
 
 ## Módulo 11
 
@@ -131,6 +130,19 @@ Módulo 1
 
 ## Módulo 12
 
+* [ ] Criando aplicativos para administrar informações da dashboard
+  * [ ] Falar um pouco mais sobre a função dos apps django para realizar tarefas específicas, etc
+* [ ] Migrando view "index" para aplicativo dashboard
+* [ ] Buscando números de visitantes para exibir na dashboard
+  * [ ] Conhecendo o método count\(\)
+  * [ ] Exibindo número de visitantes no template
+* [ ] Conhecendo o método filter\(\)
+  * [ ] Filtrando nossos visitantes por nome e CPF
+* [ ] Filtrando nossos visitantes por data
+  * [ ] Conhecendo o field lookups da Queryset API \(horario\_chegada\_\_date\)
+* [ ] Filtrando apenas os registros do mês atual
+* [ ] Aprendendo um pouco mais sobre o datetime do Python
+  * [ ] Utilizando o datetime para descobrir o mês atual
 * [ ] 
 
 
