@@ -150,6 +150,15 @@ Módulo 1
 * [ ] Filtrando apenas os registros do mês atual
 * [ ] Aprendendo um pouco mais sobre o datetime do Python
   * [ ] Utilizando o datetime para descobrir o mês atual
+* [ ] Ordenando nossa busca por data e hora
 
+## Módulo 14
+
+* [ ] Bloqueando o acesso para usuários não autenticados nas nossas views
+* [ ] Utilizando o sistema de autenticação do Django para nos fornecer a view de login
+  * [ ] Criando a URL
+  * [ ] Utilizando o método as\_view\(\)
+* [ ] Criando o template de login
+* [ ] 
 
 
