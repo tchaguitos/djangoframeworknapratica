@@ -124,6 +124,7 @@ Módulo 1
     * [ ] Explicar que utilizaremos apenas um link para a página inicial da dashboard devido ao fato de que a única maneira de chegar até as duas páginas é pela página inicial da dashboard
   * [ ] Melhorando a exibição do CPF do visitante
     * [ ] Criando método get\_cpf
+    * [ ] Conhecendo o f-strings do Python
   * [ ] Exibindo informações do usuário logado diretamente no template
 * [ ] Implementando melhorias na estrutura do nosso projeto
   * [ ] Criar pasta "apps"
