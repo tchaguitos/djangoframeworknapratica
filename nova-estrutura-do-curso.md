@@ -138,11 +138,18 @@ Módulo 1
   * [ ] Exibindo número de visitantes no template
 * [ ] Conhecendo o método filter\(\)
   * [ ] Filtrando nossos visitantes por nome e CPF
+* [ ] Filtrando nossos visitantes por status
+  * [ ] Filtrando e contando visitantes em visita
+  * [ ] Filtrando e contando visitantes aguardando autorização
+  * [ ] Filtrando e contando visitas finalizadas
+
+## Módulo 13
+
 * [ ] Filtrando nossos visitantes por data
   * [ ] Conhecendo o field lookups da Queryset API \(horario\_chegada\_\_date\)
 * [ ] Filtrando apenas os registros do mês atual
 * [ ] Aprendendo um pouco mais sobre o datetime do Python
   * [ ] Utilizando o datetime para descobrir o mês atual
-* [ ] 
+
 
 
