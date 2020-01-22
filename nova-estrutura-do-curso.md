@@ -161,7 +161,9 @@ Módulo 1
   * [ ] Renderizando formulário de login
 * [ ] Alterando a URL padrão para login e redirecionamento após login
 * [ ] Adicionando mensagem de erro em formulário de login
-* [ ] Criando página para logout
+* [ ] Criando URL para logout
+* [ ] Criando template de logout
+* [ ] Inserindo link para logout em dashboard
 
 
 
