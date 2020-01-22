@@ -1,6 +1,6 @@
 # Estrutura do curso
 
-Módulo 1
+## Módulo 1
 
 * [x] Conhecendo o instrutor e sabendo mais sobre o curso
 * [x] A linguagem de programação Python
@@ -165,5 +165,13 @@ Módulo 1
 * [ ] Criando template de logout
 * [ ] Inserindo link para logout em dashboard
 
+## Módulo 15
 
+* [ ] Paginando listagem de visitantes 
+  * [ ] Conhecendo a classe Paginator
+* [ ] Alterando template para exibir resultados paginados \(10 a 10\)
+* [ ] Adicionando links para navegar nos resultados paginados
 
+## Módulo 16
+
+* [ ] 
