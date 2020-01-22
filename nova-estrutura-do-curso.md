@@ -114,6 +114,22 @@ Módulo 1
 * [ ] Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento do visita
 * [ ] Prevenindo erros e operações desnecessárias
   * [ ] Exibição condicional de botões para autorizar entrada e finalizar visita
+* [ ] 
 
+
+## Módulo 11
+
+* [ ] Implementando melhorias em nossos templates
+  * [ ] Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante 
+    * [ ] Explicar que utilizaremos apenas um link para a página inicial da dashboard devido ao fato de que a única maneira de chegar até as duas páginas é pela página inicial da dashboard
+  * [ ] Melhorando a exibição do CPF do visitante
+    * [ ] Criando método get\_cpf
+  * [ ] Exibindo informações do usuário logado diretamente no template
+* [ ] Implementando melhorias na estrutura do nosso projeto
+  * [ ] Criar pasta "apps"
+
+## Módulo 12
+
+* [ ] 
 
 
