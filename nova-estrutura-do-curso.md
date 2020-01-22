@@ -169,7 +169,7 @@
 
 * [ ] Paginando listagem de visitantes 
   * [ ] Conhecendo a classe Paginator
-* [ ] Alterando template para exibir resultados paginados \(10 a 10\)
+* [ ] Alterando template para exibir resultados paginados \(10 a 10 itens\)
 * [ ] Adicionando links para navegar nos resultados paginados
 
 ## Módulo 16
