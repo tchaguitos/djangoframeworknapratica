@@ -69,14 +69,14 @@
 * [ ] Estilizando nosso formulário com django-widget-tweaks
   * [ ] Como instalar \(inserindo nas configurações\)
   * [ ] Importando no template \(tags, etc\)
-  * [ ] Utilizando o add\_class
+  * [ ] Utilizando o render\_field
 * [ ] Exibindo uma mensagem para o usuário ao cadastrar novo visitante \([https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b](https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b)\)
   * [ ] Conhecendo o Django messages
   * [ ] Adicionando uma mensagem
   * [ ] Alterando o template para exibir as mensagens
 * [ ] Tratando possíveis erros em nosso formulário
   * [ ] Alterando template para exibir mensagem de erro em formulário
-* [ ] Deixando nossas mensagens de erro mais claras
+* [ ] Deixando nossas mensagens de erro mais claras \(error\_messages\)
 
 ## Módulo 8
 
@@ -113,7 +113,7 @@
 * [ ] Criando função para finalizar visita
   * [ ] Escrevendo view para finalizar visita 
   * [ ] Criando URL
-* [ ] Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento do visita
+* [ ] Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento da visita
 * [ ] Prevenindo erros e operações desnecessárias
   * [ ] Exibição condicional de botões para autorizar entrada e finalizar visita
 
@@ -128,6 +128,8 @@
   * [ ] Exibindo informações do usuário logado diretamente no template
 * [ ] Implementando melhorias na estrutura do nosso projeto
   * [ ] Criar pasta "apps"
+* [ ] Criando métodos para organizar melhor nosso código
+  * [ ] get\_absolute\_url, etc \(revisar\)
 
 ## Módulo 12
 
