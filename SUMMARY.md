@@ -15,7 +15,7 @@
 
 ## Links úteis
 
-* [Requisitos](links-uteis/requisitos.md)
 * [Links úteis](links-uteis/links-uteis.md)
+* [Pré requisitos](links-uteis/pre-requisitos.md)
 * [Links recomendados](links-uteis/links-recomendados.md)
 
