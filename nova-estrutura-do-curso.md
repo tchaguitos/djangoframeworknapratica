@@ -172,9 +172,23 @@
 
 * [ ] Paginando listagem de visitantes 
   * [ ] Conhecendo a classe Paginator
-* [ ] Alterando template para exibir resultados paginados \(10 a 10 itens\)
-* [ ] Adicionando links para navegar nos resultados paginados
+* [ ] Alterando template para exibir resultados paginados \(10 em 10 itens\)
+* [ ] Adicionando links no template para navegar nos resultados paginados
 
 ## Módulo 16
 
+* [ ] Criando função para filtrar e buscar visitantes com django-filter
+  * [ ] Como instalar \(inserindo nas configurações\)
+* [ ] Criando nossos filtros
+  * [ ] Criando o arquivo filters.py
+* [ ] Utilizando o filtro na view
+  * [ ] falar sobre ordem de operação e porque a queryset vem antes do filtro e depois dele vem a paginação\)
+  * [ ] falar sobre request.GET \(somente lembrar do objeto request\)
+  * [ ] Passando o resultado do filtro para a classe Paginator
+* [ ] Testando o filtro passando parâmetros pela URL e acessando no navegador
+* [ ] Criando interface para usuário realizar busca ou filtro na dashboard
+  * [ ] Utilizando o django-widget-tweaks para renderizar nosso formulário
+* [ ] Adicionando os campos "numero\_casa" e "status"
+* [ ] Criando botão para "limpar filtro"
+  * [ ] Identificando quando o usuário está solicitando os resultados filtrados
 * [ ] 
