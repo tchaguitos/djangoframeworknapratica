@@ -10,7 +10,7 @@
 
 * [Módulo 01](capitulos/capitulo-01.md)
 * [Módulo 02](capitulos/capitulo-02.md)
-* [Módulo 03](capitulos/capitulo-03.md)
+* [Módulo 03](modulos/modulo-03.md)
 * [Módulo 04](capitulos/capitulo-04.md)
 
 ## Links úteis

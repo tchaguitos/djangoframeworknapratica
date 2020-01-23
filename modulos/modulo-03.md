@@ -1,4 +1,4 @@
-# Capítulo 03
+# Módulo 03
 
 ## Criando aplicativo para gerenciar porteiros
 
@@ -39,7 +39,7 @@ A ideia de representar as entidades do sistema em classes é interessante pois n
 
 Assim como escrevemos a classe `Usuario` como subclasse de `models.Model` para representar e descrever nossos usuários, vamos escrever a classe `Porteiro` que será a representação de nossos porteiros. Em nosso documento de requisitos é possível verificar que os porteiros devem possuir os seguintes atributos:
 
-* Usuário para acesso ao sistema
+* Usuário para acesso ao sistema \(e-mail\)
 * Nome completo
 * CPF
 * Telefone
@@ -74,7 +74,7 @@ Apesar de CPF e telefone serem representados por números, possuem característi
 
 ### Conhecendo o campo DateField
 
-Sabemos também que, por exigência do setor de RH, é necessário informar a data de nascimento do porteiro para realização do cadastro. Sendo assim, vamos adicionar mais um campo ao nosso modelo, agora com nome de `data_nascimento` e o tipo data \(`DateField`\).
+Sabemos também que, por exigência do setor de RH, é necessário informar a data de nascimento do porteiro para realização do cadastro. Vamos adicionar mais um campo ao nosso modelo, agora com nome de `data_nascimento` e o tipo data \(`DateField`\).
 
 Os campos do tipo data representam datas - obviamente, mas é interessante a gente prestar atenção ao fato de que esses campos são representados por instâncias do tipo `datetime.date` que é como as datas são tratadas no Python e podem receber dois argumentos que ainda não conhecemos: `auto_now` e `auto_now_add`.
 
