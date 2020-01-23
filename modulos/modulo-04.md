@@ -1,4 +1,4 @@
-# Capítulo 04
+# Módulo 04
 
 ## Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
 

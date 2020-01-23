@@ -1,4 +1,4 @@
-# Capítulo 02
+# Módulo 02
 
 ## Iniciando seu primeiro projeto Django
 

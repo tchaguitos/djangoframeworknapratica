@@ -8,10 +8,10 @@
 
 ## Módulos
 
-* [Módulo 01](modulos/capitulo-01.md)
-* [Capítulo 02](modulos/capitulo-02.md)
-* [Capítulo 03](modulos/capitulo-03.md)
-* [Capítulo 04](modulos/capitulo-04.md)
+* [Módulo 01](modulos/modulo-01.md)
+* [Módulo 02](modulos/modulo-02.md)
+* [Módulo 03](modulos/modulo-03.md)
+* [Módulo 04](modulos/modulo-04.md)
 
 ## Links úteis
 
