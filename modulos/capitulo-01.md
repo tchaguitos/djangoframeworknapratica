@@ -5,7 +5,7 @@ description: >-
   recursos necessários ao início do projeto.
 ---
 
-# Capítulo 01
+# Módulo 01
 
 ## Conhecendo o instrutor e sabendo mais sobre o curso
 

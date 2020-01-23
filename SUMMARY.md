@@ -6,12 +6,12 @@
 
 * [Estrutura do curso](nova-estrutura-do-curso.md)
 
-## Capítulos
+## Módulos
 
-* [Capítulo 01](capitulos/capitulo-01.md)
-* [Capítulo 02](capitulos/capitulo-02.md)
-* [Capítulo 03](capitulos/capitulo-03.md)
-* [Capítulo 04](capitulos/capitulo-04.md)
+* [Módulo 01](modulos/capitulo-01.md)
+* [Capítulo 02](modulos/capitulo-02.md)
+* [Capítulo 03](modulos/capitulo-03.md)
+* [Capítulo 04](modulos/capitulo-04.md)
 
 ## Links úteis
 
