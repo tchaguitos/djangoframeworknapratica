@@ -1,2 +1,0 @@
-# Pré requisitos
-

@@ -8,14 +8,14 @@
 
 ## Módulos
 
-* [Módulo 01](modulos/modulo-01.md)
-* [Módulo 02](modulos/modulo-02.md)
-* [Módulo 03](modulos/modulo-03.md)
-* [Módulo 04](modulos/modulo-04.md)
+* [Módulo 01](capitulos/capitulo-01.md)
+* [Módulo 02](capitulos/capitulo-02.md)
+* [Módulo 03](capitulos/capitulo-03.md)
+* [Módulo 04](capitulos/capitulo-04.md)
 
 ## Links úteis
 
 * [Links úteis](links-uteis/links-uteis.md)
-* [Pré requisitos](links-uteis/pre-requisitos.md)
+* [Pré requisitos](links-uteis/requisitos.md)
 * [Links recomendados](links-uteis/links-recomendados.md)
 

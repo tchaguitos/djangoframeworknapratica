@@ -44,10 +44,11 @@
   * [ ] Conhecendo o campo DateTimeField
 * [ ] Aplicando as alterações nas models no banco de dados
 * [ ] Registrando nossa aplicação no Admin do Django
+* [ ] Registrando um visitante utilizando o Django Admin
 * [ ] Listando visitantes na página inicial da dashboard
   * [ ] Buscando registros de visitantes no banco de dados
     * [ ] Falar sobre Queryset API
-  * [ ] Listando registros de visitantes no HTML
+* [ ] Listando registros de visitantes no HTML
 
 ## Módulo 6
 
