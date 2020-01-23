@@ -189,6 +189,15 @@
 * [ ] Criando interface para usuário realizar busca ou filtro na dashboard
   * [ ] Utilizando o django-widget-tweaks para renderizar nosso formulário
 * [ ] Adicionando os campos "numero\_casa" e "status"
+
+## Módulo 17
+
 * [ ] Criando botão para "limpar filtro"
   * [ ] Identificando quando o usuário está solicitando os resultados filtrados
-* [ ] 
+* [ ] Mantendo a query ao voltar da página de informações de visitante
+  * [ ] Conhecendo um pouco mais o objeto request \(request.META.HTTP\_REFERER\)
+* [ ] Melhorando nossos filtros
+  * [ ] Tornando possível pesquisa por parte de nome
+
+## Módulo 18
+
