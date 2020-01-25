@@ -5,7 +5,7 @@ description: >-
   recursos necessários ao início do projeto.
 ---
 
-# Capítulo 01
+# Módulo 01
 
 ## Conhecendo o instrutor e sabendo mais sobre o curso
 
@@ -59,14 +59,6 @@ $ sudo apt-get update
 $ sudo apt-get install python3.6
 ```
 
-### **Pip**
-
-O pip é um gerenciador de pacotes utilizado no mundo Python e pode ser instalado facilmente utilizando o seguinte comando:
-
-```bash
-$ sudo apt-get install python3-pip
-```
-
 ### **Virtualenv**
 
 Antes de instalar o Django, vamos instalar o Virtualenv para nos ajudar a organizar e isolar os ambientes de desenvolvimento dentro da nossa máquina. Com isso, a gente ganha a possibilidade de trabalhar em diversos projetos utilizando diferentes versões do Python e do Django na mesma máquina, sem correr o risco de ocorrerem conflitos ou outros problemas. Para instalar o Virtualenv é muito fácil:
@@ -108,6 +100,14 @@ Após execução do comando e ativação do ambiente, você deverá visualizar e
 
 ```bash
 (env)$
+```
+
+### **Pip**
+
+O pip é um gerenciador de pacotes utilizado no mundo Python e pode ser instalado facilmente utilizando o seguinte comando:
+
+```bash
+$ sudo apt-get install python3-pip
 ```
 
 ### **Django framework**

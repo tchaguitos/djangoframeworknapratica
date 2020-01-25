@@ -8,7 +8,7 @@
 
 ## Módulos
 
-* [Módulo 01](capitulos/capitulo-01.md)
+* [Módulo 01](modulos/modulo-01.md)
 * [Módulo 02](capitulos/capitulo-02.md)
 * [Módulo 03](modulos/modulo-03.md)
 * [Módulo 04](capitulos/capitulo-04.md)
