@@ -19,6 +19,7 @@
 * [Módulo 09 - pendente](modulos/modulo-09-pendente.md)
 * [Módulo 10 - pendente](modulos/modulo-10-pendente.md)
 * [Módulo 11 - pendente](modulos/modulo-11-pendente.md)
+* [Módulo 12 - pendente](modulos/modulo-12-pendente.md)
 
 ## Links úteis
 
