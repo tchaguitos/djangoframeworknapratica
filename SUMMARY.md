@@ -9,9 +9,9 @@
 ## Módulos
 
 * [Módulo 01](modulos/modulo-01.md)
-* [Módulo 02](capitulos/capitulo-02.md)
+* [Módulo 02](modulos/modulo-02.md)
 * [Módulo 03 - pendente](modulos/modulo-03.md)
-* [Módulo 04 - pendente](capitulos/capitulo-04.md)
+* [Módulo 04 - pendente](modulos/modulo-04.md)
 * [Módulo 05 - pendente](modulos/modulo-05-pendente.md)
 * [Módulo 06 - pendente](modulos/modulo-06-pendente.md)
 * [Módulo 07 - pendente](modulos/modulo-07-pendente.md)
@@ -25,11 +25,10 @@
 * [Módulo 15 - pendente](modulos/modulo-15-pendente.md)
 * [Módulo 16 - pendente](modulos/modulo-16-pendente.md)
 * [Módulo 17 - pendente](modulos/modulo-17-pendente.md)
-* [Módulo 18 - pendente](modulos/modulo-18-pendente.md)
 
 ## Links úteis
 
 * [Links úteis](links-uteis/links-uteis.md)
-* [Pré requisitos](links-uteis/requisitos.md)
+* [Pré requisitos](links-uteis/pre-requisitos.md)
 * [Links recomendados](links-uteis/links-recomendados.md)
 
