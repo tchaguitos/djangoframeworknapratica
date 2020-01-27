@@ -20,6 +20,12 @@
 * [Módulo 10 - pendente](modulos/modulo-10-pendente.md)
 * [Módulo 11 - pendente](modulos/modulo-11-pendente.md)
 * [Módulo 12 - pendente](modulos/modulo-12-pendente.md)
+* [Módulo 13 - pendente](modulos/modulo-13-pendente.md)
+* [Módulo 14 - pendente](modulos/modulo-14-pendente.md)
+* [Módulo 15 - pendente](modulos/modulo-15-pendente.md)
+* [Módulo 16 - pendente](modulos/modulo-16-pendente.md)
+* [Módulo 17 - pendente](modulos/modulo-17-pendente.md)
+* [Módulo 18 - pendente](modulos/modulo-18-pendente.md)
 
 ## Links úteis
 
