@@ -11,8 +11,15 @@
 
 ## Trabalhando com formulários no Django
 
-* [ ] Preparando view para receber requisição do tipo POST \(falar sobre "request", validações dos formulários do Django \(modelForm\), falar sobre redirect e csrf\_token\)
-* [ ] Criando intimidade com os formulários \(falar sobre atributo fields e alterar para se adequar às nossas necessidades\)
+### Preparando view para receber requisição do tipo POST 
+
+* falar sobre "request"
+* validações do modelForm
+* falar sobre redirect e csrf\_token
+
+### Criando intimidade com os formulários
+
+* falar sobre atributo fields e alterar para se adequar às nossas necessidades
 
 ## Conhecendo um pouco mais dos formulários
 
