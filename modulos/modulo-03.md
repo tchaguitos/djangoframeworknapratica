@@ -1,4 +1,4 @@
-# Módulo 03 - pendente
+# Módulo 03
 
 ## Criando aplicativo para gerenciar porteiros
 
