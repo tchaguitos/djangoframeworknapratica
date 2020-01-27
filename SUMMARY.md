@@ -14,6 +14,7 @@
 * [Módulo 04 - pendente](capitulos/capitulo-04.md)
 * [Módulo 05 - pendente](modulos/modulo-05-pendente.md)
 * [Módulo 06 - pendente](modulos/modulo-06-pendente.md)
+* [Módulo 07 - pendente](modulos/modulo-07-pendente.md)
 
 ## Links úteis
 
