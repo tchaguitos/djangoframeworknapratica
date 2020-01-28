@@ -111,9 +111,64 @@ class Porteiro(models.Model):
 
 ### Conhecendo o campo OneToOneField
 
-### Conhecendo o campo UUIDField
+Até o momento utilizamos apenas campos do tipo texto e data, que são campos bastante úteis, mas que não são os ideais para todos os tipos de dados necessários para nosso modelo. Sendo assim, temos que conhecer um pouco mais dos tipos disponíveis no Django.
 
+Sabemos que um dos requisitos é que haja um usuário do sistema para cada porteiro. Sendo assim, podemos dizer que é necessário vincular um usuário ao modelo que irá representar os porteiros em nosso sistema.
 
+Uma vez que já temos o nosso modelo de Usuários definido, temos que apenas vinculá-lo ao modelo de Porteiros. Para tal, vamos conhecer o campo "OneToOne" que é quem vai tornar explícito esse vínculo entre os modelos.
+
+Para utilizar esse tipo de campo é bem fácil e funciona de modo bem parecido com os outros que já conhecemos, mudando apenas o argumento obrigatório que deve ser passado para o campo funcionar corretamente. Acima do atributo `nome_completo`, vamos começar definindo o atributo `usuario` que será igual a `models.OneToOneField()`. 
+
+```python
+from django.db import models
+
+class Porteiro(models.Model):
+
+    usuario = models.OneToOneField()
+
+    nome_completo = models.CharField(
+        verbose_name="Nome completo",
+        max_length=194
+    )
+
+    cpf = models.CharField(
+        verbose_name="CPF",
+        max_length=11,
+    )
+
+    telefone = models.CharField(
+        verbose_name="Telefone de contato",
+        max_length=11,
+    )
+    
+    data_nascimento = models.DateField(
+        verbose_name="Data de nascimento",
+        auto_now_add=False,
+        auto_now=False
+    )
+```
+
+Conforme falamos, os argumentos que devem ser passados variam de campo para campo. Para o campo `OneToOne`, é necessário dizer qual modelo queremos que seja vinculado. Isto é, temos que dizer que o atributo `usuario` do modelo `Porteiro` será ser do tipo `Usuario`. Sendo assim, sempre que formos criar um `Porteiro` temos que criar também um `Usuario` e vinculá-lo à classe `Porteiro`. 
+
+Vamos primeiro dizer qual é o modelo que queremos vincular ao atributo. Para o caso é o modelo `Usuario` do aplicativo `usuarios`. Podemos fazer isso passando apenas um texto contendo o caminho do modelo \(`usuarios.Usuario`\). 
+
+Os outros dois argumentos são o `verbose_name`, que nós já conhecemos e o `on_delete`, que é um nome novo para nós. O on\_delete diz para o Django o que deve ser feito com o registro do Porteiro caso o Usuario seja excluído. Nesse caso, se o Usuario for removido da base de dados, o mesmo acontecerá com o Porteiro.
+
+```python
+from django.db import models
+
+class Porteiro(models.Model):
+
+    usuario = models.OneToOneField(
+        "usuarios.Usuario",
+        verbose_name="Usuário",
+        on_delete=models.CASCADE
+    )
+    
+    # código abaixo omitido...
+```
+
+Blá blá blá...
 
 ## Registrando nossa aplicação no Admin do Django
 
