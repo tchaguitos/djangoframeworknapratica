@@ -152,7 +152,7 @@ Conforme falamos, os argumentos que devem ser passados variam de campo para camp
 
 Vamos primeiro dizer qual é o modelo que queremos vincular ao atributo. Para o caso é o modelo `Usuario` do aplicativo `usuarios`. Podemos fazer isso passando apenas um texto contendo o caminho do modelo \(`usuarios.Usuario`\). 
 
-Os outros dois argumentos são o `verbose_name`, que nós já conhecemos e o `on_delete`, que é um nome novo para nós. O on\_delete diz para o Django o que deve ser feito com o registro do Porteiro caso o Usuario seja excluído. Nesse caso, se o Usuario for removido da base de dados, o mesmo acontecerá com o Porteiro.
+Os outros dois argumentos são o `verbose_name`, que nós já conhecemos e o `on_delete`, que é um nome novo para nós. O `on_delete` diz para o Django o que deve ser feito com o registro do porteiro caso o usuario seja excluído. Nesse caso, se o usuario for removido da base de dados, o mesmo acontecerá com o porteiro.
 
 ```python
 from django.db import models
@@ -168,7 +168,47 @@ class Porteiro(models.Model):
     # código abaixo omitido...
 ```
 
-Blá blá blá...
+Para finalizar, vamos escrever as classes e métodos que devem acompanhar todas os models do Django. Vamos começar com a classe `Meta` e depois vamos escrever o método `__str__`. Como vimos, devemos escrever essa classe e método para definir informações de como o modelo pode ser chamado, o nome da tabela que irá armazenar as informações e como a instância é exibida ao ser transformada em string. Nosso modelo Porteiro ficará assim:
+
+```python
+from django.db import models
+
+class Porteiro(models.Model):
+
+    usuario = models.OneToOneField(
+        "usuarios.Usuario",
+        verbose_name="Usuário",
+        on_delete=models.CASCADE
+    )
+
+    nome_completo = models.CharField(
+        verbose_name="Nome completo", max_length=194
+    )
+
+    cpf = models.CharField(
+        verbose_name="CPF",
+        max_length=11,
+    )
+
+    telefone = models.CharField(
+        verbose_name="Telefone de contato",
+        max_length=11,
+        blank=True
+    )
+
+    data_nascimento = models.DateField(
+        verbose_name="Data de nascimento",
+        auto_now=False
+    )
+
+    class Meta:
+        verbose_name = "Porteiro"
+        verbose_name_plural = "Porteiros"
+        db_table = "porteiro"
+
+    def __str__(self):
+        return self.nome_completo
+```
 
 ## Registrando nossa aplicação no Admin do Django
 
