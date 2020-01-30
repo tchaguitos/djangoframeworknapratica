@@ -111,11 +111,11 @@ class Porteiro(models.Model):
 
 ### Conhecendo o campo OneToOneField
 
-Até o momento utilizamos apenas campos do tipo texto e data, que são campos bastante úteis, mas que não são os ideais para todos os tipos de dados necessários para nosso modelo. Sendo assim, temos que conhecer um pouco mais dos tipos disponíveis no Django.
+Até o momento utilizamos apenas campos do tipo texto e data, que são campos bastante úteis, mas que não são os ideais para todos os tipos de dados necessários para nosso modelo. Sendo assim, temos que conhecer um pouco mais dos tipos de campos disponíveis nos modelos do Django.
 
 Sabemos que um dos requisitos é que haja um usuário do sistema para cada porteiro. Sendo assim, podemos dizer que é necessário vincular um usuário ao modelo que irá representar os porteiros em nosso sistema.
 
-Uma vez que já temos o nosso modelo de Usuários definido, temos que apenas vinculá-lo ao modelo de Porteiros. Para tal, vamos conhecer o campo "OneToOne" que é quem vai tornar explícito esse vínculo entre os modelos.
+Uma vez que já temos o nosso modelo de usuários definido, temos que apenas vinculá-lo ao modelo de porteiros. Para tal, vamos conhecer o campo `OneToOne` que é quem vai tornar explícito esse vínculo entre os modelos. Essencialmente, o campo `OneToOne` representa uma relação "um para um". Isto é, para cada porteiro existirá um usuário. 
 
 Para utilizar esse tipo de campo é bem fácil e funciona de modo bem parecido com os outros que já conhecemos, mudando apenas o argumento obrigatório que deve ser passado para o campo funcionar corretamente. Acima do atributo `nome_completo`, vamos começar definindo o atributo `usuario` que será igual a `models.OneToOneField()`. 
 
@@ -148,11 +148,11 @@ class Porteiro(models.Model):
     )
 ```
 
-Conforme falamos, os argumentos que devem ser passados variam de campo para campo. Para o campo `OneToOne`, é necessário dizer qual modelo queremos que seja vinculado. Isto é, temos que dizer que o atributo `usuario` do modelo `Porteiro` será ser do tipo `Usuario`. Sendo assim, sempre que formos criar um `Porteiro` temos que criar também um `Usuario` e vinculá-lo à classe `Porteiro`. 
+Conforme falamos, os argumentos que devem ser passados variam de campo para campo. Para o campo `OneToOne`, é necessário dizer qual modelo queremos que seja vinculado. Isto é, temos que dizer que o atributo `usuario` do modelo `Porteiro` deverá receber como valor um modelo do tipo `Usuario`. Sendo assim, sempre que formos criar um `Porteiro` temos que criar também um `Usuario` e vinculá-lo à classe `Porteiro`. 
 
 Vamos primeiro dizer qual é o modelo que queremos vincular ao atributo. Para o caso é o modelo `Usuario` do aplicativo `usuarios`. Podemos fazer isso passando apenas um texto contendo o caminho do modelo \(`usuarios.Usuario`\). 
 
-Os outros dois argumentos são o `verbose_name`, que nós já conhecemos e o `on_delete`, que é um nome novo para nós. O `on_delete` diz para o Django o que deve ser feito com o registro do porteiro caso o usuario seja excluído. Nesse caso, se o usuario for removido da base de dados, o mesmo acontecerá com o porteiro.
+Os outros dois argumentos são o `verbose_name`, que nós já conhecemos e o `on_delete`, que é um nome novo para nós. O `on_delete` diz para o Django o que deve ser feito com o registro do porteiro caso o usuário seja deletado. Nesse caso, se o usuario for removido da base de dados, o mesmo acontecerá com o porteiro.
 
 ```python
 from django.db import models
@@ -168,7 +168,7 @@ class Porteiro(models.Model):
     # código abaixo omitido...
 ```
 
-Para finalizar, vamos escrever as classes e métodos que devem acompanhar todas os models do Django. Vamos começar com a classe `Meta` e depois vamos escrever o método `__str__`. Como vimos, devemos escrever essa classe e método para definir informações de como o modelo pode ser chamado, o nome da tabela que irá armazenar as informações e como a instância é exibida ao ser transformada em string. Nosso modelo Porteiro ficará assim:
+Para finalizar, vamos escrever as classes e métodos que devem acompanhar todas os modelos do Django. Vamos começar com a classe `Meta` e depois vamos escrever o método `__str__`. Como vimos, devemos escrever essa classe e método para definir informações de como o modelo pode ser chamado, o nome da tabela que irá armazenar as informações no banco de dados e como a instância é exibida ao ser transformada em string. Nossa classe `Porteiro` ficará assim:
 
 ```python
 from django.db import models
@@ -212,11 +212,70 @@ class Porteiro(models.Model):
 
 ## Registrando nossa aplicação no Admin do Django
 
+O próximo passo que vamos executar é tornar o nosso modelo de porteiros visível para o Admin do Django. Como já sabemos fazer isso, vai ser bem rápido!
+
+Vamos abrir o arquivo `admin.py` do nosso aplicativo porteiros, importar a classe `Porteiro` e passá-la como argumento da função `admin.site.register()`.
+
+```python
+from django.contrib import admin
+from porteiros.models import Porteiro
+
+admin.site.register(Porteiro)
+```
+
 ## Aplicando as alterações em nosso banco de dados
 
+Feito isso, vamos agora validar o código escrito e fazer as migrações do modelo criado. Para isso vamos utilizar o comando `makemigrations`.
 
+```python
+(env)$ python manage.py makemigrations porteiros
+```
 
+Se ocorrer bem, vamos receber as seguintes informações em nosso terminal:
 
+```python
+Migrations for 'porteiros':
+  porteiros/migrations/0001_initial.py
+    - Create model Porteiro
+```
+
+Com todos as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos pedir ao Django que efetue essas alterações em nosso banco. Para isso vamos executar o comando `migrate`.
+
+```python
+(env)$ python manage.py migrate
+```
+
+E, se tudo ocorrer bem, vamos receber em nosso terminal:
+
+```python
+Operations to perform:
+  Apply all migrations: porteiros
+
+Running migrations:
+  Applying usuarios.0001_initial.py... OK
+```
+
+## Criando porteiro através do Admin do Django
+
+Como sabemos, o Django disponibiliza uma interface de administraçao para as classes de modelo criadas e registradas nos arquivos `admin.py`. Até agora, tudo que fizemos foi apenas visualizar e alterar informações de usuários, mas é possível fazer bem mais com o Admin do Django. Vamos acessar o admin através do navegador e clicar no item porteiros.
+
+![](../.gitbook/assets/screenshot_2020-01-29_22-03-05.png)
+
+A próxima tela deverá exibir a lista de porteiros registrados em nosso sistema. Como ainda não temos porteiros registrados, temos apenas a informação de que existem "0 Porteiros" e opção de adicionar um porteiro. 
+
+![](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
+
+Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros. Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
+
+{% hint style="info" %}
+O Admin do Django é tão interessante que já disponibiliza um elemento do tipo select para selecionarmos o usuároi que será vinculado ao novo porteiro. Bacana, não?
+{% endhint %}
+
+Vamos selecionar o usuário existente e preencher as informações necessárias. Esteja livre para preencher da sua maneira!
+
+Se tudo estiver certo com os dados informados, o Django Admin vai nos redirecionar para a tela que lista os porteiros e mostrar uma mensagem de sucesso. Note que o Django já exibe a mensagem personalizadade com o nome do porteiro criado e link para visualização de informações.
+
+![](../.gitbook/assets/screenshot_2020-01-29_22-12-22.png)
 
 
 

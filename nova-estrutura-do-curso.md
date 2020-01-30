@@ -48,7 +48,7 @@
 * [ ] Listando visitantes na página inicial da dashboard
   * [ ] Buscando registros de visitantes no banco de dados
     * [ ] Falar sobre Queryset API
-* [ ] Listando registros de visitantes no HTML
+  * [ ] Listando registros de visitantes no HTML
 
 ## Módulo 6
 
