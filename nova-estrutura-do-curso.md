@@ -3,9 +3,15 @@
 ## Módulo 1
 
 * [x] Conhecendo o instrutor e sabendo mais sobre o curso
+  * [x] Sobre o instrutor
+  * [x] Sobre o curso
 * [x] A linguagem de programação Python
 * [x] O que é Django Framework?
 * [x] Instalando e configurando o ambiente para iniciar o projeto
+  * [x] Python 3.6
+  * [x] Virtualenv
+  * [ ] Pip \(dizer que ele já vem instalado ao instalarmos o virtualenv\)
+  * [x] Django framework
 
 ## Módulo 2
 
@@ -14,13 +20,17 @@
 * [x] Criando nosso primeiro aplicativo Django
 * [x] Criando nosso "Hello World"
 * [x] Escrevendo as models
+  * [x] Escrevendo a classe modelo
+  * [x] Escrevendo um manager personalizado
+  * [x] Alterando o modelo padrão nas configurações
+  * [x] Criando as tabelas do nosso banco de dados
 * [x] Criando um super usuário
 * [x] Conhecendo o Django Admin
 * [x] Boas práticas e alterações necessárias nas configurações
 
 ## Módulo 3
 
-* [x] Criando nosso aplicativo para gerenciar porteiros
+* [x] Criando aplicativo para gerenciar porteiros
 * [x] Escrevendo as models do nosso aplicativo de porteiros
   * [x] Conhecendo o campo DateField
   * [x] Conhecendo o campo OneToOneField
