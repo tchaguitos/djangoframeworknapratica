@@ -225,7 +225,7 @@ admin.site.register(Porteiro)
 
 ## Aplicando as alterações em nosso banco de dados
 
-Feito isso, vamos agora validar o código escrito e fazer as migrações do modelo criado. Para isso vamos utilizar o comando `makemigrations`.
+Feito isso, vamos agora validar o código escrito e criar as migrações do modelo criado utilizando o comando `makemigrations`.
 
 ```python
 (env)$ python manage.py makemigrations porteiros
@@ -239,7 +239,7 @@ Migrations for 'porteiros':
     - Create model Porteiro
 ```
 
-Com todos as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos pedir ao Django que efetue essas alterações em nosso banco. Para isso vamos executar o comando `migrate`.
+Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos pedir ao Django que efetue essas alterações em nosso banco. Para isso vamos executar o comando `migrate`.
 
 ```python
 (env)$ python manage.py migrate
@@ -265,17 +265,19 @@ A próxima tela deverá exibir a lista de porteiros registrados em nosso sistema
 
 ![](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
 
-Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros. Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
+Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros.
+
+Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
 
 {% hint style="info" %}
-O Admin do Django é tão interessante que já disponibiliza um elemento do tipo select para selecionarmos o usuároi que será vinculado ao novo porteiro. Bacana, não?
+O Admin do Django é tão interessante que já disponibiliza um elemento do tipo select para selecionarmos o usuário que será vinculado ao novo porteiro. Bacana, não?
 {% endhint %}
 
-Vamos selecionar o usuário existente e preencher as informações necessárias. Esteja livre para preencher da sua maneira!
+Vamos selecionar o usuário criado através do terminal com o comando `createsuperuser` e preencher as informações necessárias. Esteja livre para preencher da sua maneira!
 
 Se tudo estiver certo com os dados informados, o Django Admin vai nos redirecionar para a tela que lista os porteiros e mostrar uma mensagem de sucesso. Note que o Django já exibe a mensagem personalizadade com o nome do porteiro criado e link para visualização de informações.
 
 ![](../.gitbook/assets/screenshot_2020-01-29_22-12-22.png)
 
-
+Agora que temos um porteiro criado, podemos partir para a construção da dashboard que contará com todas as funções descritas em nosso documento de requisitos!
 
