@@ -14,6 +14,12 @@ O Django, por padrão, vem configurado para que já seja possível trabalhar com
 
 ## Configurando a aplicação para trabalhar com a pasta templates
 
+Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos quando necessário. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e outras funções fornecidas pelo framework.
+
+O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e várias outras funcionalidades diretamente nos templates HTML através de tags. 
+
+Com
+
 
 
 ## Entendendo as adaptações realizadas no template 
