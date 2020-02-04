@@ -12,7 +12,7 @@ Desta forma, neste próximo módulo, aprenderemos a configurar o Django para tra
 O Django, por padrão, vem configurado para que já seja possível trabalhar com templates HTML, mas vamos alterar as configurações para que a haja uma maior organização dos arquivos
 {% endhint %}
 
-## Criando as pastas templates e static em nosso projeto
+### Criando a pasta templates em nosso projeto
 
 Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e várias outras funcionalidades diretamente nos templates HTML através de tags.
 
@@ -41,7 +41,13 @@ TEMPLATES = [
 ]
 ```
 
-Feito isso, podemos criar a pasta templates na raíz do nosso projeto. 
+### Criando a pasta static em nosso projeto
+
+Feito isso, vamos agora definir as configurações para os arquivos estáticos do nosso projeto. Assim como para os templates, o Django também nos dá toda a estrutura necessária para trabalharmos com arquivos estáticos. 
+
+Por "arquivos estáticos", entenda arquivos do tipo CSS e JS \(javascript\). Além disso, é comum que aplicações web necessitem também exibir algumas imagens nos templates, sendo assim, os arquivos estáticos do nosso projeto serão os arquivos CSS, JS e imagens como logotipo, ícones
+
+
 
 
 
