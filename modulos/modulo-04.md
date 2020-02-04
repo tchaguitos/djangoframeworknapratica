@@ -12,7 +12,7 @@ Desta forma, neste próximo módulo, aprenderemos a configurar o Django para tra
 O Django, por padrão, vem configurado para que já seja possível trabalhar com templates HTML, mas vamos alterar as configurações para que a haja uma maior organização dos arquivos
 {% endhint %}
 
-## Criando a pasta templates em nosso projeto
+## Criando as pastas templates e static em nosso projeto
 
 Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e várias outras funcionalidades diretamente nos templates HTML através de tags.
 
@@ -47,7 +47,7 @@ Feito isso, podemos criar a pasta templates na raíz do nosso projeto.
 
 ## Entendendo as adaptações realizadas no template 
 
-Entendendo as adaptações realizadas no template para trabalhar com a engine do Django
+Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
 
 ## Criando views que renderizam templates
 
