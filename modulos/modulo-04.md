@@ -45,9 +45,7 @@ TEMPLATES = [
 
 Feito isso, vamos agora definir as configurações para os arquivos estáticos do nosso projeto. Assim como para os templates, o Django também nos dá toda a estrutura necessária para trabalharmos com arquivos estáticos. 
 
-Por "arquivos estáticos", entenda arquivos do tipo CSS e JS \(javascript\). Além disso, é comum que aplicações web necessitem também exibir algumas imagens nos templates, sendo assim, os arquivos estáticos do nosso projeto serão os arquivos CSS, JS e imagens como logotipo, ícones
-
-
+Por "arquivos estáticos", entenda arquivos do tipo CSS e JS \(javascript\). Além disso, é comum que aplicações web necessitem também exibir algumas imagens nos templates, sendo assim, os arquivos estáticos do nosso projeto serão os arquivos CSS, JS e imagens como o logotipo do site.
 
 
 
