@@ -16,11 +16,11 @@ O Django, por padrão, vem configurado para que já seja possível trabalhar com
 
 Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e várias outras funcionalidades diretamente nos templates HTML através de tags.
 
-Por padrão, o Django vem configurado para procurar os templates dentro de cada aplicativo. Isto é, em cada aplicativo deverá existir uma pasta "templates" para armazenar os templates referentes ao aplicativo em questão. Todavia, para uma melhor organização, utilizaremos uma pasta externa para armazenar os arquivos de templates do projeto
+Por padrão, o Django vem configurado para procurar os templates dentro de cada aplicativo. Isto é, em cada aplicativo deverá existir uma pasta **templates** para armazenar os templates referentes ao aplicativo em questão. Todavia, para uma melhor organização, utilizaremos uma pasta externa para armazenar os arquivos de templates do projeto
 
 Para isso, começaremos alterando o arquivo `settings.py` do nosso projeto. Nesse arquivo é possível encontrar a variável `TEMPLATES`, que é responsável por definir as configurações de template do Django, como engine a ser utilizada, diretórios que armazenam os templates, dentre outras.
 
-A variável `TEMPLATES` é uma lista que recebe um dicionário contendo valores específicos, tais como `BACKEND`, `DIRS`, `APP_DIRS` e `OPTIONS`, cada um com uma função específica. No nosso caso, vamos alterar o valor `DIRS` de uma lista vazia para uma lista contendo a string "templates", que é o nome da pasta que utilizaremos para armazenar nossos templates. Como definimos que os templates devem ser buscados na pasta "templates" na raíz do nosso projeto, podemos apagar o valor `APP_DIRS` do dicionário de configuração.
+A variável `TEMPLATES` é uma lista que recebe um dicionário contendo valores específicos, tais como `BACKEND`, `DIRS`, `APP_DIRS` e `OPTIONS`, cada um com uma função específica. No nosso caso, vamos alterar o valor `DIRS` de uma lista vazia para uma lista contendo a string "templates", que é o nome da pasta que utilizaremos para armazenar nossos templates. Como definimos que os templates devem ser buscados na pasta **templates** na raíz do nosso projeto, podemos apagar o valor `APP_DIRS` do dicionário de configuração.
 
 Nossa variável `TEMPLATES` ficará da seguinte forma:
 
@@ -41,21 +41,27 @@ TEMPLATES = [
 ]
 ```
 
-Para facilitar as coisas e economizar um pouquinho de tempo, você pode fazer download da pasta "templates" zipada, extrair os arquivos e colocá-la na raíz do seu projeto:
+Para facilitar as coisas e economizar um pouquinho de tempo, você pode fazer download da pasta **templates** zipada, extrair os arquivos e colocá-la na raíz do seu projeto:
 
-{% file src="../.gitbook/assets/templates.zip" caption="Fazer download da pasta" %}
+{% file src="../.gitbook/assets/templates.zip" caption="Iniciar o download" %}
 
 ### Criando a pasta static em nosso projeto
 
-Feito isso, vamos agora definir as configurações para os arquivos estáticos do nosso projeto. Assim como para os templates, o Django também nos dá toda a estrutura necessária para trabalharmos com arquivos estáticos. 
+Feito isso, vamos agora definir as configurações para os arquivos estáticos do nosso projeto. Assim como para os templates, o Django também nos dá toda a estrutura necessária para trabalharmos com arquivos estáticos.
 
-Por "arquivos estáticos", entenda arquivos do tipo CSS e JS \(javascript\). Além disso, é comum que aplicações web necessitem também exibir algumas imagens nos templates, sendo assim, os arquivos estáticos do nosso projeto serão os arquivos CSS, JS e imagens como o logotipo do site.
+Por "arquivos estáticos", entenda arquivos do tipo CSS, JS \(javascript\) e imagens que serão utilizadas em nossos templates, tais como logotipo, imagem padrão para avatar de usuários, dentre outras.
 
-* [https://docs.djangoproject.com/en/3.0/howto/static-files/](https://docs.djangoproject.com/en/3.0/howto/static-files/)
-* [https://github.com/tchaguitos/controle-visitantes/blob/develop/controle\_visitantes/settings.py](https://github.com/tchaguitos/controle-visitantes/blob/develop/controle_visitantes/settings.py)
-* [https://github.com/tchaguitos/controle-visitantes/commit/946717d7ce781fe3590117f087d00882a59b2303](https://github.com/tchaguitos/controle-visitantes/commit/946717d7ce781fe3590117f087d00882a59b2303)
+Para realizarmos a configuração, vamos novamente alterar o arquivo `settings.py.` Ao final do arquivo, adicione o seguinte trecho de código para definir a URL onde os arquivos estáticos serão armazenados:
 
+```python
+STATIC_URL = "/static/"
+```
 
+Novamente, para facilitar e economizar tempo, você pode fazer o download da pasta clicando no link abaixo \(agora da pasta **static**, claro\):
+
+{% file src="../.gitbook/assets/static.zip" caption="Iniciar o download" %}
+
+Faça o download e coloque a pasta **static** na raíz do projeto, juntamente com a pasta **templates**. Feito isso, já podemos utilizar templates HTML e arquivos estáticos em nosso projeto!
 
 ## Entendendo as adaptações realizadas no template 
 
