@@ -41,6 +41,10 @@ TEMPLATES = [
 ]
 ```
 
+Para facilitar as coisas e economizar um pouquinho de tempo, você pode fazer download da pasta "templates" zipada, extrair os arquivos e colocá-la na raíz do seu projeto:
+
+{% file src="../.gitbook/assets/templates.zip" caption="Fazer download da pasta" %}
+
 ### Criando a pasta static em nosso projeto
 
 Feito isso, vamos agora definir as configurações para os arquivos estáticos do nosso projeto. Assim como para os templates, o Django também nos dá toda a estrutura necessária para trabalharmos com arquivos estáticos. 
