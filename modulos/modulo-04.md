@@ -63,11 +63,11 @@ Novamente, para facilitar e economizar tempo, você pode fazer o download da pas
 
 Faça o download e coloque a pasta **static** na raíz do projeto, juntamente com a pasta **templates**. Feito isso, já podemos utilizar templates HTML e arquivos estáticos em nosso projeto!
 
-## Entendendo as adaptações realizadas no template 
+## Criando views que renderizam templates
 
 Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
 
-## Criando views que renderizam templates
+## Entendendo as adaptações realizadas no template
 
 Exibir funcionando
 
