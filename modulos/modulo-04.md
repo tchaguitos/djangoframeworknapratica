@@ -47,6 +47,10 @@ Feito isso, vamos agora definir as configurações para os arquivos estáticos d
 
 Por "arquivos estáticos", entenda arquivos do tipo CSS e JS \(javascript\). Além disso, é comum que aplicações web necessitem também exibir algumas imagens nos templates, sendo assim, os arquivos estáticos do nosso projeto serão os arquivos CSS, JS e imagens como o logotipo do site.
 
+* [https://docs.djangoproject.com/en/3.0/howto/static-files/](https://docs.djangoproject.com/en/3.0/howto/static-files/)
+* [https://github.com/tchaguitos/controle-visitantes/blob/develop/controle\_visitantes/settings.py](https://github.com/tchaguitos/controle-visitantes/blob/develop/controle_visitantes/settings.py)
+* [https://github.com/tchaguitos/controle-visitantes/commit/946717d7ce781fe3590117f087d00882a59b2303](https://github.com/tchaguitos/controle-visitantes/commit/946717d7ce781fe3590117f087d00882a59b2303)
+
 
 
 ## Entendendo as adaptações realizadas no template 
