@@ -65,11 +65,13 @@ Faça o download e coloque a pasta **static** na raíz do projeto, juntamente co
 
 ## Criando views que renderizam templates
 
-Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
+Quando queremos exibir informações para os usuários do nosso sistema na web, utilizamos os template HTML. O HTML é uma linguagem de marcação criada justamente com o intuito de exibir informações para os usuários de 
+
+Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isto é, ao invés de ser exibido um texto ao acessar uma URL através do navegador, como fizemos anteriormente, agora vamos dizer para o Django que é necessário exibir um template HTML, afim de 
 
 ## Entendendo as adaptações realizadas no template
 
-Exibir funcionando
+Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
 
 ## Exibindo variáveis no template
 
