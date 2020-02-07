@@ -69,9 +69,11 @@ Falamos bastante sobre templates HTML, mas o que é HTML, afinal?
 
 O HTML é uma das linguagens que são utilizadas para o desenvolvimento de sites na web. HTML significa **Hypertext Markup Language**, que ****em português quer dizer **Linguagem de Marcação de Hipertexto**. 
 
-Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. 
+Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isto é, a partir de agora, ao invés de ser exibido um texto ao acessarmos uma URL através do navegador, como fizemos anteriormente, vamos dizer para o Django que é necessário exibir um template HTML, afim de exibir as informações de forma estruturada e de modo que fiquei fácil a compreensão para nossos usuários.
 
-A partir de agora, ao invés de ser exibido um texto ao acessar uma URL através do navegador, como fizemos anteriormente, agora vamos dizer para o Django que é necessário exibir um template HTML, afim de 
+### Conhecendo a função render
+
+Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` que é responsável por combinar o template com um 
 
 
 
