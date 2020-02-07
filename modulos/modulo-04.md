@@ -65,7 +65,7 @@ Faça o download e coloque a pasta **static** na raíz do projeto, juntamente co
 
 ## Criando views que renderizam templates
 
-Quando queremos exibir informações para os usuários do nosso sistema na web, utilizamos os template HTML. O HTML é uma linguagem de marcação criada justamente com o intuito de exibir informações para os usuários de 
+Falamos bastante sobre templates HTML, mas o que é HTML, afinal? Bem, o HTML é uma das linguagens que são utilizadas para o desenvolvimento de sites na web. Se fossemos 
 
 Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isto é, ao invés de ser exibido um texto ao acessar uma URL através do navegador, como fizemos anteriormente, agora vamos dizer para o Django que é necessário exibir um template HTML, afim de 
 
