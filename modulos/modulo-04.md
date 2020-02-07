@@ -65,9 +65,15 @@ Faça o download e coloque a pasta **static** na raíz do projeto, juntamente co
 
 ## Criando views que renderizam templates
 
-Falamos bastante sobre templates HTML, mas o que é HTML, afinal? Bem, o HTML é uma das linguagens que são utilizadas para o desenvolvimento de sites na web. Se fossemos 
+Falamos bastante sobre templates HTML, mas o que é HTML, afinal?
 
-Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isto é, ao invés de ser exibido um texto ao acessar uma URL através do navegador, como fizemos anteriormente, agora vamos dizer para o Django que é necessário exibir um template HTML, afim de 
+O HTML é uma das linguagens que são utilizadas para o desenvolvimento de sites na web. HTML significa **Hypertext Markup Language**, que ****em português quer dizer **Linguagem de Marcação de Hipertexto**. 
+
+Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. 
+
+A partir de agora, ao invés de ser exibido um texto ao acessar uma URL através do navegador, como fizemos anteriormente, agora vamos dizer para o Django que é necessário exibir um template HTML, afim de 
+
+
 
 ## Entendendo as adaptações realizadas no template
 
