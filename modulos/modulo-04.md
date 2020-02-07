@@ -57,7 +57,7 @@ Para realizarmos a configuração, vamos novamente alterar o arquivo `settings.p
 STATIC_URL = "/static/"
 ```
 
-Novamente, para facilitar e economizar tempo, você pode fazer o download da pasta clicando no link abaixo \(agora da pasta **static**, claro\):
+Novamente, para facilitar e economizar tempo, você pode fazer o download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e colocá-la na raiz do projeto:
 
 {% file src="../.gitbook/assets/static.zip" caption="Iniciar o download" %}
 
