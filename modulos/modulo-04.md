@@ -75,7 +75,9 @@ Como o Django já nos dá tudo que é necessário para criarmos aplicações web
 
 Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` que é responsável por combinar o template com informações
 
-
+* [https://docs.djangoproject.com/en/3.0/topics/templates/](https://docs.djangoproject.com/en/3.0/topics/templates/)
+* [https://docs.djangoproject.com/en/3.0/topics/http/shortcuts/](https://docs.djangoproject.com/en/3.0/topics/http/shortcuts/)
+* [https://github.com/tchaguitos/controle-visitantes/commit/3cf44f2176ae8ee04e059c7a265ca433c987802f](https://github.com/tchaguitos/controle-visitantes/commit/3cf44f2176ae8ee04e059c7a265ca433c987802f)
 
 ## Entendendo as adaptações realizadas no template
 
