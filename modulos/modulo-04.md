@@ -107,6 +107,9 @@ Para que o Django exiba um template ao invés de um texto em tela, precisaremos 
 
 Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
 
+* Conhecendo a tag static
+* Alterando o caminho dos arquivos estáticos
+
 ## Exibindo variáveis no template
 
 
