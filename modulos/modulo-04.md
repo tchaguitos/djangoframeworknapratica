@@ -85,7 +85,15 @@ Faça o download e coloque a pasta **static** na raíz do projeto, juntamente co
 
 Falamos bastante sobre templates HTML, mas o que é HTML, afinal?
 
-O HTML é uma das linguagens que são utilizadas para o desenvolvimento de sites na web. HTML significa **Hypertext Markup Language**, que ****em português quer dizer **Linguagem de Marcação de Hipertexto**. 
+O HTML \(Linguagem de Marcação de HiperTexto\) é o bloco de construção mais básico da pilha de tecnologias que compõem a web, mas é ela que define significado e estrutura de conteúdo. Existem também tecnologias que descrevem aparência/apresentação \(CSS\) e funcionalidade/comportamento \(Javascript\) de uma página web \(inclusive já falamos um pouquinho delas por aqui quando falamos sobre arquivos estáticos\).
+
+Basicamente, um arquivo de template é um arquivo de texto com extensão `.html`. Os navegadores interpretam esses arquivos de texto e cuidam de de exibir exatamente da maneira que você enxerga pelo seu monitor. 
+
+Bacana não? Além disso, o HTML ajuda a dizer para os motores de busca o que é relevante, o que é texto, o que é imagem e tudo mais. Sendo assim, o HTML tem um papel fundamental dentro da web! 
+
+{% hint style="info" %}
+E ah, não se assuste com a palavra **HiperTexto** no nome, hipertexto são apenas os links entre as páginas que se conectam na web. 
+{% endhint %}
 
 Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isto é, a partir de agora, ao invés de ser exibido um texto ao acessarmos uma URL através do navegador, como fizemos anteriormente, vamos dizer para o Django que é necessário exibir um template HTML, afim de exibir as informações de forma estruturada e de modo que fiquei fácil a compreensão para nossos usuários.
 
