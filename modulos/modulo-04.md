@@ -65,7 +65,17 @@ Para realizarmos a configuração, vamos novamente alterar o arquivo `settings.p
 STATIC_URL = "/static/"
 ```
 
-Novamente, para facilitar e economizar tempo, você pode fazer o download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e colocá-la na raiz do projeto:
+Abaixo do `STATIC_URL`, coloque também o seguinte trecho de código:
+
+```python
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+```
+
+Estamos dizendo ao Django: hey, amigo, procure pelos arquivos estáticos na pasta **static** na raíz do projeto!
+
+Para facilitar e economizar tempo novamente, faça download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e a coloque na raiz do projeto:
 
 {% file src="../.gitbook/assets/static.zip" caption="Iniciar o download" %}
 
