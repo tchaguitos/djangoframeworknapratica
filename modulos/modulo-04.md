@@ -4,9 +4,11 @@
 
 Nos capítulos anteriores, criamos toda a estrutura necessária para criação de usuários do sistema e porteiros que serão os responsáveis por operar a dashboard proposta. Além disso, também preparamos o ambiente de desenvolvimento e aprendemos bastante sobre detalhes técnicos do funcionamento do Django.
 
-Trabalhamos bastante nos arquivos `models.py` e conhecemos o poder existente do Admin do Django, todavia, como o nosso objetivo é desenvolver uma dashboard personalizada para exibir as informações dos visitantes do condomínio e implementar funcionalidades específicas, será necessário desenvolver os templates para podermos dispor as informações necessárias.
+Focamos nosso trabalho nos arquivos `models.py` e `admin.py` e também conhecemos o poder existente do Admin que o Django nos disponibiliza. Como nosso objetivo é desenvolver uma dashboard personalizada para exibir as informações dos visitantes do condomínio e implementar funcionalidades específicas, a partir de agora, trabalharemos para desenvolver os templates que irão dispôr as informações necessárias e funcionalidades específicas! 
 
-Desta forma, neste próximo módulo, aprenderemos a configurar o Django para trabalhar com arquivos estáticos \(CSS e JS\) e templates HTML.
+Sendo assim, posso dizer que a partir de agora as coisas começam a ficar mais interessantes!
+
+Neste próximo módulo, aprenderemos a configurar o Django para trabalhar com arquivos estáticos \(CSS e JS\) e templates HTML.
 
 {% hint style="warning" %}
 O Django, por padrão, vem configurado para que já seja possível trabalhar com templates HTML, mas vamos alterar as configurações para que a haja uma maior organização dos arquivos
@@ -75,9 +77,7 @@ Como o Django já nos dá tudo que é necessário para criarmos aplicações web
 
 Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` que é responsável por combinar o template com informações
 
-* [https://docs.djangoproject.com/en/3.0/topics/templates/](https://docs.djangoproject.com/en/3.0/topics/templates/)
-* [https://docs.djangoproject.com/en/3.0/topics/http/shortcuts/](https://docs.djangoproject.com/en/3.0/topics/http/shortcuts/)
-* [https://github.com/tchaguitos/controle-visitantes/commit/3cf44f2176ae8ee04e059c7a265ca433c987802f](https://github.com/tchaguitos/controle-visitantes/commit/3cf44f2176ae8ee04e059c7a265ca433c987802f)
+
 
 ## Entendendo as adaptações realizadas no template
 
