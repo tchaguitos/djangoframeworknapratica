@@ -99,11 +99,31 @@ Como o Django já nos dá tudo que é necessário para criarmos aplicações web
 
 ### Conhecendo a função render
 
-Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` que é responsável por combinar o template com informações
+Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Antes de seguir, vamos trabalhar um pouco a memória e lembrar como a nossa view está:
 
+```python
+from django.http import HttpResponse
 
+def index(request):
+    return HttpResponse("Olá, mundo!")
+```
+
+Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` para exibir um template HTML no lugar da mensagem. 
+
+A função `render` é uma função de atralho do Django que nos possibilita combinar um template HTML e um dicionário de contexto. A função deve receber sempre a variável `request` e uma `string` representando o caminho do template a ser utilizado. Esses argumentos são obrigatórios e devem ser passados para a função `render` sempre que a mesma for utilizada, caso contrário, ocorrerá um erro.
+
+Vamos alterar a nova view para que retorne a função `render` ao invés da classe `HttpResponse` passando a variável `request` e o caminho para o template `index.html`:
+
+```python
+def index(request):
+    return render(request, "index.html")
+```
+
+Como já fizemos o download das pastas **static** e **templates** e toda a configuração necessária para funcionamento de ambas, o Django já reconhece a pasta e busca pelo template `index.html` dentro dela.
 
 ## Entendendo as adaptações realizadas no template
+
+Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados da maneira correta. 
 
 Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
 
