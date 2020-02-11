@@ -16,7 +16,7 @@ O Django, por padrão, vem configurado para que já seja possível trabalhar com
 
 ### Criando a pasta templates em nosso projeto
 
-Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e várias outras funcionalidades diretamente nos templates HTML através de tags.
+Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e ainda possui diversas funcionalidades que podem ser utilizadas diretamente nos templates HTML através de tags.
 
 {% hint style="info" %}
 Uma engine de template nada mais é que uma aplicação que visa facilitar o processo de criação de templates HTML dinâmicos e tornar o processo de envio e exibição de informações nos templates menos burocrático
@@ -125,8 +125,27 @@ Como já fizemos o download das pastas **static** e **templates** e toda a confi
 
 Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados. Lembra que fizemos a configuração da variável `STATIC_URL`? Pois bem, precisamos falar dela aqui pois para que os arquivos sejam carregados corretamente, o caminho relativo até eles deve estar correto e é aqui que a `STATIC_URL` entra em cena.
 
-* Conhecendo a tag static
-* Alterando o caminho dos arquivos estáticos
+### Conhecendo a tag static
+
+Quando falamos anteriormente sobre a engine de templates do Django, falamos que ela é capaz de executar funções condicionais, loops, exibir valores e possui diversas outras funcionalidades que podem ser executadas diretamente nos templates através de tags. Vamos agora conhecer a primeira tag que vamos utilizar em nosso projeto, a tag **static**.
+
+A tag static é a representação da variável `STATIC_URL` nos templates. O Django fornece essa tag no intuito de facilitar o trabalho com arquivos estáticos. Vamos aprender como utilizar a tag e resolver o problema de exibição do template.
+
+O primeiro passo para utilizarmos a tag static é carregá-la no template. Para isso vamos inserir o seguinte trecho de código no topo do nosso HTML:
+
+```http
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="pt-br">
+```
+
+Como isso já podemos utilizar a tag no template `index.html`.
+
+### Alterando o caminho dos arquivos estáticos
+
+Para utilizar a tag static é bem fácil. Como falamos, os arquivos estáticos do nosso projeto são arquivos do tipo JS, CSS e imagens. Sendo assim, vamos primeiro procurar pelas tags que importam os arquivos CSS no template HTML. A tag 
 
 ## Exibindo variáveis no template
 
