@@ -123,9 +123,7 @@ Como já fizemos o download das pastas **static** e **templates** e toda a confi
 
 ## Entendendo as adaptações realizadas no template
 
-Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados da maneira correta. 
-
-Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
+Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados. Lembra que fizemos a configuração da variável `STATIC_URL`? Pois bem, precisamos falar dela aqui pois para que os arquivos sejam carregados corretamente, o caminho relativo até eles deve estar correto e é aqui que a `STATIC_URL` entra em cena.
 
 * Conhecendo a tag static
 * Alterando o caminho dos arquivos estáticos
