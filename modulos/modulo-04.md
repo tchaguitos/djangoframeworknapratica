@@ -133,7 +133,7 @@ A tag static é a representação da variável `STATIC_URL` nos templates. O Dja
 
 O primeiro passo para utilizarmos a tag static é carregá-la no template. Para isso vamos inserir o seguinte trecho de código no topo do nosso HTML:
 
-```http
+```markup
 <!DOCTYPE html>
 
 {% load static %}
@@ -141,27 +141,51 @@ O primeiro passo para utilizarmos a tag static é carregá-la no template. Para 
 <html lang="pt-br">
 ```
 
-Como isso já podemos utilizar a tag no template `index.html`.
+{% hint style="success" %}
+Tags no Django são escritas dessa maneira: `{% %}`. Guarde isso, pois utilizaremos bastante no decorrer do curso. 
+{% endhint %}
+
+Com isso já podemos utilizar a tag no template `index.html`.
 
 ### Alterando o caminho dos arquivos estáticos
 
-Para utilizar a tag {% static %} é bem fácil. Como falamos, os arquivos estáticos do nosso projeto são arquivos do tipo JS, CSS e imagens. Sendo assim, vamos alterar primeiro as importações dos arquivos CSS.
+Como falamos, a tag `{% static %}` é a representação da pasta **static.** A tag nos dá um link para essa pasta para utilização no carregamento dos arquivos estáticos nos templates. Como é o Django que cuida de toda essa parte por nós, também vamos delegar a ele o carregamento dos nossos arquivos JS, CSS e imagens.
 
-Para 
+#### Alterando importação de arquivos CSS
 
-```http
+Vamos alterar primeiro as importações dos arquivos CSS. As linhas que fazem o carregamento dos arquivos CSS no template são:
+
+```markup
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 ```
 
-Para:
+Vamos alterar os textos referentes a `href` para utilizarmos a tag `{% static %}`. As importações ficarão assim:
 
-```http
+```markup
 <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
 <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 ```
 
+#### Alterando importação de arquivos JS
 
+Para alterarmos as importações dos arquivos JS, vamos encontrar as linhas:
+
+```markup
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+```
+
+E alterá-las para que fiquem da seguinte forma:
+
+```markup
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+```
+
+Com isso, ao acessarmos [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) novamente no navegador, teremos o template exibido de forma estruturada com os arquivos CSS \(exibição\) e JS \(comportamento\) devidamente carregados.
 
 ## Exibindo variáveis no template
 
