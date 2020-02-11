@@ -145,14 +145,23 @@ Como isso já podemos utilizar a tag no template `index.html`.
 
 ### Alterando o caminho dos arquivos estáticos
 
-Para utilizar a tag static é bem fácil. Como falamos, os arquivos estáticos do nosso projeto são arquivos do tipo JS, CSS e imagens. Sendo assim, vamos alterar primeiro as importações dos arquivos CSS.
+Para utilizar a tag {% static %} é bem fácil. Como falamos, os arquivos estáticos do nosso projeto são arquivos do tipo JS, CSS e imagens. Sendo assim, vamos alterar primeiro as importações dos arquivos CSS.
 
 Para 
+
+```http
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+```
+
+Para:
 
 ```http
 <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
 <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 ```
+
+
 
 ## Exibindo variáveis no template
 
