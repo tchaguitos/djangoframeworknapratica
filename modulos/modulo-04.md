@@ -121,7 +121,7 @@ def index(request):
 
 Como já fizemos o download das pastas **static** e **templates** e toda a configuração necessária para funcionamento de ambas, o Django já reconhece a pasta e busca pelo template `index.html` dentro dela.
 
-## Entendendo as adaptações realizadas no template
+## Entendendo as adaptações necessárias no template
 
 Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados. Lembra que fizemos a configuração da variável `STATIC_URL`? Pois bem, precisamos falar dela aqui pois para que os arquivos sejam carregados corretamente, o caminho relativo até eles deve estar correto e é aqui que a `STATIC_URL` entra em cena.
 
@@ -145,7 +145,14 @@ Como isso já podemos utilizar a tag no template `index.html`.
 
 ### Alterando o caminho dos arquivos estáticos
 
-Para utilizar a tag static é bem fácil. Como falamos, os arquivos estáticos do nosso projeto são arquivos do tipo JS, CSS e imagens. Sendo assim, vamos primeiro procurar pelas tags que importam os arquivos CSS no template HTML. A tag 
+Para utilizar a tag static é bem fácil. Como falamos, os arquivos estáticos do nosso projeto são arquivos do tipo JS, CSS e imagens. Sendo assim, vamos alterar primeiro as importações dos arquivos CSS.
+
+Para 
+
+```http
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+```
 
 ## Exibindo variáveis no template
 
