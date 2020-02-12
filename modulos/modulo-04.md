@@ -16,7 +16,7 @@ O Django, por padrão, vem configurado para que já seja possível trabalhar com
 
 ### Criando a pasta templates em nosso projeto
 
-Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e várias outras funcionalidades diretamente nos templates HTML através de tags.
+Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e ainda possui diversas funcionalidades que podem ser utilizadas diretamente nos templates HTML através de tags.
 
 {% hint style="info" %}
 Uma engine de template nada mais é que uma aplicação que visa facilitar o processo de criação de templates HTML dinâmicos e tornar o processo de envio e exibição de informações nos templates menos burocrático
@@ -99,18 +99,99 @@ Como o Django já nos dá tudo que é necessário para criarmos aplicações web
 
 ### Conhecendo a função render
 
-Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` que é responsável por combinar o template com informações
+Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Antes de seguir, vamos trabalhar um pouco a memória e lembrar como a nossa view está:
 
+```python
+from django.http import HttpResponse
 
+def index(request):
+    return HttpResponse("Olá, mundo!")
+```
 
-## Entendendo as adaptações realizadas no template
+Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` para exibir um template HTML no lugar da mensagem. 
 
-Entendendo as adaptações realizadas no template para trabalhar com a engine do Django... index.html
+A função `render` é uma função de atralho do Django que nos possibilita combinar um template HTML e um dicionário de contexto. A função deve receber sempre a variável `request` e uma `string` representando o caminho do template a ser utilizado. Esses argumentos são obrigatórios e devem ser passados para a função `render` sempre que a mesma for utilizada, caso contrário, ocorrerá um erro.
 
-* Conhecendo a tag static
-* Alterando o caminho dos arquivos estáticos
+Vamos alterar a nova view para que retorne a função `render` ao invés da classe `HttpResponse` passando a variável `request` e o caminho para o template `index.html`:
+
+```python
+def index(request):
+    return render(request, "index.html")
+```
+
+Como já fizemos o download das pastas **static** e **templates** e toda a configuração necessária para funcionamento de ambas, o Django já reconhece a pasta e busca pelo template `index.html` dentro dela.
+
+## Entendendo as adaptações necessárias no template
+
+Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados. Lembra que fizemos a configuração da variável `STATIC_URL`? Pois bem, precisamos falar dela aqui pois para que os arquivos sejam carregados corretamente, o caminho relativo até eles deve estar correto e é aqui que a `STATIC_URL` entra em cena.
+
+### Conhecendo a tag static
+
+Quando falamos anteriormente sobre a engine de templates do Django, falamos que ela é capaz de executar funções condicionais, loops, exibir valores e possui diversas outras funcionalidades que podem ser executadas diretamente nos templates através de tags. Vamos agora conhecer a primeira tag que vamos utilizar em nosso projeto, a tag **static**.
+
+A tag static é a representação da variável `STATIC_URL` nos templates. O Django fornece essa tag no intuito de facilitar o trabalho com arquivos estáticos. Vamos aprender como utilizar a tag e resolver o problema de exibição do template.
+
+O primeiro passo para utilizarmos a tag static é carregá-la no template. Para isso vamos inserir o seguinte trecho de código no topo do nosso HTML:
+
+```markup
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="pt-br">
+```
+
+{% hint style="success" %}
+Tags no Django são escritas dessa maneira: `{% %}`. Guarde isso, pois utilizaremos bastante no decorrer do curso. 
+{% endhint %}
+
+Com isso já podemos utilizar a tag no template `index.html`.
+
+### Alterando o caminho dos arquivos estáticos
+
+Como falamos, a tag `{% static %}` é a representação da pasta **static.** A tag nos dá um link para essa pasta para utilização no carregamento dos arquivos estáticos nos templates. Como é o Django que cuida de toda essa parte por nós, também vamos delegar a ele o carregamento dos nossos arquivos JS, CSS e imagens.
+
+#### Alterando importação de arquivos CSS
+
+Vamos alterar primeiro as importações dos arquivos CSS. As linhas que fazem o carregamento dos arquivos CSS no template são:
+
+```markup
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+```
+
+Vamos alterar os textos referentes a `href` para utilizarmos a tag `{% static %}`. As importações ficarão assim:
+
+```markup
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+```
+
+#### Alterando importação de arquivos JS
+
+Para alterarmos as importações dos arquivos JS, vamos encontrar as linhas:
+
+```markup
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+```
+
+E alterá-las para que fiquem da seguinte forma:
+
+```markup
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+```
+
+Com isso, ao acessarmos [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) novamente no navegador, teremos o template exibido de forma estruturada com os arquivos CSS \(exibição\) e JS \(comportamento\) devidamente carregados.
 
 ## Exibindo variáveis no template
+
+Quando conhecemos a função `render` falamos que ela é responsável por combinar um template HTML e um dicionário de contexto, mas não fomos procurar o que é um dicionário de contexto. Agora é hora de falarmos dele.
+
+Um dicionário de contexto é a variável do tipo dicionário que pode ser passada como argumento para a função render. Quando passada, é possível acessarmos esses valores no template através de tags parecidas com a `{% static %}`.
 
 
 

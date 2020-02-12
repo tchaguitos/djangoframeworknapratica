@@ -188,7 +188,7 @@ Feito isso, vamos utilizar o comando para iniciar nosso servidor de desenvolvime
 (env)$ python manage.py runserver
 ```
 
-Feito isso e não havendo erros no terminal, você deverá acessar o endereço [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) em seu navegador e visualizar nosso tão esperado "Hello world".
+Feito isso e não havendo erros no terminal, você deverá acessar o endereço `http://127.0.0.1:8000/` em seu navegador e visualizar nosso tão esperado "Hello world".
 
 ## Escrevendo as models
 
@@ -505,7 +505,7 @@ Ao executar o comando, nosso terminal ficará travado esperando que a gente info
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-50-37.png)
 
-Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço [`http://127.0.0.1:8000/admin/`](http://127.0.0.1:8000/admin/) em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
+Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço `http://127.0.0.1:8000/admin/` em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-42-34.png)
 
