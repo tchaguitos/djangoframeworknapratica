@@ -191,7 +191,27 @@ Com isso, ao acessarmos [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) novam
 
 Quando conhecemos a função `render` falamos que ela é responsável por combinar um template HTML e um dicionário de contexto, mas não fomos procurar o que é um dicionário de contexto. Agora é hora de falarmos dele.
 
-Um dicionário de contexto é a variável do tipo dicionário que pode ser passada como argumento para a função render. Quando passada, é possível acessarmos esses valores no template através de tags parecidas com a `{% static %}`.
+Um dicionário de contexto é a variável do tipo dicionário que pode ser passada como argumento para a função render. Quando passada, é possível acessarmos os valores contidos na variável diretamente no template através de tags específicas.
 
+### Definindo nosso dicionário de contexto
 
+Para fazer isso, vamos no arquivo `views.py` e vamos criar a variável `contexto` acima do retorno da função. A função index ficará da seguinte forma:
+
+```python
+def index(request):
+    
+    contexto = {
+        "curso": "Django framework na prática",
+    }
+    
+    return render(request, "index.html", contexto)
+```
+
+{% hint style="info" %}
+No código acima criamos a variável `contexto` já com o valor `usuario_logado` definido. Para identificarmos o usuário logado, vamos pedir uma ajuda à variável `request` que nos dá a possibilidade de acesso à informações `user` que representa o usuário logado na requisição em questão
+{% endhint %}
+
+### Exibindo as informações nos templates
+
+Agora que já definimos o nosso dicionário de contexto e passamos ele como argumento 
 
