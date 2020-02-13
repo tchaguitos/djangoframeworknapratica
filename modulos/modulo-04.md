@@ -1,4 +1,4 @@
-# Módulo 04 - in dev
+# Módulo 04
 
 ## Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
 
