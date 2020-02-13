@@ -201,7 +201,7 @@ Para fazer isso, vamos no arquivo `views.py` e vamos criar a variável `contexto
 def index(request):
     
     contexto = {
-        "curso": "Django framework na prática",
+        "nome_curso": "Django framework na prática",
     }
     
     return render(request, "index.html", contexto)
@@ -213,5 +213,29 @@ No código acima criamos a variável `contexto` já com o valor `usuario_logado`
 
 ### Exibindo as informações nos templates
 
-Agora que já definimos o nosso dicionário de contexto e passamos ele como argumento 
+A partir de agora, vamos aprender um pouco mais sobre a linguagem de templates do Django. Ela foi projetada para ser poderosa e fácil de formma que seja confortável trabalhar com a linguagem HTML.
+
+Essencialmente, templates são arquivos de texto, geralmente nos formatos HTML, XML ou CSV. Para o Django, um template contém variáveis que podem ser substituídas por valores quando o template é interpretado e tags que controlam a lógica do template.
+
+Agora que já definimos o nosso dicionário de contexto e passamos ele como argumento para a função `render`, vamos exibir essas informações no template `index.html`.
+
+{% hint style="success" %}
+Dicionário é uma estrutura de dados em Python e seus elementos não são ordenados. Dicionários são estruturas poderosas e muito utilizadas pois podemos acessar seus elementos através de chaves. Existem linguagens que este tipo é conhecido como "matrizes associativas" ou apenas "objetos"
+{% endhint %}
+
+Para exibirmos os valores contidos no dicionário `contexto` basta utilizarmos a sintaxe para variáveis da linguagem de templates do Django: `{{ chave_do_dicionario }}`. Para nosso caso, vamos exibir o valor da chave `nome_curso` que, dentro do dicionário `contexto`, corresponde ao texto **Django framework na prática**. 
+
+Vamos abrir o arquivo index.html e procurar pela seguinte linha:
+
+```python
+<h1 class="h3 mb-4 text-gray-800">Página inicial</h1>
+```
+
+Vamos alterar o texto da tag `h1` \(o texto **Página inicial**\) para exibir também o valor da nossa variável `nome_curso` passada no `contexto` do template. A linha deverá ficar assim:
+
+```python
+<h1 class="h3 mb-4 text-gray-800">Página inicial - {{ nome_curso }}</h1>
+```
+
+Volte para o navegador, atualize a página e veja a mágica acontecer: o valor `{{ nome_curso }}` será substituído pelo texto "Django framework na prática" que definimos no dicionário `contexto`. Se alterarmos o valor no arquivo `views.py` o mesmo acontece no `index.html`.
 
