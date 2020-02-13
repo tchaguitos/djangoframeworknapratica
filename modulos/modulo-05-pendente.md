@@ -76,9 +76,55 @@ class Visitante(models.Model):
 
 ### Conhecendo o campo DateTimeField
 
+Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário do registro. Assim como o `DateField`, também aceita `auto_now` e `auto_now_add` como argumento, além das opções `blank` e `null,` que deixam explícito se o campo pode ser um texto vazio ou nulo, respectivamente. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
+
+Primeiro vamos definir o atributo `horario_chegada` que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja atualizado no exato momento que registramos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    # código acima omitido...
+
+    placa_veiculo = models.CharField(
+        verbose_name="Placa do veículo",
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    
+    horario_chegada = models.DateTimeField(
+        verbose_name="Horário de chegada na portaria", auto_now_add=True
+    )
+```
+
+Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como o 
 
 
 
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    # código acima omitido...
+
+    placa_veiculo = models.CharField(
+        verbose_name="Placa do veículo",
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    
+    horario_chegada = models.DateTimeField(
+        verbose_name="Horário de chegada na portaria", auto_now_add=True
+    )
+    
+    horario_saida = models.DateTimeField(
+        verbose_name="Horário de saída do condomínio",
+        null=True,
+        blank=True,
+    )
+```
 
 Além destas informações, é necessário que seja guardado também o nome do morador que autorizou a entrada do visitante no condomínio. Sendo assim, teremos mais dois atributos:
 
