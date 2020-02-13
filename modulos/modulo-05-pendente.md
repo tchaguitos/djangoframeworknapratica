@@ -98,9 +98,7 @@ class Visitante(models.Model):
     )
 ```
 
-Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como o 
-
-
+Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como nulo... continuar
 
 ```python
 from django.db import models
