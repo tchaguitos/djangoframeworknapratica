@@ -188,7 +188,7 @@ Feito isso, vamos utilizar o comando para iniciar nosso servidor de desenvolvime
 (env)$ python manage.py runserver
 ```
 
-Feito isso e não havendo erros no terminal, você deverá acessar o endereço `http://127.0.0.1:8000/` em seu navegador e visualizar nosso tão esperado "Hello world".
+Feito isso e não havendo erros no terminal, você deverá acessar o endereço [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) em seu navegador e visualizar nosso tão esperado "Hello world".
 
 ## Escrevendo as models
 
@@ -505,7 +505,7 @@ Ao executar o comando, nosso terminal ficará travado esperando que a gente info
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-50-37.png)
 
-Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço `http://127.0.0.1:8000/admin/` em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
+Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço [`http://127.0.0.1:8000/admin/`](http://127.0.0.1:8000/admin/) em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-42-34.png)
 
@@ -544,7 +544,7 @@ O Django possui integrado um módulo para internacionalização e localização.
 Para alterar o idioma padrão utilizado no projeto, vamos no arquivo `settings.py` e procurar pela variável `LANGUAGE_CODE`. Essa variável recebe uma string referente ao identificador do idioma e país de origem com base na especificação que define os formatos de linguagens para serem utilizados. Para nosso caso, utilizaremos a string `pt-BR` que é quem diz para o Django: "hey, cara, utilize português do Brasil como idioma principal do projeto". Para fazer isso, basta que a gente substitua o valor da variável pelo seguinte valor:
 
 ```python
-LANGUAGE_CODE = "pt-BR"
+LANGUAGE_CODE = "pt-br"
 ```
 
 Com isso, todas as mensagens e textos exibidos no painel administrativo já serão traduzidos automaticamente pelo módulo de internacionalização.
