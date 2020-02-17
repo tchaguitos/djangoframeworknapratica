@@ -78,7 +78,7 @@ Sabemos também que, por exigência do setor de RH, é necessário informar a da
 
 Os campos do tipo data representam datas - obviamente, mas é interessante a gente prestar atenção ao fato de que esses campos são representados por instâncias do tipo `datetime.date` que é como as datas são tratadas no Python e podem receber dois argumentos que ainda não conhecemos: `auto_now` e `auto_now_add`.
 
-O argumento `auto_now` diz para o Django que é necessário atualizar o valor sempre que nosso objeto for salvo. Se nós definirmos ele como `True` \(verdadeiro\), o valor de `data_nascimento` será atualizado para um valor atual sempre que atualizarmos as informações de um porteiro. No caso do argumento `auto_now_add`, ele diz para o Django que é necessário inserir a data atual como valor no momento da criação do registro no banco de dados e, feito isso, o valor não é atualizado.
+O argumento `auto_now` diz para o Django que é necessário atualizar o valor sempre que nosso objeto for salvo. Se nós definirmos ele como `True` \(verdadeiro\), o valor de `data_nascimento` será atualizado para um valor atual sempre que atualizarmos as informações de um porteiro. No caso do argumento `auto_now_add`, ele diz para o Django que é necessário inserir a data atual como valor no momento da criação e, feito isso, o valor não é atualizado para casos de atualização das informações.
 
 Como nosso objetivo é informar uma data que represente a data de nascimento do porteiro, vamos dizer ao Django que não é necessário preencher o campo automaticamente apenas setando os valores dos argumentos como `False`. 
 
@@ -242,7 +242,7 @@ Migrations for 'porteiros':
 Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos pedir ao Django que efetue essas alterações em nosso banco. Para isso vamos executar o comando `migrate`.
 
 ```python
-(env)$ python manage.py migrate porteiros
+(env)$ python manage.py migrate
 ```
 
 E, se tudo ocorrer bem, vamos receber em nosso terminal:
@@ -252,7 +252,7 @@ Operations to perform:
   Apply all migrations: porteiros
 
 Running migrations:
-  Applying porteiros.0001_initial.py... OK
+  Applying usuarios.0001_initial.py... OK
 ```
 
 ## Criando porteiro através do Admin do Django

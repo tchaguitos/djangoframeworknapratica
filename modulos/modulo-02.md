@@ -188,7 +188,7 @@ Feito isso, vamos utilizar o comando para iniciar nosso servidor de desenvolvime
 (env)$ python manage.py runserver
 ```
 
-Feito isso e não havendo erros no terminal, você deverá acessar o endereço `http://127.0.0.1:8000/` em seu navegador e visualizar nosso tão esperado "Hello world".
+Feito isso e não havendo erros no terminal, você deverá acessar o endereço [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) em seu navegador e visualizar nosso tão esperado "Hello world".
 
 ## Escrevendo as models
 
@@ -449,7 +449,7 @@ Migrations for 'usuarios':
 Existe também um comando para rodar as migrações e gerenciar o _schema_ do banco de dados de forma automática. O comando `migrate` é quem vai reunir todas as migrações que ainda não foram executadas e aplicar elas em seu banco de dados - isto é, vai sincronizar seu banco de dados com as informações que estão na classe modelo. Para efetuar as alterações em nosso banco de dados vamos executar o comando:
 
 ```bash
-(env)$ python manage.py migrate
+(env)$ python manage.py migrate usuarios
 ```
 
 Migrações são um recurso poderoso pois nos permitem alterar as classes modelos ao longo do tempo, sem a necessidade de manipular nosso banco de dados. O comando `migrate` é especialista em atualizar nosso banco de dados em tempo real sem perder dados.
@@ -479,7 +479,9 @@ Running migrations:
   Applying sessions.0001_initial... OK
 ```
 
-FALAR SOBRE OS RESULTADOS DA MIGRAÇÃO NO TERMINAL...
+Não se assuste com as tantas letras que vão aparecer no terminal. Elas nos informam quais aplicativos tiveram operações executadas e quais arquivos de migração foram utilizados para a migração em questão.
+
+### Relembrando as ações executadas
 
 Agora, vamos lembrar os passos que devemos seguir para efetuar as alterações em nosso banco de dados:
 
@@ -505,7 +507,7 @@ Ao executar o comando, nosso terminal ficará travado esperando que a gente info
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-50-37.png)
 
-Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço `http://127.0.0.1:8000/admin/` em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
+Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço [`http://127.0.0.1:8000/admin/`](http://127.0.0.1:8000/admin/) em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-42-34.png)
 
@@ -544,7 +546,7 @@ O Django possui integrado um módulo para internacionalização e localização.
 Para alterar o idioma padrão utilizado no projeto, vamos no arquivo `settings.py` e procurar pela variável `LANGUAGE_CODE`. Essa variável recebe uma string referente ao identificador do idioma e país de origem com base na especificação que define os formatos de linguagens para serem utilizados. Para nosso caso, utilizaremos a string `pt-BR` que é quem diz para o Django: "hey, cara, utilize português do Brasil como idioma principal do projeto". Para fazer isso, basta que a gente substitua o valor da variável pelo seguinte valor:
 
 ```python
-LANGUAGE_CODE = "pt-BR"
+LANGUAGE_CODE = "pt-br"
 ```
 
 Com isso, todas as mensagens e textos exibidos no painel administrativo já serão traduzidos automaticamente pelo módulo de internacionalização.
