@@ -242,7 +242,7 @@ Migrations for 'porteiros':
 Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos pedir ao Django que efetue essas alterações em nosso banco. Para isso vamos executar o comando `migrate`.
 
 ```python
-(env)$ python manage.py migrate
+(env)$ python manage.py migrate porteiros
 ```
 
 E, se tudo ocorrer bem, vamos receber em nosso terminal:
@@ -252,7 +252,7 @@ Operations to perform:
   Apply all migrations: porteiros
 
 Running migrations:
-  Applying usuarios.0001_initial.py... OK
+  Applying porteiros.0001_initial.py... OK
 ```
 
 ## Criando porteiro através do Admin do Django
