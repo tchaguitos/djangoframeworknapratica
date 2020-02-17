@@ -2,7 +2,7 @@
 
 ## Criando o aplicativo para gerenciar visitantes
 
-No último capítulo nós configuramos o Django para trabalhar com templates HTML e a pasta templates na raíz do projeto e ainda aprendemos como definir informações em uma view e exibí-las e no template.
+No último capítulo nós configuramos o Django para trabalhar com templates HTML e configuramos a pasta templates na raíz do projeto. Além disso, ainda aprendemos como definir informações em uma view e exibí-las no template.
 
 Como já definimos os usuários do sistema, os porteiros e fizemos as configurações dos templates que serão a base para construção da dashboard para controle de visitantes, podemos partir agora para definição do modelo de visitante.
 
@@ -26,22 +26,22 @@ Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos 
 
 ## Escrevendo as models do nosso aplicativo de visitantes
 
-Conforme falamos, nossa camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e também onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Sendo assim, temos que definir quais informações desejamos guardar dos nossos visitantes.
+Conforme falamos, nossa camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Ou seja, temos que definir quais informações desejamos guardar dos nossos visitantes.
 
-A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visita a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. As informações contidas nas normas do condomínio e que devem ser fornecidas pelo visitante são:
+A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visita a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
 
-1. Nome completo
-2. CPF
-3. Data de nascimento
+1. Nome completo do visitante
+2. CPF do visitante
+3. Data de nascimento do visitante
 4. Número da casa a ser visitada
 5. Placa do veículo utilizado na visita, se houver
-6. Horário da chegada
-7. Horário da saída
-8. Nome do morador responsável por autorizar a entrada
+6. Horário de chegada na portaria
+7. Horário de saída do condomínio
+8. Nome do morador responsável por autorizar a entrada do visitante
 9. Horário de autorização de entrada
 10. Porteiro responsável por registrar visitante
 
-Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar por partes o modelo de visitante. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois são todos tipos de dados que já conhecemos. Nossa classe `Visitante` ficará assim:
+Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar e escrever por partes o modelo de visitantes. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois são todos tipos de dados que já conhecemos. Nossa classe `Visitante` ficará assim:
 
 ```python
 from django.db import models
@@ -76,9 +76,9 @@ class Visitante(models.Model):
 
 ### Conhecendo o campo DateTimeField
 
-Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário do registro. Assim como o `DateField`, também aceita `auto_now` e `auto_now_add` como argumento, além das opções `blank` e `null,` que deixam explícito se o campo pode ser um texto vazio ou nulo, respectivamente. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
+Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumento, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
 
-Primeiro vamos definir o atributo `horario_chegada` que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja atualizado no exato momento que registramos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
+Primeiro vamos definir o atributo `horario_chegada`, que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja preenchido no exato momento que registrarmos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
 
 ```python
 from django.db import models
@@ -98,7 +98,7 @@ class Visitante(models.Model):
     )
 ```
 
-Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como nulo... continuar
+Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como um valor em branco. Para isso, o Django nos dá a possibilidade de utilização do atributo `auto_now` como `False`. Desta forma, o campo receberá um valor em branco no momento da criação do registro no banco de dados.
 
 ```python
 from django.db import models
@@ -114,13 +114,13 @@ class Visitante(models.Model):
     )
     
     horario_chegada = models.DateTimeField(
-        verbose_name="Horário de chegada na portaria", auto_now_add=True
+        verbose_name="Horário de chegada na portaria",
+        auto_now_add=True
     )
     
     horario_saida = models.DateTimeField(
         verbose_name="Horário de saída do condomínio",
-        null=True,
-        blank=True,
+        auto_now=False,
     )
 ```
 
