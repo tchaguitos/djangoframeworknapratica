@@ -37,8 +37,8 @@ A partir do documento de requisitos, podemos concluir que é necessário guardar
 5. Placa do veículo utilizado na visita, se houver
 6. Horário de chegada na portaria
 7. Horário de saída do condomínio
-8. Nome do morador responsável por autorizar a entrada do visitante
-9. Horário de autorização de entrada
+8. Horário de autorização de entrada
+9. Nome do morador responsável por autorizar a entrada do visitante
 10. Porteiro responsável por registrar visitante
 
 Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar e escrever por partes o modelo de visitantes. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois são todos tipos de dados que já conhecemos. Nossa classe `Visitante` ficará assim:
@@ -126,10 +126,10 @@ class Visitante(models.Model):
 
 Conforme visto, além destas informações, precisamos guardar também o nome do morador que autorizou a entrada do visitante e o horário autorização. Sendo assim, teremos mais dois atributos:
 
-* Nome do responsável por autorizar a entrada do visitante
 * Horário de autorização de entrada
+* Nome do morador responsável por autorizar a entrada do visitante
 
-Utilizaremos os campos já conhecidos `CharField` e `DateTimeField` para criarmos os atributos:
+Utilizaremos os campos já conhecidos `DateTimeField` e `CharField` para criarmos os atributos:
 
 ```python
 from django.db import models
@@ -142,21 +142,27 @@ class Visitante(models.Model):
         auto_now=False,
     )
     
+    horario_autorizacao = models.DateTimeField(
+        verbose_name="Horário de autorização de entrada",
+        auto_now=False,
+    )
+    
     morador_resposavel = models.CharField(
         verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
         max_length=194,
         blank=True,
-    )
-    
-    horario_autorizacao = models.DateTimeField(
-        verbose_name="Horário de autorização de entrada",
-        auto_now=False,
     )
 ```
 
 Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazenar o nome do morador responsável por autorizar a entrada e utilizamos um `DateTimeField` para armazenar o horário em que a autorização ocorreu. Conforme vimos, se não queremos que o campo `DateTimeField` seja preenchido na hora da criação ou atualização do registro, setamos o argumento do campo `auto_now` como `False`. Isso garante também que o campo possa ser preenchido com um texto vazio.
 
 ### Conhecendo o campo ForeignKey
+
+Seguindo a lista de requisitos, o próximo atributo que devemos adicionar ao nosso modelo é a informação referente ao porteiro responsável por registrar a entrada do visitante.
+
+Como criamos um modelo que representa nossos porteiros dentro do sistema, podemos associar esse modelo ao modelo de **visitante** por meio do campo `ForeignKey`. Esse campo cria um atributo que vincula um registro de modelo a outro registro de modelo. Neste caso, queremos vincular o modelo `Porteiro` ao modelo `Visitante` para representar o porteiro responsável pelo registro.
+
+Abaixo do atributo 
 
 ## Aplicando as alterações nas models no banco de dados
 
