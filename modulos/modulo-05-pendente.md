@@ -158,15 +158,11 @@ Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazena
 
 ### Conhecendo o campo ForeignKey
 
-Seguindo a lista de requisitos, o próximo atributo que devemos adicionar ao nosso modelo é a informação referente ao porteiro responsável por registrar a entrada do visitante.
+Seguindo a lista de requisitos, o próximo atributo que devemos adicionar ao nosso modelo é a informação referente ao **porteiro responsável por registrar a entrada do visitante**.
 
 Como criamos um modelo que representa nossos porteiros dentro do sistema, podemos associar esse modelo ao modelo de **visitante** por meio do campo `ForeignKey`. Esse campo cria um atributo que vincula um registro de modelo a outro registro de modelo. Neste caso, queremos vincular o modelo `Porteiro` ao modelo `Visitante` para representar o porteiro responsável pelo registro.
 
-O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros. O id do registro é esse!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
-
-{% hint style="warning" %}
-
-{% endhint %}
+O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros usando esse id!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
 
 Abaixo do atributo `morador_resposavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
 
@@ -185,8 +181,78 @@ class Visitante(models.Model):
     registrado_por = models.ForeignKey(
         "porteiros.Porteiro",
         verbose_name="Porteiro responsável pelo registro",
-        on_delete=models.CASCADE
+        on_delete=models.PROTECT
     )
+```
+
+Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**, no caso. Depois damos um nome descritivo para o campo e depois informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, assim protegemos também o modelo de visitantes, pois sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
+
+Feito isso, nosso próximo pass será apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    nome_completo = models.CharField(
+        verbose_name="Nome completo", max_length=194
+    )
+
+    cpf = models.CharField(
+        verbose_name="CPF",
+        max_length=11,
+    )
+
+    data_nascimento = models.DateField(
+        verbose_name="Data de nascimento",
+        auto_now=False
+    )
+
+    numero_casa = models.CharField(
+        verbose_name="Número da casa a ser visitada",
+        max_length=3,
+    )
+
+    placa_veiculo = models.CharField(
+        verbose_name="Placa do veículo",
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    
+    horario_chegada = models.DateTimeField(
+        verbose_name="Horário de chegada na portaria",
+        auto_now_add=True
+    )
+    
+    horario_saida = models.DateTimeField(
+        verbose_name="Horário de saída do condomínio",
+        auto_now=False,
+    )
+    
+    horario_autorizacao = models.DateTimeField(
+        verbose_name="Horário de autorização de entrada",
+        auto_now=False,
+    )
+    
+    morador_resposavel = models.CharField(
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        max_length=194,
+        blank=True,
+    )
+
+    registrado_por = models.ForeignKey(
+        "porteiros.Porteiro",
+        verbose_name="Porteiro responsável pelo registro",
+        on_delete=models.PROTECT
+    )
+    
+    class Meta:
+        verbose_name = "Visitante"
+        verbose_name_plural = "Visitantes"
+        db_table = "visitante"
+
+    def __str__(self):
+        return self.nome_completo
 ```
 
 ## Aplicando as alterações nas models no banco de dados
