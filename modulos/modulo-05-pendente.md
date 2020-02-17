@@ -124,10 +124,37 @@ class Visitante(models.Model):
     )
 ```
 
-Além destas informações, é necessário que seja guardado também o nome do morador que autorizou a entrada do visitante no condomínio. Sendo assim, teremos mais dois atributos:
+Conforme visto, além destas informações, precisamos guardar também o nome do morador que autorizou a entrada do visitante e o horário autorização. Sendo assim, teremos mais dois atributos:
 
 * Nome do responsável por autorizar a entrada do visitante
 * Horário de autorização de entrada
+
+Utilizaremos os campos já conhecidos `CharField` e `DateTimeField` para criarmos os atributos:
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    # código acima omitido...
+    
+    horario_saida = models.DateTimeField(
+        verbose_name="Horário de saída do condomínio",
+        auto_now=False,
+    )
+    
+    morador_resposavel = models.CharField(
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        max_length=194,
+        blank=True,
+    )
+    
+    horario_autorizacao = models.DateTimeField(
+        verbose_name="Horário de autorização de entrada",
+        auto_now=False,
+    )
+```
+
+Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazenar o nome do morador responsável por autorizar a entrada e utilizamos um `DateTimeField` para armazenar o horário em que a autorização ocorreu. Conforme vimos, se não queremos que o campo `DateTimeField` seja preenchido na hora da criação ou atualização do registro, setamos o argumento do campo `auto_now` como `False`. Isso garante também que o campo possa ser preenchido com um texto vazio.
 
 ### Conhecendo o campo ForeignKey
 
