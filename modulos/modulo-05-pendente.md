@@ -2,7 +2,7 @@
 
 ## Criando o aplicativo para gerenciar visitantes
 
-No último capítulo nós configuramos o Django para trabalhar com templates HTML e a pasta templates na raíz do projeto e ainda aprendemos como definir informações em uma view e exibí-las e no template.
+No último capítulo nós configuramos o Django para trabalhar com templates HTML e configuramos a pasta templates na raíz do projeto. Além disso, ainda aprendemos como definir informações em uma view e exibí-las no template.
 
 Como já definimos os usuários do sistema, os porteiros e fizemos as configurações dos templates que serão a base para construção da dashboard para controle de visitantes, podemos partir agora para definição do modelo de visitante.
 
@@ -26,22 +26,22 @@ Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos 
 
 ## Escrevendo as models do nosso aplicativo de visitantes
 
-Conforme falamos, nossa camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e também onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Sendo assim, temos que definir quais informações desejamos guardar dos nossos visitantes.
+Conforme falamos, nossa camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Ou seja, temos que definir quais informações desejamos guardar dos nossos visitantes.
 
-A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visita a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. As informações contidas nas normas do condomínio e que devem ser fornecidas pelo visitante são:
+A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visita a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
 
-1. Nome completo
-2. CPF
-3. Data de nascimento
+1. Nome completo do visitante
+2. CPF do visitante
+3. Data de nascimento do visitante
 4. Número da casa a ser visitada
 5. Placa do veículo utilizado na visita, se houver
-6. Horário da chegada
-7. Horário da saída
-8. Nome do morador responsável por autorizar a entrada
-9. Horário de autorização de entrada
+6. Horário de chegada na portaria
+7. Horário de saída do condomínio
+8. Horário de autorização de entrada
+9. Nome do morador responsável por autorizar a entrada do visitante
 10. Porteiro responsável por registrar visitante
 
-Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar por partes o modelo de visitante. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois são todos tipos de dados que já conhecemos. Nossa classe `Visitante` ficará assim:
+Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar e escrever por partes o modelo de visitantes. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois são todos tipos de dados que já conhecemos. Nossa classe `Visitante` ficará assim:
 
 ```python
 from django.db import models
@@ -76,9 +76,9 @@ class Visitante(models.Model):
 
 ### Conhecendo o campo DateTimeField
 
-Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário do registro. Assim como o `DateField`, também aceita `auto_now` e `auto_now_add` como argumento, além das opções `blank` e `null,` que deixam explícito se o campo pode ser um texto vazio ou nulo, respectivamente. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
+Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumento, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
 
-Primeiro vamos definir o atributo `horario_chegada` que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja atualizado no exato momento que registramos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
+Primeiro vamos definir o atributo `horario_chegada`, que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja preenchido no exato momento que registrarmos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
 
 ```python
 from django.db import models
@@ -98,7 +98,7 @@ class Visitante(models.Model):
     )
 ```
 
-Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como nulo... continuar
+Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como um valor em branco. Para isso, o Django nos dá a possibilidade de utilização do atributo `auto_now` como `False`. Desta forma, o campo receberá um valor em branco no momento da criação do registro no banco de dados.
 
 ```python
 from django.db import models
@@ -114,28 +114,193 @@ class Visitante(models.Model):
     )
     
     horario_chegada = models.DateTimeField(
-        verbose_name="Horário de chegada na portaria", auto_now_add=True
+        verbose_name="Horário de chegada na portaria",
+        auto_now_add=True
     )
     
     horario_saida = models.DateTimeField(
         verbose_name="Horário de saída do condomínio",
-        null=True,
+        auto_now=False,
+    )
+```
+
+Conforme visto, além destas informações, precisamos guardar também o nome do morador que autorizou a entrada do visitante e o horário autorização. Sendo assim, teremos mais dois atributos:
+
+* Horário de autorização de entrada
+* Nome do morador responsável por autorizar a entrada do visitante
+
+Utilizaremos os campos já conhecidos `DateTimeField` e `CharField` para criarmos os atributos:
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    # código acima omitido...
+    
+    horario_saida = models.DateTimeField(
+        verbose_name="Horário de saída do condomínio",
+        auto_now=False,
+    )
+    
+    horario_autorizacao = models.DateTimeField(
+        verbose_name="Horário de autorização de entrada",
+        auto_now=False,
+    )
+    
+    morador_resposavel = models.CharField(
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        max_length=194,
         blank=True,
     )
 ```
 
-Além destas informações, é necessário que seja guardado também o nome do morador que autorizou a entrada do visitante no condomínio. Sendo assim, teremos mais dois atributos:
-
-* Nome do responsável por autorizar a entrada do visitante
-* Horário de autorização de entrada
+Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazenar o nome do morador responsável por autorizar a entrada e utilizamos um `DateTimeField` para armazenar o horário em que a autorização ocorreu. Conforme vimos, se não queremos que o campo `DateTimeField` seja preenchido na hora da criação ou atualização do registro, setamos o argumento do campo `auto_now` como `False`. Isso garante também que o campo possa ser preenchido com um texto vazio.
 
 ### Conhecendo o campo ForeignKey
 
-## Aplicando as alterações nas models no banco de dados
+Seguindo a lista de requisitos, o próximo atributo que devemos adicionar ao nosso modelo é a informação referente ao **porteiro responsável por registrar a entrada do visitante**.
+
+Como criamos um modelo que representa nossos porteiros dentro do sistema, podemos associar esse modelo ao modelo de **visitante** por meio do campo `ForeignKey`. Esse campo cria um atributo que vincula um registro de modelo a outro registro de modelo. Neste caso, queremos vincular o modelo `Porteiro` ao modelo `Visitante` para representar o porteiro responsável pelo registro.
+
+O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros usando esse id!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
+
+Abaixo do atributo `morador_resposavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    # código acima omitido...
+    
+    morador_resposavel = models.CharField(
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        max_length=194,
+        blank=True,
+    )
+    
+    registrado_por = models.ForeignKey(
+        "porteiros.Porteiro",
+        verbose_name="Porteiro responsável pelo registro",
+        on_delete=models.PROTECT
+    )
+```
+
+Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**, no caso. Depois damos um nome descritivo para o campo e depois informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, assim protegemos também o modelo de visitantes, pois sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
+
+Feito isso, nosso próximo pass será apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    nome_completo = models.CharField(
+        verbose_name="Nome completo", max_length=194
+    )
+
+    cpf = models.CharField(
+        verbose_name="CPF",
+        max_length=11,
+    )
+
+    data_nascimento = models.DateField(
+        verbose_name="Data de nascimento",
+        auto_now=False
+    )
+
+    numero_casa = models.CharField(
+        verbose_name="Número da casa a ser visitada",
+        max_length=3,
+    )
+
+    placa_veiculo = models.CharField(
+        verbose_name="Placa do veículo",
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    
+    horario_chegada = models.DateTimeField(
+        verbose_name="Horário de chegada na portaria",
+        auto_now_add=True
+    )
+    
+    horario_saida = models.DateTimeField(
+        verbose_name="Horário de saída do condomínio",
+        auto_now=False,
+    )
+    
+    horario_autorizacao = models.DateTimeField(
+        verbose_name="Horário de autorização de entrada",
+        auto_now=False,
+    )
+    
+    morador_resposavel = models.CharField(
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        max_length=194,
+        blank=True,
+    )
+
+    registrado_por = models.ForeignKey(
+        "porteiros.Porteiro",
+        verbose_name="Porteiro responsável pelo registro",
+        on_delete=models.PROTECT
+    )
+    
+    class Meta:
+        verbose_name = "Visitante"
+        verbose_name_plural = "Visitantes"
+        db_table = "visitante"
+
+    def __str__(self):
+        return self.nome_completo
+```
 
 ## Registrando nossa aplicação no Admin do Django
 
-## Registrando um visitante utilizando o Django Admin
+O próximo passo a ser executado, como já vimos, é tornar o nosso modelo visível para o Admin do Django. Então vamos lá!
+
+Vamos abrir o arquivo `admin.py` do nosso aplicativo visitantes, importar a classe `Visitante` e passá-la como argumento da função `admin.site.register()`.
+
+```python
+from django.contrib import admin
+from visitantes.models import Visitante
+
+admin.site.register(Visitante)
+```
+
+## Aplicando as alterações em nosso banco de dados
+
+Feito isso, mais uma vez vamos criar as migrações do modelo criado utilizando o comando `makemigrations`.
+
+```python
+(env)$ python manage.py makemigrations visitantes
+```
+
+Se ocorrer bem, vamos receber as seguintes informações em nosso terminal:
+
+```python
+Migrations for 'visitantes':
+  porteiros/migrations/0001_initial.py
+    - Create model Visitante
+```
+
+Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos aplicar as alterações em nosso banco de dados com o comando `migrate`.
+
+```python
+(env)$ python manage.py migrate visitantes
+```
+
+E, se tudo ocorrer bem, vamos receber em nosso terminal:
+
+```python
+Operations to perform:
+  Apply all migrations: visitantes
+
+Running migrations:
+  Applying visitantes.0001_initial.py... OK
+```
+
+## Registrando visitantes utilizando o Django Admin
 
 ## Listando visitantes na página inicial da dashboard
 
