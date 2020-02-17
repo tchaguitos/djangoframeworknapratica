@@ -255,9 +255,50 @@ class Visitante(models.Model):
         return self.nome_completo
 ```
 
-## Aplicando as alterações nas models no banco de dados
-
 ## Registrando nossa aplicação no Admin do Django
+
+O próximo passo a ser executado, como já vimos, é tornar o nosso modelo visível para o Admin do Django. Então vamos lá!
+
+Vamos abrir o arquivo `admin.py` do nosso aplicativo visitantes, importar a classe `Visitante` e passá-la como argumento da função `admin.site.register()`.
+
+```python
+from django.contrib import admin
+from visitantes.models import Visitante
+
+admin.site.register(Visitante)
+```
+
+## Aplicando as alterações em nosso banco de dados
+
+Feito isso, mais uma vez vamos criar as migrações do modelo criado utilizando o comando `makemigrations`.
+
+```python
+(env)$ python manage.py makemigrations visitantes
+```
+
+Se ocorrer bem, vamos receber as seguintes informações em nosso terminal:
+
+```python
+Migrations for 'visitantes':
+  porteiros/migrations/0001_initial.py
+    - Create model Visitante
+```
+
+Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos aplicar as alterações em nosso banco de dados com o comando `migrate`.
+
+```python
+(env)$ python manage.py migrate visitantes
+```
+
+E, se tudo ocorrer bem, vamos receber em nosso terminal:
+
+```python
+Operations to perform:
+  Apply all migrations: visitantes
+
+Running migrations:
+  Applying visitantes.0001_initial.py... OK
+```
 
 ## Registrando um visitante utilizando o Django Admin
 
