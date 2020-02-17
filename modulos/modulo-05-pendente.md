@@ -162,7 +162,32 @@ Seguindo a lista de requisitos, o próximo atributo que devemos adicionar ao nos
 
 Como criamos um modelo que representa nossos porteiros dentro do sistema, podemos associar esse modelo ao modelo de **visitante** por meio do campo `ForeignKey`. Esse campo cria um atributo que vincula um registro de modelo a outro registro de modelo. Neste caso, queremos vincular o modelo `Porteiro` ao modelo `Visitante` para representar o porteiro responsável pelo registro.
 
-Abaixo do atributo 
+O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros. O id do registro é esse!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
+
+{% hint style="warning" %}
+
+{% endhint %}
+
+Abaixo do atributo `morador_resposavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
+
+```python
+from django.db import models
+
+class Visitante(models.Model):
+    # código acima omitido...
+    
+    morador_resposavel = models.CharField(
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        max_length=194,
+        blank=True,
+    )
+    
+    registrado_por = models.ForeignKey(
+        "porteiros.Porteiro",
+        verbose_name="Porteiro responsável pelo registro",
+        on_delete=models.CASCADE
+    )
+```
 
 ## Aplicando as alterações nas models no banco de dados
 
