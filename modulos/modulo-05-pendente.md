@@ -26,7 +26,7 @@ Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos 
 
 ## Escrevendo as models do nosso aplicativo de visitantes
 
-Conforme falamos, nossa camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Ou seja, temos que definir quais informações desejamos guardar dos nossos visitantes.
+Conforme falamos, a camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Ou seja, é hora de definirmos quais informações dos nossos visitantes desejamos guardar.
 
 A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visita a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
 
