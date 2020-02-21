@@ -300,7 +300,19 @@ Running migrations:
   Applying visitantes.0001_initial.py... OK
 ```
 
-## Registrando visitantes utilizando o Django Admin
+## Adicionando visitante utilizando o Django Admin
+
+Da mesma forma que cadastramos um porteiro utilizando o Admin do Django, vamos adicionar também um visitante. Vamos novamente acessar [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) e agora veremos que o aplicativo visitantes disponível para nós.
+
+![](../.gitbook/assets/screenshot_2020-02-20_20-48-46.png)
+
+Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá direto para o formulário de cadastro de visitantes. O formulário a ser exibido deverá se parecer com isto:
+
+![](../.gitbook/assets/screenshot_2020-02-20_20-56-30.png)
+
+Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e **porteiro** responsável por registro o visitante. Fique livre para preencher as informações à sua maneira. 
+
+Após preencher os campos citados, clique em salvar 
 
 ## Listando visitantes na página inicial da dashboard
 
@@ -309,4 +321,8 @@ Running migrations:
 * Falar sobre Queryset API
 
 ### Listando registros de visitantes no HTML
+
+Conhecendo a tag for
+
+Acessando atributos do visitante 
 
