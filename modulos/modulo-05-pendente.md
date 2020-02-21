@@ -312,7 +312,7 @@ Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá d
 
 Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e **porteiro** responsável por registro o visitante. Fique livre para preencher as informações à sua maneira. 
 
-Após preencher os campos citados, clique em salvar 
+Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado. Essa foi a primeira e última vez utilizamos o Django Admin para registar um visitante, pois a partir de agora trabalharemos diretamente nos templates HTML da dashboard que vamos disponibilizar para os porteiros do condomínio.
 
 ## Listando visitantes na página inicial da dashboard
 
