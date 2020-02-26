@@ -2,7 +2,7 @@
 
 ## Criando o aplicativo para gerenciar visitantes
 
-No último capítulo nós configuramos o Django para trabalhar com templates HTML e configuramos a pasta templates na raíz do projeto. Além disso, ainda aprendemos como definir informações em uma view e exibí-las no template.
+No último capítulo configuramos o Django para trabalhar com templates HTML e criamos a pasta **templates** na raíz do projeto. Além disso, ainda aprendemos como passar informações de uma função _view_ para o template através da variável **contexto**.
 
 Como já definimos os usuários do sistema, os porteiros e fizemos as configurações dos templates que serão a base para construção da dashboard para controle de visitantes, podemos partir agora para definição do modelo de visitante.
 
@@ -28,7 +28,7 @@ Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos 
 
 Conforme falamos, a camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Ou seja, é hora de definirmos quais informações dos nossos visitantes desejamos guardar.
 
-A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visita a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
+A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visitas a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
 
 1. Nome completo do visitante
 2. CPF do visitante
@@ -76,7 +76,7 @@ class Visitante(models.Model):
 
 ### Conhecendo o campo DateTimeField
 
-Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumento, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
+Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumentos, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
 
 Primeiro vamos definir o atributo `horario_chegada`, que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja preenchido no exato momento que registrarmos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
 
@@ -124,7 +124,7 @@ class Visitante(models.Model):
     )
 ```
 
-Conforme visto, além destas informações, precisamos guardar também o nome do morador que autorizou a entrada do visitante e o horário autorização. Sendo assim, teremos mais dois atributos:
+Conforme visto, além destas informações, precisamos guardar também o nome do morador que autorizou a entrada do visitante e o horário da autorização. Sendo assim, teremos mais dois atributos:
 
 * Horário de autorização de entrada
 * Nome do morador responsável por autorizar a entrada do visitante
@@ -154,7 +154,7 @@ class Visitante(models.Model):
     )
 ```
 
-Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazenar o nome do morador responsável por autorizar a entrada e utilizamos um `DateTimeField` para armazenar o horário em que a autorização ocorreu. Conforme vimos, se não queremos que o campo `DateTimeField` seja preenchido na hora da criação ou atualização do registro, setamos o argumento do campo `auto_now` como `False`. Isso garante também que o campo possa ser preenchido com um texto vazio.
+Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazenar o nome do morador responsável por autorizar a entrada e utilizamos um `DateTimeField` para armazenar o horário em que a autorização ocorreu. Conforme vimos, se não queremos que o campo `DateTimeField` seja preenchido na hora da criação ou atualização do registro, setamos o argumento `auto_now` como `False`. Isso garante também que o campo possa ser preenchido com um texto vazio.
 
 ### Conhecendo o campo ForeignKey
 
