@@ -185,9 +185,9 @@ class Visitante(models.Model):
     )
 ```
 
-Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**, no caso. Depois damos um nome descritivo para o campo e depois informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, assim protegemos também o modelo de visitantes, pois sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
+Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**, no caso. Depois damos um nome descritivo para o campo e depois informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, pois assim protegemos também o modelo de visitantes. Sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
 
-Feito isso, nosso próximo pass será apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
+Feito isso, nosso próximo passo será apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
 
 ```python
 from django.db import models
@@ -276,7 +276,7 @@ Feito isso, mais uma vez vamos criar as migrações do modelo criado utilizando 
 (env)$ python manage.py makemigrations visitantes
 ```
 
-Se ocorrer bem, vamos receber as seguintes informações em nosso terminal:
+Se tudo ocorrer bem, vamos receber as seguintes informações em nosso terminal:
 
 ```python
 Migrations for 'visitantes':
@@ -290,7 +290,7 @@ Com todas as informações necessárias para executar as alterações no banco d
 (env)$ python manage.py migrate visitantes
 ```
 
-E, se tudo ocorrer bem, vamos receber em nosso terminal:
+Devemos receber as seguintes informações em nosso terminal:
 
 ```python
 Operations to perform:
@@ -302,7 +302,7 @@ Running migrations:
 
 ## Adicionando visitante utilizando o Django Admin
 
-Da mesma forma que cadastramos um porteiro utilizando o Admin do Django, vamos adicionar também um visitante. Vamos novamente acessar [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) e agora veremos que o aplicativo visitantes disponível para nós.
+Da mesma forma que cadastramos um porteiro utilizando o Admin do Django, vamos adicionar também um visitante. Vamos novamente acessar [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) e agora veremos o aplicativo **visitantes** disponível para nós.
 
 ![](../.gitbook/assets/screenshot_2020-02-20_20-48-46.png)
 
@@ -312,7 +312,9 @@ Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá d
 
 Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e **porteiro** responsável por registro o visitante. Fique livre para preencher as informações à sua maneira. 
 
-Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado. Essa foi a primeira e última vez utilizamos o Django Admin para registar um visitante, pois a partir de agora trabalharemos diretamente nos templates HTML da dashboard que vamos disponibilizar para os porteiros do condomínio.
+Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado.
+
+Essa foi a primeira e última vez utilizamos o Django Admin para registar um visitante, pois a partir de agora trabalharemos diretamente nos templates HTML da dashboard que vamos disponibilizar para os porteiros do condomínio.
 
 ## Listando visitantes na página inicial da dashboard
 
