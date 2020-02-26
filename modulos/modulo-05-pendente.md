@@ -318,6 +318,12 @@ Essa foi a primeira e última vez utilizamos o Django Admin para registar um vis
 
 ## Listando visitantes na página inicial da dashboard
 
+Como já definimos nosso modelo e até registramos um visitante através do Admin, agora vamos aprender como buscar esses registros em nosso banco de dados.
+
+Quando definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar dos registros, criação de novos registros e muito mais. 
+
+Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
+
 ### Buscando registros de visitantes no banco de dados
 
 * Falar sobre Queryset API
