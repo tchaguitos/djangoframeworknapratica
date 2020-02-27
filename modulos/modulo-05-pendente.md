@@ -328,10 +328,37 @@ Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que tod
 
 Quando falamos da camada **view**, vimos que é ela quem deve escapsular toda a lógica necessária para apresentar os dados necessários. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
 
-O primeiro passo para buscarmos os registros de visitantes é...
+O primeiro passo para buscarmos os registros de visitantes é criarmos uma variável para armazenar os registros que serão retornados, para isto utilizaremos a variável `todos_visitantes`. A variável receberá uma **queryset** que será retornada pelo método `all()` do **Manager** `objects` do modelo **Visitante**.
+
+Antes de tudo, temos que importar o modelo no arquivo `views.py` do aplicativo usuarios.
 
 ```python
-todos_visitantes = Visitante.objects.all()
+from visitantes.models import Visitante
+
+def index(request):
+    contexto = {
+        "nome_curso": "Django framework na prática",
+    }
+    
+    return render(request, "index.html", contexto)
+```
+
+Feito isso, vamos criar a variável `todos_visitantes` acima da variável `contexto` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
+
+
+
+```python
+from visitantes.models import Visitante
+
+def index(request):
+
+    todos_visitantes = Visitante.objects.all()
+    
+    contexto = {
+        "nome_curso": "Django framework na prática",
+    }
+    
+    return render(request, "index.html", contexto)
 ```
 
 ### Listando registros de visitantes no HTML
