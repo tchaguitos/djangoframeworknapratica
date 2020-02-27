@@ -326,7 +326,9 @@ Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que tod
 
 ### Buscando registros de visitantes no banco de dados
 
-Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
+Quando falamos da camada **view**, vimos que é ela quem deve escapsular toda a lógica necessária para apresentar os dados necessários. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
+
+O primeiro passo para buscarmos os registros de visitantes é...
 
 ```python
 todos_visitantes = Visitante.objects.all()
