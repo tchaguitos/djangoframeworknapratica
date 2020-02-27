@@ -320,13 +320,17 @@ Essa foi a primeira e última vez utilizamos o Django Admin para registar um vis
 
 Como já definimos nosso modelo e até registramos um visitante através do Admin, agora vamos aprender como buscar esses registros em nosso banco de dados.
 
-Quando definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar dos registros, criação de novos registros e muito mais. 
+Quando precisamos buscar registros em nosso banco de dados, devemos construir uma **Queryset** utilizando o **Manager** da classe modelo em questão. A classe Manager, conforme visto, define como as interações com o banco de dados devem acontecer e, por padrão, é um atributo da classe chamado `objects`. Já uma queryset nada mais é que uma coleção de objetos existentes em nosso banco de dados. 
 
-Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
+Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros. Por hora, vamos nos concentrar em buscar os registros de visitantes existentes em nosso banco de dados.
 
 ### Buscando registros de visitantes no banco de dados
 
-* Falar sobre Queryset API
+Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
+
+```python
+todos_visitantes = Visitante.objects.all()
+```
 
 ### Listando registros de visitantes no HTML
 
