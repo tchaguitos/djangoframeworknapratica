@@ -134,9 +134,7 @@ INSTALLED_APPS += [
 
 O "Hello world" é aquele famoso programa de computador que imprime na tela a frase "Hello world" e é sempre utilizado como um exemplo minimalista de determinada linguagem ou framework. Não vamos deixar a tradição de lado e vamos implementar o nosso "Hello world" em Django. A diferença é que, como estamos trabalhando na web, vamos exibir nosso "Hello world" diretamente acessando a URL que vamos configurar. Mão na massa!
 
-Vamos começar trabalhando no arquivo `views.py` do nosso aplicativo `usuarios`. A camada view, como falamos, é a responsável por encapsular a lógica que recebe e responde as requisições dos nossos usuários.
-
-Toda view no Django é uma função de retorno vinculada a uma URL específica. Sendo assim, não existe uma URL sem uma função de view.
+Vamos começar trabalhando no arquivo `views.py` do nosso aplicativo `usuarios`. A camada view é responsável por encapsular a lógica que recebe e responde as requisições dos nossos usuários, podendo ou não definir comportamentos específicos e buscar informações no banco de dados, por exemplo. Toda view no Django é uma função de retorno vinculada a uma URL específica. Sendo assim, não existe uma URL sem uma função de view.
 
 ```python
 from django.shortcuts import render
