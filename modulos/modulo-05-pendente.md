@@ -345,7 +345,7 @@ def index(request):
 
 Feito isso, vamos criar a variável `todos_visitantes` acima da variável `contexto` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
 
-
+Feito isso, vamos colocar a variável `todos_visitantes` dentro do nosso dicionário `contexto` para que possamos acessá-la através dos templates. A função `index` ficará assim:
 
 ```python
 from visitantes.models import Visitante
@@ -356,6 +356,7 @@ def index(request):
     
     contexto = {
         "nome_curso": "Django framework na prática",
+        "todos_visitantes": todos_visitantes,
     }
     
     return render(request, "index.html", contexto)
@@ -363,7 +364,7 @@ def index(request):
 
 ### Listando registros de visitantes no HTML
 
-Conhecendo a tag for
+#### Conhecendo a tag for
 
-Acessando atributos do visitante 
+#### Acessando atributos do visitante 
 
