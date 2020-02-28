@@ -1,4 +1,4 @@
-# Módulo 05 - dev
+# Módulo 05
 
 ## Criando o aplicativo para gerenciar visitantes
 
