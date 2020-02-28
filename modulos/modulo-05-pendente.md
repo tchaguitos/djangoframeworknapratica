@@ -364,9 +364,59 @@ def index(request):
 
 ### Listando registros de visitantes no HTML
 
-#### Conhecendo a tag for
+#### Conhecendo a tag for e acessando atributos do visitante
 
-Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tertarmos 
+Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tentarmos exibir uma queryset desta maneira, não será possível, pois uma queryset é uma lista que contém vários itens. Felizmente, o Django nos fornecer uma tag para que possamos executar um loop nestas listas.
 
-#### Acessando atributos do visitante 
+A tag `{% for %}` é quem vai nos ajudar agora. O que ela faz é justamente andar por todos os itens da lista e disponibilizar uma variável para que possamos acessar as informações da mesma. Parece um pouco confuso? Não se assuste, vamos entender melhor visualizando o código.
+
+No nosso caso, buscamos todos os registros de visitantes que temos em nosso banco de dados e passamos essa lista como variável dentro do contexto da view. O que precisamos fazer agora é passar em cada item existente na lista de visitantes e exibirmos as informações como nome completo, CPF e data de nascimento, por exemplo.
+
+{% hint style="info" %}
+Para acessarmos as informações dos visitantes nos templates, utilizaremos o nome dos atributos definidos da classe modelo.
+{% endhint %}
+
+Vamos abrir o arquivo de template `index.html` e buscar pelo elemento HTML `<tbody>`. É dentro dele, nos elementos `<td>` que vamos inserir as informações dos nossos visitantes utilizando a tag `{% for %}`. Para utilizar essa tag, precisamos também evidenciar para o Django onde o loop deve ser parado e fazemos isso utilizando a tag `{% endfor %}`.
+
+Logo abaixo do elemento `<tbody>` insira o trecho `{% for visitante in todos_visitantes %}`. Lembra de falamos da variável que a tag `{% for %}` disponibiliza para que possamos acessar as informações? Pois bem, podemos dar nome a ela e, neste caso, utilizaremos o nome `visitante` para a variável. O trecho de código ficará assim:
+
+```markup
+<tbody>
+    {% for visitante in todos_visitantes %}
+        <td>Don Corleone</td>
+        <td>123.123.123.06</td>
+        <td>22 de agosto 15:30</td>
+        <td>22 de agosto 15:38</td>
+        <td>Darth Vader</td>
+        <td>
+            <a href="#">
+                Ver detalhes
+            </a>
+        </td>
+    {% endfor %}
+</tbody>
+```
+
+Com isso já estamos executando o loop na lista `todos_visitantes`, mas ainda não estamos exibindo os valores referentes ao visitante registrado há pouco. Para fazer isso, vamos utlizar a sintaxe de chaves \(`{{  }}`\) em conjunto com variável `visitante` que criamos dentro da tag `{% for %}`.
+
+Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.nome_do_atributo`. Então, se queremos exibir o nome completo do visitante, vamos utilizar `visitante.nome_completo`. Faremos o mesmo com os atributos **nome completo**, **CPF**, **horário de chegada**, **horário de autorização de entrada** e **morador responsável**. Realizando as alterações para exibirmos os atributos, o código ficará assim:
+
+```markup
+<tbody>
+    {% for visitante in todos_visitantes %}
+        <td>{{ visitante.nome_completo }}</td>
+        <td>{{ visitante.cpf }}</td>
+        <td>{{ visitante.horario_chegada }}</td>
+        <td>{{ visitante.horario_autorizacao }}</td>
+        <td>{{ visitante.morador_resposavel }}</td>
+        <td>
+            <a href="#">
+                Ver detalhes
+            </a>
+        </td>
+    {% endfor %}
+</tbody>
+```
+
+Agora quando atualizarmos a página, vamos visualizar as informações do visitante registrado através do Admin. Caso queira testar, fique à vontade para registrar novos visitantes através do Admin. Quando você acessar novamente [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e atualizar a página, os novos visitantes serão adicionados à tabela de forma automática! Bem bacana, não?
 
