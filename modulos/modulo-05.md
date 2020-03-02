@@ -397,9 +397,9 @@ Logo abaixo do elemento `<tbody>` insira o trecho `{% for visitante in todos_vis
 </tbody>
 ```
 
-Com isso já estamos executando o loop na lista `todos_visitantes`, mas ainda não estamos exibindo os valores referentes ao visitante registrado há pouco. Para fazer isso, vamos utlizar a sintaxe de chaves \(`{{  }}`\) em conjunto com variável `visitante` que criamos dentro da tag `{% for %}`.
+Olha só que bacana: estamos dizendo para o Django "hey, cara, para cada `visitante` que existir em `todos_visitantes`, repita essa estrutura de elementos `<td>`. Com isso já estamos executando o loop na lista `todos_visitantes`, mas ainda não estamos exibindo os valores referentes ao visitante registrado há pouco. Para fazer isso, vamos utlizar a sintaxe de chaves \(`{{  }}`\) em conjunto com variável `visitante` que criamos dentro da tag `{% for %}`.
 
-Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.nome_do_atributo`. Então, se queremos exibir o nome completo do visitante, vamos utilizar `visitante.nome_completo`. Faremos o mesmo com os atributos **nome completo**, **CPF**, **horário de chegada**, **horário de autorização de entrada** e **morador responsável**. Realizando as alterações para exibirmos os atributos, o código ficará assim:
+Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.nome_do_atributo`. Se queremos exibir o nome completo do visitante, vamos utilizar `visitante.nome_completo`. Faremos o mesmo com os atributos **nome completo**, **CPF**, **horário de chegada**, **horário de autorização de entrada** e **morador responsável**. Realizando as alterações para exibirmos os atributos, o código ficará assim:
 
 ```markup
 <tbody>
@@ -418,5 +418,5 @@ Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.no
 </tbody>
 ```
 
-Agora quando atualizarmos a página, vamos visualizar as informações do visitante registrado através do Admin. Caso queira testar, fique à vontade para registrar novos visitantes através do Admin. Quando você acessar novamente [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e atualizar a página, os novos visitantes serão adicionados à tabela de forma automática! Bem bacana, não?
+Agora quando atualizarmos a página, vamos visualizar as informações do visitante registrado através do Admin. Caso queira testar, fique à vontade para registrar novos visitantes. Quando você acessar novamente [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e atualizar a página, os novos visitantes serão adicionados à tabela de forma automática! Bem bacana, não?
 
