@@ -1,4 +1,4 @@
-# Módulo 06 - pendente
+# Módulo 06 - dev
 
 ## Criando tela para registro de novo visitante
 

@@ -40,25 +40,25 @@
 
 ## Módulo 4
 
-* [ ] Configurando a aplicação para trabalhar com arquivos estáticos e pasta templates
-* [ ] Explicando as adaptações realizadas no template para funcionar no Django
-  * [ ] Alterar o caminho para arquivos estáticos
-* [ ] Atualizar função de home para usar o template
-* [ ] Passando variáveis para o template
+* [x] Configurando a aplicação para trabalhar com arquivos estáticos e pasta templates
+* [x] Explicando as adaptações realizadas no template para funcionar no Django
+  * [x] Alterar o caminho para arquivos estáticos
+* [x] Atualizar função de home para usar o template
+* [x] Passando variáveis para o template
 
 ## Módulo 5
 
-* [ ] Criando nosso aplicativo para gerenciar visitantes
-* [ ] Escrevendo as models do nosso aplicativo de visitantes
-  * [ ] Conhecendo o campo ForeignKey
-  * [ ] Conhecendo o campo DateTimeField
-* [ ] Aplicando as alterações nas models no banco de dados
-* [ ] Registrando nossa aplicação no Admin do Django
-* [ ] Registrando um visitante utilizando o Django Admin
-* [ ] Listando visitantes na página inicial da dashboard
-  * [ ] Buscando registros de visitantes no banco de dados
-    * [ ] Falar sobre Queryset API
-  * [ ] Listando registros de visitantes no HTML
+* [x] Criando nosso aplicativo para gerenciar visitantes
+* [x] Escrevendo as models do nosso aplicativo de visitantes
+  * [x] Conhecendo o campo ForeignKey
+  * [x] Conhecendo o campo DateTimeField
+* [x] Aplicando as alterações nas models no banco de dados
+* [x] Registrando nossa aplicação no Admin do Django
+* [x] Registrando um visitante utilizando o Django Admin
+* [x] Listando visitantes na página inicial da dashboard
+  * [x] Buscando registros de visitantes no banco de dados
+    * [x] Falar sobre Queryset API
+  * [x] Listando registros de visitantes no HTML
 
 ## Módulo 6
 
