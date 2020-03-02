@@ -24,9 +24,41 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Assim como fizemos anteriormente, vamos baixar o template e colocar na pasta **templates** localizada na raíz do nosso projeto.
+Assim como fizemos anteriormente, vamos baixar o template e colocar na pasta **templates** localizada na raíz do nosso projeto:
 
+{% file src="../.gitbook/assets/registrar\_visitante.html.zip" caption="Iniciar o download" %}
 
+### Criando URL para mapear view
+
+Quando criamos nossa primeira view, criamos também uma URL para mapear a view para acessarmos através do navegador. Caso não se lembre do processo, não se preocupe, pois vamos repetí-lo agora.
+
+Vamos abrir o arquivo `urls.py` do nosso projeto e, abaixo da URL de nome **index**, utilizando a função `path` vamos criar a URL de nome **registrar\_visitante** que deverá mapear a view ****`registrar_visitante`. Não podemos nos esquecer de importar as views do arquivo visitantes.
+
+O arquivo `urls.py` ficará assim:
+
+```python
+from django.urls import path
+from django.contrib import admin
+
+import usuarios.views
+import visitantes.views
+
+urlpatterns = [
+    # codigo acima omitido...
+    
+    path(
+        "",
+        usuarios.views.index,
+        name="index",
+    ),
+    
+    path(
+        "registrar-visitante",
+        visitantes.views.registrar_visitante,
+        name="registrar_visitante",
+    )
+]
+```
 
 ## Adaptando o template para trabalhar com a template engine do Django
 
