@@ -310,7 +310,7 @@ Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá d
 
 ![](../.gitbook/assets/screenshot_2020-02-20_20-56-30.png)
 
-Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e **porteiro** responsável por registro o visitante. Fique livre para preencher as informações à sua maneira. 
+Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e **porteiro** responsável por registrar o visitante. Fique livre para preencher as informações à sua maneira. 
 
 Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado.
 
@@ -322,11 +322,11 @@ Como já definimos nosso modelo e até registramos um visitante através do Admi
 
 Quando precisamos buscar registros em nosso banco de dados, devemos construir uma **Queryset** utilizando o **Manager** da classe modelo em questão. A classe Manager, conforme visto, define como as interações com o banco de dados devem acontecer e, por padrão, é um atributo da classe chamado `objects`. Já uma queryset nada mais é que uma lista de objetos existentes em nosso banco de dados. 
 
-Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros. Por hora, vamos nos concentrar em buscar os registros de visitantes existentes em nosso banco de dados.
+Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros. Por hora, vamos nos concentrar em buscar os registros de visitantes.
 
 ### Buscando registros de visitantes no banco de dados
 
-Quando falamos da camada **view**, vimos que é ela quem deve escapsular toda a lógica necessária para apresentar os dados necessários. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template, de modo que as responsabilidades fiquem isoladas.
+Quando falamos da camada **view**, vimos que é ela quem deve escapsular toda a lógica necessária para apresentar os dados. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template.
 
 O primeiro passo para buscarmos os registros de visitantes é criarmos uma variável para armazenar os registros que serão retornados, para isto utilizaremos a variável `todos_visitantes`. A variável receberá uma **queryset** que será retornada pelo método `all()` do **Manager** `objects` do modelo **Visitante**.
 
@@ -345,7 +345,7 @@ def index(request):
 
 Feito isso, vamos criar a variável `todos_visitantes` acima da variável `contexto` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
 
-Feito isso, vamos colocar a variável `todos_visitantes` dentro do nosso dicionário `contexto` para que possamos acessá-la através dos templates. A função `index` ficará assim:
+Não podemos nos esquecer de colocar a variável `todos_visitantes` dentro do nosso dicionário `contexto` para que possamos acessá-la através dos templates. A função `index` ficará assim:
 
 ```python
 from visitantes.models import Visitante
@@ -366,11 +366,11 @@ def index(request):
 
 #### Conhecendo a tag for e acessando atributos do visitante
 
-Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tentarmos exibir uma queryset desta maneira, não será possível, pois uma queryset é uma lista que contém vários itens. Felizmente, o Django nos fornecer uma tag para que possamos executar um loop nestas listas.
+Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tentarmos exibir uma queryset desta maneira, não será possível, pois uma queryset é uma lista que contém vários itens. Felizmente, o Django nos fornecer uma tag para que possamos executar um loop em listas do tipo, que chamamos de iteráveis.
 
 A tag `{% for %}` é quem vai nos ajudar agora. O que ela faz é justamente andar por todos os itens da lista e disponibilizar uma variável para que possamos acessar as informações da mesma. Parece um pouco confuso? Não se assuste, vamos entender melhor visualizando o código.
 
-No nosso caso, buscamos todos os registros de visitantes que temos em nosso banco de dados e passamos essa lista como variável dentro do contexto da view. O que precisamos fazer agora é passar em cada item existente na lista de visitantes e exibirmos as informações como nome completo, CPF e data de nascimento, por exemplo.
+No nosso caso, buscamos todos os registros de visitantes que temos em nosso banco de dados e passamos essa lista como variável dentro do contexto da view. O que precisamos fazer agora é passar em cada item existente na lista de visitantes e exibir as informações como nome completo, CPF e data de nascimento, por exemplo.
 
 {% hint style="info" %}
 Para acessarmos as informações dos visitantes nos templates, utilizaremos o nome dos atributos definidos da classe modelo.
