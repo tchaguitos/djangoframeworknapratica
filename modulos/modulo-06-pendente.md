@@ -24,7 +24,7 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Assim como fizemos anteriormente, vamos baixar o template e colocar na pasta **templates** localizada na raíz do nosso projeto:
+Assim como fizemos anteriormente, vamos baixar o template e agora vamos colocá-lo na pasta **templates** localizada na raíz do nosso projeto:
 
 {% file src="../.gitbook/assets/registrar\_visitante.html.zip" caption="Iniciar o download" %}
 
@@ -60,7 +60,11 @@ urlpatterns = [
 ]
 ```
 
+Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) para verificar se está tudo funcionando corretamente. Se sim, o template baixado deverá... continuar
+
 ## Adaptando o template para trabalhar com a template engine do Django
+
+
 
 * [ ] Criando o template "base.html"
 * [ ] Adaptando template "registrar\_visitante.html" para trabalhar com a engine do Django
