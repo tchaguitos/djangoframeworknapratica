@@ -62,6 +62,9 @@ urlpatterns = [
 
 Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) para verificar se está tudo funcionando corretamente. Se sim, o template baixado deverá... continuar
 
+* [https://tutorial.djangogirls.org/pt/template\_extending/](https://tutorial.djangogirls.org/pt/template_extending/)
+* [https://docs.djangoproject.com/en/3.0/topics/templates/](https://docs.djangoproject.com/en/3.0/topics/templates/)
+
 ## Adaptando o template para trabalhar com a template engine do Django
 
 
