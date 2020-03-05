@@ -12,7 +12,7 @@ A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a re
 
 Como você já deve ter percebido, existe um roteiro a ser seguido quando vamos criar novas views para nosso sistema web com Django, sendo o primeiro passo a criação da função de view no arquivo `views.py`. Como nossa função diz respeito ao registro de um novo vistante, vamos trabalhar dentro do aplicativo visitantes.
 
-Vamos abrir o arquivo `views.py` do aplicativo visitantes e escrever a função de view `registrar_visitante`, que deverá renderizar o template `registrar_visitante.html`. Por hora, nossa view fará apenas isso, ficando assim:
+Vamos abrir o arquivo `views.py` do aplicativo visitantes e escrever a função de view `registrar_visitante`, que deverá renderizar o template `registrar_visitante.html`. Por hora, nossa view fará apenas isso e ficará assim:
 
 ```python
 from django.shortcuts import render
@@ -24,15 +24,15 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Assim como fizemos anteriormente, vamos baixar o template e agora vamos colocá-lo na pasta **templates** localizada na raíz do nosso projeto:
+Assim como fizemos anteriormente, vamos baixar o template e agora colocá-lo na pasta **templates** localizada na raíz do nosso projeto:
 
 {% file src="../.gitbook/assets/registrar\_visitante.html.zip" caption="Iniciar o download" %}
 
 ### Criando URL para mapear view
 
-Quando criamos nossa primeira view, criamos também uma URL para mapear a view para acessarmos através do navegador. Caso não se lembre do processo, não se preocupe, pois vamos repetí-lo agora.
+Quando criamos nossa primeira view, criamos também uma URL com função de mapear a view para acessarmos através do navegador. Caso não se lembre do processo, não se preocupe, pois vamos repetí-lo agora.
 
-Vamos abrir o arquivo `urls.py` do nosso projeto e, abaixo da URL de nome **index**, utilizando a função `path` vamos criar a URL de nome **registrar\_visitante** que deverá mapear a view ****`registrar_visitante`. Não podemos nos esquecer de importar as views do arquivo visitantes.
+Vamos abrir o arquivo `urls.py` do nosso projeto e, abaixo da URL de nome **index**, utilizando a função `path`, vamos criar a URL de nome **registrar\_visitante** que deverá mapear a função de view ****`registrar_visitante`. Não podemos nos esquecer de importar as views do aplicativo visitantes!
 
 O arquivo `urls.py` ficará assim:
 
@@ -60,17 +60,137 @@ urlpatterns = [
 ]
 ```
 
-Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) para verificar se está tudo funcionando corretamente. Se sim, o template baixado deverá... continuar
+Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) para verificar se está tudo funcionando corretamente. Se sim, o template baixado será exibido no navegador.
 
-* [https://tutorial.djangogirls.org/pt/template\_extending/](https://tutorial.djangogirls.org/pt/template_extending/)
-* [https://docs.djangoproject.com/en/3.0/topics/templates/](https://docs.djangoproject.com/en/3.0/topics/templates/)
+## Adaptando nossos templates para trabalhar com a template engine do Django
 
-## Adaptando o template para trabalhar com a template engine do Django
+Temos agora duas views que renderizam dois templates diferentes e expõem funcionalidades diferentes: uma delas, que é a página inicial da dashboard, exibe os visitantes registrados, e a segunda deverá possibilitar o registro de novos visitantes. Antes de seguir adiante, vamos realizar algumas alterações em nossos templates para que possamos aproveitar melhor as funcionalidades do framework que estamos utilizando.
 
+Além das funcionalidades que falamos e exploramos, a engine de templates do Django também nos dá a possibilidade de reaproveitarmos trechos de código contidos em outros templates. No nosso caso, se você observar os templates `index.html` e `registrar_visitante.html`, vai notar que existem partes iguais nos dois templates e, para evitar isso, a engine de templates do Django nos fornece as tags `{% extends %}` e `{% block %}`.
 
+### Criando o template base
 
-* [ ] Criando o template "base.html"
-* [ ] Adaptando template "registrar\_visitante.html" para trabalhar com a engine do Django
+Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templates** e copiar o conteúdo do arquivo `index.html` para ele. O objetivo do nosso template `base.html` é armazenar a parte comum a todos os templates, sendo assim, temos que manter o menu lateral, a barra superior e o rodapé. O que podemos chamar de parte central do nosso template, que é a parte que em um template exibe uma tabela e no outro um formulário, será trocada de acordo com a view acessada. Após copiar o conteúdo do arquivo `index.html` para o arquivo `base.html`, vamos deixá-lo de lado um pouquinho.
+
+Com o template `base.html` criado, vamos fazer algumas adaptações em nosso template `index.html` para garantir que ele seja exibido corretamente fazendo uso da engine de templates do Django. Apague todo o conteúdo existente no arquivo `index.html` deixando apenas o conteúdo dentro do elemento HTML `<div class="container-fluid">`. O arquivo `index.html` ficará assim:
+
+```python
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+    </div>
+                  
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitantes no condomínio</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                        </div>
+                                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                        </div>
+                                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-lock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Número de visitantes na semana</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Número de visitantes no mês</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">37</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de visitantes</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Horário de chegada</th>
+                        <th>Horário da autorização</th>
+                        <th>Autorizado por</th>
+                        <th>Mais detalhes</th>
+                    </thead>
+
+                    <tbody>
+                        {% for visitante in todos_visitantes %}
+                            <td>{{ visitante.nome_completo }}</td>
+                            <td>{{ visitante.cpf }}</td>
+                            <td>{{ visitante.horario_chegada }}</td>
+                            <td>{{ visitante.horario_autorizacao }}</td>
+                            <td>{{ visitante.morador_resposavel }}</td>
+                            <td>
+                                <a href="#">
+                                    Ver detalhes
+                                </a>
+                            </td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+### Adaptando template index
+
+Com os templates devidamente separados, vamos trabalhar agora nas adaptações necessárias ao template index.html. O primeiro passo é inserirmos a  tag {%  extends %} no início do nosso arquivo. Essa tag
 
 ## Trabalhando com formulários no Django
 
