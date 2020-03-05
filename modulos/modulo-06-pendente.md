@@ -402,6 +402,50 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
 </html>
 ```
 
+### Adaptando template registrar\_visitante
+
+Faremos o mesmo que fizemos com o template `index.html`, deixando apenas o conteúdo existente dentro do elemento HTML `<div class="container-fluid">` e inserindo as tags `{% extends "base.html" %}`, `{% block conteudo %}` e `{% endblock conteudo %}`. O template `registrar_visitante.html` ficará assim:
+
+```python
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+    </div>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Registrar visitante</h6>
+        </div>
+        
+        <div class="card-body">
+            <div class="container">
+                <form class="user">
+                    <div class="form-group">
+                        <input type="email" class="form-control form-control-user form-sm" placeholder="E-mail">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-user"placeholder="Password">
+                    </div>
+
+                    <a href="index.html" class="btn btn-primary btn-user">
+                        Login
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock conteudo %}
+```
+
+Caso prefira, você pode fazer download da pasta templates com as alterações realizadas até aqui clicando no link abaixo:
+
+{% file src="../.gitbook/assets/templates.zip" caption="Iniciar o download" %}
+
 ## Trabalhando com formulários no Django
 
 ### Preparando view para receber requisição do tipo POST 
