@@ -2,6 +2,10 @@
 
 ## Trabalhando com formulários no Django
 
+* [https://tutorial.djangogirls.org/pt/django\_forms/](https://tutorial.djangogirls.org/pt/django_forms/)
+* [https://docs.djangoproject.com/en/3.0/intro/tutorial04/](https://docs.djangoproject.com/en/3.0/intro/tutorial04/)
+* [https://docs.djangoproject.com/en/3.0/topics/forms/](https://docs.djangoproject.com/en/3.0/topics/forms/)
+
 ### Preparando view para receber requisição do tipo POST 
 
 * falar sobre "request"
