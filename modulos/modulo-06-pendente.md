@@ -322,105 +322,83 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
 {% load static %}
 
 <html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    <title>Controle de Visitantes</title>
-    
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        
+        <title>Controle de Visitantes</title>
+        
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    </head>
 
-<body id="page-top">
-    <div id="wrapper">
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-user-shield"></i>
+    <body id="page-top">
+        <div id="wrapper">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    
+                    <div class="sidebar-brand-text">Controle de Visitantes</div>
+                </a>
+                
+                <hr class="sidebar-divider my-0">
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Início</span>
+                    </a>
+                </li>
+                
+                <hr class="sidebar-divider">
+                
+                <div class="sidebar-heading">
+                    Menu
                 </div>
                 
-                <div class="sidebar-brand-text">Controle de Visitantes</div>
-            </a>
-            
-            <hr class="sidebar-divider my-0">
-            
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">
-                    <i class="fas fa-home"></i>
-                    <span>Início</span>
-                </a>
-            </li>
-            
-            <hr class="sidebar-divider">
-        </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user-clock"></i>
+                        <span>Visitantes</span>
+                    </a>
+                </li>
+            </ul>
 
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-800 small">{{ request.user.email }}</span>
-                            </a>
+            {% block conteudo %} {% endblock conteudo %}
+
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Você realmente deseja sair?</h5>
                             
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Sair
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-
-                {% block conteudo %} {% endblock conteudo %}
-
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Controle de visitantes &copy; Django framework na prática</span>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Você realmente deseja sair?</h5>
                         
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    
-                    <div class="modal-body">Selecione "sair" se realmente deseja sair</div>
-                    
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
+                        <div class="modal-body">Selecione "sair" se realmente deseja sair</div>
+                        
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-primary" href="#">Sair</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-</body>
+            
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    </body>
 </html>
 ```
 
