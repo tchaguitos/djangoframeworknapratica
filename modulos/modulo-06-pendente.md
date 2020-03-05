@@ -2,11 +2,11 @@
 
 ## Criando tela para registro de novo visitante
 
-Assim como quando registramos um novo visitante através do Admin, precisamos de um formulário para inserção das informações. Por isso, vamos trabalhar agora na tela que terá a responsabilidade de exibir um formulário e registrar o visitante em nosso banco de dados.
+Assim como quando registramos um novo visitante através do Admin, precisaremos de um formulário para inserção das informações. Por isso, vamos trabalhar agora na tela que terá a responsabilidade de exibir um formulário e registrar o visitante em nosso banco de dados.
 
-Uma view é um tipo de função dentro da aplicação que geralmente serve um template específico. Até agora escrevemos somente a view que nos disponibiliza o template inicial da dashboard - `index.html`. Sendo assim, a view apenas busca informações e renderiza o template.
+Uma view é um tipo de função dentro da aplicação que geralmente serve um template específico. Até agora escrevemos somente a view que nos disponibiliza o template inicial da dashboard - `index.html`. A view que escrevemos apenas busca informações e renderiza o template utilizando as informações buscadas.
 
-A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a responsabilidade de exibir um formulário, receber e tratar uma requisição do tipo POST, validar o formulário com base das informações enviadas e salvar o novo visitante no banco de dados. Não se assuste, você vai ver como o Django nos ajuda abstraindo a maior parte desses requisitos.
+A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a responsabilidade de exibir um formulário, receber e tratar uma requisição do tipo POST, validar o formulário com base das informações enviadas na requisição e salvar o novo visitante no banco de dados. Não se assuste, você vai ver como o Django nos ajuda abstraindo a maior parte desses requisitos.
 
 ## Criando view para registrar visitante
 
