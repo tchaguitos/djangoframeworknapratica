@@ -190,7 +190,13 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
 
 ### Adaptando template index
 
-Com os templates devidamente separados, vamos trabalhar agora nas adaptações necessárias ao template index.html. O primeiro passo é inserirmos a  tag {%  extends %} no início do nosso arquivo. Essa tag
+Com os templates devidamente separados, vamos trabalhar agora nas adaptações necessárias ao template `index.html`. O primeiro passo é inserirmos a tag `{% extends %}` no início do nosso arquivo, que é quem dirá ao Django que é necessário estender o template. A tag `{% extends %}` funciona de modo que precisamos identificar o template "pai" do template estendido. Isto é, neste caso, o template `index.html` será estentido pelo template `base.html`, sendo este o "seu pai". Na primeira linha do arquivo `index.html` insira o trecho `{% extends "base.html" %}`.
+
+Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizado para substituição. Faremos isso utilizando as tags `{% block %} e {% endblock %}` passando um nome a elas. Logo abaixo da tag `{% extends base.html %}` vamos inserir a tag `{% block conteudo %}` e ao final do arquivo a tag `{% endblock conteudo %}`. Fazendo isso estamos deixando claro para o Django qual trecho deverá ser colocado no template `base.html` quando acessarmos a view que renderiza o template `index.html`.
+
+### Adaptando template base
+
+Quando criamos o template base.html, copiamos o conteúdo de index.html para ele e o deixamos de lado.
 
 ## Trabalhando com formulários no Django
 
