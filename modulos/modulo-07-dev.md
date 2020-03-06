@@ -66,22 +66,9 @@ Apenas com as alterações realizadas, já podemos trabalhar no template `regist
 O método `as_p` renderiza o formulário como uma série de tags `<p>` onde cada tag é um campo do formulário
 {% endhint %}
 
-### Preparando view para receber requisição do tipo POST 
-
-* falar sobre "request"
-* validações do modelForm
-* falar sobre redirect e csrf\_token
-
-### Criando intimidade com os formulários
-
-* falar sobre atributo fields e alterar para se adequar às nossas necessidades
-
-## Conhecendo um pouco mais dos formulários
-
-* [ ] Falar sobre relacionamento entre FKs
-* [ ] Tratar problema de valor nulo para campo "autorizado\_por"
-
 ## Melhorando a exibição do nosso formulário
+
+Nosso formulário já está sendo exibido... continuar
 
 ## Estilizando nosso formulário com django-widget-tweaks
 
@@ -94,6 +81,19 @@ O método `as_p` renderiza o formulário como uma série de tags `<p>` onde cada
 * importa tags no template
 
 ### Utilizando o render\_fiel
+
+Exibindo apenas campos 
+
+## Preparando view para receber requisição do tipo POST
+
+* falar sobre "request"
+* validações do modelForm
+* falar sobre redirect e csrf\_token
+
+## Conhecendo um pouco mais dos formulários
+
+* [ ] Falar sobre relacionamento entre FKs
+* [ ] Tratar problema de valor nulo para campo "autorizado\_por"
 
 ## Exibindo mensagem para o usuário ao cadastrar novo visitante
 
