@@ -1,10 +1,10 @@
-# Módulo 07 - pendente
+# Módulo 07 - dev
 
 ## Trabalhando com formulários no Django
 
-* [https://tutorial.djangogirls.org/pt/django\_forms/](https://tutorial.djangogirls.org/pt/django_forms/)
-* [https://docs.djangoproject.com/en/3.0/intro/tutorial04/](https://docs.djangoproject.com/en/3.0/intro/tutorial04/)
-* [https://docs.djangoproject.com/en/3.0/topics/forms/](https://docs.djangoproject.com/en/3.0/topics/forms/)
+Manipular formulários não é uma tarefa tão fácil. Se observarmos o Admin do Django, podemos notar que existem diversos tipos de dados e maneiras diferentes de tratar e renderizar esses dados. Além disso, existe a estrutura HTML do formulário a ser exibida no template, esse formulário deve validar as informações que foram enviadas pelo usuário, salvar as informações ou exibir uma mensagem para o usuário caso os dados estejam inválidos.
+
+
 
 ### Preparando view para receber requisição do tipo POST 
 

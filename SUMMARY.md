@@ -14,7 +14,7 @@
 * [Módulo 04](modulos/modulo-04.md)
 * [Módulo 05](modulos/modulo-05.md)
 * [Módulo 06](modulos/modulo-06.md)
-* [Módulo 07 - pendente](modulos/modulo-07-pendente.md)
+* [Módulo 07 - dev](modulos/modulo-07-dev.md)
 * [Módulo 08 - pendente](modulos/modulo-08-pendente.md)
 * [Módulo 09 - pendente](modulos/modulo-09-pendente.md)
 * [Módulo 10 - pendente](modulos/modulo-10-pendente.md)
