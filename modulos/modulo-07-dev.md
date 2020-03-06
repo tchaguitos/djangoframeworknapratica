@@ -32,9 +32,39 @@ Criamos a subclasse de `forms.ModelForm` chamada `VisitanteForm`, que é quem re
 
 ## Renderizando nosso formulário automaticamente
 
-continuar
+Agora que definimos a classe que vai representar nosso formulário, podemos partir para a segunda etapa, que é renderizar esse formulário diratamente no HTML. Para isso, vamos trabalhar no arquivo `views.py` do aplicativos **visitantes**, começando pela importação do formulário. Após isso, vamos criar uma variável de nome `form` que será igual à uma instância da classe `VisitanteForm` e passá-la dentro do `contexto` da view `registrar_visitante`. O arquivo ficará assim: 
 
+```python
+from django.shortcuts import render
 
+from visntantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    contexto = {
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", contexto)
+```
+
+Apenas com as alterações realizadas, já podemos trabalhar no template `registrar_visitante.html` para que o formulário seja renderizado de forma automática. Vamos abrir o arquivo `registrar_visitante.html` dentro da pasta **templates** e procurar pelo elemento HTML `<form>`. Substituia todo o conteúdo existente dentro do elemento pela variável `{{ form.as_p }}` e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) em seu navegador. O arquivo `registrar_visitante.html` ficará assim:
+
+```markup
+<!-- codigo acima omitido -->
+<div class="card-body">
+    <div class="container">
+        {{ form.as_p }}
+    </div>
+</div>
+<!-- codigo abaixo omitido -->
+```
+
+{% hint style="info" %}
+O método `as_p` renderiza o formulário como uma série de tags `<p>` onde cada tag é um campo do formulário
+{% endhint %}
 
 ### Preparando view para receber requisição do tipo POST 
 
