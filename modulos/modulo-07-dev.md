@@ -2,7 +2,11 @@
 
 ## Trabalhando com formulários no Django
 
-Manipular formulários não é uma tarefa tão fácil. Se observarmos o Admin do Django, podemos notar que existem diversos tipos de dados e maneiras diferentes de tratar e renderizar esses dados. Além disso, existe a estrutura HTML do formulário a ser exibida no template, esse formulário deve validar as informações que foram enviadas pelo usuário, salvar as informações ou exibir uma mensagem para o usuário caso os dados estejam inválidos.
+Manipular formulários não é uma tarefa tão fácil. Se observarmos o Admin do Django, podemos notar que existem diversos tipos de dados e maneiras diferentes de tratar e renderizar esses dados. Além disso, existe a estrutura HTML do formulário a ser exibida no template, esse formulário deve validar as informações que foram enviadas pelo usuário, salvar as informações ou exibir uma mensagem para o usuário caso os dados estejam inválidos, etc. Para simplificar nosso trabalho, o Django fornece ferramentas para automatizar e simplificar esse processo, garantindo também segurança para implementar as funcionalidades necessárias.
+
+Um formulário pode ser definido como um conjunto de elementos dentro do elemento HTML `<form>` que permitem que os usuários insira textos, números, escolha opções e, ao fim, envie essas informações de volta para o servidor.
+
+No contexto da nossa aplicação web, um formulário pode significar o elemento HTML &lt;form&gt;, mas também o formulário que a classe Form do Django produz. continuar
 
 
 
