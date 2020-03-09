@@ -74,7 +74,7 @@ O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestrutura
 
 ## Estilizando nosso formulário com django-widget-tweaks
 
-O django-widget-tweaks nos ajuda tornando mais fácil o processo de adicionar atributos aos campos HTML, afim de estilizar com 
+O django-widget-tweaks nos ajuda tornando mais fácil o processo de adicionar atributos aos campos HTML, afim de aplicar classes personalizadas... continuar
 
 ### Como instalar
 
