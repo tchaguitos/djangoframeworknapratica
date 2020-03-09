@@ -76,6 +76,9 @@ O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestrutura
 
 O django-widget-tweaks nos ajuda tornando mais fácil o processo de adicionar atributos aos campos HTML, afim de aplicar classes personalizadas... continuar
 
+* [https://github.com/jazzband/django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
+* [https://simpleisbetterthancomplex.com/2015/12/04/package-of-the-week-django-widget-tweaks.html](https://simpleisbetterthancomplex.com/2015/12/04/package-of-the-week-django-widget-tweaks.html)
+
 ### Como instalar
 
 * inserindo nas configurações
