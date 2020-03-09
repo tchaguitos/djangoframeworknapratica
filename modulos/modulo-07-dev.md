@@ -70,9 +70,11 @@ O método `as_p` renderiza o formulário como uma série de tags `<p>` onde cada
 
 Quando o assunto é criar formulários, o Django faz esse papel muito bem, além de prover uma funcionalidade segura e estável. Veja bem, com menos de 10 linhas conseguimos criar e renderizar um formulário que se adequa totalmente à necessidades do nosso modelo. Desta forma, é altamente recomendado utilizar os formulários do Django para automatizar nosso trabalho.
 
-O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestruturar os dados para renderização, criar o formulário para receber os dados e ainda processar e validar esses dados, mas quando precisamos renderizar essas informações no formato HTML, de modo que fique mais atrativo para o usuário, faltam algumas opções. É aí que entra o **django-widget-tweaks**, um módulo Python muito interessante e útil disponibilizado pela comunidade para nos ajudar na renderização dos nossos formulários.
+O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestruturar os dados para renderização, criar o formulário para receber os dados e ainda processar e validar esses dados, mas quando precisamos renderizar essas informações no formato HTML de modo que fique mais atrativo para o usuário, faltam algumas opções. É aí que entra o **django-widget-tweaks**, um módulo Python muito interessante e útil disponibilizado pela comunidade para nos ajudar na renderização dos nossos formulários.
 
 ## Estilizando nosso formulário com django-widget-tweaks
+
+O django-widget-tweaks nos ajuda tornando mais fácil o processo de adicionar atributos aos campos HTML, afim de estilizar com 
 
 ### Como instalar
 
