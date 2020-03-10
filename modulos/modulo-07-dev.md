@@ -36,8 +36,7 @@ Agora que definimos a classe que vai representar nosso formulário, podemos part
 
 ```python
 from django.shortcuts import render
-
-from visntantes.forms import VisitanteForm
+from visitantes.forms import VisitanteForm
 
 def registrar_visitante(request):
 
@@ -50,7 +49,7 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Apenas com as alterações realizadas, já podemos trabalhar no template `registrar_visitante.html` para que o formulário seja renderizado de forma automática. Vamos abrir o arquivo `registrar_visitante.html` dentro da pasta **templates** e procurar pelo elemento HTML `<form>`. Substituia todo o conteúdo existente dentro do elemento pela variável `{{ form.as_p }}` e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) em seu navegador. O arquivo `registrar_visitante.html` ficará assim:
+Apenas com as alterações realizadas, já podemos trabalhar no template `registrar_visitante.html` para que o formulário seja renderizado de forma automática. Vamos abrir o arquivo `registrar_visitante.html` dentro da pasta **templates** e procurar pelo elemento HTML `<form>`. Substituia todo o conteúdo existente dentro do elemento pela variável `{{ form }}` e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) em seu navegador. O arquivo `registrar_visitante.html` ficará assim:
 
 ```markup
 <!-- codigo acima omitido -->
@@ -60,7 +59,7 @@ Apenas com as alterações realizadas, já podemos trabalhar no template `regist
     </h4>
 
     <div class="container">
-        {{ form.as_p }}
+        {{ form }}
     </div>
 </div>
 <!-- codigo abaixo omitido -->
@@ -124,7 +123,7 @@ Agora que instalamos e registramos o pacote em nosso arquivo de configurações,
 <!-- código abaixo omitido -->
 ```
 
-### Utilizando o render\_fiel
+### Utilizando o render\_field
 
 Existem duas maneiras que o **django-widget-tweaks** nos permite utilizar suas funcionalidades, mas utilizaremos a tag personalizada `{% render_field %}`, com ela conseguimos descrever nossos campos de forma bem parecida com o HTML5.
 
@@ -180,8 +179,60 @@ Acesse a página e veja na prática como o layout do nosso formulário melhorou 
 
 ## Preparando view para receber requisição do tipo POST
 
-* falar sobre "request"
-* validações do modelForm
+Agora que cuidamos da usabilidade do nosso formulário, podemos seguir com as outras partes da nossa view. Até o momento, apenas criamos a variável que representa o formulário e a passamos no contexto, o que faremos agora é preparar nossa view para receber os dados que serão enviados na requisição.
+
+### Conhecendo o objeto request
+
+Você já deve ter notado que sempre que criamos uma view, precisamos que ela receba a variável `request` como argumento. Isso porque, quando falamos do protocolo que sustenta a web, o HTTP, requisições são o que movimentam toda a estrutura. Quando acessamos uma página web estamos enviando a ela uma requisição do tipo `GET` e ela, assim que possível, nos retornará com o conteúdo da página acessada. Isso tudo acontece em questão de segundos e por baixo dos panos, nos fios que conectam a web. Bacana, não?
+
+A variável `request` é uma representação da requisição que é enviada à view acessada e contém diversas informações como método utilizado, navegador e sistema operacional, dentre outras. No momento, nos interessa o método da requisição e o corpo que é enviado. 
+
+Para prepararmos a view para receber as informações da requisição, vamos adicionar um `if` abaixo da linha `form = VisitanteForm()` para verificar se o método da requisição é do tipo `POST`. Podemos fazer isso dessa forma:
+
+```python
+from django.shortcuts import render
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        print("o método é post")
+    
+    contexto = {
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", contexto)
+```
+
+{% hint style="success" %}
+O método `POST` é utilizado sempre que precisamos enviar informações para o servidor. No nosso caso, por exemplo, queremos enviar as informações de um novo visitante a ser registrado e fazemos isso através do formulário HTML
+{% endhint %}
+
+Agora que verificamos se o método da requisição enviada é do tipo `POST`, vamos passar o corpo da requisição para o formulário e utilizar o método is\_valid do formulário para validar as informações. O código ficará o seguinte:
+
+```python
+from django.shortcuts import render
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+    
+    contexto = {
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", contexto)
+```
 
 ## Conhecendo um pouco mais dos formulários
 
