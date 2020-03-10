@@ -8,7 +8,7 @@ Um formulário pode ser definido como um conjunto de elementos dentro do element
 
 ## Criando nosso formulário
 
-Assim como outras camadas importantes da arquitetura do nosso projeto, os formulários também devem ter um arquivo próprio para eles, mas que, neste caso, precisamos criar: o arquivo `forms.py`. Vamos abrir a pasta do nosso aplicativo **visitantes** e criar o arquivo `forms.py`. Após criarmos o arquivo, vamos abri-lo e importar o módulo forms do django. Ficará assim:
+Assim como outras camadas importantes da arquitetura do nosso projeto, os formulários também devem ter um arquivo próprio para eles, mas que, neste caso, precisamos criar: o arquivo `forms.py`. Vamos abrir a pasta do nosso aplicativo **visitantes** e criar o arquivo `forms.py`. Após criarmos o arquivo, vamos abri-lo e importar o pacote forms do django. Ficará assim:
 
 ```python
 from django import forms
@@ -70,22 +70,53 @@ O método `as_p` renderiza o formulário como uma série de tags `<p>` onde cada
 
 Quando o assunto é criar formulários, o Django faz esse papel muito bem, além de prover uma funcionalidade segura e estável. Veja bem, com menos de 10 linhas conseguimos criar e renderizar um formulário que se adequa totalmente à necessidades do nosso modelo. Desta forma, é altamente recomendado utilizar os formulários do Django para automatizar nosso trabalho.
 
-O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestruturar os dados para renderização, criar o formulário para receber os dados e ainda processar e validar esses dados, mas quando precisamos renderizar essas informações no formato HTML de modo que fique mais atrativo para o usuário, faltam algumas opções. É aí que entra o **django-widget-tweaks**, um módulo Python muito interessante e útil disponibilizado pela comunidade para nos ajudar na renderização dos nossos formulários.
+O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestruturar os dados para renderização, criar o formulário para receber os dados e ainda processar e validar esses dados, mas quando precisamos renderizar essas informações no formato HTML de modo que fique mais atrativo para o usuário, faltam algumas opções. É aí que entra o **django-widget-tweaks**, um pacote Python muito interessante e útil disponibilizado pela comunidade para nos ajudar na renderização dos nossos formulários.
 
 ## Estilizando nosso formulário com django-widget-tweaks
 
-O **django-widget-tweaks** nos ajuda tornando mais fácil o processo de adicionar atributos e classes aos campos HTML, afim de aplicar classes personalizadas para personalizar aparência e comportamento de forma mais simples.
+O **django-widget-tweaks** nos ajuda tornando mais fácil o processo de adicionar atributos e classes aos campos HTML, afim de aplicar classes personalizadas para alterar aparência e comportamento dos elementos de forma mais simples. Como estamos utilizando um tema que utiliza o [Bootstrap](https://getbootstrap.com/) como base, podemos utilizar suas classes CSS para alterar a aparência desses elementos.
 
-* [https://github.com/jazzband/django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
-* [https://simpleisbetterthancomplex.com/2015/12/04/package-of-the-week-django-widget-tweaks.html](https://simpleisbetterthancomplex.com/2015/12/04/package-of-the-week-django-widget-tweaks.html)
+Isso resolve o problema do nosso formulário não estar sendo exibido de maneira atrativa para o usuário. Isso porque o Django renderiza um formulário HTML simples, sem adicionar classes para alterar o estilo dos elementos que compõem esse formulário. Sendo assim, utilizaremos o **django-widget-tweaks** para adicionar a classe `form-control` aos campos do nosso formulário, e assim apliciar as características descritas no arquivo de estilização \(CSS\) do tema utilizado.
 
 ### Como instalar
 
-* inserindo nas configurações
+Para instalar o **django-widget-tweaks** utilizaremos nosso já conhecido gerenciador de pacotes: o `pip`. Para instalar vamos utilizar o seguinte comando:
+
+```bash
+(env)$ pip install django-widget-tweaks
+```
+
+Caso tudo ocorra bem, você terá instalado o django-widget-tweaks em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para organizar melhor, vamos escrever a variável acima da existente e que lista nossos aplicativos:
+
+```bash
+# código acima omitido
+
+INSTALLED_APPS += [
+    "widget_tweaks",
+]
+
+INSTALLED_APPS += [
+    "usuarios",
+    "porteiros",
+    "visitantes",
+]
+
+# código abaixo omitido
+```
 
 ### Importando no template
 
-* importa tags no template
+Agora que instalamos e registramos o pacote em nosso arquivo de configurações, temos que utilizar a tag `{% load widget_tweaks %}` sempre que precisarmos utilizar as funcionalidades do pacote num determinado template.
+
+Vamos adicionar a tag logo abaixo da primeira linha do template `registrar_visitante.html`. O arquivo ficará assim:
+
+```markup
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+<!-- código abaixo omitido -->
+```
 
 ### Utilizando o render\_fiel
 
