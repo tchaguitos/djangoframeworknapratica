@@ -55,6 +55,10 @@ Apenas com as alterações realizadas, já podemos trabalhar no template `regist
 ```markup
 <!-- codigo acima omitido -->
 <div class="card-body">
+    <h4 class="mb-3 text-primary">
+        Formulário para registro de novo visitante
+    </h4>
+
     <div class="container">
         {{ form.as_p }}
     </div>
@@ -86,7 +90,7 @@ Para instalar o **django-widget-tweaks** utilizaremos nosso já conhecido gerenc
 (env)$ pip install django-widget-tweaks
 ```
 
-Caso tudo ocorra bem, você terá instalado o django-widget-tweaks em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para organizar melhor, vamos escrever a variável acima da existente e que lista nossos aplicativos:
+Caso ocorra bem tudo, você terá instalado o **django-widget-tweaks** em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para organizar melhor, vamos escrever a variável acima da existente e que lista nossos aplicativos:
 
 ```bash
 # código acima omitido
@@ -104,11 +108,13 @@ INSTALLED_APPS += [
 # código abaixo omitido
 ```
 
+{% hint style="info" %}
+Utilizamos três variáveis de mesmo nome e a incrementamos pois assim separamos os aplicativos do Django \(primeira\), os pacotes Python instalados \(segunda\) e os aplicativos criados por nós \(terceira\). Lembre-se que é necessário utilizar o operador `+=` quando queremos incrementar os valores existentes na variável
+{% endhint %}
+
 ### Importando no template
 
-Agora que instalamos e registramos o pacote em nosso arquivo de configurações, temos que utilizar a tag `{% load widget_tweaks %}` sempre que precisarmos utilizar as funcionalidades do pacote num determinado template.
-
-Vamos adicionar a tag logo abaixo da primeira linha do template `registrar_visitante.html`. O arquivo ficará assim:
+Agora que instalamos e registramos o pacote em nosso arquivo de configurações, temos que utilizar a tag `{% load widget_tweaks %}` sempre que precisarmos utilizar as funcionalidades do pacote num determinado template. Vamos adicionar a tag logo abaixo da primeira linha do template `registrar_visitante.html`. O arquivo ficará assim:
 
 ```markup
 {% extends "base.html" %}
@@ -120,7 +126,48 @@ Vamos adicionar a tag logo abaixo da primeira linha do template `registrar_visit
 
 ### Utilizando o render\_fiel
 
-Exibindo apenas campos 
+Existem duas maneiras que o **django-widget-tweaks** nos permite utilizar suas funcionalidades, mas utilizaremos a tag personalizada `{% render_field %}`, com ela conseguimos descrever nossos campos de forma bem parecida com o HTML5.
+
+Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div class="container">` pelo `<form method="post">` e seu conteúdo. O código ficará assim:
+
+```markup
+<!-- codigo acima omitido -->
+<div class="card-body">
+    <h4 class="mb-3 text-primary">
+        Formulário para registro de novo visitante
+    </h4>
+
+    <p class="mb-5 ml-1">
+        <small>
+            O asterisco (*) indica que o campo é obrigatório
+        </small>
+    </p>
+    
+    <form method="post">
+        <div class="form-row">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group col-md-12">
+                    <label>{{ field.label }} {% if field.field.required %} * {% endif %}</label>
+                    {% render_field field placeholder=field.label class="form-control" %}
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+<!-- codigo abaixo omitido -->
+```
+
+{% hint style="info" %}
+A tag `{% csrf_token %}` fornece proteção para nossa aplicação, de modo a impedir que sites mal intencionados enviem requisições para ela. Caso a gente não coloque essa tag dentro dos nossos formulários, o Django não aceitará a requisição enviada e mostrará um erro. 
+{% endhint %}
+
+Logo abaixo da tag `{% csrf_token %}`, estamos utilizando novamente a tag `{% for %}` para realizar um loop, mas desta vez na variável `form`. Quando realizamos um loop em nosso formulário, conseguimos acessar seus campos. É exatamente o que estamos fazendo: executando um loop e acessando as informações de cada campo para que possamos passá-las para a tag `{% render_field %}` fazer o trabalho de renderização destes campos.
+
+Para cada campo \(_variável field_\), criamos a estrutura padrão para campos do formulário e acessamos as informações label e o nome
+
+Acesse a página 
 
 ## Preparando view para receber requisição do tipo POST
 
