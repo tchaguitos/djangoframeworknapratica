@@ -163,17 +163,25 @@ Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div c
 A tag `{% csrf_token %}` fornece proteção para nossa aplicação, de modo a impedir que sites mal intencionados enviem requisições para ela. Caso a gente não coloque essa tag dentro dos nossos formulários, o Django não aceitará a requisição enviada e mostrará um erro. 
 {% endhint %}
 
-Logo abaixo da tag `{% csrf_token %}`, estamos utilizando novamente a tag `{% for %}` para realizar um loop, mas desta vez na variável `form`. Quando realizamos um loop em nosso formulário, conseguimos acessar seus campos. É exatamente o que estamos fazendo: executando um loop e acessando as informações de cada campo para que possamos passá-las para a tag `{% render_field %}` fazer o trabalho de renderização destes campos.
+Logo abaixo da tag `{% csrf_token %}`, estamos utilizando novamente a tag `{% for %}` para realizar um loop, mas desta vez na variável `form`. Quando realizamos um loop em nosso formulário, conseguimos acessar seus campos, e é exatamente o que precisamos fazer: executar um loop e acessar as informações de cada campo para que possamos passá-las para a tag `{% render_field %}` fazer o trabalho de renderização destes campos.
 
-Para cada campo \(_variável field_\), criamos a estrutura padrão para campos do formulário e acessamos as informações label e o nome
+Para cada campo \(_variável field_\) em nosso formulário, criamos a estrutura padrão para campos do formulário HTML, acessamos a propriedade `label`  para exibir o nome e o placeholder do `input` e passamos a variável que representa o campo para a tag `{% render_field %}`. Veja como fica nossa estrutura:
 
-Acesse a página 
+```markup
+<div class="form-group col-md-12">
+    <label>{{ field.label }} {% if field.field.required %} * {% endif %}</label>
+    {% render_field field placeholder=field.label class="form-control" %}
+</div>
+```
+
+Note que definimos também os atributos `placeholder=field.label` e `class="form-control"`, além de verificarmos se o campo é obrigatório e, caso seja, colocamos um asterisco \(\*\) ao lado do nome do campo. A classe `form-control` que passamos como atributo do campo é quem estiliza e torna a exibição do campo mais atrativa. 
+
+Acesse a página e veja na prática como o layout do nosso formulário melhorou e muito!
 
 ## Preparando view para receber requisição do tipo POST
 
 * falar sobre "request"
 * validações do modelForm
-* falar sobre redirect e csrf\_token
 
 ## Conhecendo um pouco mais dos formulários
 
