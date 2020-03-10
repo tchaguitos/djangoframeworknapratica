@@ -211,7 +211,7 @@ def registrar_visitante(request):
 O método `POST` é utilizado sempre que precisamos enviar informações para o servidor. No nosso caso, por exemplo, queremos enviar as informações de um novo visitante a ser registrado e fazemos isso através do formulário HTML
 {% endhint %}
 
-Agora que verificamos se o método da requisição enviada é do tipo `POST`, vamos passar o corpo da requisição para o formulário e utilizar o método is\_valid do formulário para validar as informações. O código ficará o seguinte:
+Agora que verificamos se o método da requisição enviada é do tipo `POST`, vamos passar o corpo da requisição para o formulário e utilizar o método `is_valid` do formulário para validar as informações. O código ficará o seguinte:
 
 ```python
 from django.shortcuts import render
@@ -234,7 +234,11 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
+Para passar o corpo da requisição para o formulário, basta utilizarmos a propriedade POST do objeto request e passá-lo como argumento ao criarmos a nova instância do formulário, como feito na linha 9 \(`form = VisitanteForm(request.POST)`\). Feito isso, validamos as informações e salvamos o formulário utilizando o método `save`.
+
 ## Conhecendo um pouco mais dos formulários
+
+Quando acessamos a página, podemos notar que vários
 
 * [ ] Falar sobre relacionamento entre FKs
 * [ ] Tratar problema de valor nulo para campo "autorizado\_por"
