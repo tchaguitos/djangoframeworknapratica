@@ -238,7 +238,24 @@ Para passar o corpo da requisição para o formulário, basta utilizarmos a prop
 
 ## Conhecendo um pouco mais dos formulários
 
-Quando acessamos a página, podemos notar que vários
+Ao acessarmos a página, podemos notar que todos os campos do modelo estão sendo exibidos, e não é isso que queremos, pois algumas das informações devem ser preenchidas mediante autorização de moradores e outros eventos.
+
+Para especificar os campos que devem ser exibidos e utilizados no formulário, vamos voltar ao arquivo `forms.py` e alterar o atributo `fields` da classe `Meta` do nosso formulário. Abra o arquivo e substituia a string `"__all__"` por uma lista com os nomes dos campos que precisamos exibir. O atributo `fields` ficará assim:
+
+```python
+from django import forms
+from visitantes.models import Visitante
+
+class VisitanteForm(forms.ModelForm):
+    class Meta:
+        model = Visitante
+        fields = [
+            "nome_completo", "cpf", "data_nascimento",
+            "numero_casa", "placa_veiculo",
+        ]
+```
+
+continuar...
 
 * [ ] Falar sobre relacionamento entre FKs
 * [ ] Tratar problema de valor nulo para campo "autorizado\_por"
