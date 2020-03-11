@@ -255,7 +255,7 @@ Ao voltar para a página, vamos notar que agora apenas os campos que estão na l
 
 ### Tratando problema com atributo nulo
 
-Quando criamos a classe modelo `Visitante`, falamos sobre o atributo `registrado_por` ser do tipo `ForeignKey`, um tipo de campo que cria um relacionamento entre as classes `Visitante` e `Porteiro`. Olhando a classe `VisitanteForm`, podemos notar que o atributo não é colocado nos campos do formulário \(`fields`\), mas este é do tipo obrigatório. Sendo assim, se tentarmos adicionar um visitante por meio do formulário, o Django apresentará um erro nos informando que o atributo`registrado_por` do modelo não pode ser nulo.
+Quando criamos a classe modelo `Visitante`, falamos sobre o atributo `registrado_por` ser do tipo `ForeignKey`, um tipo de campo que cria um relacionamento entre as classes `Visitante` e `Porteiro`. Olhando a classe `VisitanteForm`, podemos notar que o atributo não é colocado nos campos do formulário \(`fields`\), mesmo este sendo do tipo obrigatório. Sendo assim, se tentarmos adicionar um visitante por meio do formulário, o Django apresentará um erro nos informando que o atributo`registrado_por` do modelo não pode ser nulo.
 
 Para resolver o problema, o que vamos fazer é possibilitar que o campo seja preechido de maneira automática. Isto é, o campo deverá receber o valor referente ao porteiro que está logado na dashboard no momento do cadastro.
 
