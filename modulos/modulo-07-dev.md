@@ -288,6 +288,10 @@ def registrar_visitante(request):
 
 Agora, ao invés de salvarmos o formulário diretamente, estamos guardando o resultado do método `save` com o argumento `commit=False`, definido um valor para o atribudo `registrado_por` diretamente e salvando a instância guardada na variável visitante. Somente nesse momento que as alterações são registradas no banco de dados.
 
+{% hint style="info" %}
+Falar sobre `visitante.registrado_por = request.user.porteiro`
+{% endhint %}
+
 Feito isso, vamos apenas importar mais um `shortcuts` do Django, além do `render`, que é o `redirect`. O que ele faz é exatamente redirecionar a view para uma URL que quisermos. Vamos utilizá-lo para evitar que os mesmos dados sejam enviados mais de uma vez ao nosso servidor. Sempre que um formulário for enviado e as informações salvas no banco de dados, redirecionamos a página. Para isso, basta importar o redirect ao lado do render e utilizá-lo passando a URL para onde queremos redirecionar o usuário. O código ficará assim:
 
 ```python
