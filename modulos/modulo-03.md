@@ -265,9 +265,7 @@ A próxima tela deverá exibir a lista de porteiros registrados em nosso sistema
 
 ![](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
 
-Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros.
-
-Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
+Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros. Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
 
 {% hint style="info" %}
 O Admin do Django é tão interessante que já disponibiliza um elemento do tipo select para selecionarmos o usuário que será vinculado ao novo porteiro. Bacana, não?
