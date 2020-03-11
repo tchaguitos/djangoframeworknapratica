@@ -65,10 +65,6 @@ Apenas com as alterações realizadas, já podemos trabalhar no template `regist
 <!-- codigo abaixo omitido -->
 ```
 
-{% hint style="info" %}
-O método `as_p` renderiza o formulário como uma série de tags `<p>` onde cada tag é um campo do formulário
-{% endhint %}
-
 ## Melhorando a exibição do nosso formulário
 
 Quando o assunto é criar formulários, o Django faz esse papel muito bem, além de prover uma funcionalidade segura e estável. Veja bem, com menos de 10 linhas conseguimos criar e renderizar um formulário que se adequa totalmente à necessidades do nosso modelo. Desta forma, é altamente recomendado utilizar os formulários do Django para automatizar nosso trabalho.
