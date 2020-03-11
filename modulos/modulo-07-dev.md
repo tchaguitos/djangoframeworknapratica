@@ -330,12 +330,63 @@ O visitante registrado deverá estar listado na tabela de visitantes recentes
 
 ## Exibindo mensagem para o usuário ao cadastrar novo visitante
 
-* [https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b](https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b)\)
+Agora que o formulário está sendo exibido e funcionando corretamente, inclusive salvando os visitantes em nosso banco de dados, vamos melhorar um pouco a usabilidade da nossa dashboard. Sempre que o sistema finaliza uma ação silicitada pelo usuário, é interessante que seja dado um feedback visual para facilitar o entendimento. Desta forma, o que faremos agora é trabalhar na view para que, quando o visitante for registrado, uma mensagem seja exibida dizendo algo como "hey, cara, o visitante foi registrado com sucesso!".
 
-## Conhecendo o Django messages
+### Conhecendo o Django messages
 
-* Adicionando uma mensagem
-* Alterando o template para exibir as mensagens
+Pensando nisso, o Django já nos disponiza o módulo `messages`. Toda a configuração necessária para o funcionamento destas funcionalidades já vêm por padrão quando criamos um novo projeto Django, então o que precisamos fazer é apenas inserir o código `from django.contrib import messages` para importar as funcionalidades. Vamos colocá-lo na primeira linha e o início do arquivo `views.py` do aplicativo **visitantes** ficará assim:
+
+```python
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from visitantes.forms import VisitanteForm
+
+# código abaixo omitido
+```
+
+Com o módulo importado em nossa view, podemos utilizá-lo traquilamente. Vamos adicionar uma mensagem de sucesso logo após a linha que salva a instância do visitante \(`visitante.save()`\) utilizando o método sucess do módulo messages e passando a ele a request e um texto para ser exibido. O arquivo `views.py` ficará assim:
+
+```python
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            visitante = form.save(commit=False)
+
+            visitante.registrado_por = request.user.porteiro
+
+            visitante.save()
+            
+            messages.success(,
+                request,
+                "Visitante registrado com sucesso"
+            )
+            
+            return redirect("index")
+        
+    contexto = {
+        "nome_pagina": "Registrar visitante",
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", contexto)
+```
+
+### Alterando o template para exigir as mensagens
+
+Nossa view para registro de visitantes está completa: estamos exibindo o formulário corretamente, verificando quando ocorre uma requisição do tipo POST, validando as informações enviadas, definindo o porteiro que registrou o visitante automaticamente, exibindo uma mensagem e ainda redirecionamos a requisição quando finalizamos todo o processo com sucesso. Ufa! É tanta coisa que ficou até difícil de listar.
+
+Com tudo isso feito, temos agora que disponibizar um lugar em nosso template para que a mensagem seja exibida, como um alerta mesmo. continuar
+
+
 
 ## Tratando possíveis erros em nosso formulário
 
