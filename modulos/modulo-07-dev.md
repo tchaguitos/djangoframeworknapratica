@@ -181,7 +181,7 @@ Agora que cuidamos da usabilidade do nosso formulário, podemos seguir com as ou
 
 Você já deve ter notado que sempre que criamos uma view, precisamos que ela receba a variável `request` como argumento. Isso porque, quando falamos do protocolo que sustenta a web, o HTTP, requisições são o que movimentam toda a estrutura. Quando acessamos uma página web estamos enviando a ela uma requisição do tipo `GET` e ela, assim que possível, nos retornará com o conteúdo da página acessada. Isso tudo acontece em questão de segundos e por baixo dos panos, nos fios que conectam a web. Bacana, não?
 
-A variável `request` é uma representação da requisição que é enviada à view acessada e contém diversas informações como método utilizado, navegador e sistema operacional, dentre outras. No momento, nos interessa o método da requisição e o corpo que é enviado. 
+A variável `request` é uma representação da requisição que é enviada à view acessada e contém diversas informações como usuário logado, método HTTP utilizado, navegador e sistema operacional, dentre outras. No momento, nos interessa o método da requisição e o corpo que é enviado. 
 
 Para prepararmos a view para receber as informações da requisição, vamos adicionar um `if` abaixo da linha `form = VisitanteForm()` para verificar se o método da requisição é do tipo `POST`. Podemos fazer isso dessa forma:
 
@@ -259,10 +259,38 @@ Quando criamos a classe modelo `Visitante`, falamos sobre o atributo `registrado
 
 Para resolver o problema, o que vamos fazer é possibilitar que o campo seja preechido de maneira automática. Isto é, o campo deverá receber o valor referente ao porteiro que está logado na dashboard no momento do cadastro.
 
-Para fazer isso, temos que
+Para fazer isso, antes de salvar o formulário vamos definir diretamente um valor para o atributo `registrado_por` na view. Vamos abrir o arquivo `views.py` e criar uma variável para receber o retorno do método `save` do formulário. Esse método aceita também um argumento opicional de nome `commit`, que quando definido como `False`, retorna uma instância do modelo utilizado no formulário que ainda foi gravada no banco de dados. Isso é bem útil para quando queremos executar um processamento personalizado antes de salvar o objeto ou até mesmo utilizar outros métodos do modelo. O código ficará conforme abaixo:
 
-* [ ] Falar sobre relacionamento entre FKs
-* [ ] Tratar problema de valor nulo para campo "autorizado\_por"
+```python
+from django.shortcuts import render
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            visitante = form.save(commit=False)
+
+            visitante.registrado_por = request.user.porteiro
+            
+            visitante.save()    
+        
+    contexto = {
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", contexto)
+```
+
+Agora, ao invés de salvarmos o formulário diretamente, estamos guardando o resultado do método `save` com o argumento `commit=False`, definido um valor para o atribudo `registrado_por` diretamente e salvando a instância guardada na variável visitante. Somente nesse momento que as alterações são registradas no banco de dados.
+
+Feito isso, vamos apenas importar mais um `shortcuts` do Django, além do `render`, que é o `redirect`. O que ele faz é exatamente redirecionar a view para uma URL que quisermos. Vamos utilizá-lo pois para que a alteração seja 
+
+
 
 ## Exibindo mensagem para o usuário ao cadastrar novo visitante
 
