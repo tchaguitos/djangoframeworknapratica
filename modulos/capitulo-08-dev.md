@@ -63,6 +63,14 @@ Não vamos nos esquecer de passar a variável `visitante` no contexto, para que 
 
 ## Criando template
 
+Com nossa view pronta, agora precisamos criar o template `informacoes_visitante.html` e colocá-lo na pasta templates do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
+
+continuar...
+
+
+
+
+
 ## Criando URL para acessar informações de visitante
 
 * Recebendo variáveis através da URL no Django
@@ -86,4 +94,6 @@ Não vamos nos esquecer de passar a variável `visitante` no contexto, para que 
   * Criando método get\_horario\_saida
 
 ## Utilizando métodos personalizados no template
+
+Com nossos métodos peronslizados criados, temos que 
 
