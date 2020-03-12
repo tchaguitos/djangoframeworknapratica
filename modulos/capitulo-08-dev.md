@@ -2,6 +2,10 @@
 
 ## Criando tela para exibir informações de visitante
 
+Nosso documento de requisitos nos diz sobre a necessidade de visuailização das informações do visitante. 
+
+Se você observar a tabela que lista os visitantes recentes na página inicial da dashboard, vai notar que existem links para ver detalhes do visitante. Sendo assim
+
 ## Criando a view
 
 * Recebendo token em view
