@@ -436,7 +436,11 @@ A estrutura HTML é bem parecida com a utilizada para a mensagem de sucesso, mas
 
 ## Deixando nossas mensagens de erro mais claras
 
-Falar sobre mensagens de erro... 
+Um último detalhe para melhorarmos ainda mais a experiência do usuário ao utilizar nossa dashboard é certamente melhorar os textos das mensagens que são exibidas para o usuário em caso de erro. Muito mais que informar que ocorreu um erro, essas mensagens devem direcionar o usuário para o correto preenchimento das informações.
+
+Para fazer isso, podemos atuar diretamente no arquivo forms.py do aplicativo visitantes. O que faremos é adicionar o atributo `error_messages` à classe `VisitanteForm`, logo abaixo de `fields`.
+
+O `error_messages` é um dicionário que deve conter chaves com os nomes dos campos do modelo. Desta forma, cada valor do dicionário representará um campo do formulário e é também um dicionário, mas que, desta vez, recebe como chave os tipos de erros seguido da mensagem a ser exibida para cada erro.
 
 ```python
 error_messages = {
