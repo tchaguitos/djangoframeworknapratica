@@ -4,17 +4,17 @@
 
 ## Geral
 
-* [Estrutura do curso](nova-estrutura-do-curso.md)
+* [Tópicos da apostila](nova-estrutura-do-curso.md)
 
 ## Módulos
 
-* [Módulo 01](modulos/modulo-01.md)
-* [Módulo 02](modulos/modulo-02.md)
-* [Módulo 03](modulos/modulo-03.md)
-* [Módulo 04](modulos/modulo-04.md)
-* [Módulo 05](modulos/modulo-05.md)
-* [Módulo 06](modulos/modulo-06.md)
-* [Módulo 07 - dev](modulos/modulo-07-dev.md)
+* [Capítulo 01](modulos/capitulo-01.md)
+* [Capítulo 02](modulos/capitulo-02.md)
+* [Capítulo 03](modulos/capitulo-03.md)
+* [Capítulo 04](modulos/capitulo-04.md)
+* [Capítulo 05](modulos/capitulo-05.md)
+* [Capítulo 06](modulos/capitulo-06.md)
+* [Capítulo 07 - dev](modulos/capitulo-07-dev.md)
 * [Módulo 08 - pendente](modulos/modulo-08-pendente.md)
 * [Módulo 09 - pendente](modulos/modulo-09-pendente.md)
 * [Módulo 10 - pendente](modulos/modulo-10-pendente.md)

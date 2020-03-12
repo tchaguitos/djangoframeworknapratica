@@ -1,4 +1,4 @@
-# Módulo 06
+# Capítulo 06
 
 ## Criando tela para registro de novo visitante
 

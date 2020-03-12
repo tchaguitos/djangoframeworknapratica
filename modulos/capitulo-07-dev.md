@@ -1,4 +1,4 @@
-# Módulo 07 - dev
+# Capítulo 07 - dev
 
 ## Trabalhando com formulários no Django
 

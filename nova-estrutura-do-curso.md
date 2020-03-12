@@ -1,4 +1,4 @@
-# Estrutura do curso
+# Tópicos da apostila
 
 ## Módulo 1
 
