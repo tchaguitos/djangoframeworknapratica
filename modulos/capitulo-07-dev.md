@@ -438,25 +438,38 @@ A estrutura HTML é bem parecida com a utilizada para a mensagem de sucesso, mas
 
 Um último detalhe para melhorarmos ainda mais a experiência do usuário ao utilizar nossa dashboard é certamente melhorar os textos das mensagens que são exibidas para o usuário em caso de erro. Muito mais que informar que ocorreu um erro, essas mensagens devem direcionar o usuário para o correto preenchimento das informações.
 
-Para fazer isso, podemos atuar diretamente no arquivo forms.py do aplicativo visitantes. O que faremos é adicionar o atributo `error_messages` à classe `VisitanteForm`, logo abaixo de `fields`.
+Para fazer isso, podemos atuar diretamente no arquivo `forms.py` do aplicativo **visitantes**. O que faremos é adicionar o atributo `error_messages` à classe `VisitanteForm`, logo abaixo de `fields`.
 
-O `error_messages` é um dicionário que deve conter chaves com os nomes dos campos do modelo. Desta forma, cada valor do dicionário representará um campo do formulário e é também um dicionário, mas que, desta vez, recebe como chave os tipos de erros seguido da mensagem a ser exibida para cada erro.
+O `error_messages` é um dicionário que deve conter chaves com os nomes dos campos do modelo. Desta forma, cada valor do dicionário `error_messages` representa um campo do formulário e é também um dicionário, mas que, desta vez, recebe como chave os tipos de erros nos formulários do Django seguido da mensagem a ser exibida para cada erro.
+
+{% hint style="info" %}
+Por hora utilizaremos os tipos `required`, que funciona para quando o campo não é preenchido e `invalid`, para quando o formato da informação enviada é inválido
+{% endhint %}
+
+Nosso formulário, a classe `VisitanteForm`, ficará assim:
 
 ```python
-error_messages = {
-    "nome_completo": {
-        "required": "O nome completo do visitante é obrigatório para cadastro",
-    },
-    "cpf": {
-        "required": "O CPF do visitante é obrigatório para cadastro"
-    },
-    "data_nascimento": {
-        "required": "A data de nascimento do visitante é obrigatória para cadastro",
-        "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
-    },
-    "numero_casa": {
-        "required": "Por favor, informe o número da casa a ser visitada"
-    }
-},
+class VisitanteForm(forms.ModelForm):
+    class Meta:
+        model = Visitante
+        fields = [
+            "nome_completo", "cpf", "data_nascimento",
+            "numero_casa", "placa_veiculo",
+        ]
+        error_messages = {
+            "nome_completo": {
+                "required": "O nome completo do visitante é obrigatório para cadastro",
+            },
+            "cpf": {
+                "required": "O CPF do visitante é obrigatório para cadastro"
+            },
+            "data_nascimento": {
+                "required": "A data de nascimento do visitante é obrigatória para cadastro",
+                "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
+            },
+            "numero_casa": {
+                "required": "Por favor, informe o número da casa a ser visitada"
+            }
+        },
 ```
 
