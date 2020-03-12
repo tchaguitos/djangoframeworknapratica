@@ -401,7 +401,9 @@ Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div cla
 {% endif %}
 ```
 
-O módulo de mensagens do Django também nos disponibiliza uma variável, chamada messages. Com ela, conseguimos 
+O módulo de mensagens do Django também nos disponibiliza uma variável chamada `messages`. Com ela, conseguimos verificar se existem mensagens e, por meio de um loop, verificar as informações de cada mensagem. É o que estamos fazendo, primeiro verificamos se existem mensagem \(`{% if messages %}`\), caso positivo, nós executamos um loop e acessamos a mensagem utilizando a variável criada no loop \(`{{ message }}`\).
+
+A novidade aqui é a utilização da tag {% if %}, uma estrutura condicional, nos templates. O que estiver dentro dela só será exibido caso o resultado da expressão seja verdadeiro
 
 
 
@@ -432,18 +434,19 @@ Falar sobre mensagens de erro...
 
 ```python
 error_messages = {
-            "nome_completo": {
-                "required": "O nome completo do visitante é obrigatório para cadastro",
-            },
-            "cpf": {
-                "required": "O CPF do visitante é obrigatório para cadastro"
-            },
-            "data_nascimento": {
-                "required": "A data de nascimento do visitante é obrigatória para cadastro",
-                "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
-            },
-            "numero_casa": {
-                "required": "Por favor, informe o número da casa a ser visitada"
-            },
+    "nome_completo": {
+        "required": "O nome completo do visitante é obrigatório para cadastro",
+    },
+    "cpf": {
+        "required": "O CPF do visitante é obrigatório para cadastro"
+    },
+    "data_nascimento": {
+        "required": "A data de nascimento do visitante é obrigatória para cadastro",
+        "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
+    },
+    "numero_casa": {
+        "required": "Por favor, informe o número da casa a ser visitada"
+    }
+},
 ```
 
