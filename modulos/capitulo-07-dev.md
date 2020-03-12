@@ -382,17 +382,68 @@ def registrar_visitante(request):
 
 ### Alterando o template para exigir as mensagens
 
-Nossa view para registro de visitantes está completa: estamos exibindo o formulário corretamente, verificando quando ocorre uma requisição do tipo POST, validando as informações enviadas, definindo o porteiro que registrou o visitante automaticamente, exibindo uma mensagem e ainda redirecionamos a requisição quando finalizamos todo o processo com sucesso. Ufa! É tanta coisa que ficou até difícil de listar.
+Nossa view para registro de visitantes está completa: estamos exibindo o formulário corretamente, verificando quando ocorre uma requisição do tipo POST, validando as informações enviadas, definindo automaticamente o porteiro que registrou o visitante, exibindo uma mensagem e ainda redirecionamos a requisição quando finalizamos todo o processo com sucesso. Ufa! É tanta coisa que ficou até difícil de listar.
 
-Com tudo isso feito, temos agora que disponibizar um lugar em nosso template para que a mensagem seja exibida, como um alerta mesmo. continuar
+Com tudo isso feito, temos agora que disponibizar um lugar em nosso template para que a mensagem seja exibida, como um alerta mesmo. Como estamos direcionando nosso usuário para a página inicial da dashboard, faz que sentido que a gente coloque a mensagem no template `index.html`, pelo menos por hora.
+
+Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div class="row">`do arquivo, vamos inserir o seguinte trecho de código:
+
+```markup
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-dismissible alert-{{ message.tags }}" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+```
+
+O módulo de mensagens do Django também nos disponibiliza uma variável, chamada messages. Com ela, conseguimos 
 
 
 
 ## Tratando possíveis erros em nosso formulário
 
-* Alterando template para exibir mensagem de erro em formulário
+Falar sobre possíveis erros...
 
-## Deixando nossas mensagens de erro mais claras 
+```markup
+{% if form.errors %}
+    {% for field in form %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <div class="alert alert-dismissible alert-warning" role="alert">
+                    {{ error | escape }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+```
 
-* error\_messages
+## Deixando nossas mensagens de erro mais claras
+
+Falar sobre mensagens de erro... 
+
+```python
+error_messages = {
+            "nome_completo": {
+                "required": "O nome completo do visitante é obrigatório para cadastro",
+            },
+            "cpf": {
+                "required": "O CPF do visitante é obrigatório para cadastro"
+            },
+            "data_nascimento": {
+                "required": "A data de nascimento do visitante é obrigatória para cadastro",
+                "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
+            },
+            "numero_casa": {
+                "required": "Por favor, informe o número da casa a ser visitada"
+            },
+```
 
