@@ -12,23 +12,51 @@ Como já sabemos, começaremos a trabalhar na funcionalidade pela função de vi
 
 Essa função de view terá uma pequena diferença com relação à função `registrar_visitante()`, desta vez, além do argumento `request`, vamos também receber um argumento de nome `id`, que representará o `id` do visitante a ser buscado em nosso banco de dados. É assim que vamos identificar qual visitante buscar.
 
+Para adiantar um pouco, já vamos criar a view e deixar algumas coisas prontas, como a variável `context` e o retorno renderizando o template `informacoes_visitante.html`, que ainda vamos criar. Por hora, nossa função `informacoes_visitante()` ficará assim:
 
+```python
+# código acima omitido
+
+def informacoes_visitante(request, id):
+    
+    context = {
+        "nome_pagina": "Informações de visitante",
+    }
+    
+    return render(request, "informacoes_visitante.html", context)
+```
+
+### Conhecendo o atalho get\_model\_or\_404
+
+Agora que nossa view está escrita e recebe um `id`, precisamos buscar o visitante em nosso banco de dados utilizando esse `id`. Existem várias formas de fazer isso, mas vamos utilizar o atalho `get_model_or_404()` do Django. Para utilizá-lo, temos que passar uma classe modelo a ser utilizada na busca e o parâmetro pelo qual queremos buscar \(em nosso caso, utilizaremos o `id` e, por isso, vamos passá-lo como segundo argumento da função `get_model_or_404()`\).
+
+Antes de tudo, claro, vamos importar a função `get_model_or_404()` em nossa view juntamente com a classe modelo `Visitante`, pois precisaremos dela. A função `get_model_or_404()` está localizada no mesmo pacote que as funções `render` e `redirect`, desta forma, vamos alterar as primeiras linhas do nosso código para o seguinte:
 
 ```python
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import (
+    render, redirect, get_object_or_404
+)
+
+from visitantes.models import Visitante
 from visitantes.forms import VisitanteForm
 
-# código acima omitido
-    return render(request, "registrar_visitante.html", contexto)
-
-
-def informacoes_visitante(request, id):
-    pass
+# código abaixo omitido
 ```
 
-* Recebendo token em view
-* Utilizando o get\_model\_or\_404
+Conforme vimos, para utilizar a função `get_object_or_404()`, precisamos passar a classe modelo e o atributo a ser utilizado para busca. Vamos passar a classe `Visitante` e dizer que vamos buscar o visitante pelo `id` e que o `id` é igual à variável que estamos recebendo como argumento da função `informacoes_visitante()`. Nosso código ficará assim:
+
+```python
+def informacoes_visitante(request, id):
+    
+    visitante = get_object_or_404(Visitante, id=id)
+    
+    context = {
+        "nome_pagina": "Informações de visitante",
+    }
+    
+    return render(request, "informacoes_visitante.html", context)
+```
 
 ## Criando template
 
