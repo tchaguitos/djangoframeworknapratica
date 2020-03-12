@@ -403,9 +403,11 @@ Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div cla
 
 O módulo de mensagens do Django também nos disponibiliza uma variável chamada `messages`. Com ela, conseguimos verificar se existem mensagens e, por meio de um loop, verificar as informações de cada mensagem. É o que estamos fazendo, primeiro verificamos se existem mensagem \(`{% if messages %}`\), caso positivo, nós executamos um loop e acessamos a mensagem utilizando a variável criada no loop \(`{{ message }}`\).
 
-A novidade aqui é a utilização da tag {% if %}, uma estrutura condicional, nos templates. O que estiver dentro dela só será exibido caso o resultado da expressão seja verdadeiro
+{% hint style="info" %}
+Aqui temos uma novidade, a utilização da tag `{% if %}`. Uma estrutura condicional que pode ser utilizada em templates. O que estiver dentro dela só será exibido caso o resultado da expressão seja verdadeiro. Ou seja, quando existem mensagens e a variável `messages` está definida, exibimos o trecho HTML
+{% endhint %}
 
-
+Agora você pode cadastrar mais um visitante e ver a mensagem de sucesso sendo exibida!
 
 ## Tratando possíveis erros em nosso formulário
 
