@@ -53,10 +53,13 @@ def informacoes_visitante(request, id):
     
     context = {
         "nome_pagina": "Informações de visitante",
+        "visitante": visitante
     }
     
     return render(request, "informacoes_visitante.html", context)
 ```
+
+Não vamos nos esquecer de passar a variável `visitante` no contexto, para que possamos acessá-la nos templates!
 
 ## Criando template
 
