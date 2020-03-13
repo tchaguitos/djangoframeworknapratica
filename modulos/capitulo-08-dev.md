@@ -63,13 +63,11 @@ Não vamos nos esquecer de passar a variável `visitante` no contexto, para que 
 
 ## Criando template
 
-Com nossa view pronta, agora precisamos criar o template `informacoes_visitante.html` e colocá-lo na pasta templates do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
+Com nossa view pronta, agora precisamos criar o arquivo `informacoes_visitante.html` e colocá-lo na pasta **templates** do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
 
-continuar...
+{% file src="../.gitbook/assets/informacoes\_visitante.html.zip" caption="Iniciar o download" %}
 
-
-
-
+Após o download, coloque o arquivo na pasta templates do projeto.
 
 ## Criando URL para acessar informações de visitante
 
