@@ -71,7 +71,37 @@ Após o download, coloque o arquivo na pasta templates do projeto.
 
 ## Criando URL para acessar informações de visitante
 
-* Recebendo variáveis através da URL no Django
+A essa altura você já deve ter percebido que precisamos mapear a nova view em uma URL para conseguirmos acessá-la através do navegador. Dessa forma, vamos trabalhar no arquivo `urls.py` do nosso projeto e criar a URL de nome `informacoes_visitante`.
+
+Essa URL vai ser um pouco diferente das que criamos até agora pois, conforme vimos na função, precisamos de um `id` como argumento que será o identificador do visitante para busca no banco de dados. Podemos passar o `id` diretamente no endereço da URL acessada. Por exemplo, se queremos buscar as informações do visitante de `id=1`, acessamos a URL [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/).
+
+O primeiro passo nós já fizemos, que é receber o argumento na função de view que será mapeada na URL. Agora, temos que utilizar a sintaxe `<int:id>` na URL. Desta forma, estamos dizendo para o Django que precisamos receber uma variável do tipo `int` e ela receberá o nome de `id`. Nossa URL ficará assim:
+
+```python
+from django.urls import path
+from django.contrib import admin
+
+import usuarios.views
+import visitantes.views
+
+urlpatterns = [
+    # codigo acima omitido...
+    
+    path(
+        "registrar-visitante",
+        visitantes.views.registrar_visitante,
+        name="registrar_visitante",
+    )
+    
+    path(
+        "visitantes/<int:id>/",
+        visitantes.views.informacoes_visitante,
+        name="informacoes_visitante",
+    )
+]
+```
+
+Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
 
 ## Utilizando o Django para renderizar nossas URLs
 
