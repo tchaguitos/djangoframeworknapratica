@@ -340,6 +340,8 @@ Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_s
 </div>
 ```
 
+Você pode criar os métodos que quiser e exibir as informações conforme precisar. Existem diversas possibilidades e aplicações, então sinta-se livre para explorar essas possibilidades!
+
 ## Utilizando o Django para renderizar nossas URLs
 
 Para acessar as informações de cada visitante, precisamos acessar a URL `http://127.0.0.1/visitantes/{id}/`, onde o `{id}` será um valor diferente para cada visitante. Até agora fizemos isso manulamente, mas você deve estar se perguntando: como vamos fazer para renderizar uma URL diferente para cada de visitante de forma automática?
