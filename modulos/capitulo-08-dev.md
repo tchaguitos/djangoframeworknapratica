@@ -103,7 +103,9 @@ Após o download, coloque o arquivo na pasta **templates** do projeto pois ainda
 
 Ao abrir o arquivo, você vai perceber que as informações estão definidas diretamente no template. Para tornar o template dinâmico e funcional, vamos alterar os valores do atributo `value` dos elementos `field` do HTML. A estrutura é bem parecida com a que utilizamos nos formulários, com a diferença que vamos renderizar todos os campos manualmente para que possamos personolizar mais a estrutura do HTML.
 
-Como passamos a variável `visitante` no contexto, podemos acessá-la diretamente utilizando a sintaxe `{{ visitante.nome_do_atributo }}`. Vamos alterar os valores estáticos para a sintaxe de template do Django e tornar nosso template dinâmico. Se você ficar na dúvida sobre qual atributo exibir, o elemento  `<label>` pode te ajudar! O template ficará assim:
+Como passamos a variável `visitante` no contexto, podemos acessá-la diretamente utilizando a sintaxe `{{ visitante.nome_do_atributo }}`. Vamos alterar os valores estáticos para a sintaxe de template do Django e tornar nosso template dinâmico. Se você ficar na dúvida sobre qual atributo exibir, o elemento  `<label>` pode te ajudar! 
+
+E antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro responsável pelo registro e o horário que o visitante foi registrado. Para isso, vamos alterar o texto de "Visitante registrado em 15/05/2018 por Jack Torrance" para "Visitante registrado em `{{ visitante.horario_chegada }}` por `{{ visitante.registrado_por }}`". O template ficará assim:
 
 ```python
 <div class="card-body">
@@ -174,7 +176,7 @@ Como passamos a variável `visitante` no contexto, podemos acessá-la diretament
             
     <p class="mr-2 mt-3 mb-4 text-right">
         <small>
-            Visitante registrado em 15/05/2018 por Thiago Brasil
+            Visitante registrado em {{ visitante.horario_chegada }} por {{ visitante.registrado_por }}
         </small>
     </p>
 
@@ -183,10 +185,8 @@ Como passamos a variável `visitante` no contexto, podemos acessá-la diretament
             <span class="text">Voltar</span>
         </a>
     </div>
-</div>
+</div> 
 ```
-
-Antes que a gente esqueça, vamos alterar também o texto que 
 
 Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
 
