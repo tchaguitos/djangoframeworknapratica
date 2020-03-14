@@ -12,3 +12,7 @@
 
 * Exibição condicional de botões para autorizar entrada e finalizar visita
 
+## Criando um status diferente para cada estágio da visita
+
+Existem três cenários para o visitante: quando ele chega na portaria e 
+
