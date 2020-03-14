@@ -1,4 +1,4 @@
-# Capítulo 08 - dev
+# Capítulo 08
 
 ## Criando tela para exibir informações de visitante
 
