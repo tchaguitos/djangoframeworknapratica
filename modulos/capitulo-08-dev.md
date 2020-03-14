@@ -103,7 +103,90 @@ Após o download, coloque o arquivo na pasta **templates** do projeto pois ainda
 
 Ao abrir o arquivo, você vai perceber que as informações estão definidas diretamente no template. Para tornar o template dinâmico e funcional, vamos alterar os valores do atributo `value` dos elementos `field` do HTML. A estrutura é bem parecida com a que utilizamos nos formulários, com a diferença que vamos renderizar todos os campos manualmente para que possamos personolizar mais a estrutura do HTML.
 
-Como nós passamos a variável visitante no contexto, podemos acessá-la diretamente utilizando a sintaxe de dupla chave. continuar
+Como passamos a variável `visitante` no contexto, podemos acessá-la diretamente utilizando a sintaxe `{{ visitante.nome_do_atributo }}`. Vamos alterar os valores estáticos para a sintaxe de template do Django e tornar nosso template dinâmico. Se você ficar na dúvida sobre qual atributo exibir, o elemento  `<label>` pode te ajudar! O template ficará assim:
+
+```python
+<div class="card-body">
+    <h4 class="mb-3 text-primary">
+        Informações gerais
+    </h4>
+
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Horário de chegada</label>
+                <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Número da casa a ser visitada</label>
+                <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Horário de autorização de entrada</label>
+                <input type="text" class="form-control" value="{{ visitante.horario_autorizacao }}" disabled>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Entrada autorizada por</label>
+                <input type="text" class="form-control" value="{{ visitante.morador_resposavel }}" disabled>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Horário de saída</label>
+                <input type="text" class="form-control" value="{{ visitante.horario_saida }}" disabled>
+            </div>
+        </div>
+    </form>
+
+    <h4 class="mb-3 mt-4 text-primary">
+        Informações pessoais
+    </h4>
+    
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nome completo</label>
+                <input type="text" class="form-control" value="{{ visitante.nome_completo }}" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>CPF</label>
+                <input type="text" class="form-control" value="{{ visitante.cpf }}" disabled>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Data de nascimento</label>
+                <input type="text" class="form-control" value="{{ visitante.data_nascimento }}" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Placa do veículo</label>
+                <input type="text" class="form-control" value="{{ visitante.placa_veiculo }}" disabled>
+            </div>
+        </div>
+    </form>
+            
+    <p class="mr-2 mt-3 mb-4 text-right">
+        <small>
+            Visitante registrado em 15/05/2018 por Thiago Brasil
+        </small>
+    </p>
+
+    <div class="mr-1 text-right">
+        <a href="#" class="btn btn-secondary text-white" type="button">
+            <span class="text">Voltar</span>
+        </a>
+    </div>
+</div>
+```
+
+Antes que a gente esqueça, vamos alterar também o texto que 
 
 Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
 
