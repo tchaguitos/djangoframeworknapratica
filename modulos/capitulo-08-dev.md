@@ -185,7 +185,7 @@ E antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro
             <span class="text">Voltar</span>
         </a>
     </div>
-</div> 
+</div>
 ```
 
 Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
@@ -243,7 +243,7 @@ def get_horario_saida(self):
 
 ### Criando método para exibir placa do veículo utilizado na visita
 
-O método `get_veiculo()` será parecido com os outros, mas também terá um outro texto padrão.
+O método `get_veiculo()` será parecido com os outros, mas também terá um outro texto padrão:
 
 ```python
 def get_placa_veiculo(self):
@@ -255,7 +255,90 @@ def get_placa_veiculo(self):
 
 ### Utilizando métodos personalizados no template
 
-Com nossos métodos peronslizados criados, temos que 
+Com nossos métodos criados, temos que alterar o template informacoes\_visitante.html para que exiba os métodos os invés dos atributos. A sintaxe para exibição nos templates é bem parecida com a que utilizamos para os atributos, inclusive.
+
+Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_saida` e `placa_veiculo`, vamos alterar para métodos criados. Ou seja, ao invés de `{{ visitante.horario_autorizacao }}`, utilizaremos `{{ visitante.get_horario_autorizacao }}`. O template ficará assim:
+
+```python
+<div class="card-body">
+    <h4 class="mb-3 text-primary">
+        Informações gerais
+    </h4>
+
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Horário de chegada</label>
+                <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Número da casa a ser visitada</label>
+                <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Horário de autorização de entrada</label>
+                <input type="text" class="form-control" value="{{ visitante.get_horario_autorizacao }}" disabled>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Entrada autorizada por</label>
+                <input type="text" class="form-control" value="{{ visitante.get_morador_resposavel }}" disabled>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Horário de saída</label>
+                <input type="text" class="form-control" value="{{ visitante.get_horario_saida }}" disabled>
+            </div>
+        </div>
+    </form>
+
+    <h4 class="mb-3 mt-4 text-primary">
+        Informações pessoais
+    </h4>
+    
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nome completo</label>
+                <input type="text" class="form-control" value="{{ visitante.nome_completo }}" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>CPF</label>
+                <input type="text" class="form-control" value="{{ visitante.cpf }}" disabled>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Data de nascimento</label>
+                <input type="text" class="form-control" value="{{ visitante.data_nascimento }}" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Placa do veículo</label>
+                <input type="text" class="form-control" value="{{ visitante.get_placa_veiculo }}" disabled>
+            </div>
+        </div>
+    </form>
+            
+    <p class="mr-2 mt-3 mb-4 text-right">
+        <small>
+            Visitante registrado em {{ visitante.horario_chegada }} por {{ visitante.registrado_por }}
+        </small>
+    </p>
+
+    <div class="mr-1 text-right">
+        <a href="#" class="btn btn-secondary text-white" type="button">
+            <span class="text">Voltar</span>
+        </a>
+    </div>
+</div>
+```
 
 ## Utilizando o Django para renderizar nossas URLs
 
