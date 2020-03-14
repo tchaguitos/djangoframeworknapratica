@@ -105,9 +105,46 @@ Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000
 
 ## Utilizando o Django para renderizar nossas URLs
 
-## Aprendendo um pouco mais sobre URLs no Django
+Para acessar as informações de cada visitante, precisamos acessar a URL `http://127.0.0.1/visitantes/{id}/`, onde `{id}` será um valor diferente para cada visitante.
 
-* Recebendo informações por meio das URLs
+{% hint style="info" %}
+Quando criamos nosso modelo de visitante, não criamos o atributo `id`, mas o Django faz isso por nós para que possamos utilizá-lo como `primary_key`. Além disso, o atributo `id` deverá ser único e, para cada novo visitante registrado, o valor será aumentado em um. Sendo assim, não existirá dois visitante de mesmo `id`.
+{% endhint %}
+
+Com isso em mente, você deve estar se perguntando: como vamos fazer para renderizar a URL de informações de visitante de forma automática?
+
+Para nossa sorte, o pessoal responsável pelo Django já pensou em tudo por nós. Dentre as tags de template, existe a tag `{% url %}`. Ela tem a função de renderizar as URLs do nosso projeto de forma automática, bastando que a gente passe apenas o nome da URL da ser renderizado \(sim, é exatamente o valor que definimos para o argumento `name` na definição da URL no arquivos `urls.py`\).
+
+Vamos abrir o arquivo `index.html` e utilizar a tag `{% url %}` para renderizar a URL que irá nos direcionar para o template de informações de cada visitante. Na tabela que exibe as informações dos visitantes recentes existe um link que exibe o texto "Ver detalhes". Vamos alterar o valor de `href` do elemento `<a>` de `#` para `{% url 'informacoes_visitante' id=visitante.id %}`. Primeiro passamos nome da URL e depois podemos passar argumentos necessários que, para esse caso, é somente a `id`. Note também que, dentro do loop, o `id` de cada visitante é acessado da mesma forma que os outros atributos. O loop ficará assim:
+
+```python
+{% for visitante in todos_visitantes %}
+    <td>{{ visitante.nome_completo }}</td>
+    <td>{{ visitante.cpf }}</td>
+    <td>{{ visitante.horario_chegada }}</td>
+    <td>{{ visitante.horario_autorizacao }}</td>
+    <td>{{ visitante.morador_resposavel }}</td>
+    <td>
+        <a href="{% url 'informacoes_visitante' id=visitante.id %}">
+            Ver detalhes
+        </a>
+    </td>
+{% endfor %}
+```
+
+Para facilitar o acesso à URL de registro de visitantes, vamos inserir um botão ao lado do nome da página que deverá nos direcionar para a página [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-vistante/). Abaixo do elemento `<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>` vamos inserir o seguinte trecho de código:
+
+```python
+<a href="{% url 'registrar_visitante' %}" class="btn btn-primary btn-icon-split btn-sm">
+    <span class="text">Registrar visitante</span>
+
+    <span class="icon text-white-50">
+        <i class="fas fa-user-plus"></i>
+    </span>
+</a>
+```
+
+Como nossa URL `registrar_visitante` não recebe argumentos, passamos para a tag apenas o nome da mesma.
 
 ## Modelos do Django e seus métodos
 
