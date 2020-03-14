@@ -14,7 +14,5 @@
 
 ### Conhecendo o datetime do Python
 
-## Criando um status diferente para cada estágio da visita
 
-Existem três cenários para o visitante: quando ele chega na portaria e 
 
