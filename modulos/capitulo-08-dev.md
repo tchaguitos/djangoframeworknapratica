@@ -61,14 +61,6 @@ def informacoes_visitante(request, id):
 
 Não vamos nos esquecer de passar a variável `visitante` no contexto, para que possamos acessá-la nos templates!
 
-## Criando template
-
-Com nossa view pronta, agora precisamos criar o arquivo `informacoes_visitante.html` e colocá-lo na pasta **templates** do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
-
-{% file src="../.gitbook/assets/informacoes\_visitante.html.zip" caption="Iniciar o download" %}
-
-Após o download, coloque o arquivo na pasta templates do projeto.
-
 ## Criando URL para acessar informações de visitante
 
 A essa altura você já deve ter percebido que precisamos mapear a nova view em uma URL para conseguirmos acessá-la através do navegador. Dessa forma, vamos trabalhar no arquivo `urls.py` do nosso projeto e criar a URL de nome `informacoes_visitante`.
@@ -100,6 +92,18 @@ urlpatterns = [
     )
 ]
 ```
+
+## Criando template
+
+Com nossa view pronta, agora precisamos criar o arquivo `informacoes_visitante.html` e colocá-lo na pasta **templates** do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
+
+{% file src="../.gitbook/assets/informacoes\_visitante.html.zip" caption="Iniciar o download" %}
+
+Após o download, coloque o arquivo na pasta **templates** do projeto pois ainda precisamos alterar algumas coisas nele.
+
+Ao abrir o arquivo, você vai perceber que as informações estão definidas diretamente no template. Para tornar o template dinâmico e funcional, vamos alterar os valores do atributo `value` dos elementos `field` do HTML. A estrutura é bem parecida com a que utilizamos nos formulários, com a diferença que vamos renderizar todos os campos manualmente para que possamos personolizar mais a estrutura do HTML.
+
+Como nós passamos a variável visitante no contexto, podemos acessá-la diretamente utilizando a sintaxe de dupla chave. continuar
 
 Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
 
@@ -146,11 +150,6 @@ Para facilitar o acesso à URL de registro de visitantes, vamos inserir um botã
 
 Como nossa URL `registrar_visitante` não recebe argumentos, passamos para a tag apenas o nome da mesma.
 
-## Modelos do Django e seus métodos
-
-* get\_status\_display\(\)
-* h[ttps://docs.djangoproject.com/en/2.2/ref/models/instances/\#django.db.models.Model.get\_FOO\_display](https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model.get_FOO_display)
-
 ## Criando métodos personalizados para exibir informações do Visitante
 
 * Exibindo atributos somente quando preenchidos
@@ -158,7 +157,7 @@ Como nossa URL `registrar_visitante` não recebe argumentos, passamos para a tag
   * Criando método get\_autorizado\_por
   * Criando método get\_horario\_saida
 
-## Utilizando métodos personalizados no template
+### Utilizando métodos personalizados no template
 
 Com nossos métodos peronslizados criados, temos que 
 
