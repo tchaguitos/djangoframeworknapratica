@@ -93,7 +93,7 @@ urlpatterns = [
 ]
 ```
 
-## Criando template
+## Criando template para exibir informações de visitante
 
 Com nossa view pronta, agora precisamos criar o arquivo `informacoes_visitante.html` e colocá-lo na pasta **templates** do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
 
