@@ -190,15 +190,24 @@ E antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro
 
 Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
 
+## Criando métodos personalizados para exibir informações do Visitante
+
+* Exibindo atributos somente quando preenchidos
+  * Criando método get\_horario\_autorizacao
+  * Criando método get\_autorizado\_por
+  * Criando método get\_horario\_saida
+
+### Utilizando métodos personalizados no template
+
+Com nossos métodos peronslizados criados, temos que 
+
 ## Utilizando o Django para renderizar nossas URLs
 
-Para acessar as informações de cada visitante, precisamos acessar a URL `http://127.0.0.1/visitantes/{id}/`, onde `{id}` será um valor diferente para cada visitante.
+Para acessar as informações de cada visitante, precisamos acessar a URL `http://127.0.0.1/visitantes/{id}/`, onde o `{id}` será um valor diferente para cada visitante. Até agora fizemos isso manulamente, mas você deve estar se perguntando: como vamos fazer para renderizar uma URL diferente para cada de visitante de forma automática?
 
 {% hint style="info" %}
 Quando criamos nosso modelo de visitante, não criamos o atributo `id`, mas o Django faz isso por nós para que possamos utilizá-lo como `primary_key`. Além disso, o atributo `id` deverá ser único e, para cada novo visitante registrado, o valor será aumentado em um. Sendo assim, não existirá dois visitante de mesmo `id`.
 {% endhint %}
-
-Com isso em mente, você deve estar se perguntando: como vamos fazer para renderizar a URL de informações de visitante de forma automática?
 
 Para nossa sorte, o pessoal responsável pelo Django já pensou em tudo por nós. Dentre as tags de template, existe a tag `{% url %}`. Ela tem a função de renderizar as URLs do nosso projeto de forma automática, bastando que a gente passe apenas o nome da URL da ser renderizado \(sim, é exatamente o valor que definimos para o argumento `name` na definição da URL no arquivos `urls.py`\).
 
@@ -232,15 +241,4 @@ Para facilitar o acesso à URL de registro de visitantes, vamos inserir um botã
 ```
 
 Como nossa URL `registrar_visitante` não recebe argumentos, passamos para a tag apenas o nome da mesma.
-
-## Criando métodos personalizados para exibir informações do Visitante
-
-* Exibindo atributos somente quando preenchidos
-  * Criando método get\_horario\_autorizacao
-  * Criando método get\_autorizado\_por
-  * Criando método get\_horario\_saida
-
-### Utilizando métodos personalizados no template
-
-Com nossos métodos peronslizados criados, temos que 
 
