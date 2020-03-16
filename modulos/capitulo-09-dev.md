@@ -71,7 +71,7 @@ Nada diferente do que já vimos, vamos agora utiliza o comando `migrate`:
 
 ## Criando formulário para atualizar atributos específicos do visitante
 
-
+Sabemos que precisamos registrar o nome do morador responsável por autorizar a entrada do visitante, além de salvar data e hora e, agora que temos um status, alterar esse status. continuar...
 
 ## Alterando template para exibir modal com formulário
 
