@@ -14,19 +14,64 @@ Antes de seguir, precisamos analisar o cenário e extrair algumas informações 
 
 Definir e tornar esses status explícitos é interessante pois com eles conseguimos dizer quantos usuários estão aguardando autorização, quantos estão dentro do condomínio e quantos já finalizaram a visita.
 
-Vamos voltar ao nosso arquivo `models.py` do aplicativos **visitantes** e adicionar o atributo `status` ao modelo de Visitante. Ele será do tipo `CharField`, mas com a diferença que receberá uma lista pré determinada de opções disponíveis para escolha. Essa lista deverá guardar as opções disponíveis e devemos definir sempre o valor que será salvo em nosso banco de dados e o valor que será exibido para o usuário final. Nossa lista `STATUS_VISITANTE` ficará da seguinte forma:
+Vamos voltar ao nosso arquivo `models.py` do aplicativos **visitantes** e adicionar o atributo `status` ao modelo de Visitante. Ele será do tipo `CharField`, mas com a diferença que receberá uma lista pré determinada de opções disponíveis para escolha. Essa lista deverá guardar as opções disponíveis e devemos definir sempre o valor que será salvo em nosso banco de dados e o valor que será exibido para o usuário final. Antes do atributo, vamos criar a variável `STATUS_VISITANTE`, que ficará da seguinte forma:
 
 ```python
-STATUS_VISITANTE = [
-    ("AGUARDANDO", "Aguardando autorização"),
-    ("EM_VISITA", "Em visita"),
-    ("FINALIZADO", "Visita finalizada"),
-]
+class Visitante(models.Model):
+
+    STATUS_VISITANTE = [
+        ("AGUARDANDO", "Aguardando autorização"),
+        ("EM_VISITA", "Em visita"),
+        ("FINALIZADO", "Visita finalizada"),
+    ]
+    
+    # código abaixo omitido
 ```
 
+{% hint style="info" %}
+A lista `STATUS_VISITANTE` segue o que foi dito anteriormente e define os status `Aguardando autorização`, `Em visita` e `Finalizado`. O primeiro valor, em letras maiúsculas, será guardado no banco de dados e o segundo é o texto que será exibido para o usuário final. Sendo assim, quando o visitante receber o status `AGUARDANDO`, o texto **Aguardando autorização** será exibido.
+{% endhint %}
 
+Com isso, agora vamos adicionar o atributo `status` ao nosso modelo. Além dos argumentos `verbose_name` e `max_length` que já conhecemos, também vamos passar `choices` e `default`. O primeiro é a lista que criamos com as opções disponíveis e o segundo é o valor padrão a ser definido quando uma instância do modelo for criada. Nosso código ficará assim:
+
+```python
+class Visitante(models.Model):
+
+    STATUS_VISITANTE = [
+        ("AGUARDANDO", "Aguardando autorização"),
+        ("EM_VISITA", "Em visita"),
+        ("FINALIZADO", "Visita finalizada"),
+    ]
+    
+    status = models.CharField(
+        verbose_name="Status",
+        max_length=22,
+        choices=STATUS_VISITANTE,
+        default="AGUARDANDO",
+    )
+    
+    # código abaixo omitido
+```
+
+### Criando o arquivo de migrações
+
+Como vimos anteriormente, sempre que mudamos a estrutura do nosso modelo, precisamos criar um arquivo que registra essas alterações em formato de migração para que seja possível efetuar as alterações no banco de dados posteriormente. Mais uma vez, utilizaremos o comando `makemigrations`:
+
+```python
+(env)$ python manage.py makemigrations visitantes
+```
+
+### Efetuando as alterações no banco de dados
+
+Nada diferente do que já vimos, vamos agora utiliza o comando `migrate`:
+
+```python
+(env)$ python manage.py migrate visitantes
+```
 
 ## Criando formulário para atualizar atributos específicos do visitante
+
+
 
 ## Alterando template para exibir modal com formulário
 
