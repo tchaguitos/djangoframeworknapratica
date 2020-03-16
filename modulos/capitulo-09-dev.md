@@ -101,7 +101,7 @@ Ao criamos um formulário, podemos também sobrescrever os campos definidos auto
 
 ## Alterando view para autorizar entrada de visitante
 
-continuar...
+Agora que criamos um formulário que receberá o nome do morador responsável por autorizar a entrada do visitante, temos que realizar algumas alterações em nossa view e template para que o formulário seja exibido e funcione corretamente. O que faremos é justamente inserir um formulário no template. continuar...
 
 ## Alterando template para exibir modal com formulário
 
