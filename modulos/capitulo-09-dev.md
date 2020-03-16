@@ -2,7 +2,7 @@
 
 ## Criando função para autorizar entrada de visitante
 
-Nos capítulos anteriores, nos dedicamos à criação das funcionalidades para registro e visualização de informações de visitantes. Aprendemos um pouco sobre como requisições funcionam, aprendemos a utilizar os formulários do Django, adaptamos os templates e aprendemos um pouco mais como eles funcionam, conhecemos o django-widget-tweaks, o Django messages e o get\_object\_or\_404 e ainda criamos métodos personalizados para nosso modelo de visitantes. Olha só quanta coisa conseguimos absorver somente nesses últimos capítulos!
+Nos capítulos anteriores, nos dedicamos à criação das funcionalidades para registro e visualização de informações de visitantes. Aprendemos um pouco sobre como requisições funcionam, aprendemos a utilizar os formulários do Django, adaptamos os templates e aprendemos um pouco mais como eles funcionam, conhecemos o **django-widget-tweaks**, o Django **messages** e o `get_object_or_404` e ainda criamos métodos personalizados para nosso modelo de visitantes. Olha só quanta coisa conseguimos absorver somente nesses últimos capítulos!
 
 Com essas funcionalidades criadas, precisamos seguir o roteiro que criamos com base nas necessidades do cliente, de modo que, agora, trabalharemos na funcionalidade que autoriza a entrada do visitante no condomínio. Quando um visitante chega na portaria e se identifica, o mesmo deve aguardar que o colaborador responsável entre em contato com um morador da casa a ser visitada e autorize que este visitante adentre ao condomínio.
 
@@ -10,9 +10,23 @@ Ao receber a informação de que o visitante pode adentrar ao condomínio, o por
 
 ## Criando um status diferente para cada estágio da visita
 
-Antes de seguir, precisamos analisar o cenário e extrair algumas informações com base nos fluxos e eventos que ocorrem, afim de melhorar a experiência de utilização da dashboard. Existem três cenários para o visitante: quando ele chega na portaria e está aguardando autorização, quando ele está dentro do condomínio durante a visita e quando ele vai embora e finaliza a visita. 
+Antes de seguir, precisamos analisar o cenário e extrair algumas informações com base nos fluxos e eventos que ocorrem, afim de melhorar a experiência de utilização da dashboard. Existem três cenários para o visitante: quando ele chega na portaria e está aguardando autorização \(status 1\), quando ele está dentro do condomínio realizando a visita \(status 2\) e quando ele vai embora e finaliza a visita \(status 3\).
 
-## Criando formulário para atualizar atributos específico do visitante
+Definir e tornar esses status explícitos é interessante pois com eles conseguimos dizer quantos usuários estão aguardando autorização, quantos estão dentro do condomínio e quantos já finalizaram a visita.
+
+Vamos voltar ao nosso arquivo `models.py` do aplicativos **visitantes** e adicionar o atributo `status` ao modelo de Visitante. Ele será do tipo `CharField`, mas com a diferença que receberá uma lista pré determinada de opções disponíveis para escolha. Essa lista deverá guardar as opções disponíveis e devemos definir sempre o valor que será salvo em nosso banco de dados e o valor que será exibido para o usuário final. Nossa lista `STATUS_VISITANTE` ficará da seguinte forma:
+
+```python
+STATUS_VISITANTE = [
+    ("AGUARDANDO", "Aguardando autorização"),
+    ("EM_VISITA", "Em visita"),
+    ("FINALIZADO", "Visita finalizada"),
+]
+```
+
+
+
+## Criando formulário para atualizar atributos específicos do visitante
 
 ## Alterando template para exibir modal com formulário
 
