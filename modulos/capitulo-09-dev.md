@@ -53,6 +53,10 @@ class Visitante(models.Model):
     # código abaixo omitido
 ```
 
+{% hint style="warning" %}
+O status `default` será `AGUARDANDO` pois sempre que um visitante chega à portaria, fica aguardando a autorização de um morador
+{% endhint %}
+
 ### Criando o arquivo de migrações
 
 Como vimos anteriormente, sempre que mudamos a estrutura do nosso modelo, precisamos criar um arquivo que registra essas alterações em formato de migração para que seja possível efetuar as alterações no banco de dados posteriormente. Mais uma vez, utilizaremos o comando `makemigrations`:
@@ -71,7 +75,25 @@ Nada diferente do que já vimos, vamos agora utiliza o comando `migrate`:
 
 ## Criando formulário para atualizar atributos específicos do visitante
 
-Sabemos que precisamos registrar o nome do morador responsável por autorizar a entrada do visitante, além de salvar data e hora e, agora que temos um status, alterar esse status. continuar...
+Sabemos que precisamos registrar o nome do morador responsável por autorizar a entrada do visitante, além de salvar data e hora e, agora que temos um status, alterar esse status. Por padrão e uma questão lógica, sempre que criamos um visitante o mesmo recebe o status `AGUARDANDO` e, quando sua entrada é autorizada, alteramos esse status para `EM_VISITA`.
+
+Criaremos a funcionalidade na tela que exibe as informações do visitante, de forma que, quando o visitante estiver aguardando autorização, vamos exibir um botão para chamar a função que autorizará sua entrada. Utilizaremos um formulário para receber o nome do morador responsável e as informações referentes ao horário de autorização e status serão setadas diretamente na view.
+
+Para começar, vamos abrir o arquivo `forms.py` do aplicativos visitantes e criar o formulário `AutorizaVisitanteForm`, uma subclasse de `ModelForm` bem parecida com a que criamos, com a diferença que terá apenas o campo `morador_responsavel` na lista `fields`.
+
+```python
+class AutorizaVisitanteForm(forms.ModelForm):
+    morador_responsavel = forms.CharField(
+        required=True,
+        error_messages={"required": "Por favor, informe o nome do morador responsável por autorizar a entrada do visitante"}
+    )
+
+    class Meta:
+        model = Visitante
+        fields = [
+            "morador_responsavel",
+        ]
+```
 
 ## Alterando template para exibir modal com formulário
 
