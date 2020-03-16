@@ -101,17 +101,66 @@ Ao criamos um formulário, podemos também sobrescrever os campos definidos auto
 
 ## Alterando view para autorizar entrada de visitante
 
-Agora que criamos um formulário que receberá o nome do morador responsável por autorizar a entrada do visitante, temos que realizar algumas alterações em nossa view e template para que o formulário seja exibido e funcione corretamente. O que faremos é justamente inserir um formulário no template. continuar...
+Agora que criamos um formulário para receber o nome do morador responsável por autorizar a entrada do visitante, temos que realizar algumas alterações em nossa view e em nosso template para que o formulário seja exibido e funcione corretamente.
 
-## Alterando template para exibir modal com formulário
+Já escrevemos um código bem parecido com o que vamos escrever agora, o da view `registrar_visitante`. Desta vez, vamos importar o formulário `AutorizaVisitanteForm` no arquivo views.py do aplicativo **visitantes**. O trecho onde as importações são feitas ficará assim:
 
-## Alterando formulário HTML para se adequar às nossas necessidades
+```python
+from django.contrib import messages
+from django.shortcuts import (
+    render, redirect, get_object_or_404
+)
 
-* Alterando método do formulário HTML
+from visitantes.models import Visitante
+from visitantes.forms import (
+    VisitanteForm, AutorizaVisitanteForm
+)
+
+# código abaixo omitido
+```
+
+Com o formulário importado no arquivo `views.py`, vamos trabalhar na função `informacoes_visitante()`, exatamente do forma que fizemos na função `registrar_visitante()`: criar a variável form, verificar se o método POST está sendo utilizado na requisição, passar o corpo da requisição para o formulário, verificar se as informações são válidas, exibir a mensagem de sucesso e redirecionar o usuário. Não podemos nos esquecer, claro, de passar o formulário no contexto da view. 
+
+
+
+```python
+def informacoes_visitante(request, id):
+    
+    visitante = get_object_or_404(Visitante, id=id)
+    
+    form = AutorizaVisitanteForm()
+    
+    if request.method == "POST":
+        form = AutorizaVisitanteForm(
+            request.POST, instance=visitante
+        )
+        
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                "Entrada de visitante autorizada com sucesso"
+            )
+
+            return redirect("index")
+    
+    context = {
+        "nome_pagina": "Informações de visitante",
+        "visitante": visitante,
+        "form": form,
+    }
+    
+    return render(request, "informacoes_visitante.html", context)
+```
 
 ## Atualizando os campos horario\_autorizacao e status diretamente
 
 ### Conhecendo o datetime do Python
+
+## Alterando template para exibir modal com formulário
+
+
 
 
 
