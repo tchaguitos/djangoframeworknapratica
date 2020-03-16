@@ -79,21 +79,29 @@ Sabemos que precisamos registrar o nome do morador responsável por autorizar a 
 
 Criaremos a funcionalidade na tela que exibe as informações do visitante, de forma que, quando o visitante estiver aguardando autorização, vamos exibir um botão para chamar a função que autorizará sua entrada. Utilizaremos um formulário para receber o nome do morador responsável e as informações referentes ao horário de autorização e status serão setadas diretamente na view.
 
-Para começar, vamos abrir o arquivo `forms.py` do aplicativos visitantes e criar o formulário `AutorizaVisitanteForm`, uma subclasse de `ModelForm` bem parecida com a que criamos, com a diferença que terá apenas o campo `morador_responsavel` na lista `fields`.
+Para começar, vamos abrir o arquivo `forms.py` do aplicativos **visitantes** e criar o formulário `AutorizaVisitanteForm`, uma subclasse de `ModelForm` bem parecida com a que criamos, com a diferença que terá apenas o campo `morador_responsavel` na lista `fields`:
 
 ```python
 class AutorizaVisitanteForm(forms.ModelForm):
-    morador_responsavel = forms.CharField(
-        required=True,
-        error_messages={"required": "Por favor, informe o nome do morador responsável por autorizar a entrada do visitante"}
-    )
+    morador_responsavel = forms.CharField(required=True)
 
     class Meta:
         model = Visitante
         fields = [
             "morador_responsavel",
         ]
+        error_messages = {
+            "morador_responsavel": {
+                "required": "Por favor, informe o nome do morador responsável por autorizar a entrada do visitante"
+            }
+        }
 ```
+
+Ao criamos um formulário, podemos também sobrescrever os campos definidos automaticamente, caso a gente queira complementar alguma informação ou personalizar comportamentos. No nosso caso, como o atributo `morador_responsavel` não é obrigatório no modelo, também não será no formulário, mesmo que a gente esteja recebendo apenas ele. Por isso vamos sobrescrever o campo no formulário, afim de explicitar que ele deve ser obrigatório. Além disso, também definimos uma mensagem de erro para caso o campo não seja preenchido. Feito isso, já podemos utilizar o formulário em nossa view.
+
+## Alterando view para autorizar entrada de visitante
+
+continuar...
 
 ## Alterando template para exibir modal com formulário
 
