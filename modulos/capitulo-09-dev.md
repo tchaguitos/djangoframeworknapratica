@@ -152,7 +152,7 @@ def informacoes_visitante(request, id):
     return render(request, "informacoes_visitante.html", context)
 ```
 
-Note que, desta vez, passamos também o argumento `instance` para o nosso formulário. Quando fazemos isso, o Django entende que queremos atualizar o objeto em questão \(o visitante com `id` igual à passada para a função, no caso\). Estamos dizendo para o Django atualizar o visitante utilizando a informação do corpo da requisição.
+Note que, desta vez, passamos também o argumento `instance` para o nosso formulário. Quando fazemos isso, o Django entende que queremos atualizar o objeto em questão \(o visitante com `id` igual à passada para a função, no caso\). Estamos dizendo para o Django atualizar o visitante em questão utilizando a informação do corpo da requisição.
 
 ## Alterando template para exibir modal com formulário
 
