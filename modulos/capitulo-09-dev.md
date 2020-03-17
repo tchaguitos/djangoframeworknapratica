@@ -160,7 +160,11 @@ Como passamos a variável `form` no contexto, podemos agora alterar nosso templa
 
 Antes de tudo, vamos adicionar o botão que será responsável por exibir o modal com o formulário. Abra o arquivo `informacoes_visitante.html` e abaixo do elemento `<h1 class="h3 mb-0 text-gray-800">` insira o seguinte trecho de código:
 
-```python
+```markup
+<!-- código acima omitido -->
+<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+
+<!-- trecho de código a ser inserido -->
 <div>
     <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
         <span class="text">Autorizar entrada</span>
@@ -170,9 +174,10 @@ Antes de tudo, vamos adicionar o botão que será responsável por exibir o moda
         </span>
     </a>
 </div>
+<!-- código abaixo omitido -->
 ```
 
-O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página.
+O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link \(elemento `<a>`\) para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página.
 
 Feito isso, adicione também o código HTML do modal antes do fechamento da tag do elemento `<div class="container">`:
 
@@ -208,7 +213,7 @@ Feito isso, adicione também o código HTML do modal antes do fechamento da tag 
 </div>
 ```
 
-Conforme falado, esse modal deve possuir um formulário com a opção de inserir 
+Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag {% render\_field %}.
 
 continuar...  
 - explicar o render\_field  
