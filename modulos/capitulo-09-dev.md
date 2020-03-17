@@ -156,7 +156,63 @@ Note que, desta vez, passamos também o argumento `instance` para o nosso formul
 
 ## Alterando template para exibir modal com formulário
 
-Como passamos a variável no contexto, podemos agora alterar nosso template para que exibe esse formulário. 
+Como passamos a variável `form` no contexto, podemos agora alterar nosso template para que exiba esse formulário. Como as informações do visitante já ocupam grande parte do template, utilizaremos um elemento HTML conhecido como modal para exibir o formulário. Na verdade, ele é feito unindo as tecnologias HTML, CSS e Javascript e é um elemento que se sobrepõe aos outros, quase como um pop-up \(aquelas janelas chatas que piscam na tela\).
+
+Antes de tudo, vamos adicionar o botão que será responsável por exibir o modal com o formulário. Abra o arquivo `informacoes_visitante.html` e abaixo do elemento `<h1 class="h3 mb-0 text-gray-800">` insira o seguinte trecho de código:
+
+```python
+<div>
+    <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+        <span class="text">Autorizar entrada</span>
+                    
+        <span class="icon text-white-50">
+            <i class="fas fa-user-check"></i>
+        </span>
+    </a>
+</div>
+```
+
+O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página.
+
+Feito isso, adicione também o código HTML do modal antes do fechamento da tag do elemento `<div class="container">`:
+
+```python
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Autorizar entrada de visitante</h5>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="id_morador_responsavel" class="col-form-label">Nome do morador responsável por autorizar a entrada do visitante:</label>
+                        {% render_field form.morador_responsavel placeholder="Nome do morador responsável por autorizar a entrada do visitante" class="form-control" %}
+                    </div>
+                        
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Autorizar entrada</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Conforme falado, esse modal deve possuir um formulário com a opção de inserir 
+
+continuar...  
+- explicar o render\_field  
+- inserir lugar para colocar a tag {% load widget\_tweaks %}
 
 ## Atualizando os campos horario\_autorizacao e status diretamente
 
