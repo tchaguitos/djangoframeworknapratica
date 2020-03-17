@@ -79,7 +79,7 @@ Sabemos que precisamos registrar o nome do morador responsável por autorizar a 
 
 Criaremos a funcionalidade na tela que exibe as informações do visitante, de forma que, quando o visitante estiver aguardando autorização, vamos exibir um botão para chamar a função que autorizará sua entrada. Utilizaremos um formulário para receber o nome do morador responsável e as informações referentes ao horário de autorização e status serão setadas diretamente na view.
 
-Para começar, vamos abrir o arquivo `forms.py` do aplicativos **visitantes** e criar o formulário `AutorizaVisitanteForm`, uma subclasse de `ModelForm` bem parecida com a que criamos, com a diferença que terá apenas o campo `morador_responsavel` na lista `fields`:
+Para começar, vamos abrir o arquivo `forms.py` do aplicativos **visitantes** e criar o formulário `AutorizaVisitanteForm`, uma subclasse de `ModelForm` bem parecida com a que já criamos, com a diferença que terá apenas o campo `morador_responsavel` na lista `fields`:
 
 ```python
 class AutorizaVisitanteForm(forms.ModelForm):
@@ -101,9 +101,9 @@ Ao criamos um formulário, podemos também sobrescrever os campos definidos auto
 
 ## Alterando view para autorizar entrada de visitante
 
-Agora que criamos um formulário para receber o nome do morador responsável por autorizar a entrada do visitante, temos que realizar algumas alterações em nossa view e em nosso template para que o formulário seja exibido e funcione corretamente.
+Agora que criamos um formulário para receber o nome do morador responsável, temos que realizar algumas alterações em nossa view e em nosso template para que o formulário seja exibido e funcione corretamente.
 
-Já escrevemos um código bem parecido com o que vamos escrever agora, o da view `registrar_visitante`. Desta vez, vamos importar o formulário `AutorizaVisitanteForm` no arquivo views.py do aplicativo **visitantes**. O trecho onde as importações são feitas ficará assim:
+Já escrevemos um código bem parecido com o que vamos escrever agora, o da view `registrar_visitante`. Desta vez, vamos importar o formulário `AutorizaVisitanteForm` no arquivo `views.py` do aplicativo **visitantes**. O trecho onde as importações são feitas ficará assim:
 
 ```python
 from django.contrib import messages
