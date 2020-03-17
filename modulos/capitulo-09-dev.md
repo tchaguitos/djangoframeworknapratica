@@ -181,7 +181,7 @@ O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da pá
 
 Feito isso, adicione também o código HTML do modal antes do fechamento da tag do elemento `<div class="container">`:
 
-```python
+```markup
 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -213,7 +213,7 @@ Feito isso, adicione também o código HTML do modal antes do fechamento da tag 
 </div>
 ```
 
-Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag {% render\_field %}.
+Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag `{% render_field %}`.
 
 continuar...  
 - explicar o render\_field  
