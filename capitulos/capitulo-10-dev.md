@@ -1,4 +1,4 @@
-# Módulo 10 - pendente
+# Capítulo 10 - dev
 
 ## Criando função para finalizar visita
 

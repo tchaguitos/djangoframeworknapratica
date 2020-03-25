@@ -1,4 +1,4 @@
-# Capítulo 09 - dev
+# Capítulo 09
 
 ## Criando função para autorizar entrada de visitante
 
