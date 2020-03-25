@@ -215,17 +215,86 @@ Feito isso, adicione também o código HTML do modal antes do fechamento da tag 
 
 Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag `{% render_field %}`.
 
-continuar...  
-- explicar o render\_field  
-- inserir lugar para colocar a tag {% load widget\_tweaks %}
+Já utilizamos a tag `{% render_field %}` anteriormente, quando renderizamos nosso formulário para registro de novos visitantes. A dinâmica utilizada aqui será a mesma, com a diferença que estamos acessando a campo do formulário diretamente \(`form.morador_responsavel`\).
+
+{% hint style="info" %}
+Note que o template baixado no capítulo anterior já possui a tag de importação do django-widget-tweaks \(`{% load widget_tweaks %}`\).
+{% endhint %}
+
+Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado.
 
 ## Atualizando os campos horario\_autorizacao e status diretamente
 
+Ao testar o formulário e constatar que tudo ocorreu bem, você deve ter notado que, apesar do nome do morador responsável ter sido atualizado, os valores de `horario_autorizacao` e `status` continuaram os mesmos. Isso porque nosso formulário está atualizando apenas o campo `morador_responsavel`, e era isso que estávamos esperando, visto que colocamos apenas este campo na propriedade `fields` do formulário em questão. Mas como vamos atualizar estes outros campos?
+
+### Atualizando o status
+
+Quando criamos o formulário para registro de visitantes, definimos o valor do atributo `registrado_por` diretamente e é o que faremos neste caso também. Para isso, vamos alterar a view para que possamos setar esses valores diretamente.
+
+```python
+# código acima omitido
+
+if form.is_valid():
+    visitante = form.save(commit=False)
+    
+    visitante.status = "EM_VISITA"
+
+    visitante.save()
+
+    messages.success(
+        request,
+        "Entrada de visitante autorizada com sucesso"
+    )
+
+    return redirect("index")
+
+# código abaixo omitido
+```
+
+Dessa forma, já estamos definindo o valor que o status receberá caso o formulário seja válido e salvando o novo visitante, mas ainda precisamos registrar o horário em que essa autorização ocorreu, ou seja, o horário em que o formulário atualizou o atributo `registrado_por` e alterou o status para `EM_VISITA`.
+
 ### Conhecendo o datetime do Python
 
+O Python, por padrão, possui um módulo para trabalhar com datas e tempos que é o `datetime`. Esse módulo nos fornece inúmeras ferrametas para trabalharmos com datas e tempos de forma bem facilitada. O primeiro passo é importarmos o módulo na view.
 
+```python
+from django.contrib import messages
+from django.shortcuts import (
+    render, redirect, get_object_or_404
+)
 
+from visitantes.models import Visitante
+from visitantes.forms import (
+    VisitanteForm, AutorizaVisitanteForm
+)
 
+from datetime import datetime
 
+# código abaixo omitido
+```
 
+O `datetime` posssui um método chamado `now()` que nos retorna data e hora do momento em que a chamada ao método ocorreu. Sendo assim, caso o registro do visitante ocorra no dia 21 de agosto de 2020 às 15:00, o método datetime.now\(\) retornará exatamente essa data. Dessa forma, tudo que precisamos fazer é igualar o atributo `horario_autorizacao` à chamada do método `datetime.now()`. Nossa view ficará assim:
+
+```python
+# código acima omitido
+
+if form.is_valid():
+    visitante = form.save(commit=False)
+    
+    visitante.status = "EM_VISITA"
+    visitante.horario_autorizacao = datetime.now()
+
+    visitante.save()
+
+    messages.success(
+        request,
+        "Entrada de visitante autorizada com sucesso"
+    )
+
+    return redirect("index")
+
+# código abaixo omitido
+```
+
+Dessa forma, atualizamos o nome do morador responsável através do formulário e, caso a informação seja válida, atualizamos os atributos `status` e `horario_autorizacao` diretamente.
 
