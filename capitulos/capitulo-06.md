@@ -175,7 +175,7 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
                             <td>{{ visitante.cpf }}</td>
                             <td>{{ visitante.horario_chegada }}</td>
                             <td>{{ visitante.horario_autorizacao }}</td>
-                            <td>{{ visitante.morador_resposavel }}</td>
+                            <td>{{ visitante.morador_responsavel }}</td>
                             <td>
                                 <a href="#">
                                     Ver detalhes
@@ -296,7 +296,7 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
                             <td>{{ visitante.cpf }}</td>
                             <td>{{ visitante.horario_chegada }}</td>
                             <td>{{ visitante.horario_autorizacao }}</td>
-                            <td>{{ visitante.morador_resposavel }}</td>
+                            <td>{{ visitante.morador_responsavel }}</td>
                             <td>
                                 <a href="#">
                                     Ver detalhes

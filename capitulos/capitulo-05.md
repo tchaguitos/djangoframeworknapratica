@@ -147,7 +147,7 @@ class Visitante(models.Model):
         auto_now=False,
     )
     
-    morador_resposavel = models.CharField(
+    morador_responsavel = models.CharField(
         verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
         max_length=194,
         blank=True,
@@ -164,7 +164,7 @@ Como criamos um modelo que representa nossos porteiros dentro do sistema, podemo
 
 O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros usando esse id!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
 
-Abaixo do atributo `morador_resposavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
+Abaixo do atributo `morador_responsavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
 
 ```python
 from django.db import models
@@ -172,7 +172,7 @@ from django.db import models
 class Visitante(models.Model):
     # código acima omitido...
     
-    morador_resposavel = models.CharField(
+    morador_responsavel = models.CharField(
         verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
         max_length=194,
         blank=True,
@@ -234,7 +234,7 @@ class Visitante(models.Model):
         auto_now=False,
     )
     
-    morador_resposavel = models.CharField(
+    morador_responsavel = models.CharField(
         verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
         max_length=194,
         blank=True,
@@ -408,7 +408,7 @@ Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.no
         <td>{{ visitante.cpf }}</td>
         <td>{{ visitante.horario_chegada }}</td>
         <td>{{ visitante.horario_autorizacao }}</td>
-        <td>{{ visitante.morador_resposavel }}</td>
+        <td>{{ visitante.morador_responsavel }}</td>
         <td>
             <a href="#">
                 Ver detalhes
