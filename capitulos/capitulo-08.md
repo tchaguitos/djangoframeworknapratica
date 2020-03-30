@@ -225,8 +225,8 @@ Faremos o mesmo para os atributos `morador_resposavel` e `horario_saida`, que se
 
 ```python
 def get_morador_responsavel(self):
-    if self.morador_resposavel:
-        return self.morador_resposavel
+    if self.morador_responsavel:
+        return self.morador_responsavel
 
     return "Visitante aguardando autorização"
 ```
