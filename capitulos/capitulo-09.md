@@ -177,7 +177,9 @@ Antes de tudo, vamos adicionar o botão que será responsável por exibir o moda
 <!-- código abaixo omitido -->
 ```
 
-O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link \(elemento `<a>`\) para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página.
+O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link \(elemento `<a>`\) para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página. O template ficará parecido com isso:
+
+![](../.gitbook/assets/screenshot_2020-03-30_20-35-34.png)
 
 Feito isso, adicione também o código HTML do modal antes do fechamento da tag do elemento `<div class="container">`:
 
@@ -221,7 +223,9 @@ Já utilizamos a tag `{% render_field %}` anteriormente, quando renderizamos nos
 Note que o template baixado no capítulo anterior já possui a tag de importação do django-widget-tweaks \(`{% load widget_tweaks %}`\).
 {% endhint %}
 
-Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado.
+Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado. Note que, quando clicamos no botão, o modal com o formulário é aberto:
+
+![](../.gitbook/assets/screenshot_2020-03-30_20-37-15.png)
 
 ## Atualizando os campos horario\_autorizacao e status diretamente
 
