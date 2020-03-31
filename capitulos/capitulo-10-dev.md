@@ -2,7 +2,34 @@
 
 ## Criando função para finalizar visita
 
-* Escrevendo view para finalizar visita
+Agora que criamos a função para autorizar a entrada do visitante, precisamos também criar a função que finaliza a visita. Para a primeira, utilizamos o formulário `AutorizaVisitanteForm` para atualizar o nome do morador responsável e definimos manualmente o status e o horário de autorização.
+
+Desta vez, precisamos atualizar apenas o valor do atributo `horario_saida` e alterar o status para `FINALIZADO`, que é o status para quando o visitante deixa o condomínio. Sendo assim, vamos criar uma outra view que será responsável por receber um `id`, buscar um visitante com este `id` e atualizar essas informações. A view será um pouco parecida com a view `informacoes_visitante`. 
+
+Abaixo da função `informacoes_visitante` crie e função `finalizar_visita`:
+
+```python
+def finalizar_visita(request, id):
+
+    if request.method == "POST":
+        visitante = get_object_or_404(Visitante, id=id)
+
+        visitante.status = "FINALIZADO"
+        visitante.horario_saida = datetime.now()
+
+        visitante.save()
+
+        messages.success(
+            request,
+            "Visita finalizada com sucesso"
+        )
+
+        return redirect("index")
+```
+
+A função `finalizar_visita` deverá receber um id como argumento e utilizar a função `get_object_or_404` para buscar o visitante. Após isso atualizaremos os atributos `status` e `horario_saida` e salvar o visitante. A diferença aqui é que não utilizaremos o formulário e nossa view será acessada somente através do método `POST`. continuar...
+
+
 
 ## Criando URL
 
