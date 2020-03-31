@@ -134,7 +134,7 @@ E antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro
 
             <div class="form-group col-md-4">
                 <label>Entrada autorizada por</label>
-                <input type="text" class="form-control" value="{{ visitante.morador_resposavel }}" disabled>
+                <input type="text" class="form-control" value="{{ visitante.morador_responsavel }}" disabled>
             </div>
 
             <div class="form-group col-md-4">
@@ -194,13 +194,13 @@ Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000
 
 Conforme exibimos os campos, você deve ter observado que alguns deles ainda não estão preenchidos no banco de dados e, por isso, exibem um valor em branco ou uma informação pouco clara do que, de fato, representa. Para melhorar a exibição destes campos e, consequentemente, a qualidade da usabilidade da nossa dashboard, criaremos métodos personalizados nas classes modelo para que possamos exibir uma informação útil e clara, mesmo quando o campo não está preenchido.
 
-Métodos são funções que existem dentro das classes e podem definir comportamentos para os objetos. Em nosso caso, criaremos métodos que alteram a forma com que as informações são exibidas para o usuário. Se, por exemplo, a entrada do morador ainda não tiver sido autorizada, podemos exibir algo como "Visitante aguardando autorização" nos campos `horario_autorizacao` e `morador_resposavel`. O mesmo vale para o campo `horario_saida`, que só será preenchido no momento que a visita for finalizada.
+Métodos são funções que existem dentro das classes e podem definir comportamentos para os objetos. Em nosso caso, criaremos métodos que alteram a forma com que as informações são exibidas para o usuário. Se, por exemplo, a entrada do morador ainda não tiver sido autorizada, podemos exibir algo como "Visitante aguardando autorização" nos campos `horario_autorizacao` e `morador_responsavel`. O mesmo vale para o campo `horario_saida`, que só será preenchido no momento que a visita for finalizada.
 
 ### Criando método para exibir horário de autorização de entrada
 
 Vamos criar métodos que vão substituir a exibição de alguns atributos, começando pelo horário de autorização. Antes de tudo, você precisa saber que para criar um método dentro de uma classe, tudo que precisamos fazer é criar uma função dentro dessa classe que receberá o argumento `self`. Esse argumento nos possibilita acessar as propriedades da própria classe.
 
-Os métodos que buscam informações, em geral, recebem o nome de **getters** e mantemos sempre a chave "get" no início de seus nomes. Abaixo do atributo `morador_resposavel`, vamos escrever o método `get_horario_autorizacao()`. Esse método, antes de tudo, precisa verificar se o atributo `horario_autorizacao` está preenchido e, caso não esteja, retornar o texto "Visitante aguardando autorização". Para fazer isso, vamos utilizar a estrutura condicional `if`. O método ficará assim:
+Os métodos que buscam informações, em geral, recebem o nome de **getters** e mantemos sempre a chave "get" no início de seus nomes. Abaixo do atributo `morador_responsavel`, vamos escrever o método `get_horario_autorizacao()`. Esse método, antes de tudo, precisa verificar se o atributo `horario_autorizacao` está preenchido e, caso não esteja, retornar o texto "Visitante aguardando autorização". Para fazer isso, vamos utilizar a estrutura condicional `if`. O método ficará assim:
 
 ```python
 # codigo acima omitido
@@ -221,7 +221,7 @@ class Meta:
 
 ### Criando método para exibir morador resposável por autorizar a entrada e horário de saída
 
-Faremos o mesmo para os atributos `morador_resposavel` e `horario_saida`, que serão exibidos somente se existir um valor a ser exibido. Caso contrário, vamos exibir um texto padrão. Vamos começar escrevendo o método `get_morador_responsavel()`, que será bem parecido com o método `get_horario_autorizacao()`.  O método `get_morador_responsavel()` ficará assim:
+Faremos o mesmo para os atributos `morador_responsavel` e `horario_saida`, que serão exibidos somente se existir um valor a ser exibido. Caso contrário, vamos exibir um texto padrão. Vamos começar escrevendo o método `get_morador_responsavel()`, que será bem parecido com o método `get_horario_autorizacao()`.  O método `get_morador_responsavel()` ficará assim:
 
 ```python
 def get_morador_responsavel(self):
@@ -286,7 +286,7 @@ Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_s
 
             <div class="form-group col-md-4">
                 <label>Entrada autorizada por</label>
-                <input type="text" class="form-control" value="{{ visitante.get_morador_resposavel }}" disabled>
+                <input type="text" class="form-control" value="{{ visitante.get_morador_responsavel }}" disabled>
             </div>
 
             <div class="form-group col-md-4">
@@ -360,7 +360,7 @@ Vamos abrir o arquivo `index.html` e utilizar a tag `{% url %}` para renderizar 
     <td>{{ visitante.cpf }}</td>
     <td>{{ visitante.horario_chegada }}</td>
     <td>{{ visitante.horario_autorizacao }}</td>
-    <td>{{ visitante.morador_resposavel }}</td>
+    <td>{{ visitante.morador_responsavel }}</td>
     <td>
         <a href="{% url 'informacoes_visitante' id=visitante.id %}">
             Ver detalhes
