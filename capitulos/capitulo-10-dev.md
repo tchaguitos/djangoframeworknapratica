@@ -27,7 +27,9 @@ def finalizar_visita(request, id):
         return redirect("index")
 ```
 
-A função `finalizar_visita` deverá receber um `id` como argumento e utilizar a função `get_object_or_404` para buscar o visitante do `id` em questão. Após isso vamos atualizar os atributos `status` e `horario_saida` diretamente e salvar o visitante. A diferença aqui é que não utilizaremos um formulário e nossa view será acessada somente através do método `POST`. continuar...
+A função `finalizar_visita` deverá receber um `id` como argumento e utilizar a função `get_object_or_404` para buscar o visitante do `id` em questão. Após isso vamos atualizar os atributos `status` e `horario_saida` diretamente e salvar o visitante. A diferença aqui é que não utilizaremos um formulário e nossa view será acessada somente através do método `POST`. Todo o resto continuará bem parecido com a view já feita anteriormente.
+
+Para garantir que as operações serão realizadas somente quando o método `POST` for utlizado, vamos colocar um `if` se certificando que o método utilizado é o `POST` \(`if request.method == "POST":`\) e também 
 
 
 
