@@ -35,9 +35,21 @@ Para garantir que as operações serão realizadas somente quando o método `POS
 
 Ao contrário das outras funções que escrevemos, a função `finalizar_visita` não poderá ser acessada através do método `GET`. O método `GET` é utilizado por uma requisição sempre que precisamos buscar informações em um servidor, como é o caso \(estamos buscando o template e todo o contexto relacionado a ele\). Se você notar as funções `registrar_visitante` e `informacoes_visitante`, vai perceber que definimos algumas variáveis fora da instrução `if` que verifica se o método utilizado é o `POST`. Isso porque precisamos dessas variáveis quando o usuário acessa a página, como é o caso do formulário que deverá ser exibido mesmo que a requisição não seja enviada.
 
-Para garantir que nossa view possa ser acessada somente pelo método POST, vamos utilizar a classe HttpResponseNotAllowed para nos ajudar. Ela é quem vai cuidar de toda parte de bloquear o acesso via o método GET e retornar uma mensagem para o usuário quando isso ocorrer.
+Para garantir que nossa view possa ser acessada somente pelo método `POST`, vamos utilizar a classe `HttpResponseNotAllowed` para nos ajudar. Ela é quem vai cuidar de toda parte de bloquear o acesso via método `GET` e retornar uma mensagem para o usuário quando isso ocorrer. Antes de tudo, precisamos importá-la em nosso arquivo `views.py` do aplicativo visitantes:
 
+```python
+from django.contrib import messages
+from django.shortcuts import (
+    render, redirect, get_object_or_404
+)
 
+from django.http import HttpResponseNotAllowed
+
+from visitantes.models import Visitante
+from visitantes.forms import VisitanteForm, AutorizaVisitanteForm
+
+from datetime import datetime
+```
 
 ## Criando URL
 
