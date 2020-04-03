@@ -33,7 +33,9 @@ A função `finalizar_visita` deverá receber um `id` como argumento e utilizar 
 
 Para garantir que as operações serão realizadas somente quando o método `POST` for utlizado, vamos escrever um `if` e utilizá-lo certificar essa informação \(`if request.method == "POST":`\) e, caso seja, vamos executar as operações necessárias.
 
-Ao contrário das outras funções que escrevemos, a função `finalizar_visita` não poderá ser acessada através do método `GET`. O método `GET` é utilizado por uma requisição sempre que precisamos buscar informações em um servidor, como é o caso \(estamos buscando o template e todo o contexto relacionado a ele\). Se você notar as funções `registrar_visitante` e `informacoes_visitante`, vai perceber que definimos algumas variáveis fora da instrução `if` que verifica se o método utilizado é o `POST`. Isso porque precisamos dessas variáveis quando o usuário acessa a página, como é o caso do formulário que deverá ser exibido 
+Ao contrário das outras funções que escrevemos, a função `finalizar_visita` não poderá ser acessada através do método `GET`. O método `GET` é utilizado por uma requisição sempre que precisamos buscar informações em um servidor, como é o caso \(estamos buscando o template e todo o contexto relacionado a ele\). Se você notar as funções `registrar_visitante` e `informacoes_visitante`, vai perceber que definimos algumas variáveis fora da instrução `if` que verifica se o método utilizado é o `POST`. Isso porque precisamos dessas variáveis quando o usuário acessa a página, como é o caso do formulário que deverá ser exibido mesmo que a requisição não seja enviada.
+
+Para garantir que nossa view possa ser acessada somente pelo método POST, vamos utilizar a classe HttpResponseNotAllowed para nos ajudar. Ela é quem vai cuidar de toda parte de bloquear o acesso via o método GET e retornar uma mensagem para o usuário quando isso ocorrer.
 
 
 
