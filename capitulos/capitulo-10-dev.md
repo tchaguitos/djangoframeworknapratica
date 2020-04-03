@@ -46,10 +46,16 @@ from django.shortcuts import (
 from django.http import HttpResponseNotAllowed
 
 from visitantes.models import Visitante
-from visitantes.forms import VisitanteForm, AutorizaVisitanteForm
+from visitantes.forms import (
+    VisitanteForm, AutorizaVisitanteForm
+)
 
 from datetime import datetime
+
+# código abaixo omitido
 ```
+
+
 
 ## Criando URL
 
