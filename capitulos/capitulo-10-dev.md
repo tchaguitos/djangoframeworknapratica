@@ -84,6 +84,8 @@ def finalizar_visita(request, id):
 
 Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view retorne o código `HTTP 405` e exiba a mensagem "Método não permitido".
 
+* [https://docs.djangoproject.com/en/3.0/ref/request-response/](https://docs.djangoproject.com/en/3.0/ref/request-response/)
+
 ## Criando URL
 
 ## Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento da visita
