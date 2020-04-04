@@ -55,7 +55,7 @@ from datetime import datetime
 # código abaixo omitido
 ```
 
-Feito isso, tudo que precisamos fazer é utilizar a instrução `else` e retornar a classe `HttpResponseNotAllowed` passando uma lista com os métodos permitidos e uma mensagem a ser exibida caso o método utlizado pela requisição seja diferente. Nosso código ficará assim:
+Feito isso, tudo que precisamos fazer é utilizar a instrução `else` e retornar a classe `HttpResponseNotAllowed` passando uma lista com os métodos permitidos e uma mensagem a ser exibida caso o método utilizado pela requisição seja diferente. Nosso código ficará assim:
 
 ```python
 def finalizar_visita(request, id):
@@ -82,7 +82,7 @@ def finalizar_visita(request, id):
         )
 ```
 
-Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view retorne o código `HTTP 405` e exiba a mensagem "Método não permitido"
+Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view retorne o código `HTTP 405` e exiba a mensagem "Método não permitido".
 
 ## Criando URL
 
