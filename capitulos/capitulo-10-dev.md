@@ -31,7 +31,7 @@ def finalizar_visita(request, id):
 
 A função `finalizar_visita` deverá receber um `id` como argumento e utilizar a função `get_object_or_404` para buscar o visitante do `id` em questão. Após isso vamos atualizar os atributos `status` e `horario_saida` diretamente e salvar o visitante. A diferença aqui é que não utilizaremos um formulário e nossa view será acessada somente através do método `POST`. Todo o resto continuará bem parecido com a view já feita anteriormente.
 
-Para garantir que as operações serão realizadas somente quando o método `POST` for utlizado, vamos escrever um `if` e utilizá-lo certificar essa informação \(`if request.method == "POST":`\) e, caso seja, vamos executar as operações necessárias.
+Para garantir que as operações serão realizadas somente quando o método `POST` for utlizado, vamos escrever um `if` e utilizá-lo certificar essa informação \(`if request.method == "POST":`\) e, caso seja, vamos executar as operações necessárias. Note que, mais uma vez, estamos utilizando o método `datetime.now()` e setando diretamente o `status` mas, desta vez, vamos dizer que o status é `FINALIZADO`. continuar...
 
 Ao contrário das outras funções que escrevemos, a função `finalizar_visita` não poderá ser acessada através do método `GET`. O método `GET` é utilizado por uma requisição sempre que precisamos buscar informações em um servidor, como é o caso \(estamos buscando o template e todo o contexto relacionado a ele\). Se você notar as funções `registrar_visitante` e `informacoes_visitante`, vai perceber que definimos algumas variáveis fora da instrução `if` que verifica se o método utilizado é o `POST`. Isso porque precisamos dessas variáveis quando o usuário acessa a página, como é o caso do formulário que deverá ser exibido mesmo que a requisição não seja enviada.
 
@@ -55,7 +55,34 @@ from datetime import datetime
 # código abaixo omitido
 ```
 
+Feito isso, tudo que precisamos fazer é utilizar a instrução `else` e retornar a classe `HttpResponseNotAllowed` passando uma lista com os métodos permitidos e uma mensagem a ser exibida caso o método utlizado pela requisição seja diferente. Nosso código ficará assim:
 
+```python
+def finalizar_visita(request, id):
+
+    if request.method == "POST":
+        visitante = get_object_or_404(Visitante, id=id)
+
+        visitante.status = "FINALIZADO"
+        visitante.horario_saida = datetime.now()
+
+        visitante.save()
+
+        messages.success(
+            request,
+            "Visita finalizada com sucesso"
+        )
+
+        return redirect("index")
+
+    else:
+        return HttpResponseNotAllowed(
+            ["POST"],
+            "Método não permitido"
+        )
+```
+
+Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view retorne o código `HTTP 405` e exiba a mensagem "Método não permitido".
 
 ## Criando URL
 
