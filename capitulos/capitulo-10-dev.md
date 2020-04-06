@@ -207,6 +207,8 @@ Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir
 * Se o visitante estiver com status `EM_VISITA`, vamos exibir o botão para **finalizar a visita** 
 * E, finalmente, se o visitante estiver com status `FINALIZADO`, não vamos exibir botões
 
+### Exibição condicional de botões para autorizar entrada e finalizar visita
+
 Para fazer isso, vamos utilizar a tag `{% if %}` para verificar o status do visitante e renderizar um botão por vez. Primeiro, vamos criar a instrução `if` para verificar se o status é `AGUARDANDO` e renderizar o botão para autorizar a entrada do visitante.
 
 Utilizando a tag `{% if %}` vamos definir a condição `visitante.status == "AGUARDANDO"` para que o botão apareceça. Isto é, o HTML referente ao botão só será renderizado no template caso o status do visitante seja `AGUARDANDO`. Nosso código ficará assim:
