@@ -86,6 +86,10 @@ Com isso, permitimos que a view seja acessada somente pelo método `POST` e que,
 
 ## Criando URL
 
+## Alterando template para exibir botão e modal para finalizar visita
+
+
+
 ## Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento da visita
 
 ## Prevenindo erros e operações desnecessárias
