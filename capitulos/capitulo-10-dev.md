@@ -199,5 +199,7 @@ Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
+Assim como existem estruturas condicionais na linguagem Python, o Django 
+
 
 
