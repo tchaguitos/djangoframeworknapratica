@@ -82,7 +82,7 @@ def finalizar_visita(request, id):
         )
 ```
 
-Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view retorne o código `HTTP 405` e exiba a mensagem "Método não permitido".
+Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view retorne o código `HTTP 405` e exiba a mensagem "Método não permitido". Quando a gente mapear essa view com uma URL, vamos testar utilizando nosso navegador!
 
 ## Criando URL
 
