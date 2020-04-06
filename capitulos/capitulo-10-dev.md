@@ -199,5 +199,5 @@ Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
-* Exibição condicional de botões para autorizar entrada e finalizar visita
+
 
