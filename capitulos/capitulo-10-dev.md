@@ -132,9 +132,70 @@ Se o navegador exibir a mensagem "Método não permitido" é sinal que funcionou
 
 ## Alterando template para exibir botão e modal para finalizar visita
 
+Agora que temos a URL para onde devemos enviar uma requisição do tipo POST para sinalizar que queremos finalizar uma visita, vamos alterar as partes do template que vão possibilitar a interação do porteiro com essa funcionalidade.
 
+Assim como inserimos um botão para quando queremos autorizar a entrada de um visitante, vamos inserir um botão para quando quisermos finalizar a visita. Abra o template `informacoes_visitante.html` e insera o seguinte trecho de código abaixo do botão responsável por autorizar a entrada do visitante:
 
-## Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento da visita
+```markup
+<a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
+    <span class="text">Finalizar visita</span>
+                    
+    <span class="icon text-white-50">
+        <i class="fas fa-door-open"></i>
+    </span>
+</a>
+```
+
+O template ficará assim:
+
+![](../.gitbook/assets/botoes.png)
+
+Note que a estrutura é bem parecida com a que utilizamos no outro botão, mas quando observamos o atributo `data-target` podemos notar que agora ele é igual a `#modal2`. Isso porque vamos também criar um outro modal para ser exibido quando o usuário clicar no botão para finalizar uma visita. A função desse modal é obter a confirmação se é isso mesmo que o usuário deseja fazer.
+
+Ainda no mesmo arquivo mas agora ao final do arquivo, vamos colocar o seguinte trecho de código logo abaixo da estrutura HTML do primeiro modal:
+
+```markup
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Finalizar visita</h5>
+                    
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-body">
+                    <h5 class="mb-3">
+                        Realmente deseja encerrar a visita?
+                    </h5>
+
+                    <form method="post" action="{% url 'finalizar_visita' id=visitante.id %}">
+                        {% csrf_token %}
+
+                        <input hidden>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Finalizar visita</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Nosso segundo modal deverá exibir a mensagem "Realmente deseja encerrar a visita?" e conter um formulário que enviará uma requisição do tipo `POST` para a URL que criamos anteiormente. Esse formulário precisa ter apenas o campo renderizado pela tag `{% csrf_token %}` para que possamos enviar requisições. Nosso model será exibido da seguinte maneira:
+
+![](../.gitbook/assets/screenshot_2020-04-06_17-49-18.png)
+
+O que muda tudo aqui é o atributo `action` do formulário HTML. Graças a ele podemos direcionar um formulário para uma URL diferente da que estamos, diferentemente de como fizemos com os outros formulários. Dessa forma, conseguimos enviar uma requisição do tipo `POST` para a URL `{% url 'finalizar_visita' id=visitante.id %}` com toda informação que precisamos para identificar qual o `id` do visitante a ser atualizado assim que o usuário clicar no botão "Finalizar visita" confirmando a ação.
+
+Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
