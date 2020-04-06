@@ -257,5 +257,5 @@ Abaixo do código que escrevemos, vamos criar uma outra condição com a tag `{%
 
 Se você acessar a página de informação de algum visitante, notará que os botões não estão aparecendo juntos mais. Além disso, se você for na página de informação de um visitante que já deixou as dependências do condomínio, isto é, finalizou sua visita, notará que nenhum botão é exibido. 
 
-Dessa forma conseguimos evitar que operações desnecessárias sejam realizadas e que as informações do nosso banco de dados se mantenham fieis. 
+Dessa forma conseguimos evitar que operações desnecessárias sejam realizadas e que as informações do nosso banco de dados sejam alteradas de forma indevida.
 
