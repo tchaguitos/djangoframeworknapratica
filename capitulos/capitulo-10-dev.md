@@ -86,6 +86,50 @@ Com isso, permitimos que a view seja acessada somente pelo método `POST` e que,
 
 ## Criando URL
 
+Assim como todas as outras funções de view que escrevemos, essa também será mapeada por meio de uma URL para que a gente possa acessá-la pelo navegador. Vamos lá para o nosso arquivos `urls.py` e criar essa nova URL. 
+
+A URL que irá mapear a função `finalizar_visita` será bem parecida com a URL `informacoes_visitante`, mas a diferença que adicionaremos, após o `id`, a parte `finalizar-visita/`. Com isso, conseguimos diferenciar qual view chamar para quando o usuário desejar apenas visualizar as informações de um visitante e para quando desejar finalizar uma visita. Nosso arquivo `urls.py` ficará assim:
+
+```python
+from django.contrib import admin
+from django.urls import path
+
+import usuarios.views
+import visitantes.views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path(
+        "",
+        usuarios.views.index,
+        name="index",
+    ),
+
+    path(
+        "registrar-vistante/",
+        visitantes.views.registrar_visitante,
+        name="registrar_visitante",
+    ),
+
+    path(
+        "visitantes/<int:id>/",
+        visitantes.views.informacoes_visitante,
+        name="informacoes_visitante",
+    ),
+
+    path(
+        "visitantes/<int:id>/finalizar-visita/",
+        visitantes.views.finalizar_visita,
+        name="finalizar_visita"
+    )
+]
+```
+
+Com isso, agora vamos verificar se a aplicação está realmente bloqueando requisições de métodos diferentes de `POST` para essa URL. Vamos abrir o endereço [http://127.0.0.1:8000/visitantes/1/finalizar-visita/](http://127.0.0.1:8000/visitantes/1/finalizar-visita/) em nosso navegador e verificar o que é retornado. 
+
+Se o navegador exibir a mensagem "Método não permitido" é sinal que funcionou!
+
 ## Alterando template para exibir botão e modal para finalizar visita
 
 
