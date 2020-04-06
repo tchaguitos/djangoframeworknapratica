@@ -199,7 +199,61 @@ Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
-No passo anterior, finalizamos a criação da funcionalidade que finaliza as visitas dentro da nossa dashboard inserindo um botão no template. continuar...
+No passo anterior, finalizamos a criação da funcionalidade que finaliza as visitas dentro da nossa dashboard inserindo um botão no template. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
 
+Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir os botões com base no status.Funcionará assim:
 
+* Se o visitante estiver com status `AGUARDANDO`, vamos exibir o botão para **autorizar a entrada**
+* Se o visitante estiver com status `EM_VISITA`, vamos exibir o botão para **finalizar a visita** 
+* E, finalmente, se o visitante estiver com status `FINALIZADO`, não vamos exibir botões
+
+Para fazer isso, vamos utilizar a tag `{% if %}` para verificar o status do visitante e renderizar um botão por vez. Primeiro, vamos criar a instrução `if` para verificar se o status é `AGUARDANDO` e renderizar o botão para autorizar a entrada do visitante.
+
+Utilizando a tag `{% if %}` vamos definir a condição `visitante.status == "AGUARDANDO"` para que o botão apareceça. Isto é, o HTML referente ao botão só será renderizado no template caso o status do visitante seja `AGUARDANDO`. Nosso código ficará assim:
+
+```markup
+{% if visitante.status == "AGUARDANDO" %}
+    <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+        <span class="text">Autorizar entrada</span>
+                
+        <span class="icon text-white-50">
+            <i class="fas fa-user-check"></i>
+        </span>
+    </a>
+{% endif %}
+```
+
+Abaixo do código que escrevemos, vamos criar uma outra condição com a tag `{% if %}`. Dessa vez, queremos verificar se o status é o `EM_VISITA`. O código completo ficará assim:
+
+```markup
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+        
+    <div class="">
+        {% if visitante.status == "AGUARDANDO" %}
+            <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+                <span class="text">Autorizar entrada</span>
+                    
+                <span class="icon text-white-50">
+                    <i class="fas fa-user-check"></i>
+                </span>
+            </a>
+        {% endif %}
+
+        {% if visitante.status == "EM_VISITA" %}
+            <a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
+                <span class="text">Finalizar visita</span>
+                    
+                <span class="icon text-white-50">
+                    <i class="fas fa-door-open"></i>
+                </span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+```
+
+Se você acessar a página de informação de algum visitante, notará que os botões não estão aparecendo juntos mais. Além disso, se você for na página de informação de um visitante que já deixou as dependências do condomínio, isto é, finalizou sua visita, notará que nenhum botão é exibido. 
+
+Dessa forma conseguimos evitar que operações desnecessárias sejam realizadas e que as informações do nosso banco de dados se mantenham fieis. 
 
