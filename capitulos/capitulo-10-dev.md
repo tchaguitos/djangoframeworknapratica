@@ -199,7 +199,7 @@ Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
-Assim como existem estruturas condicionais na linguagem Python, o Django 
+No passo anterior, finalizamos a criação da funcionalidade que finaliza as visitas dentro da nossa dashboard inserindo um botão no template. continuar...
 
 
 
