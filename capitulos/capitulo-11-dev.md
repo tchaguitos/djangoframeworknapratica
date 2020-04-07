@@ -40,8 +40,31 @@ Como a única maneira que podemos chegar até a página de registro de um novo v
 
 ### Melhorando a exibição do CPF do visitante
 
-* Criando método get\_cpf
-* Conhecendo o f-strings do Python
+Uma outra melhoria interessante seria na exibição do CPF do visitante. Estamos exibindo os números todos sem nenhuma separação como geralmente o número de CPF é apresentado. Aprendemos que é possível criar métodos nas classes modelo para que a gente altere comportamentos e até já criamos alguns que utilizamos para melhorar a exibição de alguns atributos. Sendo assim, vamos criar o método `get_cpf` que deverá retornar o número do CPF do visitante já formatado com pontos e traço.
+
+Vamos abrir o arquivo models.py e abaixo do método `get_placa_veiculo` vamos criar o método `get_cpf` que, por enquanto, irá retornar o CPF caso o mesmo exista. O código ficará assim:
+
+```python
+# código acima omitido
+
+def get_placa_veiculo(self):
+    if self.placa_veiculo:
+        return self.placa_veiculo
+
+    return "Veículo não registrado"
+
+def get_cpf(self):
+    if self.cpf:
+        return self.cpf
+
+    return "CPF não registrado"
+
+# código abaixo omitido
+```
+
+#### Conhecendo o f-strings do Python
+
+
 
 ### Exibindo informações do usuário logado diretamente no template
 
