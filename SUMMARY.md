@@ -23,8 +23,6 @@
 * [Módulo 13 - pendente](capitulos/modulo-13-pendente.md)
 * [Módulo 14 - pendente](capitulos/modulo-14-pendente.md)
 * [Módulo 15 - pendente](capitulos/modulo-15-pendente.md)
-* [Módulo 16 - pendente](capitulos/modulo-16-pendente.md)
-* [Módulo 17 - pendente](capitulos/modulo-17-pendente.md)
 
 ## Links úteis
 
