@@ -171,7 +171,3 @@ sys.path.append(os.path.join(BASE_DIR, "apps"))
 
 Agora, vamos criar a pasta apps e mover as pastas dos nossos aplicativos para ela.
 
-## Criando métodos para organizar melhor nosso código
-
-* get\_absolute\_url, etc \(revisar\)
-
