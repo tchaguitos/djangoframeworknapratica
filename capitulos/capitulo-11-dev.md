@@ -2,6 +2,10 @@
 
 ## Implementando melhorias em nossos templates
 
+Olha só que legal, finalizamos as funcionalidades de mais valor da nossa dashboard: os porteiros podem registrar visitantes, autorizar a entrada do visitante após o contato com um morador e ainda sinalizar que a visita foi encerrada. Bem bacana, não?
+
+Agora que temos as principais funcionalidades prontas, vamos nos concentrar em melhorar a experiência de utilização da dashboard e ainda melhorar a estrutura do nosso projeto, de modo que seja fácil realizar futuras manutenções.
+
 
 
 ### Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
