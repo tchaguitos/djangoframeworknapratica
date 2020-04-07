@@ -19,7 +19,7 @@
 * [Capítulo 09](capitulos/capitulo-09.md)
 * [Capítulo 10](capitulos/capitulo-10.md)
 * [Capítulo 11](capitulos/capitulo-11.md)
-* [Módulo 12 - pendente](capitulos/modulo-12-pendente.md)
+* [Capítulo 12 - dev](capitulos/capitulo-12-dev.md)
 * [Módulo 13 - pendente](capitulos/modulo-13-pendente.md)
 * [Módulo 14 - pendente](capitulos/modulo-14-pendente.md)
 * [Módulo 15 - pendente](capitulos/modulo-15-pendente.md)

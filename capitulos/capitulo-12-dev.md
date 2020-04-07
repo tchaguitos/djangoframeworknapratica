@@ -1,4 +1,4 @@
-# Módulo 12 - pendente
+# Capítulo 12 - dev
 
 ## Criando aplicativos para administrar informações da dashboard
 
@@ -6,16 +6,16 @@
 
 ## Migrando view "index" para aplicativo dashboard
 
-## Buscando quantidade de visitantes para exibir na dashboard
+## Contando o número total de visitantes para exibir na home da dashboard
 
 * Conhecendo o método count\(\)
 * Exibindo número de visitantes no template
 
-## Conhecendo o método filter
+## Conhecendo o método filter das querysets
 
 * Filtrando nossos visitantes por nome e CPF
 
-## Filtrando nossos visitantes por status
+## Filtrando e contando nossos visitantes por status
 
 * Filtrando e contando visitantes em visita
 * Filtrando e contando visitantes aguardando autorização
