@@ -154,7 +154,7 @@ context = {
 
 ## Implementando melhorias na estrutura do nosso projeto
 
-* Criar pasta "apps"
+Uma medida interessante que vamos implementar é criar uma pasta de nome `apps` na raíz do nosso projeto para agrupar todos os nossos aplicativos. Antes disso, tudo que precisamos fazer é alterar o arquivo settings.py. continuar...
 
 ## Criando métodos para organizar melhor nosso código
 
