@@ -10,11 +10,33 @@ Começaremos com algumas alterações nos templates.
 
 ### Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
 
-Nossa primeira melhoria será inserir os botões "cancelar" e "voltar" nas páginas de registro de visitante e informações de visitante. continuar...
+Nossa primeira melhoria será inserir os botões "cancelar" e "voltar" nas páginas de registro de visitante e informações de visitante. Sendo assim, vamos abrir o arquivo `registrar_visitante.html` e procurar pelo seguinte trecho de código:
 
+```markup
+<div class="text-right">
+    <button class="btn btn-primary" type="submit">
+        <span class="text">Registrar visitante</span>
+    </button>
+</div>
+```
 
+Esse trecho de código representa o botão que envia a requisição via método `POST` com as informações do formulário. Acima do elemento `<button class="btn btn-primary" type="submit">` vamos inserir um link para a página inicial da nossa dashboard com o texto "Cancelar", aproveitando algumas classes do bootstrap para que o link tenha a aparência de um botão. O código ficará assim:
 
-* Explicar que utilizaremos apenas um link para a página inicial da dashboard devido ao fato de que a única maneira de chegar até as duas páginas é pela página inicial da dashboard
+```markup
+<div class="text-right">
+    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
+        <span class="text">Cancelar</span>
+    </a>
+
+    <button class="btn btn-primary" type="submit">
+        <span class="text">Registrar visitante</span>
+    </button>
+</div>
+```
+
+{% hint style="info" %}
+Como a única maneira que podemos chegar até a página de registro de um novo visitante é pelo início da dashboard e a ação que queremos realizar é "Cancelar" a operação de registro de um novo visitante, faz sentido utilizarmos apenas um link fixo
+{% endhint %}
 
 ### Melhorando a exibição do CPF do visitante
 
