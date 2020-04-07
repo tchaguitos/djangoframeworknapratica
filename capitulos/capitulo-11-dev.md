@@ -154,7 +154,22 @@ context = {
 
 ## Implementando melhorias na estrutura do nosso projeto
 
-Uma medida interessante que vamos implementar é criar uma pasta de nome `apps` na raíz do nosso projeto para agrupar todos os nossos aplicativos. Antes disso, tudo que precisamos fazer é alterar o arquivo settings.py. continuar...
+Uma medida interessante que vamos implementar é criar uma pasta de nome `apps` na raíz do nosso projeto para agrupar todos os nossos aplicativos. Antes disso, tudo que precisamos fazer é alterar o arquivo `settings.py`. Vamos importar o módulo sys e depois adicionar a pasta ao projeto.
+
+```python
+import os
+import sys
+
+# código abaixo omitido
+```
+
+Feito isso tudo que precisamos fazer é adicionar a seguinte linha de código abaixo da variável `DEBUG`:
+
+```python
+sys.path.append(os.path.join(BASE_DIR, "apps"))
+```
+
+Agora, vamos criar a pasta apps e mover as pastas dos nossos aplicativos para ela.
 
 ## Criando métodos para organizar melhor nosso código
 
