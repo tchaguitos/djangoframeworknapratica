@@ -123,7 +123,7 @@ Agora que instalamos e registramos o pacote em nosso arquivo de configurações,
 
 Existem duas maneiras que o **django-widget-tweaks** nos permite utilizar suas funcionalidades, mas utilizaremos a tag personalizada `{% render_field %}`, com ela conseguimos descrever nossos campos de forma bem parecida com o HTML5.
 
-Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div class="container">` pelo `<form method="post">` e seu conteúdo. O código ficará assim:
+Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div class="container">` pelo `<form method="post">` abaixo e seu conteúdo. O código ficará assim:
 
 ```markup
 <!-- codigo acima omitido -->
@@ -148,6 +148,12 @@ Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div c
                     {% render_field field placeholder=field.label class="form-control" %}
                 </div>
             {% endfor %}
+        </div>
+        
+        <div class="text-right">
+            <button class="btn btn-primary" type="submit">
+                <span class="text">Registrar visitante</span>
+            </button>
         </div>
     </form>
 </div>
