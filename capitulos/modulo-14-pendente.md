@@ -2,6 +2,8 @@
 
 ## Bloqueando o acesso para usuários não autenticados nas nossas views
 
+### Conhecendo o decorator login\_required
+
 ## Utilizando o sistema de autenticação do Django para nos fornecer a view de login
 
 ### Criando a URL
