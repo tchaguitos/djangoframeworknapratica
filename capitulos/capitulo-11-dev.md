@@ -64,7 +64,7 @@ def get_cpf(self):
 
 #### Conhecendo o f-strings do Python
 
-Pensa bem, precisamos cortar a string algumas vezes para pegar apenas algumas partes e depois montar cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(XXX.XXX.XXX-XX\). Esse processo pode parecer um pouco complicado mas não é.
+Pensa bem, precisamos cortar a string algumas vezes para pegar apenas algumas partes e depois montar cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(`XXX.XXX.XXX-XX`\). Esse processo pode parecer um pouco complicado mas não é.
 
 Antes de tudo, vamos recortar as partes que compõem o CPF e depois criar uma string já com os pontos e o traço. Vamos utilizar os índices da string CPF \(que será igual ao CPF do visitante\) para recortar cada parte, os intervalos \(`[0:3]`, `[3:6]`, `[6:9]` e `[9:]`\), e depois criar a string já formatada.
 
@@ -105,15 +105,52 @@ Feito isso, temos agora que substituir as chamadas ao atributo cpf do modelo pel
 E agora no `informacoes_visitante.html`:
 
 ```markup
+<!-- código acima omitido -->
 <div class="form-group col-md-6">
     <label>CPF</label>
     <input type="text" class="form-control" value="{{ visitante.get_cpf }}" disabled>
 </div>
+<!-- código abaixo omitido -->
 ```
 
 ### Exibindo informações do usuário logado diretamente no template
 
-Uma outra alteração que vamos fazer é acessar a variável referente ao usuário logado na requisição diratamente no template ao invés de passarmos ele como variável no contexto das views. 
+Uma outra alteração que vamos fazer é acessar a variável referente ao usuário logado na requisição diratamente no template ao invés de passarmos ela como variável no contexto das views. Quando nos esquecemos de passar essa variável, inclusive, a informação não é exibida.
+
+Para evitar que isso aconteça vamos abrir nosso template `base.html` e procurar pela variável `{{ usuario_logado }}` e substituí-la por `{{ request.user.email }}`. Desta forma estamos acessando a informação diretamente pelo template e não precisamos obter essa informação em nenhum view. Você deverá substituir:
+
+```markup
+<span class="mr-2 d-none d-lg-inline text-gray-600 small">
+    {{ usuario_logado }}
+</span>
+```
+
+Por:
+
+```markup
+<span class="mr-2 d-none d-lg-inline text-gray-600 small">
+    {{ request.user.email }}
+</span>
+```
+
+Além disso, vamos remover da view `index` a variável `usuario_logado` que criamos no contexto. O código:
+
+```python
+context = {	 
+    "nome_pagina": "Página inicial",
+    "usuario_logado": request.user,	
+    "visitantes": visitantes,
+}
+```
+
+Ficará assim:
+
+```python
+context = {	 
+    "nome_pagina": "Página inicial",
+    "visitantes": visitantes,
+}
+```
 
 ## Implementando melhorias na estrutura do nosso projeto
 
