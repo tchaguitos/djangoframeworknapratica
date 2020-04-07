@@ -1,4 +1,4 @@
-# Capítulo 11 - dev
+# Capítulo 11
 
 ## Implementando melhorias em nossos templates
 
