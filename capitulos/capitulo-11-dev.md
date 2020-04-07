@@ -64,9 +64,56 @@ def get_cpf(self):
 
 #### Conhecendo o f-strings do Python
 
+Pensa bem, precisamos cortar a string algumas vezes para pegar apenas algumas partes e depois montar cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(XXX.XXX.XXX-XX\). Esse processo pode parecer um pouco complicado mas não é.
 
+Antes de tudo, vamos recortar as partes que compõem o CPF e depois criar uma string já com os pontos e o traço. Vamos utilizar os índices da string CPF \(que será igual ao CPF do visitante\) para recortar cada parte, os intervalos \(`[0:3]`, `[3:6]`, `[6:9]` e `[9:]`\), e depois criar a string já formatada.
+
+Para nos ajudar, vamos utilizar um recurso do `Python3.6` chamado strings literais ou `f-strings`. f-string \(ou string literal\) é toda cadeia de caracteres prefixadas por `f` ou `F`, onde pode conter também campos para substituição ou expressões delimitadas por chaves `{}`. Dessa forma, podemos criar a string já formatada e utilizando os intervalos do CPF por meio dos campos para substituição.
+
+Nossa variável ficaria assim:
+
+```python
+cpf_mascarado = f"{}.{}.{}-{}"
+```
+
+Onde cada `{}` teria um intervalo da string que representa o CPF do visitante. Vamos substituir as chaves pelos intervalos dentro do método, retornar a variável `cpf_mascarado` e ver o que acontece:
+
+```python
+def get_cpf(self):
+    if self.cpf:
+        cpf = self.cpf
+
+        cpf_mascarado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+
+        return cpf_mascarado
+```
+
+Feito isso, temos agora que substituir as chamadas ao atributo cpf do modelo pela chamada ao método `get_cpf`. Primeiro no template `index.html` e depois no `informacoes_visitante.html`.
+
+```markup
+<!-- código acima omitido -->
+
+<tbody>
+    {% for visitante in pagina_obj %}
+        <tr>
+            <td>{{ visitante.nome_completo }}</td>
+            <td>{{ visitante.get_cpf }}</td>
+            
+            <!-- código abaixo omitido -->
+```
+
+E agora no `informacoes_visitante.html`:
+
+```markup
+<div class="form-group col-md-6">
+    <label>CPF</label>
+    <input type="text" class="form-control" value="{{ visitante.get_cpf }}" disabled>
+</div>
+```
 
 ### Exibindo informações do usuário logado diretamente no template
+
+Uma outra alteração que vamos fazer é acessar a variável referente ao usuário logado na requisição diratamente no template ao invés de passarmos ele como variável no contexto das views. 
 
 ## Implementando melhorias na estrutura do nosso projeto
 
