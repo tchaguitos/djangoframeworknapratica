@@ -75,11 +75,11 @@ urlpatterns = [
 
 ## Conhecendo o método filter das querysets
 
-Agora que migramos a view para o aplicativo dashboard, vamos aprender novos métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes no mês atual.
+Agora que migramos a view para o aplicativo dashboard, vamos conhecer métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes registrados no mês atual.
 
-O primeiro método das querysets que vamos aprender é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
+O primeiro método das querysets que vamos conhecer é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
 
-Na view que estamos trabalhando já existe uma queryset, que é a variável `visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados. O que precisamos é filtrar essa lista de visitantes de modo que a gente consiga classificar os visitantes por status. Precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com a visita finalizada. 
+Na view que estamos trabalhando já existe uma queryset, que é a variável `visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados, o que precisamos fazer é filtrar essa de modo que seja possível classificar os visitantes por status. Ou seja, precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com a visita finalizada.
 
 ### Filtrando nossos visitantes por status
 
