@@ -217,38 +217,3 @@ Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o 
 
 Se você atualizar a página inicial da dashboard vai observar que agora os números estão aparecendo. Foi bem tranquilo resolver essa, certo? Vamos para o próximo desafio!
 
-## Contando o número total de visitantes no mês
-
-Já conseguimos filtrar e contatos nossos visitantes pelo status, mas ainda precisamos filtrá-los de modo que a gente consiga contar somente o número de visitantes que foram registrados no mês atual.
-
-```python
-def index(request):
-    
-    visitantes = Visitante.objects.all()
-    
-    # filtrando os visitantes por status
-    visitantes_aguardando = visitantes.filter(
-        status="AGUARDANDO"
-    )
-
-    visitantes_em_visita = visitantes.filter(
-        status="EM_VISITA"
-    )
-
-    visitantes_finalizado = visitantes.filter(
-        status="FINALIZADO"
-    )
-    
-    context = {
-        "nome_pagina": "Página inicial",
-        "visitantes": visitantes,
-        "visitantes_aguardando": visitantes_aguardando.count(),
-        "visitantes_em_visita": visitantes_em_visita.count(),
-        "visitantes_finalizado": visitantes_finalizado.count(),
-    }
-    
-    return render(request, "index.html", context)
-```
-
-Acesse a dashboard novamente e veja a quantidade de visitantes em seu terminal.
-
