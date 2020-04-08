@@ -2,15 +2,13 @@
 
 ## Criando aplicativos para administrar informações da dashboard
 
-No capítulo anterior nós começamos a implementar algumas melhorias visando uma melhor experiência de utilização da nossa dashboard e ainda atuamos de forma a melhorar a estrutura do projeto para facilitar futuras manutenções. Seguindo nesse mesmo caminho, vamos criar o aplicativo dashboard para administrar melhor .
+No capítulo anterior nós começamos a implementar algumas melhorias visando uma melhor experiência de utilização da nossa dashboard e ainda atuamos de forma a melhorar a estrutura do projeto para facilitar futuras manutenções. Seguindo nesse mesmo caminho, vamos criar um aplicativo chamado **dashboard** para administrar melhor as informações relacionadas principalmente à página inicial da dashboard. É importante também a gente lembrar que os aplicativos de um projeto Django devem dividir responsabilidades e cada um deles ter um único objetivo. 
 
+Apesar da gente ter finalizado as principais funcionalidades da dashboard, ainda precisamos buscar alguns números para que sejam mostrados na página inicial. Se você observar o template, vai perceber que existem elementos que nos sugerem que devemos exibir o número de visitantes de cada status e quantos visitantes tivemos no mês atual. Queremos fazer algo desse tipo:
 
+![](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
 
-
-
-
-
-* Falar um pouco mais sobre a função dos apps django para realizar tarefas específicas, etc
+Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos!
 
 ## Migrando view "index" para aplicativo dashboard
 
