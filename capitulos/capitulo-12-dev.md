@@ -83,7 +83,7 @@ Na view que estamos trabalhando já existe uma queryset, que é a variável `vis
 
 ### Filtrando nossos visitantes por status
 
-O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois agora vamos filtrar os visitantes por status e queremos apenas os que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `visitantes` passando a condição `status="AGUARDANDO"`. Isto é, estamos filtrando os visitantes que estão com `status` igual a `AGUARDANDO`.
+O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois por agora queremos apenas os visitantes que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `visitantes` passando a condição `status="AGUARDANDO"`como argumento para o método. Isto é, vamos filtrar da queryset `visitantes` os visitantes que estão com `status` igual a `AGUARDANDO`.
 
 ```python
 def index(request):
@@ -102,7 +102,7 @@ def index(request):
     return render(request, "index.html", context)
 ```
 
-Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes em cada status e passar essas variáveis no contexto.
+Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes para cada status e passar as variáveis criadas no contexto da função.
 
 ```python
 def index(request):
