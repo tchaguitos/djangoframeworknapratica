@@ -95,9 +95,6 @@ def index(request):
 
 Acesse a dashboard novamente e veja a quantidade de visitantes em seu terminal.
 
-* Conhecendo o método count\(\)
-* Exibindo número de visitantes no template
-
 ## Conhecendo o método filter das querysets
 
 * Filtrando nossos visitantes por nome e CPF
