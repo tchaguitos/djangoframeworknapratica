@@ -71,6 +71,30 @@ urlpatterns = [
 
 ## Contando o número total de visitantes para exibir na home da dashboard
 
+Agora que migramos a view para o aplicativo dashboard, vamos aprender novos métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: número de visitantes em cada status e número total de visitantes no mês atual.
+
+O primeiro novo método das querysets que vamos aprender é o método `count()`. Esse método conta quantos objetos existem em uma determinada queryset e retorna esse valor. Se a gente quiser saber quantos visitantes existem na queryset que lista todos os visitantes existentes no banco de dados, podemos utilizá-lo por meio da variável `visitantes`:
+
+```python
+from django.shortcuts import render
+from visitantes.models import Visitante
+
+def index(request):
+    
+    visitantes = Visitante.objects.all()
+
+    print(visitantes.count())
+    
+    context = {
+        "nome_pagina": "Página inicial",
+        "visitantes": visitantes,
+    }
+    
+    return render(request, "index.html", context)
+```
+
+Acesse a dashboard novamente e veja a quantidade de visitantes em seu terminal.
+
 * Conhecendo o método count\(\)
 * Exibindo número de visitantes no template
 
