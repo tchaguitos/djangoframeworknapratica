@@ -29,7 +29,45 @@ INSTALLED_APPS += [
 
 ## Migrando view "index" para aplicativo dashboard
 
-Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view index para o aplicativo dashboard. Para isso, vamos copiar
+Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view `index` para o aplicativo **dashboard**. Para isso, vamos migrar o código do arquivo `usuarios/views.py` para `dashboard/views.py`. O arquivo `views.py` do aplicativo usuários \(`usuarios/views.py`\) ficará vazio e o arquivo `views.py` do aplicativo dashboard \(`dashboard/views.py`\) ficará assim:
+
+```python
+from django.shortcuts import render
+from visitantes.models import Visitante
+
+def index(request):
+    
+    visitantes = Visitante.objects.all()
+    
+    context = {
+        "nome_pagina": "Página inicial",
+        "visitantes": visitantes,
+    }
+    
+    return render(request, "index.html", context)
+```
+
+Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar `dashboard.views` e fazer essa alteração também na `path()` que cria a URL. O arquivo ficará assim:
+
+```python
+from django.contrib import admin
+from django.urls import path
+
+import dashboard.views
+import visitantes.views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path(
+        "",
+        dashboard.views.index,
+        name="index",
+    ),
+    
+    # código abaixo omitido
+]
+```
 
 ## Contando o número total de visitantes para exibir na home da dashboard
 
