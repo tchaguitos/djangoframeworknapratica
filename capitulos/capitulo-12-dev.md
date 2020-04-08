@@ -71,19 +71,67 @@ urlpatterns = [
 
 ## Conhecendo o método filter das querysets
 
-* Filtrando nossos visitantes por nome e CPF
+Agora que migramos a view para o aplicativo dashboard, vamos aprender novos métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes no mês atual.
 
-## Filtrando e contando nossos visitantes por status
+O primeiro método das querysets que vamos aprender é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
 
-* Filtrando e contando visitantes em visita
-* Filtrando e contando visitantes aguardando autorização
-* Filtrando e contando visitas finalizadas
+Na view que estamos trabalhando já existe uma queryset, que é a variável `visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados. O que precisamos é filtrar essa lista de visitantes de modo que a gente consiga classificar os visitantes por status. Precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com a visita finalizada. 
+
+### Filtrando e contando nossos visitantes por status
+
+O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois agora vamos filtrar os visitantes por status e queremos apenas os que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `visitantes` passando a condição `status="AGUARDANDO"`. Isto é, estamos filtrando os visitantes que estão com `status` igual a `AGUARDANDO`.
+
+```python
+def index(request):
+    
+    visitantes = Visitante.objects.all()
+    
+    visitantes_aguardando = visitantes.filter(
+        status="AGUARDANDO"
+    )
+    
+    context = {
+        "nome_pagina": "Página inicial",
+        "visitantes": visitantes,
+    }
+    
+    return render(request, "index.html", context)
+```
+
+Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes em cada status e passar essas variáveis no contexto.
+
+```python
+def index(request):
+    
+    visitantes = Visitante.objects.all()
+    
+    # separando visitantes por status
+    visitantes_aguardando = visitantes.filter(
+        status="AGUARDANDO"
+    ).count()
+
+    visitantes_em_visita = visitantes.filter(
+        status="EM_VISITA"
+    ).count()
+
+    visitantes_finalizado = visitantes.filter(
+        status="FINALIZADO"
+    ).count()
+    
+    context = {
+        "nome_pagina": "Página inicial",
+        "visitantes": visitantes,
+        "visitantes_aguardando": visitantes_aguardando,
+        "visitantes_em_visita": visitantes_em_visita,
+        "visitantes_finalizado": visitantes_finalizado,
+    }
+    
+    return render(request, "index.html", context)
+```
 
 ## Contando o número total de visitantes para exibir na home da dashboard
 
-Agora que migramos a view para o aplicativo dashboard, vamos aprender novos métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: número de visitantes em cada status e número total de visitantes no mês atual.
-
-O primeiro novo método das querysets que vamos aprender é o método `count()`. Esse método conta quantos objetos existem em uma determinada queryset e retorna esse valor. Se a gente quiser saber quantos visitantes existem na queryset que lista todos os visitantes existentes no banco de dados, podemos utilizá-lo por meio da variável `visitantes`:
+O método `count()` conta quantos objetos existem em uma determinada queryset e retorna esse valor. Se a gente quiser saber quantos visitantes existem na queryset que lista todos os visitantes existentes no banco de dados, podemos utilizá-lo por meio da variável `visitantes`:
 
 ```python
 from django.shortcuts import render
