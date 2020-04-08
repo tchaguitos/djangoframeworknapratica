@@ -8,9 +8,28 @@ Apesar da gente ter finalizado as principais funcionalidades da dashboard, ainda
 
 ![](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
 
-Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos!
+Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos.
+
+Mas antes de tudo, vamos criar o aplicativo utilizando o `manage.py`:
+
+```bash
+(env)$ python manage.py startapp dashboard
+```
+
+E depois vamos adicionar o novo aplicativo ao arquivo de configurações, o `settings.py`:
+
+```python
+INSTALLED_APPS += [
+    "usuarios",
+    "porteiros",
+    "visitantes",
+    "dashboard",
+]
+```
 
 ## Migrando view "index" para aplicativo dashboard
+
+Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view index para o aplicativo dashboard. Para isso, vamos copiar
 
 ## Contando o número total de visitantes para exibir na home da dashboard
 
