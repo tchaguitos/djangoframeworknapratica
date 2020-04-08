@@ -1,4 +1,4 @@
-# Capítulo 12 - dev
+# Capítulo 12
 
 ## Criando aplicativos para administrar informações da dashboard
 
