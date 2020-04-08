@@ -105,18 +105,18 @@ def index(request):
     
     visitantes = Visitante.objects.all()
     
-    # separando visitantes por status
+    # filtrando os visitantes por status
     visitantes_aguardando = visitantes.filter(
         status="AGUARDANDO"
-    ).count()
+    )
 
     visitantes_em_visita = visitantes.filter(
         status="EM_VISITA"
-    ).count()
+    )
 
     visitantes_finalizado = visitantes.filter(
         status="FINALIZADO"
-    ).count()
+    )
     
     context = {
         "nome_pagina": "Página inicial",
@@ -128,6 +128,8 @@ def index(request):
     
     return render(request, "index.html", context)
 ```
+
+
 
 ## Contando o número total de visitantes para exibir na home da dashboard
 
