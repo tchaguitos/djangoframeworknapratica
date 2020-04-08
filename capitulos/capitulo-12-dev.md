@@ -77,7 +77,7 @@ O primeiro método das querysets que vamos aprender é o método `filter()`. Ele
 
 Na view que estamos trabalhando já existe uma queryset, que é a variável `visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados. O que precisamos é filtrar essa lista de visitantes de modo que a gente consiga classificar os visitantes por status. Precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com a visita finalizada. 
 
-### Filtrando e contando nossos visitantes por status
+### Filtrando nossos visitantes por status
 
 O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois agora vamos filtrar os visitantes por status e queremos apenas os que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `visitantes` passando a condição `status="AGUARDANDO"`. Isto é, estamos filtrando os visitantes que estão com `status` igual a `AGUARDANDO`.
 
@@ -129,7 +129,93 @@ def index(request):
     return render(request, "index.html", context)
 ```
 
+### Contando os resultados de uma queryset
 
+Agora que nós já filtramos os visitantes, precisamos contar quantos registros existem em cada queryset, certo? É isso que o método `count()` faz por nós. Tudo que precisamos fazer é utilizá-lo nas querysets `visitantes_aguardando`, `visitantes_em_visita` e `visitantes_finalizado`. Podemos fazer isso no contexto mesmo:
+
+```python
+context = {
+    "nome_pagina": "Página inicial",
+    "visitantes": visitantes,
+    "visitantes_aguardando": visitantes_aguardando.count(),
+    "visitantes_em_visita": visitantes_em_visita.count(),
+    "visitantes_finalizado": visitantes_finalizado.count(),
+}
+```
+
+Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o template index.html e fazer. O trecho de código ficará assim:
+
+```python
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_aguardando }}</div>
+                    </div>
+                        
+                    <div class="col-auto">
+                        <i class="fas fa-user-lock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_em_visita }}</div>
+                    </div>
+                        
+                    <div class="col-auto">
+                        <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_finalizado }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes no mês</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">X</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Atualize a página inicial da dashboard e observe que agora os números. continuar...
 
 ## Contando o número total de visitantes para exibir na home da dashboard
 
