@@ -69,6 +69,16 @@ urlpatterns = [
 ]
 ```
 
+## Conhecendo o método filter das querysets
+
+* Filtrando nossos visitantes por nome e CPF
+
+## Filtrando e contando nossos visitantes por status
+
+* Filtrando e contando visitantes em visita
+* Filtrando e contando visitantes aguardando autorização
+* Filtrando e contando visitas finalizadas
+
 ## Contando o número total de visitantes para exibir na home da dashboard
 
 Agora que migramos a view para o aplicativo dashboard, vamos aprender novos métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: número de visitantes em cada status e número total de visitantes no mês atual.
@@ -94,14 +104,4 @@ def index(request):
 ```
 
 Acesse a dashboard novamente e veja a quantidade de visitantes em seu terminal.
-
-## Conhecendo o método filter das querysets
-
-* Filtrando nossos visitantes por nome e CPF
-
-## Filtrando e contando nossos visitantes por status
-
-* Filtrando e contando visitantes em visita
-* Filtrando e contando visitantes aguardando autorização
-* Filtrando e contando visitas finalizadas
 
