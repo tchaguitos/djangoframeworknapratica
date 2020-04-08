@@ -215,25 +215,36 @@ Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o 
 </div>
 ```
 
-Atualize a página inicial da dashboard e observe que agora os números. continuar...
+Se você atualizar a página inicial da dashboard vai observar que agora os números estão aparecendo. Foi bem tranquilo resolver essa, certo? Vamos para o próximo desafio!
 
-## Contando o número total de visitantes para exibir na home da dashboard
+## Contando o número total de visitantes no mês
 
-O método `count()` conta quantos objetos existem em uma determinada queryset e retorna esse valor. Se a gente quiser saber quantos visitantes existem na queryset que lista todos os visitantes existentes no banco de dados, podemos utilizá-lo por meio da variável `visitantes`:
+Já conseguimos filtrar e contatos nossos visitantes pelo status, mas ainda precisamos filtrá-los de modo que a gente consiga contar somente o número de visitantes que foram registrados no mês atual.
 
 ```python
-from django.shortcuts import render
-from visitantes.models import Visitante
-
 def index(request):
     
     visitantes = Visitante.objects.all()
+    
+    # filtrando os visitantes por status
+    visitantes_aguardando = visitantes.filter(
+        status="AGUARDANDO"
+    )
 
-    print(visitantes.count())
+    visitantes_em_visita = visitantes.filter(
+        status="EM_VISITA"
+    )
+
+    visitantes_finalizado = visitantes.filter(
+        status="FINALIZADO"
+    )
     
     context = {
         "nome_pagina": "Página inicial",
         "visitantes": visitantes,
+        "visitantes_aguardando": visitantes_aguardando.count(),
+        "visitantes_em_visita": visitantes_em_visita.count(),
+        "visitantes_finalizado": visitantes_finalizado.count(),
     }
     
     return render(request, "index.html", context)
