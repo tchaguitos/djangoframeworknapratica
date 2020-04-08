@@ -135,7 +135,7 @@ def index(request):
 
 ### Contando os resultados de uma queryset
 
-Agora que nós já filtramos os visitantes, precisamos contar quantos registros existem em cada queryset, certo? É isso que o método `count()` faz por nós. Tudo que precisamos fazer é utilizá-lo nas querysets `visitantes_aguardando`, `visitantes_em_visita` e `visitantes_finalizado`. Podemos fazer isso no contexto mesmo:
+Agora que nós já filtramos os visitantes por status, precisamos contar quantos registros existem em cada queryset, certo? É isso que o método `count()` faz por nós. Tudo que precisamos fazer é utilizá-lo nas querysets `visitantes_aguardando`, `visitantes_em_visita` e `visitantes_finalizado`. Podemos fazer isso no contexto mesmo:
 
 ```python
 context = {
@@ -147,7 +147,7 @@ context = {
 }
 ```
 
-Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o template index.html e fazer. O trecho de código ficará assim:
+Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o template `index.html` e utilizar a sintaxe para exibição de variáveis. O trecho de código ficará assim:
 
 ```python
 <div class="row">
@@ -219,5 +219,5 @@ Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o 
 </div>
 ```
 
-Se você atualizar a página inicial da dashboard vai observar que agora os números estão aparecendo. Foi bem tranquilo resolver essa, certo? Vamos para o próximo desafio!
+Se você atualizar a página inicial da dashboard vai observar que agora os números estão aparecendo. Foi bem tranquilo resolver essa, certo? Então vamos para o próximo desafio!
 
