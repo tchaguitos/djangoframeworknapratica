@@ -10,13 +10,13 @@ Apesar da gente ter finalizado as principais funcionalidades da dashboard, ainda
 
 Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos.
 
-Mas antes de tudo, vamos criar o aplicativo utilizando o `manage.py`:
+Antes de tudo vamos criar o aplicativo utilizando o `manage.py`:
 
 ```bash
 (env)$ python manage.py startapp dashboard
 ```
 
-E depois vamos adicionar o novo aplicativo ao arquivo de configurações, o `settings.py`:
+E depois adicionar o novo aplicativo ao arquivo de configurações, o `settings.py`:
 
 ```python
 INSTALLED_APPS += [
@@ -27,9 +27,13 @@ INSTALLED_APPS += [
 ]
 ```
 
+{% hint style="info" %}
+Não vamos executar as operações `makemigrations` e `migrations` pois não fizemos nenhuma alteração relacionada com o banco de dados. Estamos apenas acessando e buscando os dados já existentes.
+{% endhint %}
+
 ## Migrando view "index" para aplicativo dashboard
 
-Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view `index` para o aplicativo **dashboard**. Para isso, vamos migrar o código do arquivo `usuarios/views.py` para `dashboard/views.py`. O arquivo `views.py` do aplicativo usuários \(`usuarios/views.py`\) ficará vazio e o arquivo `views.py` do aplicativo dashboard \(`dashboard/views.py`\) ficará assim:
+Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view `index` para o aplicativo **dashboard**. Para isso, vamos copiar o código do arquivo `usuarios/views.py` para `dashboard/views.py`. O arquivo `views.py` do aplicativo usuários \(`usuarios/views.py`\) ficará vazio e o arquivo `views.py` do aplicativo dashboard \(`dashboard/views.py`\) ficará assim:
 
 ```python
 from django.shortcuts import render
@@ -47,7 +51,7 @@ def index(request):
     return render(request, "index.html", context)
 ```
 
-Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar `dashboard.views` e fazer essa alteração também na `path()` que cria a URL. O arquivo ficará assim:
+Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar `dashboard.views` e fazer essa alteração também na função `path()` que cria a URL. O arquivo ficará assim:
 
 ```python
 from django.contrib import admin
