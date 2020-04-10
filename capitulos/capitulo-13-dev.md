@@ -15,7 +15,7 @@ Podemos utilizá-los com alguns métodos das querysets e entre eles o `filter()`
 ```python
 visitantes_mes = visitantes.filter(
     horario_chegada__date="2020-04-04"
-).count()
+)
 ```
 
 Nesse caso, estamos filtrando apenas os registros de visitantes que foram registrados no dia 04 de abril de 2020. Existem vários outros lookups e cada tipo de campo possui os seus, além de ser possível utilizá-los de formas diferentes.
@@ -27,12 +27,14 @@ Agora que sabemos que é possível filtrar por propriedades contidas nos atribut
 ```python
 visitantes_mes = visitantes.filter(
     horario_chegada__month="04"
-).count()
+)
 ```
 
 ### Utilizando o datetime para descobrir o mês atual
 
+Descobrimos como filtrar nossos visitantes pelo mês em que foram registrados, mas ainda precisamos fazer com que o método filtre os visitantes do mês atual de forma automática, isto é, que o mês atual seja reconhecido passado para o método `filter()`.
 
+Para fazer isso vamos utilizar um velho conhecido, o `datetime.now()`. Esse método retorna o valor referente a data e hora em que foi invocado e, a partir dessa data e hora, podemos buscar o mês. Vamos criar a variável `hora_atual` sendo igual ao método `datetime.now()` e depois acessar a propriedade `month` da variável `hora_atual` para passá-la à variável `mes_atual`.
 
 ```python
 # filtrando visitantes por data (mês atual)
@@ -41,8 +43,10 @@ mes_atual = hora_atual.month
 
 visitantes_mes = visitantes.filter(
     horario_chegada__month=mes_atual
-).count()
+)
 ```
+
+Com isso, temos o valor referente ao mês atual numa variável e podemos passá-la como valor para a condição do método `filter()`.
 
 ## Ordenando nossa busca por data e hora
 
