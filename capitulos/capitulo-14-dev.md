@@ -10,7 +10,9 @@ Pense na dashboard que estamos criando: as informações que estamos exibindo al
 
 ### Conhecendo o decorator login\_required
 
+Como quase tudo que precisamos para desenvolver uma aplicação web, o Django também nos fornece um caminho rápido para que a gente consiga implementar essa função. Nós vamos utilizar o decorator login\_required para tornar nossas views acessíveis somente após autenticação. Caso o usuário não esteja autenticado, não poderá acessar as views e será direcionado para uma tela de login.
 
+Um decorator nada mais é que um método que envolve e modifica comportamentos de uma função. E é isso que estamos fazendo: pedindo que o decorator login\_required faça a função ser acessível com autenticação. continuar...
 
 ## Utilizando o sistema de autenticação do Django para nos fornecer a view de login
 
