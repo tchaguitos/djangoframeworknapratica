@@ -2,7 +2,15 @@
 
 ## Bloqueando o acesso para usuários não autenticados nas nossas views
 
+Estamos chegando na reta final do nosso projeto. Todos os requisitos descritos estão implementados e agora nós vamos cuidar de alguns requisitos que são chamados não funcionais. Esse tipo de requisito raramente é descrito mas está presente em praticamente todas as aplicações web existentes: telas de login, telas de logout e o bloqueio de acesso às páginas para usuários que não estejam autenticados.
+
+Daqui pra frente cuidaremos os requisitos falamos e vamos conhecer alguns recursos bem interessantes do Django que vão nos ajudar a poupar bastante tempo. 
+
+Pense na dashboard que estamos criando: as informações que estamos exibindo ali são confidenciais e não devem ficar expostas para que qualquer um possa escontrá-las na web. Desta forma, nós precisamos bloquear as informações para que somente usuários autenticados com e-mail e senha possam ter acesso e visualizar essas informações.
+
 ### Conhecendo o decorator login\_required
+
+
 
 ## Utilizando o sistema de autenticação do Django para nos fornecer a view de login
 
