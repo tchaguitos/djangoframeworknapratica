@@ -1,4 +1,4 @@
-# Capítulo 13 - dev
+# Capítulo 13
 
 ## Aprendendo a filtrar nossos visitantes por data
 
