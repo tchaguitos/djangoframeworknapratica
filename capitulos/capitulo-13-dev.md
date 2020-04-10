@@ -48,6 +48,42 @@ visitantes_mes = visitantes.filter(
 
 Com isso, temos o valor referente ao mês atual numa variável e podemos passá-la como valor para a condição do método `filter()`.
 
+Com isso nós já temos uma lista com os visitantes que foram registrados no mês atual. Vamos agora passar essa variável no contexto da função e depois exibí-la no template.
+
+```python
+context = {
+    "nome_pagina": "Página inicial",
+    "visitantes": visitantes,
+    "visitantes_aguardando": visitantes_aguardando.count(),
+    "visitantes_em_visita": visitantes_em_visita.count(),
+    "visitantes_finalizado": visitantes_finalizado.count(),
+    "visitantes_mes": visitantes_mes.count(),
+}
+```
+
+Agora vamos voltar para o arquivo index.html e alterar o último trecho
+
+```python
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_mes }}</div>
+                </div>
+
+                <div class="col-auto">
+                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Ao voltar para a página inicial da dashboard, o número de visitantes registrados no mês já estará sendo exibido.
+
 ## Ordenando nossa busca por data e hora
 
 O último passo antes da gente finalizar mais um capítulo é ordenar a lista de visitante por horário de chegada. Isto é, queremos que os registros de visitantes sigam uma certa ordem e o parâmetro será a ordem de chegada de forma que os registros mais recentes fiquem sempre no topo.
