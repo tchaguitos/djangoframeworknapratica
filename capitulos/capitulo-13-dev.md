@@ -32,6 +32,8 @@ visitantes_mes = visitantes.filter(
 
 ### Utilizando o datetime para descobrir o mês atual
 
+
+
 ```python
 # filtrando visitantes por data (mês atual)
 hora_atual = datetime.now()
