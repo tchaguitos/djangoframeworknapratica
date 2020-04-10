@@ -8,6 +8,8 @@ Para fazer isso, vamos novamente utilizando o método `filter()`, mas dessa vez 
 
 ## Conhecendo o field lookups da Queryset API
 
+Mas antes, vamos conhercer o field lookups. Eles são filtros que nos possibilitam acessar as propriedades dos atributos do nosso campo. Por exemplo, nosso campo horario\_chegada também recebe uma data, pois é do tipo DateTimeField. Sendo assim, podemos acessar somente a data existente no campo.
+
 * horario\_chegada\_\_date
 
 ## Filtrando apenas os registros do mês atual
