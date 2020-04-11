@@ -92,11 +92,41 @@ Não se preocupe com a URL login. Vamos criá-la no próximo passo.
 
 ## Utilizando o sistema de autenticação do Django para nos fornecer a view de login
 
+Conforme dito, vamos utilizar o sistema de autenticação do Django para nos ajudar com todo código necessário para autenticar e deslogar os usuários da nossa dashboard. Para começar vamos abrir o arquivo `urls.py` e importar os seguinte módulo:
 
+```python
+from django.contrib import admin
+from django.urls import path
 
-### Criando a URL
+from django.contrib.auth import views as auth_views
 
-* Utilizando o método as\_view\(\)
+import dashboard.views
+import visitantes.views
+
+# código abaixo omitido
+```
+
+O que estamos fazendo é importar o arquivo de views do módulo `django.contrib.auth`. Fazendo isso, nós podemos utilizar as funções e classes disponíveis no módulo `django.contrib.auth.views`. Abaixo da função `path()` que define a URL para o admin, vamos definir a nossa URL de login:
+
+```python
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path(
+        "login/",
+        auth_views.LoginView.as_view(
+            template_name="login.html"
+        ),
+        name="login"
+    ),
+    
+    # código abaixo omitido
+]
+```
+
+Como importamos o arquivo inteiro com o nome de `auth_views`, vamos acessar suas funções e classes por meio desse nome. Note que no lugar da view que deveríamos passar para a função `path()`, estamos passando uma classe existente no módulo `auth_views` e utilizando seu método `as_view()`. Esse método nos permite utilizar as views padrões do Django para autenticação de modo que a gente consiga criar um template personalizado.
+
+Com essa configuração, já temos uma URL de login. Agora precisamos de um template, claro.
 
 ## Criando o template de login
 
