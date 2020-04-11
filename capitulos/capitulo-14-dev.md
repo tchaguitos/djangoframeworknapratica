@@ -67,11 +67,13 @@ def index(request):
 
 Agora, se você tentar acessar a URL [http://127.0.0.1:8000/](http://127.0.0.1:8000/) sem estar autenticado, o Django irá exibir uma mensagem de erro. Esse erro ocorre porque quando utilizamos o decorator `login_required`, precisamos configurar algumas URLs que vão servir para o Django redirecionar o usuário para o login e uma página após o login. 
 
+{% hint style="success" %}
+Caso esteja autenticado, vá até o admin e clique em "encerrar sessão" ou cliquei nesse link: [http://127.0.0.1:8000/admin/logout/](http://127.0.0.1:8000/admin/logout/)
+{% endhint %}
+
 ## Alterando a URL padrão para login e redirecionamento após login
 
-Nosso primeiro passo será definir as informações citadas anteriormente no arquivo settings.py. Vamos configurar as variáveis LOGIN\_URL e LOGIN\_REDIRECT\_URL. 
-
-
+Nosso primeiro passo será definir as informações citadas anteriormente no arquivo `settings.py`. Vamos configurar as variáveis `LOGIN_URL` e `LOGIN_REDIRECT_URL`. e definir seus valores como `"login"` e `"index"`. Não se preocupe com a URL login. Vamos criá-la no próximo passo.
 
 ```python
 # código acima omitido
@@ -79,7 +81,11 @@ Nosso primeiro passo será definir as informações citadas anteriormente no arq
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "index"
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
+# código abaixo omitido
 ```
 
 ## Utilizando o sistema de autenticação do Django para nos fornecer a view de login
