@@ -73,7 +73,7 @@ Caso esteja autenticado, vá até o admin e clique em "encerrar sessão" ou cliq
 
 ## Alterando a URL padrão para login e redirecionamento após login
 
-Nosso primeiro passo será definir as informações citadas anteriormente no arquivo `settings.py`. Vamos configurar as variáveis `LOGIN_URL` e `LOGIN_REDIRECT_URL`. e definir seus valores como `"login"` e `"index"`. Não se preocupe com a URL login. Vamos criá-la no próximo passo.
+Nosso primeiro passo será definir as informações citadas anteriormente no arquivo `settings.py`. Vamos configurar as variáveis `LOGIN_URL` e `LOGIN_REDIRECT_URL`. e definir seus valores como `"login"` e `"index"`. O arquivo ficará assim:
 
 ```python
 # código acima omitido
@@ -88,7 +88,11 @@ STATICFILES_DIRS = [
 # código abaixo omitido
 ```
 
+Não se preocupe com a URL login. Vamos criá-la no próximo passo.
+
 ## Utilizando o sistema de autenticação do Django para nos fornecer a view de login
+
+
 
 ### Criando a URL
 
