@@ -172,15 +172,7 @@ Vamos criar o arquivo login.html com o seguinte código:
                                     </div>
 
                                     <form method="post" class="user">
-                                        <div class="form-row">
-                                            {% csrf_token %}
-                        
-                                            {% for field in form %}
-                                                <div class="form-group col-md-12">
-                                                    {% render_field field placeholder=field.label class="form-control form-control-user" %}
-                                                </div>
-                                            {% endfor %}
-                                        </div>
+                                        <!-- ué cadê o formulário?  -->
 
                                         <button class="btn btn-primary btn-user btn-block" type="submit">
                                             <span class="text">Acessar sistema</span>
@@ -204,9 +196,39 @@ Vamos criar o arquivo login.html com o seguinte código:
 </html>
 ```
 
-* Renderizando formulário de login
+### Renderizando formulário de login
+
+Quando utilizamos a classe LoginView o Django nos dá tudo que precisamos parar exibir o template e tratar a requisição.
+
+
+
+```markup
+<div class="form-row">
+    {% csrf_token %}
+                        
+    {% for field in form %}
+        <div class="form-group col-md-12">
+            {% render_field field placeholder=field.label class="form-control form-control-user" %}
+        </div>
+    {% endfor %}
+</div>
+```
 
 ## Adicionando mensagem de erro em formulário de login
+
+
+
+```markup
+{% if form.errors %}
+    <div class="alert alert-dismissible alert-warning" role="alert">
+        E-mail ou senha incorretos
+        
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+```
 
 ## Criando URL para logout
 
