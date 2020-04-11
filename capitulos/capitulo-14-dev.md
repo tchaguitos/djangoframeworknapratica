@@ -130,7 +130,7 @@ Com essa configuração, já temos uma URL de login. Agora precisamos de um temp
 
 ## Criando o template de login
 
-Vamos criar o arquivo login.html com o seguinte código:
+Vamos criar o arquivo `login.html` com o seguinte código:
 
 ```markup
 <!DOCTYPE html>
