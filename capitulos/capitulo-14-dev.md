@@ -198,9 +198,9 @@ Vamos criar o arquivo login.html com o seguinte código:
 
 ### Renderizando formulário de login
 
-Quando utilizamos a classe LoginView o Django nos dá tudo que precisamos parar exibir o template e tratar a requisição.
+Quando utilizamos a classe `LoginView` o Django nos dá tudo que precisamos parar exibir o template, tratar a requisição, os possíveis erros do formulário e ainda autenticar o usuário. Junto disso tudo, temos a possibilidade de utilização da variável form que representa nosso formulário de autenticação.
 
-
+Quando criamos nosso modelo personalizado de usuário, o Django preparou um formulário baseado nesse modelo, de forma bem parecida com que fizemos nos formulários que criamos. Vamos utilizar a mesma estratégia que utilizamos para renderizar o formulário de registro de visitante. O código do formulário ficará assim:
 
 ```markup
 <div class="form-row">
@@ -214,9 +214,11 @@ Quando utilizamos a classe LoginView o Django nos dá tudo que precisamos parar 
 </div>
 ```
 
+Vamos acessar novamente a URL [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard) e agora podemos notar que fomos direcionados para a tela de login que acabamos de criar.
+
 ## Adicionando mensagem de erro em formulário de login
 
-
+Agora que estamos exibindo
 
 ```markup
 {% if form.errors %}
