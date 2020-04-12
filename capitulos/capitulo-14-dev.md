@@ -410,5 +410,7 @@ Nosso template exibe uma mensagem dizendo o que o usuário saiu do sistema e um 
 
 ## Inserindo link para logout em dashboard
 
+Nosso último passo é agora inserir o link para a página de logout no nosso template, de forma que o usuário possa navegador até essa página. Vamos 
+
 
 
