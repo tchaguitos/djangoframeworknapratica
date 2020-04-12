@@ -21,7 +21,7 @@
 * [Capítulo 11](capitulos/capitulo-11.md)
 * [Capítulo 12](capitulos/capitulo-12.md)
 * [Capítulo 13](capitulos/capitulo-13.md)
-* [Capítulo 14 - dev](capitulos/capitulo-14-dev.md)
+* [Capítulo 14](capitulos/capitulo-14.md)
 * [Módulo 15 - pendente](capitulos/modulo-15-pendente.md)
 
 ## Links úteis

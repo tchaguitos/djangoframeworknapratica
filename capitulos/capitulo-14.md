@@ -1,4 +1,4 @@
-# Capítulo 14 - dev
+# Capítulo 14
 
 ## Bloqueando o acesso para usuários não autenticados nas nossas views
 
