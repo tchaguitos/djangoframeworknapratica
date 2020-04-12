@@ -410,7 +410,17 @@ Nosso template exibe uma mensagem dizendo o que o usuário saiu do sistema e um 
 
 ## Inserindo link para logout em dashboard
 
-Nosso último passo é agora inserir o link para a página de logout no nosso template, de forma que o usuário possa navegador até essa página. Vamos 
+Se você clicou antes em cima do e-mail do usuário logado, descobriu o botão `sair`.  Ele abre um modal pedindo que o usuário confirme se realmente deseja sair, que é exibido dessa forma:
 
+![](../.gitbook/assets/screenshot_2020-04-11_21-17-29.png)
 
+Vamos inserir o link para a página logout no botão que confirma que o usuário deseja sair. No template base.html, vamos procurar pelo modal de id logoutModal e o botão sair dentro da div modal-footer. O HTML do botão ficará assim:
+
+```markup
+<a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
+```
+
+Com isso, quando o usuário clicar no botão será direcionado para a página de logout.
+
+![](../.gitbook/assets/screenshot_2020-04-11_21-20-36.png)
 
