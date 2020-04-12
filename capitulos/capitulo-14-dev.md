@@ -214,7 +214,9 @@ Quando criamos nosso modelo personalizado de usuário, o Django preparou um form
 </div>
 ```
 
-Vamos acessar novamente a URL [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard) e agora podemos notar que fomos direcionados para a tela de login que acabamos de criar.
+Vamos acessar novamente a URL [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard) e agora podemos notar que fomos direcionados para a tela de login que acabamos de criar. Essa é a nossa tela de login:
+
+![](../.gitbook/assets/screenshot_2020-04-11_20-59-45.png)
 
 ## Adicionando mensagem de erro em formulário de login
 
@@ -301,6 +303,8 @@ Agora que estamos exibindo nosso formulário, vamos adicionar só mais uma coisa
 </body>
 </html>
 ```
+
+Com o template finalizado, vamos novamente tentar acessar a URL [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard). Dessa vez, quando formos direcionados para a tela de login, vamos utilizar as credenciais que criamos \(e-mail e senha\) e acessar o sistema.
 
 ## Criando URL para logout
 
