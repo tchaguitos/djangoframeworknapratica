@@ -71,6 +71,8 @@ Agora, se você tentar acessar a URL [http://127.0.0.1:8000/](http://127.0.0.1:8
 Caso esteja autenticado, vá até o admin e clique em "encerrar sessão" ou cliquei nesse link: [http://127.0.0.1:8000/admin/logout/](http://127.0.0.1:8000/admin/logout/)
 {% endhint %}
 
+Vamos fazer isso em todas as view criadas que fazem parte da dashboard. São elas: `registrar_visitante`, `informacoes_visitante` e `finalizar_visita`.
+
 ## Alterando a URL padrão para login e redirecionamento após login
 
 Nosso primeiro passo será definir as informações citadas anteriormente no arquivo `settings.py`. Vamos configurar as variáveis `LOGIN_URL` e `LOGIN_REDIRECT_URL`. e definir seus valores como `"login"` e `"index"`. O arquivo ficará assim:
@@ -308,7 +310,105 @@ Com o template finalizado, vamos novamente tentar acessar a URL [http://127.0.0.
 
 ## Criando URL para logout
 
+Agora que criamos nossa tela de login, vamos também criar a tela de logout, que será útil para quando o usuário quiser sair da dashboard. 
+
+Antes de tudo, vamos criar a URL de `logout` quase da mesma forma com que criamos a URL de login. Vamos abrir o arquivo `urls.py` e utilizar a função path para criar a URL `/logout`. O Código ficará assim:
+
+```python
+# código acima omitido
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path(
+        "login/",
+        auth_views.LoginView.as_view(
+            template_name="login.html"
+        ),
+        name="login"
+    ),
+
+    path(
+        "logout/",
+        auth_views.LogoutView.as_view(
+            template_name="logout.html"
+        ),
+        name="logout"
+    ),
+    
+    # código abaixo omitido
+]
+```
+
+Note que dessa vez estamos utilizando a classe `LogoutView`.
+
 ## Criando template de logout
 
+Com isso, agora vamos partir para a criação do template que deverá ser exibido quando a URL `logout` for acessada. Vamos criar o arquivo `logout.html` na pasta templates com o seguinte código:
+
+```markup
+<!DOCTYPE html>
+
+{% load static %}
+{% load widget_tweaks %}
+
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>Controle de Visitantes</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body class="bg-gradient-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-left mb-5">
+                                        <h1 class="h4 text-gray-900 mb-1">Até a próxima!</h1>
+
+                                        <p>Você escolheu sair do sistema, mas se preferir fazer login novamente, basta clicar no botão abaixo para voltar à página de login</p>
+                                    </div>
+
+                                    <a href="{% url 'login' %}" class="btn btn-primary btn-user btn-block">
+                                        <span class="text">Voltar para login</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>
+```
+
+Nosso template exibe uma mensagem dizendo o que o usuário saiu do sistema e um link para ele voltar para a página de login.
+
 ## Inserindo link para logout em dashboard
+
+
 
