@@ -50,9 +50,53 @@ context = {
 
 ## Alterando template para exibir resultados paginados
 
+```python
+# alterar de:
+{% for visitante in visitantates %}
+
+# para:
+{% for visitante in pagina_obj %}
+```
 
 
-* 10 em 10 itens
 
 ## Adicionando links no template para navegar nos resultados
+
+
+
+```markup
+<nav aria-label="Page navigation example">
+    <p class="mr-2 text-right">
+        <small>
+            Página {{ pagina_obj.number }} de um total de {{ pagina_obj.paginator.num_pages }}
+        </small>
+    </p>
+
+    <ul class="pagination justify-content-end">
+        {% if pagina_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pagina_obj.previous_page_number }}" tabindex="-1">Página anterior</a>
+            </li>
+        {% endif %}
+
+        {% for numero_pagina in pagina_obj.paginator.page_range %}
+            {% if pagina_obj.number == numero_pagina %}
+                <li class="page-item active">
+                    <a class="page-link" href="">{{ numero_pagina }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ numero_pagina }}">{{ numero_pagina }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if pagina_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pagina_obj.next_page_number }}">Próxima página</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+```
 
