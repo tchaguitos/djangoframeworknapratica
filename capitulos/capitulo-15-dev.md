@@ -9,14 +9,48 @@ No decorrer do curso, aprendemos sobre diversas ferramentas que o Django framewo
 Pensando nisso, o Django possui a classe `Paginator`, que é quem vai nos ajudar a paginar os resultados do nosso banco de dados. Paginação é um processo conhecido que visa fatiar e exibir os resultados por páginas de quantidade a ser definida.
 
 {% hint style="info" %}
-É comum, por exemplo, que as aplicações exibam 10 registros por vez
+É comum, por exemplo, que as aplicações exibam 10 registros por vez e tenha links com o número das páginas para que você possa navegar nos resultados
 {% endhint %}
 
 Vamos conhecer essa classe e utilizá-la para paginar nossos visitantes de forma que a gente exiba 10 registros por vez.
 
 ## Conhecendo a classe Paginator
 
+A classe `Paginator` do Django é quem abstrai toda a lógica necessária para paginar os resultados de uma queryset para nós. Tudo que precisamos é fornecer uma página
+
+```python
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
+# código abaixo omitido
+```
+
+
+
+```python
+# paginando resultados para exibir de 10 em 10 itens
+numero_pagina = request.GET.get('page', 1)
+visitantes_paginados = Paginator(visitantes, 10)
+pagina_obj = visitantes_paginados.get_page(numero_pagina)
+```
+
+
+
+```python
+context = {
+    "nome_pagina": "Página inicial",
+    "visitantes_em_visita": visitantes_em_visita,
+    "visitantes_aguardando": visitantes_aguardando,
+    "visitantes_finalizado": visitantes_finalizado,
+    "visitantes_mes": visitantes_mes,
+    "pagina_obj": pagina_obj
+}
+```
+
 ## Alterando template para exibir resultados paginados
+
+
 
 * 10 em 10 itens
 
