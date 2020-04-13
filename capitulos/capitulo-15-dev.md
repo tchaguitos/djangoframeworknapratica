@@ -125,5 +125,9 @@ Com esse trecho de código montamos a estrutura responsável por exibir qual pá
 
 Vamos também executar um `{% for %}` no método `pagina_obj.paginator.page_range`, pois é ele quem irá nos dizer a quantidade de páginas que temos para exibir e, dentro do laço, criar a condição que renderiza o elemento `<li class="page-item">` como ativo ou não \(isso serve para que o CSS aplique a cor de fundo para o elemento que estiver ativo\). Note que os atributos `href` estão preenchidos como `"?page={{ numero_pagina }}"`, e estamos fazendo isso porque preparamos nossa view para receber uma variável de nome page que será a página a ser buscada. Dessa forma, conseguimos exibir a página
 
-Os métodos `has_previous` e `has_next` servem para verificar se existem página anterior ou próxima com relação à página que estamos acessando. Vamos criar condições para verificar se existem as páginas e renderizar elementos `<li class="page-item">` que vão corresponder aos links para "página anterior" e "próxima página".
+Os métodos `has_previous` e `has_next` servem para verificar se existem página anterior ou próxima com relação à página que estamos acessando. Vamos criar condições para verificar se existem as páginas e renderizar elementos `<li class="page-item">` que vão corresponder aos links para "página anterior" e "próxima página". O template ficará assim:
+
+![](../.gitbook/assets/screenshot_2020-04-13_19-51-06.png)
+
+Com poucos itens não parece fazer diferença, mas se você registrar mais alguns visitantes, vai perceber que o template muda conforme a quantidade de registros. Experimente navegar nas páginas através dos botões que adicionamos.
 
