@@ -1,4 +1,4 @@
-# Capítulo 15 - dev
+# Capítulo 15
 
 ## Paginando listagem de visitantes
 
