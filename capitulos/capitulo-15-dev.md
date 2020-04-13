@@ -55,23 +55,35 @@ context = {
 }
 ```
 
-Vamos voltar à página inicial da dashboard em nosso navegador e verificar se tudo continua sendo exibido corretamente. Se sim, podemos seguir adiante!
-
 ## Alterando template para exibir resultados paginados
+
+Agora vamos partir para o template `index.html` e antes de acessar qualquer página, vamos substituir a variável visitantes pela variável `pagina_obj`, pois vamos exibir os resultados que estiverem na página que buscamos.
 
 ```python
 # alterar de:
-{% for visitante in visitantates %}
+{% for visitante in visitantes %}
 
 # para:
 {% for visitante in pagina_obj %}
 ```
 
-
+Com isso feito, podemos agora acessar a URL [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e verificar se está tudo como antes. Se tudo estiver sendo exibido corretamente, podemos seguir adiante.
 
 ## Adicionando links no template para navegar nos resultados
 
+Ainda precisamos exibir no template alguns links para que seja possível navegar nas páginas em que nossos registros de visitantes foram divididos. Felizmente, a instância `pagina_obj` possui diversos métodos que podemos utilizar também nos templates para criar toda essa estrutura para o usuário.
 
+Antes de tudo, vamos adicionar esse pequeno trecho de código acima do elemento `<div class="table-responsive">` para que ele nos mostre a quantidade total de registros que existem no banco de dados.
+
+```markup
+<p class="mr-2 text-right">
+    <small>
+        Exibindo {{ pagina_obj.paginator.count }} registros
+    </small>
+</p>
+```
+
+Além dessa informação, vamos exibir qual página está sendo exibida e qual o total de páginas existentes, além dos links para ir para a próxima ou voltar para a página anterior. Copie e cole o trecho de código abaixo logo após o elemento `<div class="table-responsive">` no template.
 
 ```markup
 <nav aria-label="Page navigation example">
@@ -108,4 +120,10 @@ Vamos voltar à página inicial da dashboard em nosso navegador e verificar se t
     </ul>
 </nav>
 ```
+
+Com esse trecho de código montamos a estrutura responsável por exibir qual página está sendo exibida e o total de páginas existentes, além de criar os botões que possibilitam a navegação pelas páginas. Nosso primeiro passo aqui é exibir o número da página que está sendo exibida e a quantidade de páginas que temos e podemos extrair essas informações chamando os método `{{ pagina_obj.number }}` e `{{ pagina_obj.paginator.num_pages }}`.
+
+Vamos também executar um `{% for %}` no método `pagina_obj.paginator.page_range`, pois é ele quem irá nos dizer a quantidade de páginas que temos para exibir e, dentro do laço, criar a condição que renderiza o elemento `<li class="page-item">` como ativo ou não \(isso serve para que o CSS aplique a cor de fundo para o elemento que estiver ativo\). Note que os atributos `href` estão preenchidos como `"?page={{ numero_pagina }}"`, e estamos fazendo isso porque preparamos nossa view para receber uma variável de nome page que será a página a ser buscada. Dessa forma, conseguimos exibir a página
+
+Os métodos `has_previous` e `has_next` servem para verificar se existem página anterior ou próxima com relação à página que estamos acessando. Vamos criar condições para verificar se existem as páginas e renderizar elementos `<li class="page-item">` que vão corresponder aos links para "página anterior" e "próxima página".
 
