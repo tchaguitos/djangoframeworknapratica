@@ -117,7 +117,7 @@ Com o ambiente virtual ativado, vamos começar a instalar as dependências do pr
 Para que a gente não tenha problemas referentes à versão utilizada, vamos especificar ao Pip qual versão do Django queremos instalar:
 
 ```bash
-(env)$ pip install Django==2.2.6
+(env)$ pip install Django==3.0.0
 ```
 
 Ao fim de tudo e tendo sucesso em todas as instalações, temos o ambiente pronto para começar a desenvolver o projeto.
