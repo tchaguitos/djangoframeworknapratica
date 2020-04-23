@@ -137,7 +137,7 @@ INSTALLED_APPS += [
 
 ## Criando nosso "Hello World"
 
-O "Hello world" é aquele famoso programa de computador que imprime na tela a frase "Hello world" e é sempre utilizado como um exemplo minimalista de determinada linguagem ou framework. Não vamos deixar a tradição de lado e vamos implementar o nosso "Hello world" em Django. A diferença é que, como estamos trabalhando na web, vamos exibir nosso "Hello world" diretamente acessando a URL que vamos configurar. Mão na massa!
+O "Hello world" \(ou "Olá mundo"\) é aquele famoso programa de computador que imprime na tela o texto "Hello world" e é sempre utilizado como exemplo minimalista de determinada linguagem ou framework. Não vamos deixar a tradição de lado e vamos implementar a nossa versão do programa em Django. A diferença é que, como estamos trabalhando na web, vamos exibir o texto no navegador, acessando a URL que vamos configurar. Mão na massa!
 
 Vamos começar trabalhando no arquivo `views.py` do nosso aplicativo `usuarios`. A camada view é responsável por encapsular a lógica que recebe e responde as requisições dos nossos usuários, podendo ou não definir comportamentos específicos e buscar informações no banco de dados, por exemplo. Toda view no Django é uma função de retorno vinculada a uma URL específica. Sendo assim, não existe uma URL sem uma função de view.
 
@@ -162,9 +162,7 @@ urlpatterns = [
 ]
 ```
 
-O primeiro passo será importar o arquivo de views do nosso aplicativo `usuarios` e depois adicionar uma nova linha na lista `urlpatterns`.
-
-Sendo assim, vamos substituir o conteúdo pelo seguinte código:
+O primeiro passo será importar o arquivo de views do nosso aplicativo `usuarios` e depois adicionar uma nova linha na lista `urlpatterns`. Vamos substituir o conteúdo do arquivo pelo seguinte código:
 
 ```python
 from django.urls import path
@@ -183,7 +181,7 @@ urlpatterns = [
 ]
 ```
 
-A função path pode receber uma string que será a URL a ser acessada, uma função a ser executada e um nome para a URL ser identificada mais facilmente dentro do projeto. O nome da view é bem útil para casos onde temos que renderizar o endereço completo da URL no template ou direcionar o usuário para uma página específica, por exemplo. 
+A função `path` recebe uma string que será a URL a ser acessada no navegador, uma função a ser executada e um nome para a URL ser identificada mais facilmente dentro do projeto. O nome da URL é bem útil para casos onde temos que renderizar o endereço completo da URL no template ou direcionar o usuário para uma página específica, por exemplo. Em breve vamos aprender mais sobre.
 
 Feito isso, vamos utilizar o comando para iniciar nosso servidor de desenvolvimento e ver o que aparece ao acessarmos o endereço através do navegador.
 
