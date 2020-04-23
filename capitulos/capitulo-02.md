@@ -195,11 +195,11 @@ Feito isso e não havendo erros no terminal, você deverá acessar o endereço [
 
 ### Escrevendo a classe modelo
 
-Nossa camada _model_ nada mais é que uma representação exata do nosso banco de dados, sendo a classe uma tabela e seus atributos os campos dessa tabela. É nessa camada que guardamos as informações que serão disponibilizadas para outras camadas. Como o Django segue o princípio DRY \(_don't repeat yourself_\), o objetivo é definir o modelo de dados em um único lugar e automaticamente derivar informações a partir dele.
+A camada _model_ do nosso projeto, representada pelos arquivos `models.py`, nada mais é que uma representação exata do nosso banco de dados, sendo a classe uma tabela e seus atributos os campos dessa tabela. É nessa camada que guardamos as informações que serão disponibilizadas para outras camadas. Como o Django segue o princípio DRY - _don't repeat yourself_ \(algo tipo "não se repita"\), o objetivo é definir o modelo de dados em um único lugar e automaticamente derivar informações a partir dele.
 
-O aplicativo `usuarios` será responsável por gerenciar os usuários do sistema. Ou seja, como vamos salvar as credenciais, quais credenciais vamos utilizar e tudo mais. Nesse ponto, é importante dizer que o Django já fornece um modelo padrão para usuários do sistema muito bom e útil para diversos cenários, mas que não dispõe de um suporte amigável para customizações. Se, por exemplo, precisarmos utilizar um e-mail ao invés de um nome de usuário para acessar o sistema, encontraríamos problemas com o modelo fornecido por padrão.
+O aplicativo `usuarios` será responsável por gerenciar os usuários do sistema. Ou seja, como vamos salvar as credenciais, quais credenciais vamos utilizar e tudo mais. Nesse ponto, é importante dizer que o Django já fornece um modelo padrão para usuários do sistema muito bom e útil para diversos cenários, mas que não dispõe de um suporte amigável para customizações. Se a gente precisar utilizar um e-mail ao invés de um nome de usuário para acessar o sistema, encontraríamos problemas com o modelo fornecido por padrão. Sendo assim, vamos criar nosso modelo personalizado para que seja possível disponibilizar o acesso à dashboard via e-mail.
 
-O próprio Django, em sua documentação, cita exemplos em que o modelo padrão não é o mais apropriado e recomenda alternativas para contornar o problema. Uma das alternativas é sobrescrever o modelo padrão por outro que será definido por nós. Para isso, começaremos alterando o arquivo `models.py` dentro do diretório do nosso aplicativo, denominado `usuarios`.
+O próprio Django, em sua documentação, cita exemplos em que o modelo padrão não é o mais apropriado e recomenda alternativas para contornar o problema. Uma das alternativas é sobrescrever o modelo padrão por outro que será definido por nós. Para isso, começaremos alterando o arquivo `models.py` dentro do diretório do nosso aplicativo de nome `usuarios`.
 
 Ao abrir o arquivo, vamos apagar o conteúdo que foi colocado pelo Django e começar importando as classes `BaseUserManager`, `AbstractUser` e `PermissionsMixin`. Estas classes vão nos auxiliar na tarefa de criar um novo modelo para usuários em nosso projeto.
 
@@ -212,7 +212,7 @@ from django.contrib.auth.models import (
 )
 ```
 
-Vamos começar criando nossa classe `Usuario` como subclasse de `AbstractBaseUser` e `PermissionsMixin` com os atributos `e-mail` e `tipo de usuário`, sendo o primeiro um campo do tipo e-mail e o segundo apenas um campo de texto simples.
+Vamos começar criando nossa classe `Usuario` como subclasse de `AbstractBaseUser` e `PermissionsMixin` e definir os atributos `e-mail` e `tipo de usuário`, sendo o primeiro um campo do tipo e-mail e o segundo apenas um campo de texto simples.
 
 Nosso modelo terá suporte para diferentes tipo de usuário, sendo este tipo definido pelo campo `tipo_usuario`. Este campo é do tipo texto e deverá aceitar somente 1 caractere. Por hora, teremos apenas o tipo "porteiro" que será definido pela letra `P` e vamos colocá-lo como valor padrão no nosso atributo. Ou seja, caso a gente não especifique, o tipo de usuário que será criado será do tipo "porteiro". 
 
@@ -240,7 +240,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 Existem inúmeros tipos de campos que o Django traz por padrão, sendo eles classes contidas no pacote models do Django. EmailField e CharField são apenas alguns exemplos, no decorrer do curso vamos conhecer mais deles.
 {% endhint %}
 
-Para delimitar as opções referentes ao tipo do usuário, utilizaremos o argumento `choices` que pode ser passado para campos do tipo texto simples \(_CharField_\). O argumento deve ser passado junto de uma tupla, uma estrutura de dados conhecida no mundo Python. Vamos criar uma variável chamada `TIPO_USUARIO` que será uma tupla com a opção `P` e o label para a opção que será "Porteiro" e adicionar o argumento ao campo `tipo_usuario`.
+Para delimitar as opções referentes ao tipo do usuário, utilizaremos o argumento `choices` que pode ser passado para campos do tipo texto simples \(`CharField`\). O argumento deve ser passado junto de uma tupla, uma estrutura de dados conhecida no mundo Python. Vamos criar uma variável chamada `TIPO_USUARIO` que será uma tupla com a opção `P` e o label para a opção que será "Porteiro". Feito isso, vamos adicionar o argumento ao campo `tipo_usuario`.
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -263,9 +263,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
 ```
 
-Após definirmos estes campos, vamos definir alguns que são obrigatórios para um modelo de usuário do Django. Os campos `is_active`, `is_staff` e `is_superuser` são herdados das classes `AbstractBaseUser` e `PermissionsMixin`, todavia, vamos defini-los aqui pois vamos alterar o comportamento padrão de algum deles.
-
-Vamos aproveitar também para criar a variável `USERNAME_FIELD` que é quem especifica para o Django qual campo deve ser utilizado como nome de usuário. 
+Após definirmos estes campos, vamos definir alguns que são obrigatórios para um modelo de usuário do Django. Os campos `is_active`, `is_staff` e `is_superuser` são herdados das classes `AbstractBaseUser` e `PermissionsMixin`, todavia, vamos defini-los aqui pois vamos alterar o comportamento padrão de alguns deles. Vamos aproveitar também para criar a variável `USERNAME_FIELD` que é quem especifica para o Django qual campo deve ser utilizado como nome de usuário que, no nosso caso, é o campo `email`.
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -313,9 +311,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.email
 ```
 
-Após a definição destes campos e variáveis, vamos escrever uma classe interna à classe `Usuario` chamada `Meta`. Essa classe é comum a todos os modelos e serve para que a gente informe ao Django metadados. Existem diversas opções de metadados que podemos explicitar mas, por hora, vamos nos concentrar no `verbose_name`, `verbose_name_plural` e `db_table.` Estas opções deixam claro para o Django como ele deve apelidar o model, qual o apelido no plural e o nome da tabela referente ao model criado. 
+Após a definição destes campos e variáveis, vamos escrever uma classe interna à classe `Usuario` chamada `Meta`. Essa classe é comum a todos os modelos e serve para que a gente informe ao Django metadados. Existem diversas opções de metadados que podemos explicitar mas, por hora, vamos nos concentrar no `verbose_name`, `verbose_name_plural` e `db_table.` Estas opções deixam claro para o Django como ele deve apelidar o model, qual o apelido no plural e o nome da tabela no banco de dados referente ao model criado.
 
-O método `__str__` é obrigatório e chamado sempre que transformamos o objeto numa string para fins de exibição. Um dos casos em que isso ocorre é quando o Django precisa exibir a instância no _Django Admin_ \(não se preocupe com esse nome agora, vamos conhecê-lo melhor em breve\). Sendo assim, seu método `__str__` deve sempre retornar um texto fácil e de rápida identificação para seres humanos. Feito isso, podemos partir para o segundo passo!
+Vamos escrever também o método `__str__`. Esse método é obrigatório e chamado sempre que transformamos o objeto numa string para fins de exibição. Um dos casos em que isso ocorre é quando o Django precisa exibir a instância no _Django Admin_ \(não se preocupe com esse nome agora, vamos conhecê-lo melhor em breve\). Sendo assim, seu método `__str__` deve sempre retornar um texto fácil e de rápida identificação para seres humanos. Feito isso, podemos partir para o segundo passo!
 
 ### Escrevendo um manager personalizado
 
@@ -362,7 +360,7 @@ class UsuarioManager(BaseUserManager):
         return user
 
 class Usuario(models.Model):
-    # código omitido...
+    # código abaixo omitido...
 ```
 
 Com a classe e métodos escritos, agora temos um _manager_ com a função de criar usuários conforme a nossa necessidade. Com isso, nosso sistema está quase pronto para criar usuários, faltando apenas explicitar que a classe modelo deve utilizar este _manager_ como padrão. Para isso, basta apenas adicionarmos um atributo na classe modelo com o nome do manager que queremos utilizar.
