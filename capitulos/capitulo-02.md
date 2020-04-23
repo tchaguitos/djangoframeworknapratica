@@ -37,6 +37,10 @@ Como o Django já possui um servidor de desenvolvimento integrado que nos possib
 Por enquanto, vamos ignorar os avisos referentes às migrações de banco de dados. Em breve vamos entender melhor do que se trata.
 {% endhint %}
 
+Com o servidor de desenvolvimento rodando, vamos acessar o endereço [http://127.0.0.1:8000/](http://127.0.0.1:8000/). Caso a tela abaixo apareça, significa que está tudo funcionando corretamente.
+
+![](../.gitbook/assets/screenshot_2020-04-23_19-02-59.png)
+
 ## Entendendo a estrutura do projeto
 
 Como vimos anteriormente, o `django-admin` cria o esqueleto de um novo projeto e é isso que nós vamos entender agora: a estrutura que foi criada. Antes de tudo, vamos abrir a pasta do projeto em um editor de código. Eu vou utilizar o [VS Code](https://code.visualstudio.com/), mas fique livre para escolher o seu favorito.
@@ -327,45 +331,45 @@ Vamos escrever nossa classe _manager_ em cima da classe `Usuario`:
 class UsuarioManager(BaseUserManager):
 
     def create_user(self, email, tipo_usuario, password=None):
-        user = self.model(
+        usuario = self.model(
             email=self.normalize_email(email),
             tipo_usuario=tipo_usuario,
         )
 
-        user.is_active = False
-        user.is_staff = False
-        user.is_superuser = False
+        usuario.is_active = False
+        usuario.is_staff = False
+        usuario.is_superuser = False
 
         if password:
-            user.set_password(password)
+            usuario.set_password(password)
 
-        user.save(using=self._db)
+        usuario.save(using=self._db)
 
-        return user
+        return usuario
     
     def create_superuser(self, email, password):
-        user = self.create_user(
+        usuario = self.create_user(
             email=self.normalize_email(email),
             password=password,
             tipo_usuario="P",
         )
         
-        user.is_active = True
-        user.is_staff = True
-        user.is_superuser = True
+        usuario.is_active = True
+        usuario.is_staff = True
+        usuario.is_superuser = True
         
-        user.set_password(password)
-        user.save(using=self._db)
+        usuario.set_password(password)
+        usuario.save(using=self._db)
         
-        return user
+        return usuario
 
 class Usuario(models.Model):
     # código abaixo omitido...
 ```
 
-Com a classe e métodos escritos, agora temos um _manager_ com a função de criar usuários conforme a nossa necessidade. Com isso, nosso sistema está quase pronto para criar usuários, faltando apenas explicitar que a classe modelo deve utilizar este _manager_ como padrão. Para isso, basta apenas adicionarmos um atributo na classe modelo com o nome do manager que queremos utilizar.
+Com a classe e métodos escritos, agora temos um _manager_ com a função de criar usuários conforme a nossa necessidade. Com isso, nosso sistema está quase pronto para criar usuários, faltando apenas explicitar que a classe modelo deve utilizar este _manager_ como padrão. Para isso, vamos adicionar um atributo na classe modelo com o nome do manager que queremos utilizar.
 
-O Django utiliza o nome "objects" para o manager padrão da classe, sendo assim, vamos apenas sobrescrever o manager padrão pelo que nós criamos. Para isso, vamos criar o atributo `objects` na classe `Usuario` atribuindo a ele a classe `UsuarioManager`.
+O Django utiliza o nome `objects` para o manager padrão da classe, sendo assim, vamos apenas sobrescrever o manager padrão pelo que nós criamos. Vamos criar o atributo `objects` na classe `Usuario` atribuindo a ele a classe `UsuarioManager`.
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -415,23 +419,23 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.email
 ```
 
-Com isso, estamos prontos para efetuar as alterações no nosso banco de dados e criarmos nosso primeiro usuário!
-
 ### Alterando o modelo padrão nas configurações
 
-Para dizermos ao Django que ele deve utilizar a nossa classe modelo ao invés do modelo padrão para usuários do sistema, temos que adicionar a variável `AUTH_USER_MODEL` ao arquivo `settings.py` no diretório principal do nosso projeto e apontar para a classe a ser utilizada. 
+Para dizermos ao Django que ele deve utilizar a nossa classe modelo ao invés do modelo padrão para usuários do sistema, temos que adicionar a variável `AUTH_USER_MODEL` ao arquivo `settings.py` e apontar para a classe a ser utilizada. 
 
 ```python
 AUTH_USER_MODEL = "usuarios.Usuario"
 ```
 
+{% hint style="info" %}
 Ao escrevermos isso, estamos dizendo "hey, Django, use a classe Usuario do aplicativo usuarios como modelo de usuários do sistema".
+{% endhint %}
 
 ### Criando as tabelas do nosso banco de dados
 
 Com o trecho de código que escrevemos o Django já é capaz de executar instruções para criação da tabela `usuario` no nosso banco de dados e disponibilizar uma API de acesso aos objetos do tipo `Usuario,` mas antes precisamos avisar ao Django a respeito destas alterações. Sempre que ocorrer alguma alteração nos modelos ou você criar um novo modelo, é necessário avisar ao Django para que ele cuide de toda a parte anterior à efetivação das mudanças no banco de dados.
 
-Para isso, quando escrevemos uma classe modelo, temos que executar o comando `makemigrations`. Esse comando vai criar um arquivo de migração contendo todas as alterações que devem ser feitas no banco de dados, tais como criação de tabelas com determinados atributos, alteração nos atributos, dentre outras. Para isso, basta executar o seguinte comando:
+Para isso, quando escrevemos uma classe modelo, temos que executar o comando `makemigrations`. Esse comando vai criar um arquivo de migração contendo todas as alterações que devem ser feitas no banco de dados, tais como criação de tabelas com determinados atributos, alteração nos atributos, dentre outros. Vamos executar o seguinte comando:
 
 ```bash
 (env)$ python manage.py makemigrations usuarios
@@ -448,10 +452,10 @@ Migrations for 'usuarios':
 Existe também um comando para rodar as migrações e gerenciar o _schema_ do banco de dados de forma automática. O comando `migrate` é quem vai reunir todas as migrações que ainda não foram executadas e aplicar elas em seu banco de dados - isto é, vai sincronizar seu banco de dados com as informações que estão na classe modelo. Para efetuar as alterações em nosso banco de dados vamos executar o comando:
 
 ```bash
-(env)$ python manage.py migrate usuarios
+(env)$ python manage.py migrate
 ```
 
-Migrações são um recurso poderoso pois nos permitem alterar as classes modelos ao longo do tempo, sem a necessidade de manipular nosso banco de dados. O comando `migrate` é especialista em atualizar nosso banco de dados em tempo real sem perder dados.
+Migrações são um recurso poderoso pois nos permitem alterar as classes modelos ao longo do tempo sem a necessidade de manipular nosso banco de dados. O comando `migrate` é especialista em atualizar nosso banco de dados em tempo real sem perder dados.
 
 ```bash
 Operations to perform:
@@ -480,21 +484,13 @@ Running migrations:
 
 Não se assuste com as tantas letras que vão aparecer no terminal. Elas nos informam quais aplicativos tiveram operações executadas e quais arquivos de migração foram utilizados para a migração em questão.
 
-### Relembrando as ações executadas
-
-Agora, vamos lembrar os passos que devemos seguir para efetuar as alterações em nosso banco de dados:
-
-1. Realizar alterações nos arquivos `models.py`
-2. Executar `python manage.py makemigrations` para criar migrações das modificações
-3. Executar `python manage.py migrate` para aplicar as modificações no banco de dados
-
-Feito isso, temos nosso modelo personalizado de usuários criado e ativado em nosso banco de dados e estamos prontos para o próximo passo!
+Agora temos nosso modelo personalizado de usuários criado e ativado em nosso banco de dados e estamos prontos para criar usuários.
 
 ## Criando um super usuário
 
-A gente viu que o Django segue uma filosofia que tenta aproveitar o máximo de coisas para evitar que a gente fique repetindo código. Pensando nisso, os desenvolvedores do framework disponibilizam um painel administrativo com funções para adicionar, alterar e deletar conteúdo com base nas classes modelos do nosso projeto. Como num passe de mágica!
+A gente viu que o Django segue uma filosofia que tenta aproveitar o máximo de coisas para evitar que a gente fique repetindo código. Pensando nisso, os desenvolvedores do framework disponibilizam um painel administrativo com funções para adicionar, alterar e deletar conteúdo com base nas classes modelo do nosso projeto.
 
-O Django foi desenvolvido em um ambiente de redação, onde havia uma clara separação entre “produtores de conteúdo” e o site “público”. Gerentes utilizam o sistema para adicionar notícias, eventos, resultado de esportes, por exemplo, e o conteúdo é exibido no site público. O Django soluciona o problema de criar uma interface unificada para os administradores editarem o conteúdo.
+O Django foi desenvolvido em um ambiente de redação, onde havia uma clara separação entre “produtores de conteúdo” e o site “público”. Gerentes utilizavam o sistema para adicionar notícias, eventos, resultados de esportes, por exemplo, e o conteúdo era exibido no site público.
 
 Como a administração do Django não foi desenvolvida para ser utilizada pelos visitantes do site, mas sim pelos gerentes, temos que criar um tipo diferente de usuário, que seria nosso "super usuário". Para isso basta utilizarmos o comando `createsuperuser` do nosso bom e velho amigo `manage.py`:
 
@@ -502,7 +498,7 @@ Como a administração do Django não foi desenvolvida para ser utilizada pelos 
 (env)$ python manage.py createsuperuser
 ```
 
-Ao executar o comando, nosso terminal ficará travado esperando que a gente informe o e-mail a ser utilizado pelo super usuário. Após o e-mail, temos que definir a senha e repetir a senha. Não ocorrendo erros, temos o nosso super usuário criado e pronto para acessar o painel administrativo do Django.
+Ao executar o comando, o terminal ficará travado esperando que a gente informe o e-mail a ser utilizado pelo super usuário. Após o e-mail, temos que definir a senha e repetir essa senha. Não ocorrendo erros, temos o nosso super usuário criado e pronto para acessar o painel administrativo do Django.
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-50-37.png)
 
@@ -510,13 +506,13 @@ Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço 
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-42-34.png)
 
-Utilize e-mail e senha informados na hora da criação do super usuário \(`python manage.py createsuperuser`\) para acessar e, dando tudo certo, você será direcionado para a página inicial da administração do Django:
+Utilize e-mail e senha informados na hora da criação do super usuário para acessar e, dando tudo certo, você será direcionado para a página inicial da administração do Django:
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-43-37.png)
 
 ## Conhecendo o Django Admin
 
-Ao acessarmos o painel administrativo, é possível notar que nosso aplicativo de usuários não está sendo exibido. Isso porque para que nossas classes modelos sejam identificadas pelo painel administrativo é necessário alterar o arquivo `admin.py`. Esse arquivo sempre existirá dentro de um aplicativo criado utilizando o `manage.py` e é quem irá dizer ao site de administração que nossa classe deve ter uma interface de administração. 
+Ao acessarmos o painel administrativo, é possível notar que o aplicativo usuários não está sendo exibido. Isso porque para que nossas classes modelo sejam identificadas pelo painel administrativo é necessário alterar o arquivo `admin.py`. Esse arquivo sempre existirá dentro de um aplicativo criado utilizando o `manage.py` e é quem irá dizer ao Django que nossa classe deve ter uma interface de administração. 
 
 Vamos abrir o arquivo `usuarios/admin.py` e importar nossa classe `Usuario`:
 
@@ -525,7 +521,7 @@ from django.contrib import admin
 from usuarios.models import Usuario
 ```
 
-Após a importação, temos apenas que registrar a classe no admin. Para isso, basta utilizar `admin.site.register` passando a classe `Usuario` como argumento:
+Após a importação, temos apenas que registrar a classe no admin. Para isso, basta utilizar o método `admin.site.register` passando a classe `Usuario` como argumento:
 
 ```python
 from django.contrib import admin
@@ -534,7 +530,7 @@ from usuarios.models import Usuario
 admin.site.register(Usuario)
 ```
 
-Feito isso, vamos voltar ao painel administrativo do Django e podemos notar que agora existe uma seção referente ao nosso aplicativo usuarios. O mais legal é que os nomes que definimos em `verbose_name` e `verbose_name_plural` são utilizados aqui, além do valor que definimos como retorno do método `__str__`.
+Feito isso, vamos voltar ao painel administrativo do Django e podemos notar que agora existe uma seção referente ao aplicativo usuarios. O mais legal é que os nomes que definimos em `verbose_name` e `verbose_name_plural` são utilizados aqui, além do valor que definimos como retorno do método `__str__`.
 
 ## Alterações necessárias nas configurações
 
@@ -542,7 +538,7 @@ Nosso projeto já está rodando sem problemas e possui um modelo personalizado d
 
 O Django possui integrado um módulo para internacionalização e localização. Esses módulos são interessantes pois permitem que a aplicação funcione em idiomas e formatos diferentes com base nas preferências do usuário. Um exemplo de funcionamento do módulo de internacionalização é o próprio painel administrativo do Django que funciona dessa maneira.  
 
-Para alterar o idioma padrão utilizado no projeto, vamos no arquivo `settings.py` e procurar pela variável `LANGUAGE_CODE`. Essa variável recebe uma string referente ao identificador do idioma e país de origem com base na especificação que define os formatos de linguagens para serem utilizados. Para nosso caso, utilizaremos a string `pt-BR` que é quem diz para o Django: "hey, cara, utilize português do Brasil como idioma principal do projeto". Para fazer isso, basta que a gente substitua o valor da variável pelo seguinte valor:
+Para alterar o idioma padrão utilizado no projeto, vamos no arquivo `settings.py` e procurar pela variável `LANGUAGE_CODE`. Essa variável recebe uma string referente ao identificador do idioma e país de origem com base na especificação que define os formatos de idiomas para serem utilizados. Para nosso caso, utilizaremos a string `pt-BR` que faz com que o Django utilize português do Brasil como idioma principal do projeto. Vamos substituir o valor da variável pelo seguinte valor:
 
 ```python
 LANGUAGE_CODE = "pt-br"
@@ -552,19 +548,15 @@ Com isso, todas as mensagens e textos exibidos no painel administrativo já ser�
 
 ![](../.gitbook/assets/captura-de-tela-em-2019-11-26-00-07-41.png)
 
-Após isso, nosso próximo passo será alterar o fuso horário padrão do projeto. Essa configuração é importante pois não queremos que datas erradas sejam exibidas para nossos usuários. Por padrão, o Django trabalha e exibe as datas no fuso horário `America/Chicago`, mas como esse não é o fuso horário para a nossa região, vamos inserir a configuração correta para nós. Existe também uma lista de fuso horários disponíveis e como podemos especificar eles através de uma string simples, como acontece no caso dos identificadores de linguagens e países. Para nosso caso, utilizarmos o fuso horário `America/Sao_Paulo`. Ainda no arquivo `settings.py,` vamos encontrar a variável `TIME_ZONE` e alterar seu valor para o da nossa região:
-
-{% hint style="success" %}
-Antes de realizar a modificação, observe os horários no painel administrativo do Django. O atributo "último login" e o histórico de modificações do usuário aparecem em um horário que não é o nosso.
-{% endhint %}
+Nosso próximo passo é alterar o fuso horário padrão do projeto. Essa configuração é importante pois não queremos que datas erradas sejam exibidas para nossos usuários. Por padrão, o Django trabalha e exibe as datas no fuso horário `America/Chicago` \(ou `UTC`\) mas como esse não é o fuso horário para a nossa região, vamos inserir a configuração correta para nós. Existe também uma lista de fuso horários disponíveis e como podemos especificar eles através de uma string simples, como acontece no caso dos identificadores de idioma. Vamos utilizar o fuso horário `America/Sao_Paulo`. Ainda no arquivo `settings.py,` vamos encontrar a variável `TIME_ZONE` e alterar seu valor para o da nossa região:
 
 ```python
 TIME_ZONE = "America/Sao_Paulo"
 ```
 
-Com isso, além do nosso projeto possuir um modelo personalizado de usuários, agora ele exibe mensagens e horários no idioma e fuso horário que é o mais apropriado para nossa região.
+{% hint style="success" %}
+Antes de realizar a modificação, observe os horários no painel administrativo do Django. O atributo "último login" e o histórico de modificações do usuário aparecem em um horário que não é o nosso.
+{% endhint %}
 
-A partir de agora as coisas vão ficando mais interessantes e o projeto começa a tomar forma... então, já que aprendemos bastante, bora aprender muito mais no próximo capítulo!
-
-
+Com isso, além do nosso projeto possuir um modelo personalizado de usuários, agora ele exibe mensagens e horários no idioma e fuso horário que é o mais apropriado para nossa região. A partir de agora é que as coisas vão ficar mais interessantes e o projeto começará a tomar forma! Aperte os cintos!
 
