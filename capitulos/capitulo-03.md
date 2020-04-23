@@ -271,9 +271,13 @@ O Admin do Django é tão interessante que já disponibiliza um elemento do tipo
 
 Vamos selecionar o usuário criado através do terminal com o comando `createsuperuser` e preencher as informações necessárias. Esteja livre para preencher da sua maneira!
 
-Se tudo estiver certo com os dados informados, o Django Admin vai nos redirecionar para a tela que lista os porteiros e mostrar uma mensagem de sucesso. Note que o Django já exibe a mensagem personalizadade com o nome do porteiro criado e link para visualização de informações.
+{% hint style="warning" %}
+Você deve utilizar o formato DD/MM/AAAA para a data de nascimento do porteiro
+{% endhint %}
+
+Se tudo estiver certo com os dados informados, o Django Admin vai nos redirecionar para a tela que lista os porteiros e mostrar uma mensagem de sucesso. Note que o Django já exibe a mensagem personalizada com o nome do porteiro criado e link para visualização das informações.
 
 ![](../.gitbook/assets/screenshot_2020-01-29_22-12-22.png)
 
-Agora que temos um porteiro criado, podemos partir para a construção da dashboard que contará com todas as funções descritas em nosso documento de requisitos!
+Agora que temos um porteiro criado, podemos partir para a construção da dashboard que contará com as funções descritas em nosso documento de requisitos.
 
