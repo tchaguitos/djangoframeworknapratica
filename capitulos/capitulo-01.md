@@ -76,12 +76,12 @@ $ sudo apt install virtualenv
 Com o Virtualenv instalado, podemos criar um ambiente totalmente isolado para instalar as dependências relacionadas ao nosso projeto. Com o terminal aberto na pasta `home`, vamos criar um diretório chamado `dev` para mantermos nossos projetos. Para criar e acessar o diretório, vamos utilizar os seguintes comandos:
 
 ```bash
-$ cd home
+$ cd
 $ mkdir dev
 $ cd dev
 ```
 
-Vamos utilizar o comando cd home para garantir que estamos na pasta `home` e depois utilizamos o comando `mkdir dev` para criar a pasta `dev`. Com o diretório `dev` criado, entrar nele utilizando o comando `cd dev` e criar o diretório que dará nome ao nosso projeto. Para isso, vamos utilizar os seguintes comandos:
+Vamos utilizar o comando `cd` para garantir que estamos na pasta `home` do usuário logado em sua máquina e depois utilizamos o comando `mkdir dev` para criar a pasta `dev`. Com o diretório `dev` criado, entrar nele utilizando o comando `cd dev` e criar o diretório que dará nome ao nosso projeto. Para isso, vamos utilizar os seguintes comandos:
 
 ```bash
 $ mkdir controle-visitantes
@@ -112,13 +112,7 @@ Após execução do comando e ativação do ambiente, você deverá visualizar e
 
 ### **Pip**
 
-O pip é um gerenciador de pacotes bastante utilizado no mundo Python e pode ser instalado facilmente utilizando o seguinte comando:
-
-```bash
-$ sudo apt install python3-pip
-```
-
-Estamos utilizando `python3-pip` pois queremos que ele seja compatível com a versão do Python3.6 que vamos utilizar em nosso projeto. Caso a gente não faça isso, ele será instalado para a versão do Python2.7 que já vem instalada junto do sistema operacional.
+O pip é um gerenciador de pacotes bastante utilizado no mundo Python e ele vem instalado sempre que criamos um novo ambiente virtual utilizando o virtualenv. Sendo assim, não vamos precisar instalá-lo, mas precisamos lembrar que só teremos a possibilidade de utilizar o comando `pip` com o ambiente virtual ativado.
 
 ### **Django framework**
 
