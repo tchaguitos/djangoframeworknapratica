@@ -47,19 +47,25 @@ Abaixo temos a lista de todos os diretórios e arquivos que foram criados pelo `
 controle-visitantes/    
     manage.py    
     controle_visitantes/
+        asgi.py
         __init__.py
         settings.py
         urls.py
         wsgi.py
 ```
 
-* O primeiro diretório nomeado `controle-visitantes/` é apenas um container para armazenar os arquivos do nosso projeto. O nome do diretório não é importante para o Django e pode ser alterado a qualquer momento. 
+* O primeiro diretório nomeado `controle-visitantes/` é apenas um container para armazenar os arquivos do nosso projeto. O nome desse diretório não é importante para o Django e pode ser alterado a qualquer momento. 
 * O arquivo `manage.py` é um utilitário de linha de comando que permite que a gente interaja com o projeto Django de diversas maneiras, conforme vimos anteriormente. 
 * O segundo diretório nomeado `controle_visitantes/` é o diretório que agrupa o pacote Python referente ao nosso projeto. O nome do diretório é o nome do nosso pacote e ele é importante pois nos auxilia no processo de importação de arquivos e funções. Sendo assim, alterar o nome deste diretório nos trará sérios problemas. 
-* O arquivo `controle_visitantes/__init__.py` é um arquivo vazio que diz ao Python que aquele diretório deve ser reconhecido e tratado como um pacote Python. 
+* O arquivo `controle_visitantes/__init__.py` é um arquivo vazio que diz ao Python que aquele diretório deve ser reconhecido e tratado como um pacote. 
 * O arquivo `controle_visitantes/settings.py` é o arquivo de configurações do nosso projeto Django. Nele nós podemos detalhar como o projeto funciona e quais definições estão disponíveis. 
-* O arquivo `controle_visitantes/urls.py` é o arquivo que declara as URLs do nosso projeto. Para uma URL ser acessível através do nosso projeto, temos que declará-la neste arquivo. 
-* O arquivo `controle_visitantes/wsgi.py` é um ponto de integração para servidores web que implementam o WSGI, um padrão Python que descreve como os servidores devem se comunicar com as aplicações web.
+* O arquivo `controle_visitantes/urls.py` é o arquivo que declara as URLs do nosso projeto. Para que uma URL do nosso projeto seja acessível através do navegador, temos que declará-la neste arquivo. 
+* O arquivo `controle_visitantes/wsgi.py` é um ponto de integração para servidores web que implementam o WSGI, um padrão Python que descreve como os servidores devem se comunicar com as aplicações web. 
+* Já o arquivo `controle_visitantes/asgi.py` é o ponto de integração para servidores web utilizarem comunicação assíncrona
+
+{% hint style="info" %}
+A partir da versão 3.0 o Django passou a dar suporte a alguns padrões de comunicação assícrona
+{% endhint %}
 
 ## Criando nosso primeiro aplicativo Django
 
