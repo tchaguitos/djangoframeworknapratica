@@ -2,38 +2,39 @@
 
 ## Iniciando seu primeiro projeto Django
 
-Conforme visto, vamos desenvolver uma dashboard para controle de visantes, mas, antes disto, temos que iniciar nosso projeto.  
+Antes de partimos para todas as atividades que envolvem o desenvolvimento da nossa dashboard, temos que iniciar nosso projeto, claro. Iniciar um projeto significa criar toda a estrutura básica necessária para garantir que o código que a gente vai escrever vai funcionar conforme esperado utilizando as tecnologias escolhidas.  
   
-Felizmente, o Django já nos dá alguns scripts que servem para executar tarefas específicas do nosso projeto e, dentre elas, criar o esqueleto de um novo projeto. Ao fim da execução do script, teremos algumas pastas e arquivos que deverão ser alterados conforme nossa necessidade.  
-  
-Para iniciar um novo projeto Django, vamos ativar nosso ambiente virtual e utilizar o comando `startproject`. Para ativar o ambiente virtual, basta acessar a pasta do projeto \(`controle-visitantes`\) e utilizar o comando `source`:
+Felizmente, o Django já nos dá alguns scripts que servem para executar tarefas específicas do nosso projeto e, dentre elas, criar o esqueleto de um novo projeto com toda a estrutura básica necessária. Ao fim da execução do script, teremos algumas pastas e arquivos que poderão ser alterados conforme nossa necessidade.
+
+Antes de executar os comandos necessários para iniciar projeto, vamos ativar o ambiente virtual. Basta acessar a pasta do projeto \(`cd controle-visitantes`\) e utilizar o comando `source` passando caminho `env/bin/activate`:
 
 ```python
+$ cd controle-visitantes
 $ source env/bin/activate
 ```
 
-Após a ativação do ambiente, vamos criar um novo projeto utilizando o `django-admin`:
+Após a ativação do ambiente, vamos criar um novo projeto utilizando o comando `startproject` do `django-admin`:
 
 ```text
 (env)$ django-admin startproject controle_visitantes .
 ```
 
-{% hint style="info" %}
-Estamos iniciando nosso projeto com nome `controle_visitantes` na pasta em que estamos trabalhando, isto é, na pasta `controle-visitantes` \(note o ponto especificando o diretório atual\). O comando `startproject` pode receber, além do nome que o projeto terá, o diretório em que o mesmo deverá ser iniciado \(caso o diretório não seja informado, o Django criará um diretório de mesmo nome do projeto\). Além disso, o Django permite apenas letras, números e o underline em nomes de projetos.
-{% endhint %}
+O comando `startproject` pode receber, além do nome do projeto, o diretório em que o mesmo deverá ser iniciado \(caso o diretório não seja informado, o Django criará um diretório de mesmo nome do projeto\). Além disso, o Django permite apenas letras, números e o underline em nomes de projetos, por isso a pasta se chama `controle-visitantes` e o projeto `controle_visitantes`. Com o comando acima estamos iniciando nosso projeto com nome `controle_visitantes` na pasta em que estamos trabalhando, isto é, na pasta `controle-visitantes` \(note o ponto especificando o diretório atual\).
 
-O `django-admin` é um pacote de comandos úteis para tarefas administrativas dentro da aplicação e dispõe de comandos para criar o projeto, iniciar o servidor de desenvolvimento, verificar erros e muito mais.  
-  
-Como o Django já possui um servidor de desenvolvimento integrado que nos possibilita rodar a aplicação localmente, vamos iniciá-lo e verificar se está tudo funcionando conforme esperado. Para isso, basta utilizar o seguinte comando:
+### Um pouco mais sobre o django-admin
+
+O `django-admin` é um pacote de comandos úteis para realização de tarefas administrativas dentro da aplicação e dispõe de comandos para criar um novo projeto, iniciar o servidor de desenvolvimento, verificar erros e muito mais. Em complemento ao `django-admin`, o arquivo `manage.py` é criado.
+
+O `manage.py` funciona exatamente como o `django-admin`. Na verdade, eles são a mesma coisa, com a diferença que que o `manage.py`, por baixo dos panos, define um arquivo de configurações para ser utilizado pelo servidor de desenvolvimento. Em geral, o arquivo de configurações do nosso projeto.
+
+Como o Django já possui um servidor de desenvolvimento integrado que nos possibilita rodar a aplicação localmente, vamos iniciá-lo e verificar se está tudo funcionando conforme esperado. Para isso, vamos utilizar o seguinte comando:
 
 ```text
 (env)$ python manage.py runserver
 ```
 
-O `manage.py` funciona exatamente como o `django-admin`. Na verdade, eles são a mesma coisa, com a diferença que que o `manage.py`, por baixo dos panos, define um arquivo de configurações para ser utilizado pelo servidor de desenvolvimento.
-
 {% hint style="warning" %}
-Por enquanto, vamos ignorar os avisos referentes às migrações no banco de dados. Em breve vamos entender melhor do que se trata.
+Por enquanto, vamos ignorar os avisos referentes às migrações de banco de dados. Em breve vamos entender melhor do que se trata.
 {% endhint %}
 
 ## Entendendo a estrutura do projeto
