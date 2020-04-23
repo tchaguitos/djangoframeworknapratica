@@ -112,15 +112,17 @@ Após execução do comando e ativação do ambiente, você deverá visualizar e
 
 ### **Pip**
 
-O pip é um gerenciador de pacotes utilizado no mundo Python e pode ser instalado facilmente utilizando o seguinte comando:
+O pip é um gerenciador de pacotes bastante utilizado no mundo Python e pode ser instalado facilmente utilizando o seguinte comando:
 
 ```bash
-$ sudo apt-get install python3-pip
+$ sudo apt install python3-pip
 ```
+
+Estamos utilizando `python3-pip` pois queremos que ele seja compatível com a versão do Python3.6 que vamos utilizar em nosso projeto. Caso a gente não faça isso, ele será instalado para a versão do Python2.7 que já vem instalada junto do sistema operacional.
 
 ### **Django framework**
 
-Com o ambiente virtual ativado, vamos começar a instalar as dependências do projeto. Por enquanto temos apenas o Django Framework, que é quem vai nos ajudar e muito nessa jornada! Para instalá-lo, vamos utilizar o Pip, nosso gerenciador de pacotes do universo Python utilizando o comando "pip". Bem fácil, não?
+Com o ambiente virtual ativado, vamos começar a instalar as dependências do projeto. Por enquanto temos apenas o Django Framework, que é quem vai nos ajudar e muito nessa jornada! Para instalá-lo, vamos utilizar o Pip, nosso gerenciador de pacotes do universo Python utilizando o comando `pip`. Bem tranquilo, não?
 
 Para que a gente não tenha problemas referentes à versão utilizada, vamos especificar ao Pip qual versão do Django queremos instalar:
 
@@ -128,7 +130,7 @@ Para que a gente não tenha problemas referentes à versão utilizada, vamos esp
 (env)$ pip install Django==3.0.0
 ```
 
-Ao fim de tudo e tendo sucesso em todas as instalações, temos o ambiente pronto para começar a desenvolver o projeto.
+Ao fim de tudo e tendo sucesso em todas as instalações, temos o ambiente pronto para começar a desenvolver o projeto. 
 
-Então bora pra próxima aula!
+Sendo assim, bora pro próximo capítulo!
 
