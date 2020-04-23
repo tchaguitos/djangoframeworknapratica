@@ -1,8 +1,8 @@
 ---
 description: >-
-  O primeiro capítulo aborda quem é o instrutor, o que será desenvolvido no
-  decorrer do projeto, o que é a linguagem Python e como instalar todas os
-  recursos necessários ao início do projeto.
+  Nesse capítulo vamos conhecer o autor, as tecnologias que vamos utilizar, o
+  projeto que será desenvolvido e ainda vamos instalar e configurar todo o
+  ambiente de desenvolvimento
 ---
 
 # Capítulo 01
@@ -11,27 +11,27 @@ description: >-
 
 ### **Sobre o instrutor**
 
-Olá, meu nome é Thiago Brasil e na internet eu sou o @tchaguitos.
+Olá, meu nome é Thiago Brasil e na internet eu sou o @tchaguitos. Cursei Ciência da Computação e sou desenvolvedor full-stack há aproximadamente 3 anos. Nesse tempo trabalhei principalmente com as linguagens Python e Javascript e me aventurei em vários projetos utilizando Django framework, NodeJS, React, Angular, Vue, React Native e outras tecnologias dos mundos back-end, front-end e mobile \(inclusive aplicativos híbridos\).
 
-Cursei Ciência da Computação e sou desenvolvedor full-stack há aproximadamente 3 anos. Nesse tempo trabalhei principalmente com as linguagens Python e Javascript e me aventurei em vários projetos utilizando Django framework, NodeJS, React, Angular, Vue, React Native e outras tecnologias dos mundos back-end, front-end e mobile híbrido.
+Se quiser ver alguns dos meus códigos, dá uma passadinha aqui no [meu Github](https://github.com/tchaguitos/).
 
 ### **Sobre o curso**
 
-No curso "Django Framework na prática" você vai iniciar sua carreira como desenvolvedor full-stack utilizando a linguagem Python e desenvolver aplicações web seguras e escaláveis numa velocidade incrível.
+Com o curso "Django Framework na prática" você vai poder iniciar sua carreira como desenvolvedor full-stack utilizando a linguagem Python e desenvolver aplicações web seguras e escaláveis numa velocidade incrível.
 
-Nesse curso a gente vai construir junto uma aplicação web do zero com Python utilizando o framework Django. Essa nossa aplicação consiste num sistema de controle de visitantes para condomínios. Nossa aplicação deverá ser capaz de cadastrar porteiros que terão acesso a uma dashboard para cadastro de visitantes do condomínio. 
+Nesse curso a gente vai construir junto uma aplicação web do zero com Python utilizando o framework Django. Essa aplicação consiste num sistema de controle de visitantes para condomínio e ela deverá ser capaz de cadastrar porteiros que deverão ter acesso a uma dashboard para cadastro de visitantes no condomínio, além de todas as operações necessárias como autorizar entrada e finalizar as visitas.
 
 Depois desse curso você estará apto para desenvolver aplicações web robustas utilizando Django framework, tendo visão ampla das principais funcionalidades e facilidades que o framework nos permite aproveitar.
 
 ## A linguagem de programação Python
 
-Python é uma linguagem de programação de código aberto poderosa, rápida, amigável e bastante popular. Com ela é possível desenvolver sistemas web, trabalhar com análise de dados, inteligência artificial e machine learning, além de desenvolver aplicativos móveis e aplicações para desktop.
+Python é uma linguagem de programação de código aberto poderosa, amigável e bastante popular. Com ela é possível desenvolver sistemas web, trabalhar com análise de dados, inteligência artificial e machine learning, nomes muito falados ultimamente, além de desenvolver aplicativos móveis e aplicações para desktop.
 
 A linguagem foi criada por Guido van Rossum em 1991 com o objetivo de ser uma linguagem produtiva e legível, de modo que fosse fácil para humanos trabalharem em seus códigos, tornando menos custoso o processo de desenvolvimento e manutenção de sistemas.
 
 Além da grande variedade de ferramentas que a própria linguagem disponibiliza, Python tem se tornado cada vez mais comum devido a sua utilização em áreas como Data Science, Machine Learning e Inteligência Artificial e, com isso, ganhado diversas bibliotecas e módulos que facilitam o dia a dia do desenvolvedor.
 
-E ah, por último e não menos importante: Python tem caminhado rumo ao status de linguagem de programação mais popular do mundo!
+Por último e não menos importante: Python tem caminhado rumo ao status de linguagem de programação mais popular do mundo!
 
 ## O que é Django Framework?
 
@@ -43,31 +43,37 @@ Dentre as empresas que utilizam o Django no mundo, temos exemplos grandes como I
 
 ## Instalando e configurando o ambiente para iniciar o projeto
 
-Antes de tudo, a gente precisa preparar o nosso ambiente. Esse nosso ambiente é bem simples e tem como dependência apenas quatro itens. São eles:
+Antes de começar a colocar a mão na massa, a gente precisa preparar o nosso ambiente de desenvolvimento. Esse nosso ambiente é bem simples e tem como dependência apenas quatro itens. São eles:
 
 * Python 3.6
 * Pip
 * Virtualenv
 * Django framework
 
+{% hint style="info" %}
+Todos os comandos aqui utilizados são compatíveis com distribuições Linux baseadas em Ubuntu \(Debian\) acima da versão 16.10
+{% endhint %}
+
 ### **Python 3.6**
 
-Para instalar o Python na versão 3.6, a gente precisa abrir o nosso terminal e utilizar os seguintes comandos:
+Para instalar o Python em sua versão 3.6, vamos abrir o nosso terminal e utilizar os seguintes comandos:
 
 ```bash
-$ sudo apt-get update
-$ sudo apt-get install python3.6
+$ sudo apt update
+$ sudo apt install python3.6
 ```
+
+Estamos primeiro atualizando os pacotes do nosso sistema operacional e depois instalando a versão 3.6 do Python.
 
 ### **Virtualenv**
 
-Antes de instalar o Django, vamos instalar o Virtualenv para nos ajudar a organizar e isolar os ambientes de desenvolvimento dentro da nossa máquina. Com isso, a gente ganha a possibilidade de trabalhar em diversos projetos utilizando diferentes versões do Python e do Django na mesma máquina, sem correr o risco de ocorrerem conflitos ou outros problemas. Para instalar o Virtualenv é muito fácil:
+Agora que temos a versão 3.6 do Python instalada, vamos instalar o Virtualenv para nos ajudar a organizar e isolar os ambientes de desenvolvimento dentro da nossa máquina. Com isso, a gente ganha a possibilidade de trabalhar em diversos projetos utilizando diferentes versões do Python e do Django na mesma máquina, sem correr o risco de que ocorram conflitos ou outros problemas relacionados a versão dos pacotes. Para instalar o Virtualenv vamos utilizar o seguinte comando:
 
 ```bash
-$ sudo apt-get install virtualenv
+$ sudo apt install virtualenv
 ```
 
-Com o Virtualenv instalado, podemos criar um ambiente totalmente isolado para instalar as dependências relacionadas ao nosso projeto. Com o terminal aberto na pasta Home, vamos criar um diretório chamado "dev" para mantermos nossos projetos. Para criar e acessar o diretório, vamos utilizar o seguinte comando:
+Com o Virtualenv instalado, podemos criar um ambiente totalmente isolado para instalar as dependências relacionadas ao nosso projeto. Com o terminal aberto na pasta `home`, vamos criar um diretório chamado `dev` para mantermos nossos projetos. Para criar e acessar o diretório, vamos utilizar os seguintes comandos:
 
 ```bash
 $ cd home
@@ -75,22 +81,24 @@ $ mkdir dev
 $ cd dev
 ```
 
-Com o diretório "dev" criado, vamos criar o diretório que dará nome ao nosso projeto. Para isso, basta utilizar o seguinte comando:
+Vamos utilizar o comando cd home para garantir que estamos na pasta `home` e depois utilizamos o comando `mkdir dev` para criar a pasta `dev`. Com o diretório `dev` criado, entrar nele utilizando o comando `cd dev` e criar o diretório que dará nome ao nosso projeto. Para isso, vamos utilizar os seguintes comandos:
 
 ```bash
 $ mkdir controle-visitantes
 $ cd controle-visitantes
 ```
 
-Feito isso, vamos criar o nosso ambiente virtual através do Virtualenv. Ele cria para nós um diretório onde ficam os pacotes instalados que serão utilizados dentro do nosso projeto. Para isso, basta utilizar um comando:
+Feito isso, vamos criar o nosso ambiente virtual utilizando o Virtualenv. Ele cria para nós um diretório onde ficam os pacotes instalados e utilizados dentro do nosso projeto. Vamos utilizar o comando:
 
 ```bash
 $ virtualenv -p python3.6 env
 ```
 
-> O comando "virtualenv" nos possibilita passar alguns argumentos para deixar o ambiente mais próximo das nossas necessidades. Neste caso, estamos dizendo para ele qual a versão do Python queremos utilizar \(Python 3.6\) e o nome do nosso ambiente, que será "env".
+{% hint style="info" %}
+O comando `virtualenv` nos deixa passar alguns argumentos para deixar o ambiente mais próximo das nossas necessidades. Neste caso, estamos dizendo para ele qual a versão do Python queremos utilizar \(`Python 3.6`\) e o nome do nosso ambiente, que será `env`
+{% endhint %}
 
-Após criarmos o ambiente, temos que ativá-lo. Esse passo deve ser executado sempre que você for começar a trabalhar no projeto, pois nossa máquina contém pacotes e versões diferentes das que estão em nosso ambiente virtual e, por isso, precisamos avisar para nosso terminal de onde ele deverá executar os pacotes e até mesmo o Python. Para ativar nosso ambiente, basta utilizar o comando:
+Após criarmos o ambiente, temos que ativá-lo. Esse passo deve ser executado sempre que você for começar a trabalhar no projeto, pois nossa máquina contém pacotes e versões diferentes das que estão em nosso ambiente virtual e, por isso, precisamos avisar para nosso terminal de onde ele deverá executar os pacotes e até mesmo o Python. Para ativar nosso ambiente, utilizaramos o comando:
 
 ```bash
 $ source env/bin/activate
