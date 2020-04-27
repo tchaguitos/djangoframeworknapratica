@@ -2,33 +2,35 @@
 
 ## Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
 
-Nos capítulos anteriores, criamos toda a estrutura necessária para criação de usuários do sistema e porteiros que serão os responsáveis por operar a dashboard proposta. Além disso, também preparamos o ambiente de desenvolvimento e aprendemos bastante sobre detalhes técnicos do funcionamento do Django.
+Nos capítulos anteriores, iniciamos o projeto e criamos toda a estrutura necessária para administração de usuários do sistema e porteiros que serão os responsáveis por operar a dashboard proposta. Além disso, também preparamos o ambiente de desenvolvimento e aprendemos bastante sobre detalhes técnicos do funcionamento do Django.
 
-Focamos nosso trabalho nos arquivos `models.py` e `admin.py` e também conhecemos o poder existente do Admin que o Django nos disponibiliza. Como nosso objetivo é desenvolver uma dashboard personalizada para exibir as informações dos visitantes do condomínio e implementar funcionalidades específicas, a partir de agora, trabalharemos para desenvolver os templates que irão dispôr as informações necessárias e funcionalidades específicas! 
-
-Sendo assim, posso dizer que a partir de agora as coisas começam a ficar mais interessantes!
+Focamos nosso trabalho nos arquivos `models.py` e `admin.py` e também conhecemos o poder existente do Admin que o Django nos disponibiliza. Como nosso objetivo é desenvolver uma dashboard personalizada para exibir as informações dos visitantes do condomínio e implementar funcionalidades específicas, a partir de agora, trabalharemos para desenvolver os templates que irão apresentar as informações necessárias e executar as funcionalidades que vamos desenvolver. Sendo assim, posso dizer que a partir de agora as coisas começam a ficar mais interessantes!
 
 Neste próximo módulo, aprenderemos a configurar o Django para trabalhar com arquivos estáticos \(CSS e JS\) e templates HTML.
 
 {% hint style="warning" %}
-O Django, por padrão, vem configurado para que já seja possível trabalhar com templates HTML, mas vamos alterar as configurações para que a haja uma maior organização dos arquivos
+O Django, por padrão, vem configurado para que já seja possível trabalhar com templates HTML, mas vamos alterar as configurações para que a haja uma maior organização dos arquivos e de modo que a gente agrupe todos os template numa só pasta
 {% endhint %}
 
 ### Criando a pasta templates em nosso projeto
 
-Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, afim de exibir valores específicos para atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática e uma parte onde serão exibidas as informações desejadas, sendo necessário seguir uma sintaxe específica para exibição de valores e funções fornecidas pelo framework. O Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e ainda possui diversas funcionalidades que podem ser utilizadas diretamente nos templates HTML através de tags.
+Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, de modo que seja possível exibir valores específicos e atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática, que são os arquivos CSS e JS e partes que se repetem, e uma parte onde serão exibidas as informações desejadas, que variam de acordo com cada cenário.
+
+{% hint style="success" %}
+Imagine em nosso caso em que os porteiros deverão registrar visitantes. Para cada visitante, teremos informações diferentes e, desta forma, o template deverá ser capaz de exibir essas informações de acordo com o contexto de cada visitante
+{% endhint %}
+
+Para resolver esse problema, o Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e ainda possui diversas funcionalidades que podem ser utilizadas diretamente nos templates HTML através de tags.
 
 {% hint style="info" %}
 Uma engine de template nada mais é que uma aplicação que visa facilitar o processo de criação de templates HTML dinâmicos e tornar o processo de envio e exibição de informações nos templates menos burocrático
 {% endhint %}
 
-Por padrão, o Django vem configurado para procurar os templates dentro de cada aplicativo. Isto é, em cada aplicativo deverá existir uma pasta **templates** para armazenar os templates referentes ao aplicativo em questão. Todavia, para uma melhor organização, utilizaremos uma pasta externa para armazenar os arquivos de templates do projeto.
+Por padrão, o Django vem configurado para procurar os templates dentro de cada aplicativo. Isto é, em cada aplicativo deverá existir uma pasta **templates** para armazenar os templates referentes ao aplicativo em questão. Todavia, para uma melhor organização, utilizaremos uma pasta externa para armazenar todos os arquivos de templates do projeto.
 
-Para isso, começaremos alterando o arquivo `settings.py` do nosso projeto. Nesse arquivo é possível encontrar a variável `TEMPLATES`, que é responsável por definir as configurações de template do Django, como _engine_ a ser utilizada, diretórios que armazenam os templates, dentre outras.
+Para isso, começaremos alterando o arquivo `settings.py` do nosso projeto. Nesse arquivo é possível encontrar a variável `TEMPLATES`, que é responsável por definir as configurações de template do projeto, como _engine_ a ser utilizada, diretórios que armazenam os templates, dentre outras.
 
-A variável `TEMPLATES` é uma lista que recebe um dicionário contendo valores específicos, tais como `BACKEND`, `DIRS`, `APP_DIRS` e `OPTIONS`, cada um com uma função específica. No nosso caso, vamos alterar o valor `DIRS` de uma lista vazia para uma lista contendo a string "templates", que é o nome da pasta que utilizaremos para armazenar nossos templates na raíz do projeto.
-
-Nossa variável `TEMPLATES` ficará da seguinte forma:
+A variável `TEMPLATES` é uma lista que recebe um dicionário contendo valores específicos, tais como `BACKEND`, `DIRS`, `APP_DIRS` e `OPTIONS`, cada um com uma função específica. No nosso caso, vamos alterar o valor `DIRS` de uma lista vazia para uma lista contendo a string "templates", que é o nome da pasta que utilizaremos para armazenar os templates na raiz do projeto. A variável `TEMPLATES` ficará da seguinte forma:
 
 ```python
 TEMPLATES = [
