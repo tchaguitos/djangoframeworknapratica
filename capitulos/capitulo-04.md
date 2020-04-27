@@ -60,13 +60,13 @@ Feito isso, vamos agora definir as configurações para os arquivos estáticos d
 
 Por "arquivos estáticos", entenda arquivos do tipo CSS, JS \(javascript\) e imagens que serão utilizadas em nossos templates, tais como logotipo, imagem padrão para avatar de usuários, dentre outras.
 
-Para realizarmos a configuração, vamos novamente alterar o arquivo `settings.py.` Ao final do arquivo, adicione o seguinte trecho de código para definir a URL onde os arquivos estáticos serão armazenados:
+Para realizarmos a configuração, vamos novamente alterar o arquivo `settings.py.` Ao final do arquivo, você vai encontrar a variável `STATIC_URL` que é onde nossos arquivos estáticos devem ficar, ou seja, na pasta `static` na raiz do projeto:
 
 ```python
 STATIC_URL = "/static/"
 ```
 
-Abaixo do `STATIC_URL`, coloque também o seguinte trecho de código:
+Abaixo da variável `STATIC_URL`, coloque também o seguinte trecho de código:
 
 ```python
 STATICFILES_DIRS = [
@@ -74,21 +74,17 @@ STATICFILES_DIRS = [
 ]
 ```
 
-Estamos dizendo ao Django: hey, amigo, procure pelos arquivos estáticos na pasta **static** na raíz do projeto!
-
-Para facilitar e economizar tempo novamente, faça download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e a coloque na raiz do projeto:
+Desta forma estamos dizendo para o Django que os arquivos estáticos devem ser procurados na pasta **static** na raiz do projeto. Para facilitar e economizar tempo novamente, faça download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e a coloque na raiz do projeto:
 
 {% file src="../.gitbook/assets/static.zip" caption="Iniciar o download" %}
 
-Faça o download e coloque a pasta **static** na raíz do projeto, juntamente com a pasta **templates**. Feito isso, já podemos utilizar templates HTML e arquivos estáticos em nosso projeto!
+Faça o download e coloque a pasta **static** na raiz do projeto, juntamente com a pasta **templates**. Feito isso, já podemos utilizar templates HTML e arquivos estáticos em nosso projeto.
 
 ## Criando views que renderizam templates
 
-Falamos bastante sobre templates HTML, mas o que é HTML, afinal?
+O HTML \(Linguagem de Marcação de HiperTexto\) é o bloco de construção mais básico da pilha de tecnologias que compõem a web, mas é ela que dá significado e define a estrutura do conteúdo das páginas. Existem também tecnologias que descrevem aparência/apresentação \(CSS\) e funcionalidade/comportamento \(Javascript\) de uma página web \(inclusive já falamos um pouquinho delas por aqui quando falamos sobre arquivos estáticos\).
 
-O HTML \(Linguagem de Marcação de HiperTexto\) é o bloco de construção mais básico da pilha de tecnologias que compõem a web, mas é ela que define significado e estrutura de conteúdo. Existem também tecnologias que descrevem aparência/apresentação \(CSS\) e funcionalidade/comportamento \(Javascript\) de uma página web \(inclusive já falamos um pouquinho delas por aqui quando falamos sobre arquivos estáticos\).
-
-Basicamente, um arquivo de template é um arquivo de texto com extensão `.html`. Os navegadores interpretam esses arquivos de texto e cuidam de de exibir exatamente da maneira que você enxerga pelo seu monitor. 
+Basicamente, um arquivo de template é um arquivo de texto com extensão `.html`. Os navegadores interpretam esses arquivos de texto e cuidam de exibir exatamente da maneira que você enxerga pelo seu monitor. 
 
 Bacana não? Além disso, o HTML ajuda a dizer para os motores de busca o que é relevante, o que é texto, o que é imagem e tudo mais. Sendo assim, o HTML tem um papel fundamental dentro da web! 
 
@@ -96,11 +92,11 @@ Bacana não? Além disso, o HTML ajuda a dizer para os motores de busca o que é
 E ah, não se assuste com a palavra **HiperTexto** no nome, hipertexto são apenas os links entre as páginas que se conectam na web. 
 {% endhint %}
 
-Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isto é, a partir de agora, ao invés de ser exibido um texto ao acessarmos uma URL através do navegador, como fizemos anteriormente, vamos dizer para o Django que é necessário exibir um template HTML, afim de exibir as informações de forma estruturada e de modo que fiquei fácil a compreensão para nossos usuários.
+Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isso significa que a partir de agora, ao invés de ser exibido um texto ao acessarmos uma URL através do navegador, como fizemos anteriormente, vamos dizer para o Django que é necessário exibir um template HTML, afim de exibir as informações de forma estruturada e de modo que fiquei fácil a compreensão para nossos usuários.
 
 ### Conhecendo a função render
 
-Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view denominada `index`. Antes de seguir, vamos trabalhar um pouco a memória e lembrar como a nossa view está:
+Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view chamada `index`. Antes de seguir, vamos trabalhar um pouco a memória e lembrar como a nossa view está:
 
 ```python
 from django.http import HttpResponse
@@ -109,9 +105,9 @@ def index(request):
     return HttpResponse("Olá, mundo!")
 ```
 
-Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` para exibir um template HTML no lugar da mensagem. 
+Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` para exibir um template HTML no lugar dessa mensagem. 
 
-A função `render` é uma função de atralho do Django que nos possibilita combinar um template HTML e um dicionário de contexto. A função deve receber sempre a variável `request` e uma `string` representando o caminho do template a ser utilizado. Esses argumentos são obrigatórios e devem ser passados para a função `render` sempre que a mesma for utilizada, caso contrário, ocorrerá um erro.
+A função `render` é uma função de atalho do Django que nos possibilita combinar um template HTML e um dicionário de contexto. A função deve receber sempre a variável `request` e uma `string` representando o caminho do template a ser utilizado. Esses argumentos são obrigatórios e devem ser passados para a função `render` sempre que a mesma for utilizada.
 
 Vamos alterar a nova view para que retorne a função `render` ao invés da classe `HttpResponse` passando a variável `request` e o caminho para o template `index.html`:
 
