@@ -1,8 +1,8 @@
 ---
 description: >-
   Nesse capítulo vamos conhecer o autor, as tecnologias que vamos utilizar, o
-  projeto que será desenvolvido e ainda vamos instalar e configurar todo o
-  ambiente de desenvolvimento
+  projeto que vamos desenvolver e ainda instalar e configurar todo o ambiente de
+  desenvolvimento
 ---
 
 # Capítulo 01
@@ -51,14 +51,14 @@ Antes de começar a colocar a mão na massa, a gente precisa preparar o nosso am
 * Django framework
 
 {% hint style="info" %}
-Todos os comandos aqui utilizados são compatíveis com distribuições Linux baseadas em Ubuntu \(Debian\) e foram utilizados no Ubuntu 20.04
+Todos os comandos aqui utilizados são compatíveis com distribuições Linux baseadas em Ubuntu \(Debian\) e as aulas foram gravadas utilizando o Ubuntu 20.04
 {% endhint %}
 
 ### **Python 3.8**
 
-As versões mais recentes das distribuições linux baseados no Ubuntu \(Debian\) já vêm com a versão 3.8.2 do Python instalada, mas se este não é o seu caso, basta seguir os comandos a seguir.
+As versões mais recentes das distribuições linux baseadas no Ubuntu \(Debian\) já vêm com a versão 3.8.2 do Python instalada, mas se este não é o seu caso, basta seguir os comandos a seguir.
 
-Antes de instalar o Python de fato, precisamos instalar alguns pacotes que vão nos ajudar com esta tarefas. Primeiro, vamos atualizar nossos pacotes e instalar algumas dependências:
+Antes de instalar o Python de fato, precisamos instalar alguns pacotes que vão nos ajudar com esta tarefa. Primeiro, vamos atualizar nossos pacotes e instalar algumas dependências:
 
 ```bash
 $ sudo apt update
@@ -71,7 +71,7 @@ Com isso feito, podemos agora adicionar o repositório PPA que será utilizado c
 $ sudo add-apt-repository ppa:deadsnakes/ppa
 ```
 
-O terminal vai pedir para que o você aperte enter para confirmar a ação. Faça isso para adicionar o repositório à sua lista e utilize os comandos abaixo para novamente atualizar os pacotes e instalar a versão 3.8 do Python:
+O terminal vai pedir para que o você aperte `enter` para confirmar a ação. Faça isso para adicionar o repositório à sua lista e utilize os comandos abaixo para novamente atualizar os pacotes existentes e, finalmente, instalar a versão 3.8 do Python:
 
 ```bash
 $ sudo apt update
