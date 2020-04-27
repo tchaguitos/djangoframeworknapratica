@@ -45,7 +45,7 @@ Dentre as empresas que utilizam o Django no mundo, temos exemplos grandes como I
 
 Antes de começar a colocar a mão na massa, a gente precisa preparar o nosso ambiente de desenvolvimento. Esse nosso ambiente é bem simples e tem como dependência apenas quatro itens. São eles:
 
-* Python 3.6
+* Python 3.8
 * Pip
 * Virtualenv
 * Django framework
@@ -54,13 +54,13 @@ Antes de começar a colocar a mão na massa, a gente precisa preparar o nosso am
 Todos os comandos aqui utilizados são compatíveis com distribuições Linux baseadas em Ubuntu \(Debian\) acima da versão 16.10
 {% endhint %}
 
-### **Python 3.6**
+### **Python 3.8**
 
-Para instalar o Python em sua versão 3.6, vamos abrir o nosso terminal e utilizar os seguintes comandos:
+Para instalar o Python em sua versão 3.8, vamos abrir o nosso terminal e utilizar os seguintes comandos:
 
 ```bash
 $ sudo apt update
-$ sudo apt install python3.6
+$ sudo apt install python3.8
 ```
 
 Estamos primeiro atualizando os pacotes do nosso sistema operacional e depois instalando a versão 3.6 do Python.
@@ -91,11 +91,11 @@ $ cd controle-visitantes
 Feito isso, vamos criar o nosso ambiente virtual utilizando o Virtualenv. Ele cria para nós um diretório onde ficam os pacotes instalados e utilizados dentro do nosso projeto. Vamos utilizar o comando:
 
 ```bash
-$ virtualenv -p python3.6 env
+$ virtualenv -p python3.8 env
 ```
 
 {% hint style="info" %}
-O comando `virtualenv` nos deixa passar alguns argumentos para deixar o ambiente mais próximo das nossas necessidades. Neste caso, estamos dizendo para ele qual a versão do Python queremos utilizar \(`Python 3.6`\) e o nome do nosso ambiente, que será `env`
+O comando `virtualenv` nos deixa passar alguns argumentos para deixar o ambiente mais próximo das nossas necessidades. Neste caso, estamos dizendo para ele qual a versão do Python queremos utilizar \(`Python 3.8`\) e o nome do nosso ambiente, que será `env`
 {% endhint %}
 
 Após criarmos o ambiente, temos que ativá-lo. Esse passo deve ser executado sempre que você for começar a trabalhar no projeto, pois nossa máquina contém pacotes e versões diferentes das que estão em nosso ambiente virtual e, por isso, precisamos avisar para nosso terminal de onde ele deverá executar os pacotes e até mesmo o Python. Para ativar nosso ambiente, utilizaramos o comando:
