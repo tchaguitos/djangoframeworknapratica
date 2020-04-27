@@ -148,7 +148,7 @@ Com isso já podemos utilizar a tag no template `index.html`.
 
 Como falamos, a tag `{% static %}` é a representação da pasta **static.** A tag nos dá um link para essa pasta para utilização no carregamento dos arquivos estáticos nos templates. Como é o Django que cuida de toda essa parte por nós, também vamos delegar a ele o carregamento dos nossos arquivos JS, CSS e imagens.
 
-#### Alterando importação de arquivos CSS
+#### Alterando as importações dos arquivos CSS
 
 Vamos alterar primeiro as importações dos arquivos CSS. As linhas que fazem o carregamento dos arquivos CSS no template são:
 
@@ -164,7 +164,7 @@ Vamos alterar os textos referentes a `href` para utilizarmos a tag `{% static %}
 <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 ```
 
-#### Alterando importação de arquivos JS
+#### Alterando as importações dos arquivos JS
 
 Para alterarmos as importações dos arquivos JS, vamos encontrar as linhas:
 
