@@ -88,7 +88,7 @@ Agora que temos a versão 3.8 do Python instalada, vamos instalar o Virtualenv p
 $ sudo apt install virtualenv
 ```
 
-Com o Virtualenv instalado, podemos criar um ambiente totalmente isolado para instalar as dependências relacionadas ao nosso projeto. Com o terminal aberto na pasta `home`, vamos criar um diretório chamado `dev` para mantermos nossos projetos. Para criar e acessar o diretório, vamos utilizar os seguintes comandos:
+Com o Virtualenv instalado, podemos criar um ambiente totalmente isolado para instalar as dependências relacionadas a cada projeto. Com o terminal aberto na pasta `home`, vamos criar um diretório chamado `dev` para mantermos nossos projetos. Para criar e acessar o diretório, vamos utilizar os seguintes comandos:
 
 ```bash
 $ cd
@@ -96,7 +96,7 @@ $ mkdir dev
 $ cd dev
 ```
 
-Vamos utilizar o comando `cd` para garantir que estamos na pasta `home` do usuário logado em sua máquina e depois utilizamos o comando `mkdir dev` para criar a pasta `dev`. Com o diretório `dev` criado, entrar nele utilizando o comando `cd dev` e criar o diretório que dará nome ao nosso projeto. Para isso, vamos utilizar os seguintes comandos:
+Vamos utilizar o comando `cd` para garantir que estamos na pasta `home` do usuário logado em sua máquina e depois utilizamos o comando `mkdir dev` para criar a pasta `dev`. Com o diretório `dev` criado, vamos entrar nele utilizando o comando `cd dev` e criar o diretório que dará nome ao nosso projeto. Para isso, vamos utilizar os seguintes comandos:
 
 ```bash
 $ mkdir controle-visitantes
@@ -113,7 +113,7 @@ $ virtualenv -p python3.8 env
 O comando `virtualenv` nos deixa passar alguns argumentos para deixar o ambiente mais próximo das nossas necessidades. Neste caso, estamos dizendo para ele qual a versão do Python queremos utilizar \(`Python 3.8`\) e o nome do nosso ambiente, que será `env`
 {% endhint %}
 
-Após criarmos o ambiente, temos que ativá-lo. Esse passo deve ser executado sempre que você for começar a trabalhar no projeto, pois nossa máquina contém pacotes e versões diferentes das que estão em nosso ambiente virtual e, por isso, precisamos avisar para nosso terminal de onde ele deverá executar os pacotes e até mesmo o Python. Para ativar nosso ambiente, utilizaramos o comando:
+Após criarmos o ambiente, temos que ativá-lo. Esse passo deve ser executado sempre que você for começar a trabalhar no projeto, pois nossa máquina contém pacotes e versões diferentes das que estão em nosso ambiente virtual e, por isso, precisamos avisar para nosso terminal de onde ele deverá executar os pacotes e até mesmo o Python. Para ativar nosso ambiente, utilizaremos o comando:
 
 ```bash
 $ source env/bin/activate
@@ -131,7 +131,7 @@ O pip é um gerenciador de pacotes bastante utilizado no mundo Python e ele vem 
 
 ### **Django framework**
 
-Com o ambiente virtual ativado, vamos começar a instalar as dependências do projeto. Por enquanto temos apenas o Django Framework, que é quem vai nos ajudar e muito nessa jornada! Para instalá-lo, vamos utilizar o Pip, nosso gerenciador de pacotes do universo Python utilizando o comando `pip`. Bem tranquilo, não?
+Com o ambiente virtual ativado, vamos começar a instalar as dependências do projeto. Por enquanto temos apenas o Django Framework, que é quem vai nos ajudar e muito nessa jornada. Para instalá-lo, vamos utilizar o Pip, nosso gerenciador de pacotes do universo Python utilizando o comando `pip`. Bem tranquilo, não?
 
 Para que a gente não tenha problemas referentes à versão utilizada, vamos especificar ao Pip qual versão do Django queremos instalar:
 
