@@ -4,9 +4,9 @@
 
 Antes de partimos para todas as atividades que envolvem o desenvolvimento da nossa dashboard, temos que iniciar nosso projeto, claro. Iniciar um projeto significa criar toda a estrutura básica necessária para garantir que o código que a gente vai escrever vai funcionar conforme esperado utilizando as tecnologias escolhidas.  
   
-Felizmente, o Django já nos dá alguns scripts que servem para executar tarefas específicas do nosso projeto e, dentre elas, criar o esqueleto de um novo projeto com toda a estrutura básica necessária. Ao fim da execução do script, teremos algumas pastas e arquivos que poderão ser alterados conforme nossa necessidade.
+Felizmente, o Django já nos dá alguns scripts que servem para executar tarefas específicas do nosso projeto e, dentre elas, criar o esqueleto de um novo projeto com esse estrutura básica necessária. Ao fim da execução do script, teremos algumas pastas e arquivos que poderão ser alterados conforme nossa necessidade.
 
-Antes de executar os comandos necessários para iniciar projeto, vamos ativar o ambiente virtual. Basta acessar a pasta do projeto \(`cd controle-visitantes`\) e utilizar o comando `source` passando caminho `env/bin/activate`:
+Antes de executar os comandos necessários para iniciar projeto, vamos lembrar de ativar o ambiente virtual. Basta acessar a pasta do projeto \(`cd controle-visitantes`\) e utilizar o comando `source` passando caminho `env/bin/activate`:
 
 ```python
 $ cd controle-visitantes
@@ -68,7 +68,7 @@ controle-visitantes/
 * Já o arquivo `controle_visitantes/asgi.py` é o ponto de integração para servidores web utilizarem comunicação assíncrona
 
 {% hint style="info" %}
-A partir da versão 3.0 o Django passou a dar suporte a alguns padrões de comunicação assícrona
+A partir da versão 3.0 o Django passou a dar suporte a alguns padrões de comunicação assíncrona
 {% endhint %}
 
 ## Criando nosso primeiro aplicativo Django
