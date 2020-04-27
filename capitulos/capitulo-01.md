@@ -51,23 +51,38 @@ Antes de começar a colocar a mão na massa, a gente precisa preparar o nosso am
 * Django framework
 
 {% hint style="info" %}
-Todos os comandos aqui utilizados são compatíveis com distribuições Linux baseadas em Ubuntu \(Debian\) acima da versão 16.10
+Todos os comandos aqui utilizados são compatíveis com distribuições Linux baseadas em Ubuntu \(Debian\) e foram utilizados no Ubuntu 20.04
 {% endhint %}
 
 ### **Python 3.8**
 
-Para instalar o Python em sua versão 3.8, vamos abrir o nosso terminal e utilizar os seguintes comandos:
+As versões mais recentes das distribuições linux baseados no Ubuntu \(Debian\) já vêm com a versão 3.8.2 do Python instalada, mas se este não é o seu caso, basta seguir os comandos a seguir.
+
+Antes de instalar o Python de fato, precisamos instalar alguns pacotes que vão nos ajudar com esta tarefas. Primeiro, vamos atualizar nossos pacotes e instalar algumas dependências:
+
+```bash
+$ sudo apt update
+$ sudo apt install software-properties-common
+```
+
+Com isso feito, podemos agora adicionar o repositório PPA que será utilizado como fonte para instalarmos o Python3.8:
+
+```bash
+$ sudo add-apt-repository ppa:deadsnakes/ppa
+```
+
+O terminal vai pedir para que o você aperte enter para confirmar a ação. Faça isso para adicionar o repositório à sua lista e utilize os comandos abaixo para novamente atualizar os pacotes e instalar a versão 3.8 do Python:
 
 ```bash
 $ sudo apt update
 $ sudo apt install python3.8
 ```
 
-Estamos primeiro atualizando os pacotes do nosso sistema operacional e depois instalando a versão 3.6 do Python.
+Vamos utilizar esta versão pois é a versão mais recente e estável que temos da linguagem. O Django encoraja a utilização de versões mais recentes da linguagem e ainda oferece suporte oficial sempre para as últimas versões disponíveis. Como utilizaremos a versão 3.0 do Django, vamos já utilizar a versão 3.8.2 do Python lançada em 24 de fevereiro de 2020.
 
 ### **Virtualenv**
 
-Agora que temos a versão 3.6 do Python instalada, vamos instalar o Virtualenv para nos ajudar a organizar e isolar os ambientes de desenvolvimento dentro da nossa máquina. Com isso, a gente ganha a possibilidade de trabalhar em diversos projetos utilizando diferentes versões do Python e do Django na mesma máquina, sem correr o risco de que ocorram conflitos ou outros problemas relacionados a versão dos pacotes. Para instalar o Virtualenv vamos utilizar o seguinte comando:
+Agora que temos a versão 3.8 do Python instalada, vamos instalar o Virtualenv para nos ajudar a organizar e isolar os ambientes de desenvolvimento dentro da nossa máquina. Com isso, a gente ganha a possibilidade de trabalhar em diversos projetos utilizando diferentes versões do Python e do Django na mesma máquina, sem correr o risco de que ocorram conflitos ou outros problemas relacionados a versão dos pacotes. Para instalar o Virtualenv vamos utilizar o seguinte comando:
 
 ```bash
 $ sudo apt install virtualenv
