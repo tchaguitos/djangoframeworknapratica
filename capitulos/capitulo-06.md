@@ -351,7 +351,7 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                 <hr class="sidebar-divider my-0">
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-home"></i>
                         <span>Início</span>
                     </a>
@@ -410,7 +410,7 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                         
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                            <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
+                            <a class="btn btn-primary" href="#">Sair</a>
                         </div>
                     </div>
                 </div>
@@ -426,42 +426,38 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
 
 ### Adaptando template registrar\_visitante
 
-Faremos o mesmo que fizemos com o template `index.html`, deixando apenas o conteúdo existente dentro do elemento HTML `<div class="container-fluid">` e inserindo as tags `{% extends "base.html" %}`, `{% block conteudo %}` e `{% endblock conteudo %}`. O template `registrar_visitante.html` ficará assim:
+Faremos o mesmo que fizemos com o template `index.html`, mas agora deixando apenas o conteúdo existente dentro do elemento HTML `<div class="container">` e inserindo as tags `{% extends "base.html" %}`, `{% block conteudo %}` e `{% endblock conteudo %}`. O template `registrar_visitante.html` ficará assim:
 
 ```python
 {% extends "base.html" %}
 
 {% block conteudo %}
-<div class="container-fluid">
+<div class="container">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Registrar visitante</h1>
     </div>
-    
+
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Registrar visitante</h6>
-        </div>
-        
         <div class="card-body">
-            <div class="container">
-                <form class="user">
-                    <div class="form-group">
-                        <input type="email" class="form-control form-control-user form-sm" placeholder="E-mail">
-                    </div>
+            <h4 class="mb-3 text-primary">
+                Formulário para registro de novo visitante
+            </h4>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control form-control-user"placeholder="Password">
-                    </div>
+            <form method="post">
+                <div class="form-row">
+                    <p class="ml-2">Aqui deveria ter um formulário</p>
+                </div>
 
-                    <a href="index.html" class="btn btn-primary btn-user">
-                        Login
-                    </a>
-                </form>
-            </div>
+                <div class="text-right">
+                    <button class="btn btn-primary" type="submit">
+                        <span class="text">Registrar visitante</span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-{% endblock conteudo %}
+{% endblock %}
 ```
 
 Caso prefira, você pode fazer download da pasta templates com as alterações realizadas até aqui clicando no link abaixo:
