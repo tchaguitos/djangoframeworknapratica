@@ -331,21 +331,24 @@ Essa foi a primeira e última vez utilizamos o Django Admin para registar um vis
 
 ## Listando visitantes na página inicial da dashboard
 
-Como já definimos nosso modelo e até registramos um visitante através do Admin, agora vamos aprender como buscar esses registros em nosso banco de dados.
+Como já definimos nosso modelo e até registramos visitantes através do Admin, agora vamos aprender como buscar esses registros em nosso banco de dados.
 
-Quando precisamos buscar registros em nosso banco de dados, devemos construir uma **Queryset** utilizando o **Manager** da classe modelo em questão. A classe Manager, conforme visto, define como as interações com o banco de dados devem acontecer e, por padrão, é um atributo da classe chamado `objects`. Já uma queryset nada mais é que uma lista de objetos existentes em nosso banco de dados. 
+Quando precisamos buscar registros em nosso banco de dados, devemos construir uma **Queryset** utilizando o **Manager** da classe modelo em questão. A classe Manager, conforme visto, define como as interações com o banco de dados devem acontecer e, por padrão, é um atributo da classe chamado `objects`. Já uma queryset nada mais é que uma lista de objetos de um determinado tipo existentes em nosso banco de dados. 
 
-Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros. Por hora, vamos nos concentrar em buscar os registros de visitantes.
+Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros. Automaticamente o Django nos disponibiliza uma classe Manager para realizar todas essas operações e, por hora, vamos nos concentrar em buscar os registros de visitantes.
 
 ### Buscando registros de visitantes no banco de dados
 
-Quando falamos da camada **view**, vimos que é ela quem deve escapsular toda a lógica necessária para apresentar os dados. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template.
+Quando falamos da camada **view**, vimos que é ela quem deve encapsular toda a lógica necessária para apresentar os dados. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template.
 
-O primeiro passo para buscarmos os registros de visitantes é criarmos uma variável para armazenar os registros que serão retornados, para isto utilizaremos a variável `todos_visitantes`. A variável receberá uma **queryset** que será retornada pelo método `all()` do **Manager** `objects` do modelo **Visitante**.
+O primeiro passo para buscarmos os registros é criar uma variável para armazenar os registros que serão retornados, para isto utilizaremos a variável `todos_visitantes`. A variável receberá uma **queryset** que será retornada pelo método `all()` do **Manager** `objects` do modelo **Visitante**.
 
-Antes de tudo, temos que importar o modelo no arquivo `views.py` do aplicativo usuarios.
+Antes de tudo, vamos importar o modelo no arquivo `views.py` do aplicativo **usuarios**.
 
 ```python
+from django.shortcuts import render
+from django.http import HttpResponse
+
 from visitantes.models import Visitante
 
 def index(request):
@@ -356,9 +359,9 @@ def index(request):
     return render(request, "index.html", contexto)
 ```
 
-Feito isso, vamos criar a variável `todos_visitantes` acima da variável `contexto` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
+Feito isso, vamos criar a variável `todos_visitantes` acima da variável `context` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
 
-Não podemos nos esquecer de colocar a variável `todos_visitantes` dentro do nosso dicionário `contexto` para que possamos acessá-la através dos templates. A função `index` ficará assim:
+Não podemos nos esquecer de colocar a variável `todos_visitantes` dentro do nosso dicionário `context` para que possamos acessá-la através do template. A função `index` ficará assim:
 
 ```python
 from visitantes.models import Visitante
@@ -375,61 +378,65 @@ def index(request):
     return render(request, "index.html", contexto)
 ```
 
-### Listando registros de visitantes no HTML
+### Listando registros de visitantes no template HTML
 
 #### Conhecendo a tag for e acessando atributos do visitante
 
-Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tentarmos exibir uma queryset desta maneira, não será possível, pois uma queryset é uma lista que contém vários itens. Felizmente, o Django nos fornecer uma tag para que possamos executar um loop em listas do tipo, que chamamos de iteráveis.
+Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tentarmos exibir uma queryset desta maneira, não será possível, pois uma queryset é uma lista que contém vários itens. É necessário percorrer os itens dessa lista e acessar item por item. Pra nossa sorte, o Django nos fornecer uma tag para que possamos executar loops em listas.
 
 A tag `{% for %}` é quem vai nos ajudar agora. O que ela faz é justamente andar por todos os itens da lista e disponibilizar uma variável para que possamos acessar as informações da mesma. Parece um pouco confuso? Não se assuste, vamos entender melhor visualizando o código.
 
-No nosso caso, buscamos todos os registros de visitantes que temos em nosso banco de dados e passamos essa lista como variável dentro do contexto da view. O que precisamos fazer agora é passar em cada item existente na lista de visitantes e exibir as informações como nome completo, CPF e data de nascimento, por exemplo.
+No nosso caso, buscamos todos os registros de visitantes que temos em nosso banco de dados e passamos essa lista como variável dentro do contexto da view. O que precisamos fazer agora é passar em cada item existente na lista de visitantes e exibir as informações como nome completo, CPF e data de nascimento.
 
 {% hint style="info" %}
 Para acessarmos as informações dos visitantes nos templates, utilizaremos o nome dos atributos definidos da classe modelo.
 {% endhint %}
 
-Vamos abrir o arquivo de template `index.html` e buscar pelo elemento HTML `<tbody>`. É dentro dele, nos elementos `<td>` que vamos inserir as informações dos nossos visitantes utilizando a tag `{% for %}`. Para utilizar essa tag, precisamos também evidenciar para o Django onde o loop deve ser parado e fazemos isso utilizando a tag `{% endfor %}`.
+Vamos abrir o arquivo de template `index.html` e buscar pelo elemento HTML `<tbody>`. É dentro dele, acima dos elementos `<td>` que vamos definir o início da tag `{% for %}`. Para utilizar essa tag, precisamos também evidenciar onde o loop deve ser parado e fazemos isso utilizando a tag `{% endfor %}`.
 
-Logo abaixo do elemento `<tbody>` insira o trecho `{% for visitante in todos_visitantes %}`. Lembra de falamos da variável que a tag `{% for %}` disponibiliza para que possamos acessar as informações? Pois bem, podemos dar nome a ela e, neste caso, utilizaremos o nome `visitante` para a variável. O trecho de código ficará assim:
-
-```markup
-<tbody>
-    {% for visitante in todos_visitantes %}
-        <td>Don Corleone</td>
-        <td>123.123.123.06</td>
-        <td>22 de agosto 15:30</td>
-        <td>22 de agosto 15:38</td>
-        <td>Darth Vader</td>
-        <td>
-            <a href="#">
-                Ver detalhes
-            </a>
-        </td>
-    {% endfor %}
-</tbody>
-```
-
-Olha só que bacana: estamos dizendo para o Django "hey, cara, para cada `visitante` que existir em `todos_visitantes`, repita essa estrutura de elementos `<td>`. Com isso já estamos executando o loop na lista `todos_visitantes`, mas ainda não estamos exibindo os valores referentes ao visitante registrado há pouco. Para fazer isso, vamos utlizar a sintaxe de chaves \(`{{  }}`\) em conjunto com variável `visitante` que criamos dentro da tag `{% for %}`.
-
-Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.nome_do_atributo`. Se queremos exibir o nome completo do visitante, vamos utilizar `visitante.nome_completo`. Faremos o mesmo com os atributos **nome completo**, **CPF**, **horário de chegada**, **horário de autorização de entrada** e **morador responsável**. Realizando as alterações para exibirmos os atributos, o código ficará assim:
+Logo abaixo do elemento `<tbody>` insira o trecho `{% for visitante in todos_visitantes %}`. Lembra que falamos da variável que a tag `{% for %}` disponibiliza para que possamos acessar as informações? Pois bem, podemos dar nome a ela e, neste caso, utilizaremos o nome `visitante`. O trecho de código ficará assim:
 
 ```markup
 <tbody>
     {% for visitante in todos_visitantes %}
-        <td>{{ visitante.nome_completo }}</td>
-        <td>{{ visitante.cpf }}</td>
-        <td>{{ visitante.horario_chegada }}</td>
-        <td>{{ visitante.horario_autorizacao }}</td>
-        <td>{{ visitante.morador_responsavel }}</td>
-        <td>
-            <a href="#">
-                Ver detalhes
-            </a>
-        </td>
+        <tr>
+            <td>Don Corleone</td>
+            <td>123.123.123.06</td>
+            <td>22 de agosto 15:30</td>
+            <td>22 de agosto 15:38</td>
+            <td>Darth Vader</td>
+            <td>
+                <a href="#">
+                    Ver detalhes
+                </a>
+            </td>
+        </tr>
     {% endfor %}
 </tbody>
 ```
 
-Agora quando atualizarmos a página, vamos visualizar as informações do visitante registrado através do Admin. Caso queira testar, fique à vontade para registrar novos visitantes. Quando você acessar novamente [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e atualizar a página, os novos visitantes serão adicionados à tabela de forma automática! Bem bacana, não?
+Olha só que bacana: estamos dizendo para o Django "hey, cara, para cada `visitante` que existir na lista `todos_visitantes`, repita essa estrutura de elementos `<td>`. Com isso já estamos executando o loop na lista `todos_visitantes`, mas ainda não estamos exibindo os valores referentes a cada visitante existente no banco de dados. Para fazer isso, vamos utilizar a sintaxe de chaves \(`{{  }}`\) em conjunto com variável `visitante` que criamos dentro da tag `{% for %}`.
+
+Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.nome_do_atributo`. Se queremos exibir o nome completo do visitante, vamos utilizar `visitante.nome_completo`. Faremos o mesmo com os atributos **CPF**, **horário de chegada**, **horário de autorização de entrada** e **morador responsável**. Realizando as alterações para exibirmos os atributos, o código ficará assim:
+
+```markup
+<tbody>
+    {% for visitante in todos_visitantes %}
+        <tr>
+            <td>{{ visitante.nome_completo }}</td>
+            <td>{{ visitante.cpf }}</td>
+            <td>{{ visitante.horario_chegada }}</td>
+            <td>{{ visitante.horario_autorizacao }}</td>
+            <td>{{ visitante.morador_responsavel }}</td>
+            <td>
+                <a href="#">
+                    Ver detalhes
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+```
+
+Agora quando atualizarmos a página, vamos visualizar as informações dos visitantes registrados através do Admin. Caso queira testar, fique à vontade para registrar outros visitantes. Quando você acessar novamente [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e atualizar a página, os novos visitantes serão adicionados à tabela de forma automática! Bem bacana, não?
 
