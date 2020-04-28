@@ -2,9 +2,9 @@
 
 ## Criando o aplicativo para gerenciar visitantes
 
-No último capítulo configuramos o Django para trabalhar com templates HTML e criamos a pasta **templates** na raíz do projeto. Além disso, ainda aprendemos como passar informações de uma função _view_ para o template através da variável **contexto**.
+No último capítulo configuramos o Django para trabalhar com templates HTML e arquivos estáticos e criamos as pastas **templates** e **static** na raiz do projeto. Além disso, ainda aprendemos como passar informações de uma função _view_ para o template através da variável **context**.
 
-Como já definimos os usuários do sistema, os porteiros e fizemos as configurações dos templates que serão a base para construção da dashboard para controle de visitantes, podemos partir agora para definição do modelo de visitante.
+Como já definimos os usuários do sistema, os porteiros e fizemos as configurações dos templates que serão a base para construção da dashboard para controle de visitantes, podemos partir agora para a definição da classe modelo que irá representar os visitantes em nosso sistema.
 
 Antes de mais nada, como já sabemos, devemos isolar as responsabilidades e, por isso, vamos criar um aplicativo para administrar toda a parte referente aos nossos visitantes. Vamos criar um novo aplicativo com nome de **visitantes** utilizando o `manage.py`:
 
@@ -22,13 +22,13 @@ INSTALLED_APPS += [
 ]
 ```
 
-Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos as informações necessárias para nosso modelo de visitante.
+Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos as informações necessárias para o modelo de visitantes.
 
 ## Escrevendo as models do nosso aplicativo de visitantes
 
-Conforme falamos, a camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação. Ou seja, é hora de definirmos quais informações dos nossos visitantes desejamos guardar.
+Conforme falamos, a camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação.
 
-A partir do documento de requisitos, podemos concluir que é necessário guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visitas a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
+Precisamos guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visitas a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
 
 1. Nome completo do visitante
 2. CPF do visitante
@@ -76,7 +76,7 @@ class Visitante(models.Model):
 
 ### Conhecendo o campo DateTimeField
 
-Antes de prosseguirmos, precisamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumentos, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
+Antes de prosseguirmos, vamos conhecer um pouco mais do campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumentos, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
 
 Primeiro vamos definir o atributo `horario_chegada`, que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja preenchido no exato momento que registrarmos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
 
@@ -129,7 +129,7 @@ Conforme visto, além destas informações, precisamos guardar também o nome do
 * Horário de autorização de entrada
 * Nome do morador responsável por autorizar a entrada do visitante
 
-Utilizaremos os campos já conhecidos `DateTimeField` e `CharField` para criarmos os atributos:
+Utilizaremos os campos já conhecidos `DateTimeField` e `CharField` para definir os atributos:
 
 ```python
 from django.db import models
@@ -164,6 +164,10 @@ Como criamos um modelo que representa nossos porteiros dentro do sistema, podemo
 
 O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros usando esse id!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
 
+{% hint style="info" %}
+É importante lembrar que tudo isso é possível devido à ORM do Django, que é quem abstrai todas as funcionalidades do banco de dados e manipula todas as interações necessárias
+{% endhint %}
+
 Abaixo do atributo `morador_responsavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
 
 ```python
@@ -185,9 +189,9 @@ class Visitante(models.Model):
     )
 ```
 
-Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**, no caso. Depois damos um nome descritivo para o campo e depois informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, pois assim protegemos também o modelo de visitantes. Sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
+Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**. Depois utilizamos o `verbose_name` para dar um nome descritivo para o campo e informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, pois assim protegemos também o modelo de visitantes. Sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
 
-Feito isso, nosso próximo passo será apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
+Nosso próximo passo agora é apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
 
 ```python
 from django.db import models
@@ -287,14 +291,15 @@ Migrations for 'visitantes':
 Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos aplicar as alterações em nosso banco de dados com o comando `migrate`.
 
 ```python
-(env)$ python manage.py migrate visitantes
+(env)$ python manage.py migrate
 ```
 
 Devemos receber as seguintes informações em nosso terminal:
 
 ```python
 Operations to perform:
-  Apply all migrations: visitantes
+  Apply all migrations: admin, auth, contenttypes, porteiros, sessions,
+  usuarios, visitantes
 
 Running migrations:
   Applying visitantes.0001_initial.py... OK
