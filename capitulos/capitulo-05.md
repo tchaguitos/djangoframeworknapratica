@@ -98,7 +98,7 @@ class Visitante(models.Model):
     )
 ```
 
-Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como um valor em branco. Para isso, o Django nos dá a possibilidade de utilização do atributo `auto_now` como `False`. Desta forma, o campo receberá um valor em branco no momento da criação do registro no banco de dados.
+Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como um valor em branco. Para isso, o Django nos dá a possibilidade de utilização do atributo `auto_now` como `False` e dizer que podemos aceitar valores em branco e nulos. Utilizando o `auto_now` como `False`, o campo receberá um valor em branco no momento da criação do registro no banco de dados.
 
 ```python
 from django.db import models
@@ -121,6 +121,8 @@ class Visitante(models.Model):
     horario_saida = models.DateTimeField(
         verbose_name="Horário de saída do condomínio",
         auto_now=False,
+        blank=True,
+        null=True,
     )
 ```
 
@@ -140,11 +142,15 @@ class Visitante(models.Model):
     horario_saida = models.DateTimeField(
         verbose_name="Horário de saída do condomínio",
         auto_now=False,
+        blank=True,
+        null=True,
     )
     
     horario_autorizacao = models.DateTimeField(
         verbose_name="Horário de autorização de entrada",
         auto_now=False,
+        blank=True,
+        null=True,
     )
     
     morador_responsavel = models.CharField(
@@ -231,11 +237,15 @@ class Visitante(models.Model):
     horario_saida = models.DateTimeField(
         verbose_name="Horário de saída do condomínio",
         auto_now=False,
+        blank=True,
+        null=True,
     )
     
     horario_autorizacao = models.DateTimeField(
         verbose_name="Horário de autorização de entrada",
         auto_now=False,
+        blank=True,
+        null=True,
     )
     
     morador_responsavel = models.CharField(
@@ -315,9 +325,7 @@ Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá d
 
 ![](../.gitbook/assets/screenshot_2020-02-20_20-56-30.png)
 
-Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e **porteiro** responsável por registrar o visitante. Fique livre para preencher as informações à sua maneira. 
-
-Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado.
+Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e definir o **porteiro** responsável por registrar o visitante. Fique livre para preencher as informações à sua maneira. Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado.
 
 Essa foi a primeira e última vez utilizamos o Django Admin para registar um visitante, pois a partir de agora trabalharemos diretamente nos templates HTML da dashboard que vamos disponibilizar para os porteiros do condomínio.
 
