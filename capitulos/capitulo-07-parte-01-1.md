@@ -82,11 +82,11 @@ Ao voltar para a página, vamos notar que agora apenas os campos que estão na l
 
 ### Tratando problema com atributo nulo
 
-Quando criamos a classe modelo `Visitante`, falamos sobre o atributo `registrado_por` ser do tipo `ForeignKey`, um tipo de campo que cria um relacionamento entre as classes `Visitante` e `Porteiro`. Olhando a classe `VisitanteForm`, podemos notar que o atributo não é colocado nos campos do formulário \(`fields`\), mesmo este sendo do tipo obrigatório em nosso modelo. Sendo assim, se tentarmos adicionar um visitante por meio do formulário, o Django apresentará um erro nos informando que o atributo`registrado_por` do modelo não pode ser nulo.
+Quando criamos a classe modelo `Visitante`, falamos sobre o atributo `registrado_por` ser do tipo `ForeignKey`, um tipo de campo que cria um relacionamento entre as classes `Visitante` e `Porteiro`. Olhando a classe `VisitanteForm`, podemos notar que o atributo não é colocado nos campos do formulário \(`fields`\), mesmo este sendo uma informação obrigatória em nosso modelo. Se tentarmos adicionar um visitante por meio do formulário, o Django apresentará um erro nos informando que o atributo`registrado_por` do modelo não pode ser nulo.
 
-Para resolver o problema, o que vamos fazer é possibilitar que o campo seja preechido de maneira automática. Isto é, o campo receberá o valor referente ao porteiro que está logado na dashboard no momento do cadastro.
+Para resolver o problema, o que vamos fazer é possibilitar que o campo seja preenchido de maneira automática. Isto é, o campo receberá o valor referente ao porteiro que está logado na dashboard no momento do cadastro.
 
-Para fazer isso, antes de salvar o formulário vamos definir diretamente um valor para o atributo `registrado_por` na view. Vamos abrir o arquivo `views.py` e criar uma variável para receber o retorno do método `save` do formulário. Esse método aceita também um argumento opicional de nome `commit`, que quando definido como `False`, retorna uma instância do modelo utilizado no formulário que ainda não foi gravada no banco de dados. Isso é bem útil para quando queremos executar um processamento personalizado antes de salvar o objeto ou até mesmo utilizar outros métodos do modelo. O código ficará conforme abaixo:
+Para fazer isso, antes de salvar o formulário vamos definir diretamente um valor para o atributo `registrado_por` na função de view. Vamos abrir o arquivo `views.py` e criar uma variável para receber o retorno do método `save` do formulário. Esse método aceita também um argumento opcional de nome `commit`, que quando definido como `False`, retorna uma instância do modelo utilizado no formulário que ainda não foi gravada no banco de dados. Isso é bem útil para quando queremos executar um processamento personalizado antes de salvar o objeto ou até mesmo utilizar outros métodos do modelo. O código vai ficar assim:
 
 ```python
 from django.shortcuts import render
@@ -113,15 +113,15 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Agora, ao invés de salvarmos o formulário diretamente, estamos guardando o resultado do método `save` com o argumento `commit=False`, definindo um valor para o atribudo `registrado_por` diretamente e salvando o objeto através da variável `visitante`. Somente nesse momento que as alterações são registradas no banco de dados.
+Agora, ao invés de salvarmos o formulário diretamente, estamos guardando o resultado do método `save` com o argumento `commit=False`, definindo um valor para o atributo `registrado_por` diretamente e salvando o objeto através da variável `visitante`. Somente no momento em que chamamos o método `visitante.save()` que as alterações são registradas no banco de dados.
 
 {% hint style="warning" %}
 Lembra que falamos que a variável `request` guarda algumas informações da requisição, como usuário logado e método utilizado? Pois bem, conseguimos pegar informações do usuário logado acessando a propriedade `user` da variável `request` \(`request.user`\). No nosso caso, ainda estamos acessando uma outra propriedade do usuário, a propriedade `porteiro` \(`request.user.porteiro`\).
 
-Isso acontece devido à funcionalidade de acesso entre os modelos que o Django disponibiliza. Assim como podemos acessar `porteiro.usuario`, definido diretamente no modelo, podemos fazer o mesmo para o inverso da relação.
+Isso acontece devido à funcionalidade de acesso entre os modelos que o Django disponibiliza. Assim como podemos acessar `porteiro.usuario`, definido diretamente como atributo do modelo, podemos fazer o mesmo para o inverso da relação.
 {% endhint %}
 
-Feito isso, vamos apenas importar mais um dos `shortcuts` do Django, além do `render`, que é o `redirect`. O que ele faz é exatamente redirecionar a view para uma URL que quisermos. Vamos utilizá-lo para evitar que os mesmos dados sejam enviados mais de uma vez ao nosso servidor. Sempre que um formulário for enviado e as informações forem salvas no banco de dados, vamos redirecionar a página. Para isso, basta importar o `redirect` ao lado do `render` e utilizá-lo passando a URL para onde queremos redirecionar o usuário. O código ficará assim:
+Feito isso, vamos apenas importar mais um dos `shortcuts` do Django, além do `render`, que é o `redirect`. O que ele faz é exatamente redirecionar a view para uma URL que quisermos. Vamos utilizá-lo para evitar que os mesmos dados sejam enviados mais de uma vez ao nosso servidor. Sempre que um formulário for enviado e as informações forem salvas no banco de dados, vamos redirecionar a página. Para isso, basta importar o `redirect` ao lado do `render` e utilizá-lo passando o nome da URL para onde queremos mandar o usuário. O código ficará assim:
 
 ```python
 from django.shortcuts import render, redirect
@@ -149,19 +149,19 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Agora vamos voltar à página [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) e registrar um visitante. O visitante deverá ser registrado e a requisição redirecionada para a página inicial da dashboard.
+Agora vamos voltar à página [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-visitante) e registrar um visitante. O visitante deverá ser registrado e a requisição redirecionada para a página inicial da dashboard.
 
 {% hint style="warning" %}
 O visitante registrado deverá estar listado na tabela de visitantes recentes
 {% endhint %}
 
-## Exibindo mensagem para o usuário ao cadastrar novo visitante
+## Exibindo uma mensagem para o usuário ao cadastrar novo visitante
 
-Agora que o formulário está sendo exibido e funcionando corretamente, inclusive salvando os visitantes em nosso banco de dados, vamos melhorar um pouco a usabilidade da nossa dashboard. Sempre que o sistema finaliza uma ação silicitada pelo usuário, é interessante que seja dado um feedback visual para facilitar o entendimento. Desta forma, o que faremos agora é trabalhar na view para que, quando o visitante for registrado, uma mensagem seja exibida dizendo algo como "hey, cara, o visitante foi registrado com sucesso!".
+Agora que o formulário está sendo exibido e funcionando corretamente, inclusive salvando os visitantes em nosso banco de dados, vamos melhorar um pouco a usabilidade da nossa dashboard. Sempre que o sistema finaliza uma ação solicitada pelo usuário, é interessante que seja dado um feedback visual para facilitar o entendimento a respeito do que aconteceu. Desta forma, o que faremos agora é trabalhar na view para que, quando o visitante for registrado, uma mensagem seja exibida dizendo algo como "hey, cara, o visitante foi registrado com sucesso!".
 
 ### Conhecendo o Django messages
 
-Pensando nisso, o Django já nos disponiza o módulo `messages`. Toda a configuração necessária para o funcionamento destas funcionalidades já vêm por padrão quando criamos um novo projeto Django, então o que precisamos fazer é apenas inserir o código `from django.contrib import messages` para importar as funcionalidades. Vamos colocá-lo na primeira linha e o início do arquivo `views.py` do aplicativo **visitantes** ficará assim:
+O Django já nos disponibiliza o módulo `messages` para resolver isso. Toda a configuração necessária para o funcionamento de suas funcionalidades já vêm por padrão quando criamos um novo projeto Django, então o que precisamos fazer é apenas inserir o código `from django.contrib import messages` para importar as funcionalidades e utilizá-las em nossas views. Vamos colocá-lo na primeira linha e o início do arquivo `views.py` do aplicativo **visitantes** ficará assim:
 
 ```python
 from django.contrib import messages
@@ -171,7 +171,7 @@ from visitantes.forms import VisitanteForm
 # código abaixo omitido
 ```
 
-Com o módulo importado em nossa view, podemos utilizá-lo traquilamente. Vamos adicionar uma mensagem de sucesso logo após a linha que salva a instância do visitante \(`visitante.save()`\) utilizando o método sucess do módulo messages e passando a ele a request e um texto para ser exibido. O arquivo `views.py` ficará assim:
+Com o módulo importado em nossa view, podemos utilizá-lo tranquilamente. Vamos adicionar uma mensagem de sucesso logo após a linha que salva a instância do visitante \(`visitante.save()`\) utilizando o método `success` do módulo `messages` e passando a ele a `request` e um texto para ser exibido. O arquivo `views.py` ficará assim:
 
 ```python
 from django.contrib import messages
@@ -192,7 +192,7 @@ def registrar_visitante(request):
 
             visitante.save()
             
-            messages.success(,
+            messages.success(
                 request,
                 "Visitante registrado com sucesso"
             )
@@ -200,7 +200,6 @@ def registrar_visitante(request):
             return redirect("index")
         
     contexto = {
-        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
@@ -211,7 +210,7 @@ def registrar_visitante(request):
 
 Nossa view para registro de visitantes está completa: estamos exibindo o formulário corretamente, verificando quando ocorre uma requisição do tipo POST, validando as informações enviadas, definindo automaticamente o porteiro que registrou o visitante, exibindo uma mensagem e ainda redirecionamos a requisição quando finalizamos todo o processo com sucesso. Ufa! É tanta coisa que ficou até difícil de listar.
 
-Com tudo isso feito, temos agora que disponibizar um lugar em nosso template para que a mensagem seja exibida, como um alerta mesmo. Como estamos direcionando nosso usuário para a página inicial da dashboard, faz que sentido que a gente coloque a mensagem no template `index.html`, pelo menos por hora.
+Com tudo isso feito, temos agora que disponibilizar um lugar em nosso template para que a mensagem seja exibida, como um alerta mesmo. Como estamos direcionando nosso usuário para a página inicial da dashboard, faz sentido que a gente coloque a mensagem no template `index.html`, pelo menos por hora.
 
 Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div class="row">`do arquivo, vamos inserir o seguinte trecho de código:
 
@@ -228,7 +227,7 @@ Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div cla
 {% endif %}
 ```
 
-O módulo de mensagens do Django também nos disponibiliza uma variável chamada `messages`. Com ela, conseguimos verificar se existem mensagens e, por meio de um loop, verificar as informações de cada mensagem. É o que estamos fazendo, primeiro verificamos se existem mensagem \(`{% if messages %}`\), caso positivo, nós executamos um loop e acessamos a mensagem utilizando a variável criada no loop \(`{{ message }}`\).
+O módulo de mensagens do Django também nos disponibiliza uma variável chamada `messages` que pode ser acessada nos templates. Com ela, conseguimos verificar se existem mensagens e, por meio de um loop, verificar as informações de cada mensagem. É o que estamos fazendo, primeiro verificamos se existem mensagem \(`{% if messages %}`\), caso positivo, nós executamos um loop e acessamos a mensagem utilizando a variável criada no loop \(`{{ message }}`\).
 
 {% hint style="info" %}
 Aqui temos uma novidade, a utilização da tag `{% if %}`. Uma estrutura condicional que pode ser utilizada em templates. O que estiver dentro dela só será exibido caso o resultado da expressão seja verdadeiro. Ou seja, quando existem mensagens e a variável `messages` está definida, exibimos o trecho HTML
@@ -238,7 +237,7 @@ Agora você pode cadastrar mais um visitante e ver a mensagem de sucesso sendo e
 
 ## Tratando possíveis erros em nosso formulário
 
-Nossa mensagem de sucesso já está sendo exibida corrertamente, mas o que acontece se ocorrer algum erro e os dados enviados não forem aceitos? Não podemos deixar que a aplicação pare. Sendo assim, é interessante que a gente também insira um alerta de erro em nosso template.
+Nossa mensagem de sucesso já está sendo exibida corretamente, mas o que acontece se ocorrer algum erro e os dados enviados não forem aceitos? Não podemos deixar que a aplicação pare. Sendo assim, é interessante que a gente também insira um alerta de erro em nosso template.
 
 Como nosso formulário de registro de visitante está no arquivo `registrar_visitante.html`, trabalharemos nele. Logo acima do elemento `<form method="post">`, vamos inserir o seguinte trecho de código:
 
