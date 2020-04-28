@@ -2,35 +2,35 @@
 
 ## Criando tela para registro de novo visitante
 
-Assim como quando registramos um novo visitante através do Admin, precisaremos de um formulário para inserção das informações. Por isso, vamos trabalhar agora na tela que terá a responsabilidade de exibir um formulário e registrar o visitante em nosso banco de dados.
+Assim como quando registramos um novo visitante através do Admin, precisaremos de um formulário para inserir as informações. Por isso, vamos trabalhar agora na tela que será responsável por exibir um formulário e registrar o visitante em nosso banco de dados.
 
-Uma view é um tipo de função dentro da aplicação que geralmente serve um template específico. Até agora escrevemos somente a view que nos disponibiliza o template inicial da dashboard - `index.html`. A view que escrevemos apenas busca informações e renderiza o template utilizando as informações buscadas.
+Uma view é um tipo de função dentro da aplicação que geralmente exibe um template específico. Até agora escrevemos apenas views que buscam informações e renderizam o template utilizando essas informações.
 
-A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a responsabilidade de exibir um formulário, receber e tratar uma requisição do tipo POST, validar o formulário com base das informações enviadas na requisição e salvar o novo visitante no banco de dados. Não se assuste, você vai ver como o Django nos ajuda abstraindo a maior parte desses requisitos.
+A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a responsabilidade de exibir um formulário, identificar e tratar uma requisição do tipo POST, validar o formulário com base das informações enviadas na requisição e salvar o novo visitante no banco de dados. Não se assuste, você vai ver como o Django nos ajuda abstraindo a maior parte desses requisitos.
 
 ## Criando view para registrar visitante
 
-Como você já deve ter percebido, existe um roteiro a ser seguido quando vamos criar novas views para nosso sistema web com Django, sendo o primeiro passo a criação da função de view no arquivo `views.py`. Como nossa função diz respeito ao registro de um novo vistante, vamos trabalhar dentro do aplicativo visitantes.
+Como você já deve ter percebido, existe um roteiro a ser seguido quando vamos criar novas funcionalidades num sistema web com Django, sendo o primeiro passo a criação da função de view no arquivo `views.py`. Como nossa função diz respeito ao registro de um novo vistante, vamos trabalhar dentro do aplicativo visitantes.
 
-Vamos abrir o arquivo `views.py` do aplicativo visitantes e escrever a função de view `registrar_visitante`, que deverá renderizar o template `registrar_visitante.html`. Por hora, nossa view fará apenas isso e ficará assim:
+Vamos abrir o arquivo `views.py` do aplicativo visitantes e escrever a função de view `registrar_visitante`, que deverá renderizar o template `registrar_visitante.html`. Por hora, nossa view ficará assim:
 
 ```python
 from django.shortcuts import render
 
 def registrar_visitante(request):
 
-    contexto = {}
+    context = {}
     
-    return render(request, "registrar_visitante.html", contexto)
+    return render(request, "registrar_visitante.html", context)
 ```
 
-Assim como fizemos anteriormente, vamos baixar o template e agora colocá-lo na pasta **templates** localizada na raíz do nosso projeto:
+Assim como fizemos anteriormente, vamos baixar o arquivo HTML e agora colocá-lo na pasta **templates** localizada na raiz do nosso projeto:
 
 {% file src="../.gitbook/assets/registrar\_visitante.html.zip" caption="Iniciar o download" %}
 
 ### Criando URL para mapear view
 
-Quando criamos nossa primeira view, criamos também uma URL com função de mapear a view para acessarmos através do navegador. Caso não se lembre do processo, não se preocupe, pois vamos repetí-lo agora.
+Quando criamos nossa primeira view, criamos também uma URL que é responsável por mapear a view para acessarmos ela através do navegador. Caso não se lembre do processo, não se preocupe, pois vamos repeti-lo agora.
 
 Vamos abrir o arquivo `urls.py` do nosso projeto e, abaixo da URL de nome **index**, utilizando a função `path`, vamos criar a URL de nome **registrar\_visitante** que deverá mapear a função de view ****`registrar_visitante`. Não podemos nos esquecer de importar as views do aplicativo visitantes!
 
@@ -53,14 +53,14 @@ urlpatterns = [
     ),
     
     path(
-        "registrar-visitante",
+        "registrar-visitante/",
         visitantes.views.registrar_visitante,
         name="registrar_visitante",
     )
 ]
 ```
 
-Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-vistante/](http://127.0.0.1:8000/registrar-vistante/) para verificar se está tudo funcionando corretamente. Se sim, o template baixado será exibido no navegador.
+Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-visitante/ ](http://127.0.0.1:8000/registrar-visitante/)para verificar se está tudo funcionando corretamente. Se sim, o template baixado será exibido no navegador.
 
 ## Adaptando nossos templates para trabalhar com a template engine do Django
 
