@@ -234,13 +234,13 @@ Para exibirmos os valores contidos no dicionário `context` basta utilizarmos a 
 Vamos abrir o arquivo `index.html` e procurar pela seguinte linha:
 
 ```python
-<h1 class="h3 mb-4 text-gray-800">Página inicial</h1>
+<h1 class="h3 mb-0 text-gray-800">Página inicial</h1>
 ```
 
 Vamos alterar o texto da tag `h1` \(o texto **Página inicial**\) para exibir também o valor da nossa variável `nome_curso` passada na variável `context` da view. A linha deverá ficar assim:
 
 ```python
-<h1 class="h3 mb-4 text-gray-800">Página inicial - {{ nome_curso }}</h1>
+<h1 class="h3 mb-0 text-gray-800">Página inicial - {{ nome_curso }}</h1>
 ```
 
 Volte para o navegador, atualize a página e veja a mágica acontecer: o valor `{{ nome_curso }}` será substituído pelo texto "Django framework na prática" que definimos no dicionário `context`. Se alterarmos o valor no arquivo `views.py` o mesmo acontece no `index.html`.
