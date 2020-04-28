@@ -464,5 +464,5 @@ Caso prefira, você pode fazer download da pasta templates com as alterações r
 
 {% file src="../.gitbook/assets/templates.zip" caption="Iniciar o download" %}
 
-Agora que adaptamos todos os nossos templates, vamos voltar ao desenvolvimento da view responsável por registrar nossos visitantes!
+Agora que adaptamos todos os nossos templates, vamos voltar ao desenvolvimento da view responsável por registrar nossos visitantes.
 
