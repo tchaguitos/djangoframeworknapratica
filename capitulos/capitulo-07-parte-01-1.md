@@ -6,7 +6,7 @@ Agora que cuidamos da usabilidade do nosso formulário, podemos seguir com as ou
 
 ### Conhecendo o objeto request
 
-Você já deve ter notado que sempre que criamos uma view, precisamos que ela receba a variável `request` como argumento. Isso porque, quando falamos do protocolo que sustenta a web, o HTTP, requisições são o que movimentam toda a estrutura. Quando acessamos uma página web estamos enviando a ela uma requisição do tipo `GET` e ela, assim que possível, nos retornará com o conteúdo da página acessada. Isso tudo acontece em questão de segundos e por baixo dos panos, nos fios que conectam a web. Bacana, não?
+Você já deve ter notado que sempre que criamos uma view, precisamos que ela receba a variável `request` como argumento. Isso porque, quando falamos do protocolo que sustenta a web, o HTTP, requisições são o que movimentam toda a estrutura. Quando acessamos uma página web estamos enviando uma requisição do tipo `GET`. Isso tudo acontece em questão de segundos e por baixo dos panos, nos fios que conectam a web.
 
 A variável `request` é uma representação da requisição que é enviada à view acessada e contém diversas informações como usuário logado, método HTTP utilizado, navegador e sistema operacional, dentre outras. No momento, nos interessa o método da requisição e o corpo que é enviado. 
 
@@ -34,7 +34,7 @@ def registrar_visitante(request):
 O método `POST` é utilizado sempre que precisamos enviar informações para o servidor. No nosso caso, por exemplo, queremos enviar as informações de um novo visitante a ser registrado e fazemos isso através do formulário HTML
 {% endhint %}
 
-Agora que verificamos se o método da requisição enviada é do tipo `POST`, vamos passar o corpo da requisição para o formulário e utilizar o método `is_valid` do formulário para validar as informações. O código ficará o seguinte:
+Agora que verificamos se o método da requisição enviada é do tipo `POST`, vamos reutilizar a variável `form`, agora atribuindo a ela outra instância do formulário `VisitanteForm()`, mas agora passando o corpo da requisição à classe, e utilizar o método `is_valid()` do formulário para validar as informações. O código ficará o seguinte:
 
 ```python
 from django.shortcuts import render
@@ -57,7 +57,7 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", contexto)
 ```
 
-Para passar o corpo da requisição para o formulário, basta utilizarmos a propriedade POST do objeto request e passá-lo como argumento ao criarmos a nova instância do formulário, como feito na linha 9 \(`form = VisitanteForm(request.POST)`\). Feito isso, validamos as informações e salvamos o formulário utilizando o método `save`.
+Para passar o corpo da requisição para o formulário, basta utilizarmos a propriedade POST do objeto `request` e passá-lo como argumento ao criarmos a nova instância do formulário, como feito na linha 9 \(`form = VisitanteForm(request.POST)`\). Feito isso, validamos as informações com o método `is_valid()` e salvamos o formulário utilizando o método `save()`.
 
 ## Conhecendo um pouco mais dos formulários
 
