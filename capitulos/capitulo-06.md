@@ -70,7 +70,7 @@ Além das funcionalidades que falamos e exploramos, a engine de templates do Dja
 
 ### Criando o template base
 
-Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templates** e copiar o conteúdo do arquivo `index.html` para ele. O objetivo do nosso template `base.html` é armazenar a parte comum a todos os templates, sendo assim, temos que manter o menu lateral, a barra superior e o rodapé. O que podemos chamar de parte central do nosso template, que é a parte que em um template exibe uma tabela e no outro um formulário, será trocada de acordo com a view acessada. Após copiar o conteúdo do arquivo `index.html` para o arquivo `base.html`, vamos deixá-lo de lado um pouquinho.
+Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templates** e copiar o conteúdo do arquivo `index.html` para ele. O objetivo do nosso template `base.html` é armazenar a parte comum a todos os templates da dashboard. O que podemos chamar de parte central do nosso template, que é a parte que em um template exibe uma tabela e no outro um formulário, será trocada de acordo com a view acessada e as barras lateral e superior serão mantidas no template `base.html`. Por hora, vamos apenas copiar o conteúdo do arquivo `index.html` para o arquivo `base.html` e deixá-lo de lado.
 
 ### Adaptando template index
 
