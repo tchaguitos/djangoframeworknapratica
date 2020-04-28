@@ -61,9 +61,9 @@ Para passar o corpo da requisição para o formulário, basta utilizarmos a prop
 
 ## Conhecendo um pouco mais dos formulários
 
-Ao acessarmos a página, podemos notar que todos os campos do modelo estão sendo exibidos, e não é isso que queremos, pois algumas das informações devem ser preenchidas mediante autorização de moradores e outros eventos.
+Ao acessarmos a página, podemos notar que todos os campos do modelo estão sendo exibidos no formulário, e não é isso que queremos, pois algumas das informações devem ser preenchidas mediante autorização de moradores e dependem outros eventos.
 
-Para especificar os campos que devem ser exibidos e utilizados no formulário, vamos voltar ao arquivo `forms.py` e alterar o atributo `fields` da classe `Meta` do nosso formulário. Abra o arquivo e substituia a string `"__all__"` por uma lista com os nomes dos campos que precisamos exibir. O atributo `fields` ficará assim:
+Para especificar os campos que devem ser exibidos e utilizados no formulário, vamos voltar ao arquivo `forms.py` e alterar o atributo `fields` da classe `Meta` do nosso formulário. Abra o arquivo e substitua a string `"__all__"` por uma lista com os nomes dos campos que vamos exibir. O atributo `fields` ficará assim:
 
 ```python
 from django import forms
