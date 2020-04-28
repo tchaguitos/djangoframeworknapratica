@@ -70,7 +70,7 @@ Além das funcionalidades que falamos e exploramos, a engine de templates do Dja
 
 ### Criando o template base
 
-Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templates** e copiar o conteúdo do arquivo `index.html` para ele. O objetivo do nosso template `base.html` é armazenar a parte comum a todos os templates da dashboard. O que podemos chamar de parte central do nosso template, que é a parte que em um template exibe uma tabela e no outro um formulário, será trocada de acordo com a view acessada e as barras lateral e superior serão mantidas no template `base.html`. Por hora, vamos apenas copiar o conteúdo do arquivo `index.html` para o arquivo `base.html` e deixá-lo de lado.
+Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templates** e copiar o conteúdo do arquivo `index.html` para ele. O objetivo do nosso template `base.html` é armazenar a parte comum a todos os templates da dashboard. O que podemos chamar de parte central do nosso template, que é a parte que em um template exibe uma tabela e no outro um formulário, será trocada de acordo com a view acessada e as barras lateral e superior e o rodapé serão mantidos no template `base.html`. Por hora, vamos apenas copiar o conteúdo do arquivo `index.html` para o arquivo `base.html` e deixá-lo de lado.
 
 ### Adaptando template index
 
@@ -79,36 +79,19 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
 ```python
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Página inicial - {{ nome_curso }}</h1>
     </div>
-                  
+
     <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitantes no condomínio</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
-                        </div>
-                                        
-                        <div class="col-auto">
-                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-                        
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
-                                        
+                        
                         <div class="col-auto">
                             <i class="fas fa-user-lock fa-2x text-gray-300"></i>
                         </div>
@@ -116,18 +99,18 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
                 </div>
             </div>
         </div>
-      
+
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Número de visitantes na semana</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         
                         <div class="col-auto">
-                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -135,14 +118,29 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Número de visitantes no mês</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">37</div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
-                        
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
                         </div>
@@ -151,36 +149,38 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
             </div>
         </div>
     </div>
-                    
+    
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de visitantes</h6>
+        <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+            <h6 class="m-0 font-weight-bold text-primary">Visitantes recentes</h6>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                <table class="table table-bordered">
                     <thead>
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Horário de chegada</th>
                         <th>Horário da autorização</th>
                         <th>Autorizado por</th>
-                        <th>Mais detalhes</th>
+                        <th>Mais informações</th>
                     </thead>
 
                     <tbody>
                         {% for visitante in todos_visitantes %}
-                            <td>{{ visitante.nome_completo }}</td>
-                            <td>{{ visitante.cpf }}</td>
-                            <td>{{ visitante.horario_chegada }}</td>
-                            <td>{{ visitante.horario_autorizacao }}</td>
-                            <td>{{ visitante.morador_responsavel }}</td>
-                            <td>
-                                <a href="#">
-                                    Ver detalhes
-                                </a>
-                            </td>
+                            <tr>
+                                <td>{{ visitante.nome_completo }}</td>
+                                <td>{{ visitante.cpf }}</td>
+                                <td>{{ visitante.horario_chegada }}</td>
+                                <td>{{ visitante.horario_autorizacao }}</td>
+                                <td>{{ visitante.morador_responsavel }}</td>
+                                <td>
+                                    <a href="#">
+                                        Ver informações
+                                    </a>
+                                </td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -190,9 +190,9 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
 </div>
 ```
 
-Com os templates devidamente separados, vamos trabalhar agora nas adaptações necessárias ao template `index.html`. O primeiro passo é inserirmos a tag `{% extends %}` no início do nosso arquivo, que é quem dirá ao Django que é necessário estender o template. A tag `{% extends %}` funciona de modo que precisamos identificar o template "pai" do template estendido. Isto é, neste caso, o template `index.html` será estentido pelo template `base.html`, sendo este o "seu pai". Na primeira linha do arquivo `index.html` insira o trecho `{% extends "base.html" %}`.
+Com os templates devidamente separados, vamos trabalhar agora nas adaptações necessárias ao template `index.html`. O primeiro passo é inserirmos a tag `{% extends %}` no início do nosso arquivo, que é quem dirá ao Django que o template em questão é uma extensão de outro. A tag `{% extends %}` funciona de modo que precisamos identificar o template "pai" do template que foi estendido. Isto é, neste caso, o template `index.html` será extensão do template `base.html`, sendo este o "seu template pai". Na primeira linha do arquivo `index.html` insira o trecho `{% extends "base.html" %}`.
 
-Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizado para substituição. Faremos isso utilizando as tags `{% block %}` e `{% endblock %}` passando um nome a elas. Logo abaixo da tag `{% extends base.html %}` vamos inserir a tag `{% block conteudo %}` e ao final do arquivo a tag `{% endblock conteudo %}`. Fazendo isso estamos deixando claro para o Django qual trecho deverá ser colocado no template `base.html` quando acessarmos a view que renderiza o template `index.html`.  Abaixo o template `index.html` após as adaptações:
+Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizado para substituição. Faremos isso utilizando as tags `{% block %}` e `{% endblock %}` passando um nome a elas. Logo abaixo da tag `{% extends "base.html" %}` vamos inserir a tag `{% block conteudo %}` e ao final do arquivo a tag `{% endblock conteudo %}`. Fazendo isso estamos deixando claro para o Django qual trecho deverá ser colocado no template `base.html` quando acessarmos a view que renderiza o template `index.html`.  Nosso arquivo ficará assim após as adaptações:
 
 ```python
 {% extends "base.html" %}
@@ -200,36 +200,19 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
 {% block conteudo %}
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Página inicial - {{ nome_curso }}</h1>
     </div>
-                  
+
     <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitantes no condomínio</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
-                        </div>
-                                        
-                        <div class="col-auto">
-                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-                        
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
-                                        
+                        
                         <div class="col-auto">
                             <i class="fas fa-user-lock fa-2x text-gray-300"></i>
                         </div>
@@ -237,18 +220,18 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
                 </div>
             </div>
         </div>
-      
+
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Número de visitantes na semana</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         
                         <div class="col-auto">
-                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -256,14 +239,29 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Número de visitantes no mês</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">37</div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
-                        
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
                         </div>
@@ -272,36 +270,38 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
             </div>
         </div>
     </div>
-                    
+    
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de visitantes</h6>
+        <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+            <h6 class="m-0 font-weight-bold text-primary">Visitantes recentes</h6>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                <table class="table table-bordered">
                     <thead>
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Horário de chegada</th>
                         <th>Horário da autorização</th>
                         <th>Autorizado por</th>
-                        <th>Mais detalhes</th>
+                        <th>Mais informações</th>
                     </thead>
 
                     <tbody>
                         {% for visitante in todos_visitantes %}
-                            <td>{{ visitante.nome_completo }}</td>
-                            <td>{{ visitante.cpf }}</td>
-                            <td>{{ visitante.horario_chegada }}</td>
-                            <td>{{ visitante.horario_autorizacao }}</td>
-                            <td>{{ visitante.morador_responsavel }}</td>
-                            <td>
-                                <a href="#">
-                                    Ver detalhes
-                                </a>
-                            </td>
+                            <tr>
+                                <td>{{ visitante.nome_completo }}</td>
+                                <td>{{ visitante.cpf }}</td>
+                                <td>{{ visitante.horario_chegada }}</td>
+                                <td>{{ visitante.horario_autorizacao }}</td>
+                                <td>{{ visitante.morador_responsavel }}</td>
+                                <td>
+                                    <a href="#">
+                                        Ver informações
+                                    </a>
+                                </td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -314,7 +314,7 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
 
 ### Adaptando template base
 
-Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para ele e o deixamos de lado, mas agora é hora de trabalharmos nele novamente. O que temos que fazer é substituir o elemento HTML `<div class="container-fluid">` pelas tags `{% block conteudo %}` e `{% endblock conteudo %}.` O template `base.html` ficará assim:
+Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para ele e o deixamos de lado, mas agora é hora de trabalharmos nele. O que temos que fazer é substituir o elemento HTML `<div class="container-fluid">` pelas tags `{% block conteudo %}` e `{% endblock conteudo %}.` O template `base.html` ficará assim:
 
 ```python
 <!DOCTYPE html>
@@ -336,7 +336,7 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
         <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
         <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     </head>
-
+    
     <body id="page-top">
         <div id="wrapper">
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -351,28 +351,50 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                 <hr class="sidebar-divider my-0">
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <a class="nav-link" href="{% url 'index' %}">
+                        <i class="fas fa-home"></i>
                         <span>Início</span>
                     </a>
                 </li>
                 
                 <hr class="sidebar-divider">
-                
-                <div class="sidebar-heading">
-                    Menu
-                </div>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-user-clock"></i>
-                        <span>Visitantes</span>
-                    </a>
-                </li>
             </ul>
-
-            {% block conteudo %} {% endblock conteudo %}
-
+    
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-800 small">{{ request.user.email }}</span>
+                                </a>
+                                
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Sair
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+    
+                    {% block conteudo %} {% endblock conteudo %}
+    
+                    <footer class="sticky-footer bg-white">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Controle de visitantes &copy; Django framework na prática</span>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+    
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -388,13 +410,13 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                         
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                            <a class="btn btn-primary" href="#">Sair</a>
+                            <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            
+    
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
