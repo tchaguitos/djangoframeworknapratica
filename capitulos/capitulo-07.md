@@ -67,15 +67,15 @@ Apenas com as alterações realizadas, já podemos trabalhar no template `regist
 
 ## Melhorando a exibição do nosso formulário
 
-Quando o assunto é criar formulários, o Django faz esse papel muito bem, além de prover uma funcionalidade segura e estável. Veja bem, com menos de 10 linhas conseguimos criar e renderizar um formulário que se adequa totalmente à necessidades do nosso modelo. Desta forma, é altamente recomendado utilizar os formulários do Django para automatizar nosso trabalho.
+Quando o assunto é criar formulários, o Django faz esse papel muito bem, além de prover uma funcionalidade segura e estável. Veja bem, com menos de 10 linhas conseguimos criar e renderizar um formulário que se adapta totalmente às necessidades do nosso modelo. Desta forma, é altamente recomendado utilizar os formulários do Django para automatizar nosso trabalho.
 
 O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestruturar os dados para renderização, criar o formulário para receber os dados e ainda processar e validar esses dados, mas quando precisamos renderizar essas informações no formato HTML de modo que fique mais atrativo para o usuário, faltam algumas opções. É aí que entra o **django-widget-tweaks**, um pacote Python muito interessante e útil disponibilizado pela comunidade para nos ajudar na renderização dos nossos formulários.
 
 ## Estilizando nosso formulário com django-widget-tweaks
 
-O **django-widget-tweaks** nos ajuda tornando mais fácil o processo de adicionar atributos e classes aos campos HTML, afim de aplicar classes personalizadas para alterar aparência e comportamento dos elementos de forma mais simples. Como estamos utilizando um tema que utiliza o [Bootstrap](https://getbootstrap.com/) como base, podemos utilizar suas classes CSS para alterar a aparência desses elementos.
+O **django-widget-tweaks** nos ajuda tornando mais fácil o processo de adicionar atributos e classes aos campos de um formulário Django, afim de aplicar classes personalizadas para alterar aparência ou comportamento dos elementos, quando necessário. Como estamos utilizando um tema que utiliza o [Bootstrap](https://getbootstrap.com/) como base, podemos também utilizar suas classes CSS para alterar a aparência dos elementos.
 
-Isso resolve o problema do nosso formulário não estar sendo exibido de maneira atrativa para o usuário. Isso porque o Django renderiza um formulário HTML simples, sem adicionar classes para alterar o estilo dos elementos que compõem esse formulário. Sendo assim, utilizaremos o **django-widget-tweaks** para adicionar a classe `form-control` aos campos do nosso formulário, e assim apliciar as características descritas no arquivo de estilização \(CSS\) do tema utilizado.
+Isso resolve o problema do nosso formulário não estar sendo exibido de maneira atrativa para o usuário. Isso porque o Django renderiza um formulário HTML simples, sem adicionar classes para alterar o estilo dos elementos que compõem esse formulário. Sendo assim, utilizaremos o **django-widget-tweaks** para adicionar a classe `form-control` aos campos do nosso formulário, e assim aplicar as características descritas no arquivo de estilização \(CSS\) do tema utilizado.
 
 ### Como instalar
 
@@ -85,7 +85,7 @@ Para instalar o **django-widget-tweaks** utilizaremos nosso já conhecido gerenc
 (env)$ pip install django-widget-tweaks
 ```
 
-Caso ocorra bem tudo, você terá instalado o **django-widget-tweaks** em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para organizar melhor, vamos escrever a variável acima da existente e que lista nossos aplicativos:
+Caso ocorra bem tudo, você terá instalado o **django-widget-tweaks** em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para uma melhor organização, vamos criar uma lista separada da lista dos nossos aplicativos.
 
 ```bash
 # código acima omitido
@@ -104,7 +104,7 @@ INSTALLED_APPS += [
 ```
 
 {% hint style="info" %}
-Utilizamos três variáveis de mesmo nome e a incrementamos pois assim separamos os aplicativos do Django \(primeira\), os pacotes Python instalados \(segunda\) e os aplicativos criados por nós \(terceira\). Lembre-se que é necessário utilizar o operador `+=` quando queremos incrementar os valores existentes na variável
+Utilizamos três variáveis de mesmo nome e as incrementamos pois assim separamos os aplicativos do Django \(primeira\), os pacotes Python instalados \(segunda\) e os aplicativos criados por nós \(terceira\). Lembre-se que é necessário utilizar o operador `+=` quando queremos incrementar os valores existentes na variável
 {% endhint %}
 
 ### Importando no template
@@ -123,7 +123,7 @@ Agora que instalamos e registramos o pacote em nosso arquivo de configurações,
 
 Existem duas maneiras que o **django-widget-tweaks** nos permite utilizar suas funcionalidades, mas utilizaremos a tag personalizada `{% render_field %}`, com ela conseguimos descrever nossos campos de forma bem parecida com o HTML5.
 
-Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div class="container">` pelo `<form method="post">` abaixo e seu conteúdo. O código ficará assim:
+Vamos abrir o arquivo `registrar_visitante.html` e substituir a variável `{{ form }}` pelo elemento `<form method="post">` abaixo e seu conteúdo. O código ficará assim:
 
 ```markup
 <!-- codigo acima omitido -->
@@ -160,13 +160,15 @@ Vamos abrir o arquivo `registrar_visitante.html` e substituir o elemento `<div c
 <!-- codigo abaixo omitido -->
 ```
 
+Vamos adicionar também um trecho de código HTML com um aviso sinalizando que o asterisco \(\*\) acima dos campos do formulário indica que o campo é obrigatório.
+
 {% hint style="info" %}
-A tag `{% csrf_token %}` fornece proteção para nossa aplicação, de modo a impedir que sites mal intencionados enviem requisições para ela. Caso a gente não coloque essa tag dentro dos nossos formulários, o Django não aceitará a requisição enviada e mostrará um erro. 
+A tag `{% csrf_token %}` fornece proteção para nossa aplicação, de modo a impedir que sites mal intencionados enviem requisições para ela. Caso a gente não coloque essa tag dentro dos nossos formulários, o Django não aceitará a requisição enviada e mostrará um erro pois não vai identificar a requisição como segura
 {% endhint %}
 
 Logo abaixo da tag `{% csrf_token %}`, estamos utilizando novamente a tag `{% for %}` para realizar um loop, mas desta vez na variável `form`. Quando realizamos um loop em nosso formulário, conseguimos acessar seus campos, e é exatamente o que precisamos fazer: executar um loop e acessar as informações de cada campo para que possamos passá-las para a tag `{% render_field %}` fazer o trabalho de renderização destes campos.
 
-Para cada campo \(_variável field_\) em nosso formulário, criamos a estrutura padrão para campos do formulário HTML, acessamos a propriedade `label`  para exibir o nome e o placeholder do `input` e passamos a variável que representa o campo para a tag `{% render_field %}`. Veja como fica nossa estrutura:
+Para cada campo \(_variável field_\) em nosso formulário, criamos a estrutura padrão para campos de um formulário do nosso tema. Acessamos também a propriedade `label`  para exibir o nome e o _placeholder_ do `input` e passamos a variável que representa o campo para a tag `{% render_field %}`. Veja como ficará estrutura de cada campo:
 
 ```markup
 <div class="form-group col-md-12">
@@ -175,9 +177,7 @@ Para cada campo \(_variável field_\) em nosso formulário, criamos a estrutura 
 </div>
 ```
 
-Note que definimos também os atributos `placeholder=field.label` e `class="form-control"`, além de verificarmos se o campo é obrigatório e, caso seja, colocamos um asterisco \(\*\) ao lado do nome do campo. A classe `form-control` que passamos como atributo do campo é quem estiliza e torna a exibição do campo mais atrativa. 
-
-Acesse a página e veja na prática como o layout do nosso formulário melhorou e muito!
+Note que definimos também os atributos `placeholder=field.label` e `class="form-control"`, além de verificarmos se o campo é obrigatório e, caso seja, colocamos um asterisco \(\*\) ao lado do nome do campo. Acesse a página e veja na prática como o layout do nosso formulário melhorou e muito!
 
 ## Preparando view para receber requisição do tipo POST
 
