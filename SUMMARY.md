@@ -15,7 +15,7 @@
 * [Capítulo 05](capitulos/capitulo-05.md)
 * [Capítulo 06](capitulos/capitulo-06.md)
 * [Capítulo 07 - Parte 1](capitulos/capitulo-07-parte-01.md)
-* [Capítulo 07 - Parte 2](capitulos/capitulo-07-parte-01-1.md)
+* [Capítulo 07 - Parte 2](capitulos/capitulo-07-parte-02.md)
 * [Capítulo 08](capitulos/capitulo-08.md)
 * [Capítulo 09](capitulos/capitulo-09.md)
 * [Capítulo 10](capitulos/capitulo-10.md)
