@@ -237,7 +237,7 @@ Agora você pode cadastrar mais um visitante e ver a mensagem de sucesso sendo e
 
 ## Tratando possíveis erros em nosso formulário
 
-Nossa mensagem de sucesso já está sendo exibida corretamente, mas o que acontece se ocorrer algum erro e os dados enviados não forem aceitos? Não podemos deixar que a aplicação pare. Sendo assim, é interessante que a gente também insira um alerta de erro em nosso template.
+Nossa mensagem de sucesso já está sendo exibida corretamente, mas o que acontece se ocorrer algum erro e os dados enviados não forem aceitos? Não podemos deixar que a aplicação pare e precisamos indicar para o usuário que os dados que ele inseriu estão incorretos.
 
 Como nosso formulário de registro de visitante está no arquivo `registrar_visitante.html`, trabalharemos nele. Logo acima do elemento `<form method="post">`, vamos inserir o seguinte trecho de código:
 
@@ -258,7 +258,7 @@ Como nosso formulário de registro de visitante está no arquivo `registrar_visi
 {% endif %}
 ```
 
-A estrutura HTML é bem parecida com a utilizada para a mensagem de sucesso, mas com algumas pequenas diferenças. Mais uma vez, utilizaremos as tags `{% if %}` e `{% for %}`. Primeiro vamos verificar se existem erros no formulário \(`{% if form.errors %}`\) e, caso verdadeiro, realizar um loop nos seus campos \(`{% for field in form %}`\). Desta vez, verificamos se existem erros em cada campo \(`{% if field.errors %}`\) e executamos um loop nesses erros \(`{% for error in field.errors %}`\), caso existam.
+A estrutura HTML é bem parecida com a utilizada para a mensagem de sucesso, mas com algumas pequenas diferenças. Mais uma vez, utilizaremos as tags `{% if %}` e `{% for %}`. Primeiro vamos verificar se existem erros no formulário \(`{% if form.errors %}`\) e, caso verdadeiro, realizar um loop nos seus campos \(`{% for field in form %}`\). Desta vez, verificamos também se existem erros em cada campo \(`{% if field.errors %}`\) e executamos um loop nesses erros \(`{% for error in field.errors %}`\), caso existam.
 
 ## Deixando nossas mensagens de erro mais claras
 
