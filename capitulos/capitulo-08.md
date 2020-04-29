@@ -191,7 +191,7 @@ Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000
 
 ## Criando métodos personalizados para exibir informações do Visitante
 
-Conforme exibimos os campos, você deve ter observado que alguns deles ainda não estão preenchidos no banco de dados e, por isso, exibem um valor em branco ou uma informação pouco clara do que, de fato, representa. Para melhorar a exibição destes campos e, consequentemente, a qualidade da usabilidade da nossa dashboard, criaremos métodos personalizados nas classes modelo para que possamos exibir uma informação útil e clara, mesmo quando o campo não está preenchido.
+Conforme exibimos os campos, você deve ter observado que alguns deles ainda não estão preenchidos no banco de dados e, por isso, exibem um valor em branco ou uma informação pouco clara do que, de fato, representa \(`None`\). Para melhorar a exibição destes campos e, consequentemente, a qualidade da usabilidade da nossa dashboard, criaremos métodos personalizados nas classes modelo para que possamos exibir uma informação útil e clara, mesmo quando o campo não está preenchido.
 
 Métodos são funções que existem dentro das classes e podem definir comportamentos para os objetos. Em nosso caso, criaremos métodos que alteram a forma com que as informações são exibidas para o usuário. Se, por exemplo, a entrada do morador ainda não tiver sido autorizada, podemos exibir algo como "Visitante aguardando autorização" nos campos `horario_autorizacao` e `morador_responsavel`. O mesmo vale para o campo `horario_saida`, que só será preenchido no momento que a visita for finalizada.
 
