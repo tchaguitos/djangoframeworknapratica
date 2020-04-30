@@ -65,12 +65,20 @@ Como vimos anteriormente, sempre que mudamos a estrutura do nosso modelo, precis
 (env)$ python manage.py makemigrations visitantes
 ```
 
-### Efetuando as alterações no banco de dados
-
-Nada diferente do que já vimos, vamos agora utiliza o comando `migrate`:
+O terminal deverá mostrar algo parecido com isto:
 
 ```python
-(env)$ python manage.py migrate visitantes
+Migrations for 'visitantes':
+  visitantes/migrations/0005_visitante_status.py
+    - Add field status to visitante
+```
+
+### Efetuando as alterações no banco de dados
+
+Nada diferente do que já vimos, vamos agora utiliza o comando `migrate` para efetuar as mudanças em nosso banco de dados:
+
+```python
+(env)$ python manage.py migrate
 ```
 
 ## Criando formulário para atualizar atributos específicos do visitante
