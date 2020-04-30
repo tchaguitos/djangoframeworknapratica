@@ -353,7 +353,7 @@ from visitantes.models import Visitante
 
 def index(request):
     contexto = {
-        "nome_curso": "Django framework na prática",
+        "nome_pagina": "Início da dashboard",
     }
     
     return render(request, "index.html", contexto)
@@ -371,7 +371,7 @@ def index(request):
     todos_visitantes = Visitante.objects.all()
     
     contexto = {
-        "nome_curso": "Django framework na prática",
+        "nome_pagina": "Início da dashboard",
         "todos_visitantes": todos_visitantes,
     }
     
