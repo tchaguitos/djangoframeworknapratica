@@ -152,6 +152,7 @@ def informacoes_visitante(request, id):
             return redirect("index")
     
     context = {
+        "nome_pagina": "Informações de visitante",
         "visitante": visitante,
         "form": form,
     }
