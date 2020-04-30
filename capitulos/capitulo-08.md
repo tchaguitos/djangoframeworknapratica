@@ -254,7 +254,7 @@ def get_placa_veiculo(self):
 
 ### Utilizando métodos personalizados no template
 
-Com nossos métodos criados, temos que alterar o template informacoes\_visitante.html para que exiba os métodos os invés dos atributos. A sintaxe para exibição nos templates é bem parecida com a que utilizamos para os atributos, inclusive.
+Com nossos métodos criados, temos que alterar o template `informacoes_visitante.html` para que exiba os métodos os invés dos atributos. A sintaxe para exibição de métodos nos templates é bem parecida com a que utilizamos para os atributos, inclusive.
 
 Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_saida` e `placa_veiculo`, vamos alterar para métodos criados. Ou seja, ao invés de `{{ visitante.horario_autorizacao }}`, utilizaremos `{{ visitante.get_horario_autorizacao }}`. O template ficará assim:
 
