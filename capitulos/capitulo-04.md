@@ -204,7 +204,7 @@ def index(request):
     return render(request, "index.html", context)
 ```
 
-No código acima criamos a variável `context` já com o valor de `nome_pagina` definido como "Início da dashboard". Se a gente quisesse utilizar uma variável ao invés de um texto, poderíamos fazer desta forma: 
+No código acima criamos a variável `context` já com o valor de `nome_pagina` definido como "Início da dashboard". Se a gente quisesse utilizar uma variável ao invés de um texto diretamente, poderíamos fazer desta forma: 
 
 ```python
 def index(request):
