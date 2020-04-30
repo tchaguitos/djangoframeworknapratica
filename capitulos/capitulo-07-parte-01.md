@@ -43,6 +43,7 @@ def registrar_visitante(request):
     form = VisitanteForm()
     
     context = {
+        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
@@ -64,6 +65,10 @@ Apenas com as alterações realizadas, já podemos trabalhar no template `regist
 </div>
 <!-- codigo abaixo omitido -->
 ```
+
+{% hint style="success" %}
+Definimos no contexto também a variável `nome_pagina`, mas desta vez, como "Registrar visitante". Note como o Django reconhece o valor da variável de acordo com cada view e altera o valor no template `base.html`
+{% endhint %}
 
 ## Melhorando a exibição do nosso formulário
 
