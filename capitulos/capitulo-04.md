@@ -198,20 +198,20 @@ Para fazer isso, vamos no arquivo `views.py` e vamos criar a variável `context`
 def index(request):
     
     context = {
-        "nome_curso": "Django framework na prática",
+        "nome_pagina": "Início da dashboard",
     }
     
     return render(request, "index.html", context)
 ```
 
-No código acima criamos a variável `context` já com o valor de `nome_curso` definido como "Django framework na prática". Se a gente quisesse utilizar uma variável ao invés de um texto, poderíamos fazer desta forma: 
+No código acima criamos a variável `context` já com o valor de `nome_pagina` definido como "Início da dashboard". Se a gente quisesse utilizar uma variável ao invés de um texto, poderíamos fazer desta forma: 
 
 ```python
 def index(request):
-    curso = "Django framework na prática"
+    nome_pagina = "Início da dashboard"
 
     context = {
-        "nome_curso": curso,
+        "nome_pagina": nome_pagina,
     }
     
     return render(request, "index.html", context)
@@ -229,7 +229,7 @@ Agora que já definimos o nosso dicionário de contexto e passamos ele como argu
 Dicionário é uma estrutura de dados em Python de elementos \(ou propriedades\) não ordenados e que podemos acessar utilizando chaves. Os dicionários são estruturas poderosas e muito utilizadas. Existem linguagens que este tipo é conhecido como "matrizes associativas" ou apenas "objetos"
 {% endhint %}
 
-Para exibirmos os valores contidos no dicionário `context` basta utilizarmos a sintaxe para variáveis da linguagem de templates do Django: `{{ propriedade_do_dicionario }}`. Para nosso caso, vamos exibir o valor da propriedade `nome_curso` que, dentro do dicionário `context`, corresponde ao texto **Django framework na prática**. 
+Para exibirmos os valores contidos no dicionário `context` basta utilizarmos a sintaxe para variáveis da linguagem de templates do Django: `{{ propriedade_do_dicionario }}`. Para nosso caso, vamos exibir o valor da propriedade `nome_pagina` que, dentro do dicionário `context`, corresponde ao texto **Início da dashboard**. 
 
 Vamos abrir o arquivo `index.html` e procurar pela seguinte linha:
 
@@ -237,11 +237,11 @@ Vamos abrir o arquivo `index.html` e procurar pela seguinte linha:
 <h1 class="h3 mb-0 text-gray-800">Página inicial</h1>
 ```
 
-Vamos alterar o texto da tag `h1` \(o texto **Página inicial**\) para exibir também o valor da nossa variável `nome_curso` passada na variável `context` da view. A linha deverá ficar assim:
+Vamos alterar o texto da tag `h1` \(o texto **Página inicial**\) para exibir também o valor da nossa variável `nome_pagina` passada na variável `context` da view. A linha deverá ficar assim:
 
 ```python
-<h1 class="h3 mb-0 text-gray-800">Página inicial - {{ nome_curso }}</h1>
+<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
 ```
 
-Volte para o navegador, atualize a página e veja a mágica acontecer: o valor `{{ nome_curso }}` será substituído pelo texto "Django framework na prática" que definimos no dicionário `context`. Se alterarmos o valor no arquivo `views.py` o mesmo acontece no `index.html`.
+Volte para o navegador, atualize a página e veja a mágica acontecer: o valor `{{ nome_pagina }}` será substituído pelo texto "Início da dashboard" que definimos no dicionário `context`. Se alterarmos o valor no arquivo `views.py` o mesmo acontece no `index.html`.
 
