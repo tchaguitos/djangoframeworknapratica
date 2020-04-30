@@ -77,9 +77,9 @@ urlpatterns = [
 
 ## Alterando template para exibir botão e modal para finalizar visita
 
-Agora que temos a URL para onde devemos enviar uma requisição do tipo POST para sinalizar que queremos finalizar uma visita, vamos alterar as partes do template que vão possibilitar a interação do porteiro com essa funcionalidade.
+Agora que temos a URL para onde devemos enviar uma requisição para sinalizar que queremos finalizar uma visita, vamos alterar as partes do template que vão possibilitar a interação do usuário com essa funcionalidade.
 
-Assim como inserimos um botão para quando queremos autorizar a entrada de um visitante, vamos inserir um botão para quando quisermos finalizar a visita. Abra o template `informacoes_visitante.html` e insera o seguinte trecho de código abaixo do botão responsável por autorizar a entrada do visitante:
+Assim como inserimos um botão para quando queremos autorizar a entrada de um visitante, vamos inserir um botão para quando quisermos finalizar a visita. Abra o template `informacoes_visitante.html` e insira o seguinte trecho de código abaixo do botão responsável por autorizar a entrada do visitante:
 
 ```markup
 <a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
@@ -97,7 +97,7 @@ O template ficará assim:
 
 Note que a estrutura é bem parecida com a que utilizamos no outro botão, mas quando observamos o atributo `data-target` podemos notar que agora ele é igual a `#modal2`. Isso porque vamos também criar um outro modal para ser exibido quando o usuário clicar no botão para finalizar uma visita. A função desse modal é obter a confirmação se é isso mesmo que o usuário deseja fazer.
 
-Ainda no mesmo arquivo mas agora ao final do arquivo, vamos colocar o seguinte trecho de código logo abaixo da estrutura HTML do primeiro modal:
+Ainda no mesmo arquivo, mas agora ao final do arquivo, vamos colocar o seguinte trecho de código logo abaixo da estrutura HTML do primeiro modal:
 
 ```markup
 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,11 +134,17 @@ Ainda no mesmo arquivo mas agora ao final do arquivo, vamos colocar o seguinte t
 </div>
 ```
 
-Nosso segundo modal deverá exibir a mensagem "Realmente deseja encerrar a visita?" e conter um formulário que enviará uma requisição do tipo `POST` para a URL que criamos anteiormente. Esse formulário precisa ter apenas o campo renderizado pela tag `{% csrf_token %}` para que possamos enviar requisições. Nosso modal será exibido da seguinte maneira:
+Nosso segundo modal será exibido da seguinte maneira:
 
 ![](../.gitbook/assets/screenshot_2020-04-06_19-45-04.png)
 
-O que muda tudo aqui é o atributo `action` do formulário HTML. Graças a ele podemos direcionar um formulário para uma URL diferente da que estamos, diferentemente de como fizemos com os outros formulários. Dessa forma, conseguimos enviar uma requisição do tipo `POST` para a URL `{% url 'finalizar_visita' id=visitante.id %}` com toda informação que precisamos para identificar qual o `id` do visitante a ser atualizado assim que o usuário clicar no botão "Finalizar visita" confirmando a ação.
+Esse segundo modal deverá exibir a mensagem "Realmente deseja encerrar a visita?" e conter um formulário que enviará uma requisição do tipo `POST` para a URL que criamos anteriormente. Esse formulário precisa ter apenas o campo renderizado pela tag `{% csrf_token %}` para identificar que as requisições podem ser aceitas pelo nosso servidor.
+
+{% hint style="info" %}
+Estamos enviando uma requisição do tipo `POST` para URL pois é recomendada a utilização deste método sempre que precisamos alterar informações em nosso banco de dados
+{% endhint %}
+
+O que muda tudo aqui é o atributo `action` do formulário HTML. Graças a ele podemos direcionar um formulário para uma URL diferente da que estamos, diferentemente de como fizemos com os outros formulários. Dessa forma, conseguimos enviar uma requisição do tipo `POST` para a URL `{% url 'finalizar_visita' id=visitante.id %}` com toda informação que precisamos para identificar o visitante a ser atualizado assim que o usuário clicar no botão "Finalizar visita" dom modal confirmando a ação.
 
 Vai em frente e teste a nova funcionalidade implementada!
 
