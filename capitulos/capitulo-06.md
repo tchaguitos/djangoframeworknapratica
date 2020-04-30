@@ -79,7 +79,7 @@ Com o template `base.html` criado, vamos fazer algumas adaptações em nosso tem
 ```python
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Página inicial - {{ nome_curso }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
     </div>
 
     <div class="row">
@@ -200,7 +200,7 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
 {% block conteudo %}
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Página inicial - {{ nome_curso }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
     </div>
 
     <div class="row">
