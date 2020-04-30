@@ -150,9 +150,9 @@ Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
-No passo anterior, finalizamos a criação da funcionalidade que finaliza as visitas dentro da nossa dashboard inserindo um botão no template. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
+Nos passos anteriores, implementamos a criação da funcionalidade que finaliza as visitas dentro da nossa dashboard. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
 
-Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir os botões com base no status.Funcionará assim:
+Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir os botões com base no valor desse status. Funcionará assim:
 
 * Se o visitante estiver com status `AGUARDANDO`, vamos exibir o botão para **autorizar a entrada**
 * Se o visitante estiver com status `EM_VISITA`, vamos exibir o botão para **finalizar a visita** 
@@ -162,7 +162,7 @@ Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir
 
 Para fazer isso, vamos utilizar a tag `{% if %}` para verificar o status do visitante e renderizar um botão por vez. Primeiro, vamos criar a instrução `if` para verificar se o status é `AGUARDANDO` e renderizar o botão para autorizar a entrada do visitante.
 
-Utilizando a tag `{% if %}` vamos definir a condição `visitante.status == "AGUARDANDO"` para que o botão apareceça. Isto é, o HTML referente ao botão só será renderizado no template caso o status do visitante seja `AGUARDANDO`. Nosso código ficará assim:
+Utilizando a tag `{% if %}` vamos definir a condição `visitante.status == "AGUARDANDO"` para que o botão apareça. Isto é, o HTML referente ao botão só será renderizado no template caso o status do visitante seja `AGUARDANDO`. Nosso código ficará assim:
 
 ```markup
 {% if visitante.status == "AGUARDANDO" %}
