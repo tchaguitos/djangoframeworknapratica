@@ -222,15 +222,15 @@ Feito isso, adicione também o código HTML do modal antes do fechamento da tag 
 </div>
 ```
 
-Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag `{% render_field %}`.
+Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente para renderizar o campo, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag `{% render_field %}`.
 
-Já utilizamos a tag `{% render_field %}` anteriormente, quando renderizamos nosso formulário para registro de novos visitantes. A dinâmica utilizada aqui será a mesma, com a diferença que estamos acessando a campo do formulário diretamente \(`form.morador_responsavel`\).
+Já utilizamos a tag `{% render_field %}` anteriormente, quando renderizamos nosso formulário para registro de novos visitantes. A dinâmica utilizada aqui será a mesma, com a diferença que vamos acessar o campo do formulário diretamente \(`form.morador_responsavel`\).
 
 {% hint style="info" %}
 Note que o template baixado no capítulo anterior já possui a tag de importação do django-widget-tweaks \(`{% load widget_tweaks %}`\).
 {% endhint %}
 
-Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado. Note que, quando clicamos no botão, o modal com o formulário é aberto:
+Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado. Note que, quando clicamos no botão, o modal com o formulário aparece na tela:
 
 ![](../.gitbook/assets/screenshot_2020-03-30_20-37-15.png)
 
@@ -240,7 +240,7 @@ Ao testar o formulário e constatar que tudo ocorreu bem, você deve ter notado 
 
 ### Atualizando o status
 
-Quando criamos o formulário para registro de visitantes, definimos o valor do atributo `registrado_por` diretamente e é o que faremos neste caso também. Para isso, vamos alterar a view para que possamos setar esses valores diretamente.
+Quando criamos o formulário para registro de visitantes, definimos o valor do atributo `registrado_por` diretamente e é o que faremos neste caso também. Para isso, vamos alterar a view para que seja possível setar esses valores diretamente.
 
 ```python
 # código acima omitido
@@ -262,11 +262,11 @@ if form.is_valid():
 # código abaixo omitido
 ```
 
-Dessa forma, já estamos definindo o valor que o status receberá caso o formulário seja válido e salvando o novo visitante, mas ainda precisamos registrar o horário em que essa autorização ocorreu, ou seja, o horário em que o formulário atualizou o atributo `registrado_por` e alterou o status para `EM_VISITA`.
+Dessa forma, já estamos definindo o valor que o status receberá caso o formulário seja válido e salvando o novo visitante, mas ainda precisamos registrar o horário em que essa autorização ocorreu, ou seja, o horário em que o formulário atualizou o atributo `morador_responsavel` e alterou o status para `EM_VISITA`.
 
 ### Conhecendo o datetime do Python
 
-O Python, por padrão, possui um módulo para trabalhar com datas e tempos que é o `datetime`. Esse módulo nos fornece inúmeras ferrametas para trabalharmos com datas e tempos de forma bem facilitada. O primeiro passo é importarmos o módulo na view.
+O Python, por padrão, possui um módulo para trabalhar com datas e horas que é o `datetime`. Esse módulo nos fornece inúmeras ferramentas para trabalharmos com esses tipos de forma bem facilitada. O primeiro passo é importarmos o módulo na view.
 
 ```python
 from django.contrib import messages
@@ -284,7 +284,7 @@ from datetime import datetime
 # código abaixo omitido
 ```
 
-O `datetime` posssui um método chamado `now()` que nos retorna data e hora do momento em que a chamada ao método ocorreu. Sendo assim, caso o registro do visitante ocorra no dia 21 de agosto de 2020 às 15:00, o método datetime.now\(\) retornará exatamente essa data. Dessa forma, tudo que precisamos fazer é igualar o atributo `horario_autorizacao` à chamada do método `datetime.now()`. Nossa view ficará assim:
+O `datetime` possui um método chamado `now()` que nos retorna data e hora do momento em que a chamada ao método ocorreu. Sendo assim, caso o registro do visitante ocorra no dia `21 de agosto de 2020 às 15:00`, o método `datetime.now()` retornará exatamente essa data. Dessa forma, tudo que precisamos fazer é igualar o atributo `horario_autorizacao` à chamada do método `datetime.now()`. Nossa view ficará assim:
 
 ```python
 # código acima omitido
