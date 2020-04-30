@@ -20,7 +20,7 @@ Já vamos aproveitar para criar a view e deixar algumas coisas prontas, como a v
 def informacoes_visitante(request, id):
     
     context = {
-
+        "nome_pagina": "Informações de visitante",
     }
     
     return render(request, "informacoes_visitante.html", context)
@@ -52,6 +52,7 @@ def informacoes_visitante(request, id):
     visitante = get_object_or_404(Visitante, id=id)
     
     context = {
+        "nome_pagina": "Informações de visitante",
         "visitante": visitante
     }
     
