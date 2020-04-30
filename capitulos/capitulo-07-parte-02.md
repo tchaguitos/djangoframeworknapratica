@@ -23,11 +23,12 @@ def registrar_visitante(request):
     if request.method == "POST":
         print("o método é post")
     
-    contexto = {
+    context = {
+        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
-    return render(request, "registrar_visitante.html", contexto)
+    return render(request, "registrar_visitante.html", context)
 ```
 
 {% hint style="success" %}
@@ -50,11 +51,12 @@ def registrar_visitante(request):
         if form.is_valid():
             form.save()
     
-    contexto = {
+    context = {
+        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
-    return render(request, "registrar_visitante.html", contexto)
+    return render(request, "registrar_visitante.html", context)
 ```
 
 Para passar o corpo da requisição para o formulário, basta utilizarmos a propriedade POST do objeto `request` e passá-lo como argumento ao criarmos a nova instância do formulário, como feito na linha 9 \(`form = VisitanteForm(request.POST)`\). Feito isso, validamos as informações com o método `is_valid()` e salvamos o formulário utilizando o método `save()`.
@@ -106,11 +108,12 @@ def registrar_visitante(request):
             
             visitante.save()    
         
-    contexto = {
+    context = {
+        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
-    return render(request, "registrar_visitante.html", contexto)
+    return render(request, "registrar_visitante.html", context)
 ```
 
 Agora, ao invés de salvarmos o formulário diretamente, estamos guardando o resultado do método `save` com o argumento `commit=False`, definindo um valor para o atributo `registrado_por` diretamente e salvando o objeto através da variável `visitante`. Somente no momento em que chamamos o método `visitante.save()` que as alterações são registradas no banco de dados.
@@ -142,11 +145,12 @@ def registrar_visitante(request):
             
             return redirect("index")
         
-    contexto = {
+    context = {
+        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
-    return render(request, "registrar_visitante.html", contexto)
+    return render(request, "registrar_visitante.html", context)
 ```
 
 Agora vamos voltar à página [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-visitante) e registrar um visitante. O visitante deverá ser registrado e a requisição redirecionada para a página inicial da dashboard.
@@ -199,11 +203,12 @@ def registrar_visitante(request):
             
             return redirect("index")
         
-    contexto = {
+    context = {
+        "nome_pagina": "Registrar visitante",
         "form": form,
     }
 
-    return render(request, "registrar_visitante.html", contexto)
+    return render(request, "registrar_visitante.html", context)
 ```
 
 ### Alterando o template para exigir as mensagens
