@@ -352,11 +352,11 @@ from django.http import HttpResponse
 from visitantes.models import Visitante
 
 def index(request):
-    contexto = {
+    context = {
         "nome_pagina": "Início da dashboard",
     }
     
-    return render(request, "index.html", contexto)
+    return render(request, "index.html", context)
 ```
 
 Feito isso, vamos criar a variável `todos_visitantes` acima da variável `context` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
@@ -370,12 +370,12 @@ def index(request):
 
     todos_visitantes = Visitante.objects.all()
     
-    contexto = {
+    context = {
         "nome_pagina": "Início da dashboard",
         "todos_visitantes": todos_visitantes,
     }
     
-    return render(request, "index.html", contexto)
+    return render(request, "index.html", context)
 ```
 
 ### Listando registros de visitantes no template HTML
