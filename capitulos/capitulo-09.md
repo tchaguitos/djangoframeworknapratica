@@ -1,6 +1,6 @@
 # Capítulo 09
 
-## Criando função para autorizar entrada de visitante
+## Criando funcionalidade para autorização de entrada de visitante
 
 Nos capítulos anteriores, nos dedicamos à criação das funcionalidades para registro e visualização de informações de visitantes. Aprendemos um pouco sobre como requisições funcionam, aprendemos a utilizar os formulários do Django, adaptamos os templates e aprendemos um pouco mais como eles funcionam, conhecemos o **django-widget-tweaks**, o Django **messages** e o `get_object_or_404` e ainda criamos métodos personalizados para nosso modelo de visitantes. Olha só quanta coisa conseguimos absorver somente nesses últimos capítulos!
 
