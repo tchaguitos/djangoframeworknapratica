@@ -56,7 +56,7 @@ Todos os comandos aqui utilizados são compatíveis com distribuições Linux ba
 
 ### **Python 3.8**
 
-As versões mais recentes das distribuições linux baseadas no Ubuntu \(Debian\) já vêm com a versão 3.8.2 do Python instalada, mas se este não é o seu caso, basta seguir os comandos a seguir.
+As versões mais recentes das distribuições linux baseadas no Ubuntu \(Debian\) já vêm com a versão 3.8.2 do Python instalada, mas se este não é o seu caso, basta seguir os comandos abaixo.
 
 Antes de instalar o Python de fato, precisamos instalar alguns pacotes que vão nos ajudar com esta tarefa. Primeiro, vamos atualizar nossos pacotes e instalar algumas dependências:
 
