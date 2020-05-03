@@ -155,7 +155,7 @@ E agora no `informacoes_visitante.html`:
 
 ## Implementando melhorias na estrutura do nosso projeto
 
-Uma medida interessante que vamos implementar é criar uma pasta de nome `apps` na raíz do nosso projeto para agrupar todos os nossos aplicativos. Antes disso, tudo que precisamos fazer é alterar o arquivo `settings.py`. Vamos importar o módulo sys e depois adicionar a pasta ao projeto.
+Uma alteração interessante que vamos implementar é criar uma pasta de nome `apps` na raiz do nosso projeto para agrupar todos os nossos aplicativos. Vamos começar alterando o arquivo `settings.py`. Vamos importar o módulo `sys` e depois adicionar a pasta `apps` ao projeto.
 
 ```python
 import os
@@ -164,11 +164,11 @@ import sys
 # código abaixo omitido
 ```
 
-Feito isso tudo que precisamos fazer é adicionar a seguinte linha de código abaixo da variável `DEBUG`:
+Feito isso tudo que precisamos fazer é adicionar a seguinte linha de código abaixo da variável `ALLOWED_HOSTS`:
 
 ```python
 sys.path.append(os.path.join(BASE_DIR, "apps"))
 ```
 
-Agora, vamos criar a pasta apps e mover as pastas dos nossos aplicativos para ela.
+Agora, vamos criar a pasta **apps** e mover as pastas dos nossos aplicativos para ela.
 
