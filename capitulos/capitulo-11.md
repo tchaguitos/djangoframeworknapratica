@@ -153,7 +153,37 @@ E agora no `informacoes_visitante.html`:
 
 ### Exibindo mensagem de boas-vindas para usuário
 
-Para facilitar na identificação do usuário...
+Uma outra funcionalidade rápida que vamos implementar é a identificação do usuário logado e a exibição de uma mensagem de boas vindas para o mesmo, assim que ele entrar na home na dashboard. Vamos abrir o arquivo `views.py` do aplicativo `usuarios` e importar o módulo `messages`. O trecho das importações ficará assim:
+
+```python
+from django.shortcuts import render
+from django.contrib import messages
+
+from visitantes.models import Visitante
+```
+
+Agora tudo que precisamos fazer é adicionar uma mensagem, assim como fizemos com as mensagens de sucesso. A diferença aqui é que utilizaremos o método `info` ao invés de `success`. Nossa view ficará assim:
+
+```python
+def index(request):
+
+    todos_visitantes = Visitante.objects.all()
+
+    messages.info(
+        request,
+        f"Seja bem vindo, { request.user.porteiro }!"
+    )
+
+    context = {
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
+    }
+
+    return render(request, "index.html", context)
+
+```
+
+Como aprendemos sobre strings literais anteriormente, vamos utilizá-las aqui para escrever o texto que vamos passar na mensagem. Queremos exibir uma mensagem de boas vindas e identificar o nome do porteiro que está logado. Essa informações podemos tirar da variável `request` que possui a propriedade `user`. Como nossos usuários possuem uma relação 1 para 1 com nossos porteiros, o Django cria a propriedade `porteiro` no modelo de usuários, desta forma podemos acessar `request.user.porteiro`.
 
 ## Implementando melhorias na estrutura do nosso projeto
 
