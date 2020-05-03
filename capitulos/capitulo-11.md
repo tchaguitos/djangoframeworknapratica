@@ -74,22 +74,22 @@ def get_cpf(self):
         cpf = self.cpf
         
         cpf_parte_um = cpf[0:3]
-        cpf_parte_dois = cpf[0:3]
-        cpf_parte_tres = cpf[0:3]
-        cpf_parte_quatro = cpf[0:3]
+        cpf_parte_dois = cpf[3:6]
+        cpf_parte_tres = cpf[6:9]
+        cpf_parte_quatro = cpf[9:]
         
         # código abaixo omitido
 ```
 
 Com as quatro partes do CPF recortadas e guardadas em variáveis, temos agora que colocá-las em ordem obedecendo o formato padrão do CPF. Para nos ajudar com isso, vamos utilizar um recurso do Python chamado strings literais ou `f-strings`.
 
-Uma f-string \(ou string literal\) é toda cadeia de caracteres prefixada por `f` ou `F`, onde pode conter também campos para substituição de variáveis ou expressões, delimitadas por chaves `{}`. Dessa forma, podemos criar a string já formatada e inserir os intervalos do CPF na ordem por meio dos campos de substituição na string literal. Abaixo temos a variável que vamos retornar no método, onde cada par de chaves `{}` é um intervalo da string que representa o CPF do visitante. 
+Uma f-string \(ou string literal\) é toda cadeia de caracteres prefixada por `f` ou `F`, onde pode conter também campos para substituição de variáveis ou expressões, delimitadas por chaves `{}`. Utilizando uma string literal, podemos criar a string já formatada e inserir os intervalos recortados do CPF na ordem por meio dos campos de substituição da string literal. Abaixo temos a variável que vamos retornar no método, onde cada par de chaves `{}` será substituído por um intervalo da string que representa o CPF do visitante:
 
 ```python
 cpf_formatado = f"{}.{}.{}-{}"
 ```
 
-Vamos inserir as variáveis no meio das chaves pelos intervalos dentro do método, retornar a variável `cpf_formatado` e ver o que acontece:
+Agora vamos inserir as variáveis que representam as partes do CPF do vistante na ordem e dentro das chaves `{}` da variavel `cpf_formatado`, nossa string literal. E já que nosso objetivo é retornar o CPF já formatado, então vamos retornar essa variável no método `get_cpf`. O método ficará assim:
 
 ```python
 def get_cpf(self):
@@ -97,16 +97,16 @@ def get_cpf(self):
         cpf = self.cpf
         
         cpf_parte_um = cpf[0:3]
-        cpf_parte_dois = cpf[0:3]
-        cpf_parte_tres = cpf[0:3]
-        cpf_parte_quatro = cpf[0:3]
+        cpf_parte_dois = cpf[3:6]
+        cpf_parte_tres = cpf[6:9]
+        cpf_parte_quatro = cpf[9:]
 
-        cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+        cpf_formatado = f"{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_parte_quatro}"
 
         return cpf_formatado
 ```
 
-Feito isso, temos agora que substituir as chamadas ao atributo cpf do modelo pela chamada ao método `get_cpf`. Primeiro no template `index.html` e depois no `informacoes_visitante.html`.
+Feito isso, temos agora que substituir as chamadas ao atributo `cpf` do modelo pela chamada ao método `get_cpf`. Primeiro no template `index.html` e depois no `informacoes_visitante.html`.
 
 ```markup
 <!-- código acima omitido -->
