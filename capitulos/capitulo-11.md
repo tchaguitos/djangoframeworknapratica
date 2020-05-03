@@ -38,6 +38,26 @@ Esse trecho de código representa o botão que envia a requisição via método 
 Como a única maneira que podemos chegar até a página de registro de um novo visitante é pelo início da dashboard e a ação que queremos realizar é "Cancelar" a operação de registro de um novo visitante, faz sentido utilizarmos apenas um link fixo para a home da dashboard
 {% endhint %}
 
+O template `informacoes_visitante.html` já possui o botão com a ação "voltar" visível, mas não temos um link para onde o botão deve enviar o usuário. Vamos procurar pelo seguinte trecho de código e inserir um link para a URL `index` em seu atributo `href`:
+
+```markup
+<div class="mr-1 text-right">
+    <a href="#" class="btn btn-secondary text-white" type="button">
+        <span class="text">Voltar</span>
+    </a>
+</div>
+```
+
+O código ficará assim:
+
+```markup
+<div class="mr-1 text-right">
+    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
+        <span class="text">Voltar</span>
+    </a>
+</div>
+```
+
 ### Melhorando a exibição do CPF do visitante
 
 Uma outra melhoria interessante seria na exibição do CPF do visitante. Estamos exibindo os números todos sem nenhuma separação, como geralmente o número de CPF é apresentado. Aprendemos que é possível criar métodos nas classes modelo para que a gente altere comportamentos e até já criamos alguns que utilizamos para melhorar a exibição de alguns atributos. Agora vamos criar o método `get_cpf` que deverá retornar o CPF do visitante já formatado com pontos e traço.
@@ -131,44 +151,9 @@ E agora no `informacoes_visitante.html`:
 <!-- código abaixo omitido -->
 ```
 
-### Exibindo informações do usuário logado diretamente no template
+### Exibindo mensagem de boas-vindas para usuário
 
-Uma outra alteração que vamos fazer é acessar a variável referente ao usuário logado na requisição diratamente no template ao invés de passarmos ela como variável no contexto das views. Quando nos esquecemos de passar essa variável, inclusive, a informação não é exibida.
-
-Para evitar que isso aconteça vamos abrir nosso template `base.html` e procurar pela variável `{{ usuario_logado }}` e substituí-la por `{{ request.user.email }}`. Desta forma estamos acessando a informação diretamente pelo template e não precisamos obter essa informação em nenhum view. Você deverá substituir:
-
-```markup
-<span class="mr-2 d-none d-lg-inline text-gray-600 small">
-    {{ usuario_logado }}
-</span>
-```
-
-Por:
-
-```markup
-<span class="mr-2 d-none d-lg-inline text-gray-600 small">
-    {{ request.user.email }}
-</span>
-```
-
-Além disso, vamos remover da view `index` a variável `usuario_logado` que criamos no contexto. O código:
-
-```python
-context = {	 
-    "nome_pagina": "Página inicial",
-    "usuario_logado": request.user,	
-    "visitantes": visitantes,
-}
-```
-
-Ficará assim:
-
-```python
-context = {	 
-    "nome_pagina": "Página inicial",
-    "visitantes": visitantes,
-}
-```
+Para facilitar na identificação do usuário...
 
 ## Implementando melhorias na estrutura do nosso projeto
 
