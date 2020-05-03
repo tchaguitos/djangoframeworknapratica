@@ -6,11 +6,11 @@ Olha só que legal: finalizamos as funcionalidades de maior valor da nossa dashb
 
 Agora que temos as principais funcionalidades prontas, vamos nos concentrar em melhorar a experiência de utilização da dashboard e ainda melhorar a estrutura do nosso projeto, de modo que seja mais fácil realizar futuras manutenções.
 
-Começaremos com algumas alterações nos templates.
+Começaremos com algumas alterações nos templates que visam melhorar a experiência de utilização da dashboard.
 
 ### Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
 
-Nossa primeira melhoria será inserir os botões "cancelar" e "voltar" nas páginas de registro de visitante e informações de visitante. Sendo assim, vamos abrir o arquivo `registrar_visitante.html` e procurar pelo seguinte trecho de código:
+Nossa primeira melhoria será inserir os botões com as ações "cancelar" e "voltar" nas páginas de registro de visitante e informações de visitante. Sendo assim, vamos primeiro abrir o arquivo `registrar_visitante.html` e procurar pelo seguinte trecho de código:
 
 ```markup
 <div class="text-right">
@@ -35,14 +35,14 @@ Esse trecho de código representa o botão que envia a requisição via método 
 ```
 
 {% hint style="info" %}
-Como a única maneira que podemos chegar até a página de registro de um novo visitante é pelo início da dashboard e a ação que queremos realizar é "Cancelar" a operação de registro de um novo visitante, faz sentido utilizarmos apenas um link fixo
+Como a única maneira que podemos chegar até a página de registro de um novo visitante é pelo início da dashboard e a ação que queremos realizar é "Cancelar" a operação de registro de um novo visitante, faz sentido utilizarmos apenas um link fixo para a home da dashboard
 {% endhint %}
 
 ### Melhorando a exibição do CPF do visitante
 
-Uma outra melhoria interessante seria na exibição do CPF do visitante. Estamos exibindo os números todos sem nenhuma separação como geralmente o número de CPF é apresentado. Aprendemos que é possível criar métodos nas classes modelo para que a gente altere comportamentos e até já criamos alguns que utilizamos para melhorar a exibição de alguns atributos. Sendo assim, vamos criar o método `get_cpf` que deverá retornar o número do CPF do visitante já formatado com pontos e traço.
+Uma outra melhoria interessante seria na exibição do CPF do visitante. Estamos exibindo os números todos sem nenhuma separação, como geralmente o número de CPF é apresentado. Aprendemos que é possível criar métodos nas classes modelo para que a gente altere comportamentos e até já criamos alguns que utilizamos para melhorar a exibição de alguns atributos. Agora vamos criar o método `get_cpf` que deverá retornar o CPF do visitante já formatado com pontos e traço.
 
-Vamos abrir o arquivo models.py e abaixo do método `get_placa_veiculo` vamos criar o método `get_cpf` que, por enquanto, irá retornar o CPF caso o mesmo exista. O código ficará assim:
+Vamos abrir o arquivo `models.py` e abaixo do método `get_placa_veiculo` vamos criar o método `get_cpf` que, por enquanto, irá retornar o CPF caso o mesmo exista. O código ficará assim:
 
 ```python
 # código acima omitido
@@ -64,28 +64,46 @@ def get_cpf(self):
 
 #### Conhecendo o f-strings do Python
 
-Pensa bem, precisamos cortar a string algumas vezes para pegar apenas algumas partes e depois montar cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(`XXX.XXX.XXX-XX`\). Esse processo pode parecer um pouco complicado mas não é.
+Precisamos cortar a string algumas vezes para pegar apenas algumas partes e depois montar uma outra string com cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(`XXX.XXX.XXX-XX`\). Esse processo pode parecer um pouco complicado mas não é.
 
-Antes de tudo, vamos recortar as partes que compõem o CPF e depois criar uma string já com os pontos e o traço. Vamos utilizar os índices da string CPF \(que será igual ao CPF do visitante\) para recortar cada parte, os intervalos \(`[0:3]`, `[3:6]`, `[6:9]` e `[9:]`\), e depois criar a string já formatada.
-
-Para nos ajudar, vamos utilizar um recurso do `Python3.6` chamado strings literais ou `f-strings`. f-string \(ou string literal\) é toda cadeia de caracteres prefixadas por `f` ou `F`, onde pode conter também campos para substituição ou expressões delimitadas por chaves `{}`. Dessa forma, podemos criar a string já formatada e utilizando os intervalos do CPF por meio dos campos para substituição.
-
-Nossa variável ficaria assim:
-
-```python
-cpf_mascarado = f"{}.{}.{}-{}"
-```
-
-Onde cada `{}` teria um intervalo da string que representa o CPF do visitante. Vamos substituir as chaves pelos intervalos dentro do método, retornar a variável `cpf_mascarado` e ver o que acontece:
+Antes de tudo, vamos recortar as partes que compõem o CPF. Vamos utilizar os índices da variável `cpf` \(que será igual ao CPF do visitante\) para recortar cada parte, os intervalos \(`[0:3]`, `[3:6]`, `[6:9]` e `[9:]`\). Além disso, vamos também criar variáveis para guardar as partes do CPF:
 
 ```python
 def get_cpf(self):
     if self.cpf:
         cpf = self.cpf
+        
+        cpf_parte_um = cpf[0:3]
+        cpf_parte_dois = cpf[0:3]
+        cpf_parte_tres = cpf[0:3]
+        cpf_parte_quatro = cpf[0:3]
+        
+        # código abaixo omitido
+```
 
-        cpf_mascarado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+Com as quatro partes do CPF recortadas e guardadas em variáveis, temos agora que colocá-las em ordem obedecendo o formato padrão do CPF. Para nos ajudar com isso, vamos utilizar um recurso do Python chamado strings literais ou `f-strings`.
 
-        return cpf_mascarado
+Uma f-string \(ou string literal\) é toda cadeia de caracteres prefixada por `f` ou `F`, onde pode conter também campos para substituição de variáveis ou expressões, delimitadas por chaves `{}`. Dessa forma, podemos criar a string já formatada e inserir os intervalos do CPF na ordem por meio dos campos de substituição na string literal. Abaixo temos a variável que vamos retornar no método, onde cada par de chaves `{}` é um intervalo da string que representa o CPF do visitante. 
+
+```python
+cpf_formatado = f"{}.{}.{}-{}"
+```
+
+Vamos inserir as variáveis no meio das chaves pelos intervalos dentro do método, retornar a variável `cpf_formatado` e ver o que acontece:
+
+```python
+def get_cpf(self):
+    if self.cpf:
+        cpf = self.cpf
+        
+        cpf_parte_um = cpf[0:3]
+        cpf_parte_dois = cpf[0:3]
+        cpf_parte_tres = cpf[0:3]
+        cpf_parte_quatro = cpf[0:3]
+
+        cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+
+        return cpf_formatado
 ```
 
 Feito isso, temos agora que substituir as chamadas ao atributo cpf do modelo pela chamada ao método `get_cpf`. Primeiro no template `index.html` e depois no `informacoes_visitante.html`.
