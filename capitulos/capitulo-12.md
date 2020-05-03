@@ -4,13 +4,15 @@
 
 No capítulo anterior nós começamos a implementar algumas melhorias visando uma melhor experiência de utilização da nossa dashboard e ainda atuamos de forma a melhorar a estrutura do projeto para facilitar futuras manutenções. Seguindo nesse mesmo caminho, vamos criar um aplicativo chamado **dashboard** para administrar melhor as informações relacionadas principalmente à página inicial da dashboard. É importante também a gente lembrar que os aplicativos de um projeto Django devem dividir responsabilidades e cada um deles ter um único objetivo. 
 
-Apesar da gente ter finalizado as principais funcionalidades da dashboard, ainda precisamos buscar alguns números para que sejam mostrados na página inicial. Se você observar o template, vai perceber que existem elementos que nos sugerem que devemos exibir o número de visitantes de cada status e quantos visitantes tivemos no mês atual. Queremos fazer algo desse tipo:
+Apesar da gente ter finalizado as principais funcionalidades, ainda precisamos buscar alguns números para que sejam mostrados na página inicial. Se você observar o template, vai perceber que existem elementos que nos sugerem que devemos exibir o número de visitantes de cada status e quantos visitantes foram registrados no mês atual. Queremos fazer algo desse tipo, mas com dados dinâmicos:
 
 ![](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
 
+{% hint style="info" %}
 Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos.
+{% endhint %}
 
-Antes de tudo vamos criar o aplicativo utilizando o `manage.py`:
+Para começar vamos criar o aplicativo utilizando o `manage.py`:
 
 ```bash
 (env)$ python manage.py startapp dashboard
@@ -40,14 +42,14 @@ from django.shortcuts import render
 from visitantes.models import Visitante
 
 def index(request):
-    
-    visitantes = Visitante.objects.all()
-    
+
+    todos_visitantes = Visitante.objects.all()
+
     context = {
-        "nome_pagina": "Página inicial",
-        "visitantes": visitantes,
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
     }
-    
+
     return render(request, "index.html", context)
 ```
 
