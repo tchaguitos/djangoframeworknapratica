@@ -221,5 +221,5 @@ Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o 
 </div>
 ```
 
-Se você atualizar a página inicial da dashboard vai observar que agora os números estão aparecendo. Foi bem tranquilo resolver essa, certo? Então vamos para o próximo desafio!
+Se você atualizar a página inicial da dashboard, vai observar que agora os números estão dinâmicos e aparecendo conforme os registros do nosso banco de dados. Foi bem tranquilo resolver essa, certo? Então vamos para o próximo desafio!
 
