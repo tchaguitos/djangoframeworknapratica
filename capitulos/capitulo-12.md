@@ -81,52 +81,52 @@ Agora que migramos a view para o aplicativo dashboard, vamos conhecer métodos p
 
 O primeiro método das querysets que vamos conhecer é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
 
-Na view que estamos trabalhando já existe uma queryset, que é a variável `visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados, o que precisamos fazer é filtrar essa de modo que seja possível classificar os visitantes por status. Ou seja, precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com a visita finalizada.
+Na view que estamos trabalhando já existe uma queryset, que é a variável `todos_visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados, o que precisamos fazer é filtrar essa lista de modo que seja possível classificar os visitantes por status. Ou seja, precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com as visitas finalizadas.
 
 ### Filtrando nossos visitantes por status
 
-O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois por agora queremos apenas os visitantes que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `visitantes` passando a condição `status="AGUARDANDO"`como argumento para o método. Isto é, vamos filtrar da queryset `visitantes` os visitantes que estão com `status` igual a `AGUARDANDO`.
+O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois por agora queremos apenas os visitantes que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `todos_visitantes` passando a condição `status="AGUARDANDO"`como argumento para o método. Isto é, vamos filtrar da queryset `todos_visitantes` apenas os visitantes que estão com `status` igual a `AGUARDANDO`.
 
 ```python
 def index(request):
     
-    visitantes = Visitante.objects.all()
+    todos_visitantes = Visitante.objects.all()
     
-    visitantes_aguardando = visitantes.filter(
+    visitantes_aguardando = todos_visitantes.filter(
         status="AGUARDANDO"
     )
     
     context = {
-        "nome_pagina": "Página inicial",
-        "visitantes": visitantes,
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
     }
     
     return render(request, "index.html", context)
 ```
 
-Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes para cada status e passar as variáveis criadas no contexto da função.
+Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes para cada status e passar as variáveis criadas para o contexto da função.
 
 ```python
 def index(request):
     
-    visitantes = Visitante.objects.all()
+    todos_visitantes = Visitante.objects.all()
     
     # filtrando os visitantes por status
-    visitantes_aguardando = visitantes.filter(
+    visitantes_aguardando = todos_visitantes.filter(
         status="AGUARDANDO"
     )
 
-    visitantes_em_visita = visitantes.filter(
+    visitantes_em_visita = todos_visitantes.filter(
         status="EM_VISITA"
     )
 
-    visitantes_finalizado = visitantes.filter(
+    visitantes_finalizado = todos_visitantes.filter(
         status="FINALIZADO"
     )
     
     context = {
-        "nome_pagina": "Página inicial",
-        "visitantes": visitantes,
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
         "visitantes_aguardando": visitantes_aguardando,
         "visitantes_em_visita": visitantes_em_visita,
         "visitantes_finalizado": visitantes_finalizado,
@@ -141,8 +141,8 @@ Agora que nós já filtramos os visitantes por status, precisamos contar quantos
 
 ```python
 context = {
-    "nome_pagina": "Página inicial",
-    "visitantes": visitantes,
+    "nome_pagina": "Início da dashboard",
+    "todos_visitantes": todos_visitantes,
     "visitantes_aguardando": visitantes_aguardando.count(),
     "visitantes_em_visita": visitantes_em_visita.count(),
     "visitantes_finalizado": visitantes_finalizado.count(),
