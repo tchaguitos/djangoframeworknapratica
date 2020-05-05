@@ -176,7 +176,7 @@ Vamos criar o arquivo `login.html` com o seguinte código:
                                         <p>ué cadê o formulário?</p>
 
                                         <button class="btn btn-primary btn-user btn-block" type="submit">
-                                            <span class="text">Acessar sistema</span>
+                                            <span class="text">Acessar dashboard</span>
                                         </button>
                                     </form>
                                 </div>
@@ -284,7 +284,7 @@ Agora que estamos exibindo nosso formulário, vamos adicionar só mais uma coisa
                                         </div>
 
                                         <button class="btn btn-primary btn-user btn-block" type="submit">
-                                            <span class="text">Acessar sistema</span>
+                                            <span class="text">Acessar dashboard</span>
                                         </button>
                                     </form>
                                 </div>
@@ -381,7 +381,7 @@ O processo será bem parecido com o executado para criação da URL da login. Co
                                     <div class="text-left mb-5">
                                         <h1 class="h4 text-gray-900 mb-1">Até a próxima!</h1>
 
-                                        <p>Você escolheu sair do sistema, mas se preferir fazer login novamente, basta clicar no botão abaixo para voltar à página de login</p>
+                                        <p>Você escolheu sair da dashboard, mas se preferir fazer login novamente, basta clicar no botão abaixo para voltar à página de login</p>
                                     </div>
 
                                     <a href="{% url 'login' %}" class="btn btn-primary btn-user btn-block">
