@@ -309,9 +309,9 @@ Com o template finalizado, vamos novamente tentar acessar a URL [http://127.0.0.
 
 ## Criando URL para logout
 
-Agora que criamos nossa tela de login, vamos também criar a tela de logout, que será útil para quando o usuário quiser sair da dashboard. 
+Com a tela de login criada, vamos trabalhar para também criar a tela de logout, que será útil para quando o usuário quiser sair da dashboard. 
 
-Antes de tudo, vamos criar a URL de `logout` quase da mesma forma com que criamos a URL de login. Vamos abrir o arquivo `urls.py` e utilizar a função path para criar a URL `/logout`. O Código ficará assim:
+Antes de tudo, vamos criar a URL de `logout` quase da mesma forma com que criamos a URL de login. Vamos abrir o arquivo `urls.py` e utilizar a função `path` para criar a URL `logout`. O Código ficará assim:
 
 ```python
 # código acima omitido
@@ -343,7 +343,7 @@ Note que dessa vez estamos utilizando a classe `LogoutView`.
 
 ## Criando template de logout
 
-Com isso, agora vamos partir para a criação do template que deverá ser exibido quando a URL `logout` for acessada. Vamos criar o arquivo `logout.html` na pasta templates com o seguinte código:
+O processo será bem parecido com o executado para criação da URL da login. Como já criamos a URL, vamos agora partir para a criação do template que deverá ser exibido quando a URL `logout` for acessada. Vamos criar o arquivo `logout.html` na pasta templates com o seguinte código:
 
 ```markup
 <!DOCTYPE html>
@@ -405,21 +405,21 @@ Com isso, agora vamos partir para a criação do template que deverá ser exibid
 </html>
 ```
 
-Nosso template exibe uma mensagem dizendo o que o usuário saiu do sistema e um link para ele voltar para a página de login.
+Nosso template de logout exibe apenas uma mensagem dizendo que o usuário saiu do sistema e mostra um botão para ele voltar para a página de login, caso queira.
 
 ## Inserindo link para logout em dashboard
 
-Se você clicou antes em cima do e-mail do usuário logado, descobriu o botão `sair`.  Ele abre um modal pedindo que o usuário confirme se realmente deseja sair, que é exibido dessa forma:
+Se em algum momento anterior você clicou no ícone da engrenagem, no canto superior direito, descobriu o botão `sair`.  Ele abre um modal pedindo que o usuário confirme se realmente deseja sair:
 
 ![](../.gitbook/assets/screenshot_2020-04-11_21-17-29.png)
 
-Vamos inserir o link para a página logout no botão que confirma que o usuário deseja sair. No template base.html, vamos procurar pelo modal de id logoutModal e o botão sair dentro da div modal-footer. O HTML do botão ficará assim:
+Vamos inserir o link para a página logout no botão que confirma a ação que o usuário deseja sair. No template `base.html`, vamos procurar pelo modal de id `logoutModal` e depois o link "sair" dentro do elemento `<div class="modal-footer">`. O HTML do botão ficará assim:
 
 ```markup
 <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
 ```
 
-Com isso, quando o usuário clicar no botão será direcionado para a página de logout.
+Com isso, quando o usuário clicar no botão "sair" confirmando que deseja sair da dashboard, será direcionado para a página de logout.
 
 ![](../.gitbook/assets/screenshot_2020-04-11_21-20-36.png)
 
