@@ -305,7 +305,7 @@ Agora que estamos exibindo nosso formulário, vamos adicionar só mais uma coisa
 </html>
 ```
 
-Com o template finalizado, vamos novamente tentar acessar a URL [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard). Dessa vez, quando formos direcionados para a tela de login, vamos utilizar as credenciais que criamos \(e-mail e senha\) e acessar o sistema.
+Com o template finalizado, vamos novamente tentar acessar a URL [http://127.0.0.1:8000/](http://127.0.0.1:8000/). Dessa vez, quando formos direcionados para a tela de login, vamos utilizar as credenciais que criamos \(e-mail e senha\) e acessar o sistema.
 
 ## Criando URL para logout
 
