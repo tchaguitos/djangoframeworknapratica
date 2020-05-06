@@ -88,7 +88,7 @@ Agora vamos voltar para o arquivo `index.html` e alterar o último trecho, onde 
 
 Ao voltar para a página inicial da dashboard, o número de visitantes registrados no mês já estará sendo exibido.
 
-## Ordenando nossa busca por data e hora
+## Ordenando nossa lista de visitantes por horário de chegada
 
 O último passo antes da gente finalizar mais um capítulo é ordenar a lista de visitante por horário de chegada. Isto é, queremos que os registros de visitantes sigam uma certa ordem e essa ordem seja baseada no horário de chegada, de forma que os registros mais recentes fiquem sempre no topo.
 
