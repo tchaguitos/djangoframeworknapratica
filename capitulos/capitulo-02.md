@@ -8,14 +8,14 @@ Felizmente, o Django já nos dá alguns scripts que servem para executar tarefas
 
 Antes de executar os comandos necessários para iniciar projeto, vamos lembrar de ativar o ambiente virtual. Basta acessar a pasta do projeto \(`cd controle-visitantes`\) e utilizar o comando `source` passando caminho `env/bin/activate`:
 
-```python
+```bash
 $ cd controle-visitantes
 $ source env/bin/activate
 ```
 
 Após a ativação do ambiente, vamos criar um novo projeto utilizando o comando `startproject` do `django-admin`:
 
-```text
+```bash
 (env)$ django-admin startproject controle_visitantes .
 ```
 
@@ -29,7 +29,7 @@ O `manage.py` funciona exatamente como o `django-admin`. Na verdade, eles são a
 
 Como o Django já possui um servidor de desenvolvimento integrado que nos possibilita rodar a aplicação localmente, vamos iniciá-lo e verificar se está tudo funcionando conforme esperado. Para isso, vamos utilizar o seguinte comando:
 
-```text
+```bash
 (env)$ python manage.py runserver
 ```
 
@@ -79,7 +79,7 @@ Conforme vimos, um projeto Django nada mais é que um pacote Python que deve seg
 
 Felizmente, podemos usar o nosso bom e velho amigo `manage.py` para nos auxiliar nessa tarefa de criar toda a estrutura necessária para um novo aplicativo. Para criar nossos aplicativos podemos utilizar o comando `startapp` passando o nome do aplicativo que deverá ser criado:
 
-```text
+```bash
 (env)$ python manage.py startapp usuarios
 ```
 
@@ -443,7 +443,7 @@ Para isso, quando escrevemos uma classe modelo, temos que executar o comando `ma
 
 Ao executar o comando `makemigrations`, você está dizendo ao Django para armazenar as alterações realizadas em forma de _migração_. Uma _migração_ nada mais é que um arquivo de texto contendo todos os passos que devem ser executados para efetivação das alterações no banco de dados. Aparecerá algo como isso na tela do terminal:
 
-```python
+```text
 Migrations for 'usuarios':
   usuarios/migrations/0001_initial.py
     - Create model Usuario
@@ -457,7 +457,7 @@ Existe também um comando para rodar as migrações e gerenciar o _schema_ do ba
 
 Migrações são um recurso poderoso pois nos permitem alterar as classes modelos ao longo do tempo sem a necessidade de manipular nosso banco de dados. O comando `migrate` é especialista em atualizar nosso banco de dados em tempo real sem perder dados.
 
-```bash
+```text
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, sessions, usuarios
 
@@ -494,7 +494,7 @@ O Django foi desenvolvido em um ambiente de redação, onde havia uma clara sepa
 
 Como a administração do Django não foi desenvolvida para ser utilizada pelos visitantes do site, mas sim pelos gerentes, temos que criar um tipo diferente de usuário, que seria nosso "super usuário". Para isso basta utilizarmos o comando `createsuperuser` do nosso bom e velho amigo `manage.py`:
 
-```text
+```bash
 (env)$ python manage.py createsuperuser
 ```
 
