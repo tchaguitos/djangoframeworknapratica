@@ -321,22 +321,20 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
 
 {% load static %}
 
-<html lang="pt-BR">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        
-        <title>Controle de Visitantes</title>
+
+        <title>Controle de Visitantes | Django Framework na prática</title>
         
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         
         <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
         <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     </head>
-    
+
     <body id="page-top">
         <div id="wrapper">
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -359,7 +357,7 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                 
                 <hr class="sidebar-divider">
             </ul>
-    
+
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -370,7 +368,9 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-800 small">{{ request.user.email }}</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-800 small">
+                                        <i class="fas fa-cog"></i>
+                                    </span>
                                 </a>
                                 
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -382,24 +382,24 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                             </li>
                         </ul>
                     </nav>
-    
+
                     {% block conteudo %} {% endblock conteudo %}
-    
+
                     <footer class="sticky-footer bg-white">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
-                                <span>Controle de visitantes &copy; Django framework na prática</span>
+                                <span>Copyright © Django framework na prática</span>
                             </div>
                         </div>
                     </footer>
                 </div>
             </div>
-    
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Você realmente deseja sair?</h5>
+                            <h5 class="modal-title" id="ModalLabel">Você realmente deseja sair?</h5>
                             
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
@@ -416,7 +416,7 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
                 </div>
             </div>
         </div>
-    
+
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
