@@ -14,7 +14,7 @@ Vamos nos concentrar em cada item separadamente e, por agora, vamos focar no des
 
 Já falamos que os aplicativos de um projeto Django devem executar tarefas específicas, como gerenciar os usuários do sistema - que é exatamente o que o nosso aplicativo `usuarios` faz. Sendo assim, vamos iniciar um novo aplicativo com nome de "porteiros" que será responsável por gerenciar tudo referente aos porteiros. Vamos utilizar nosso bom e velho amigo `manage.py`:
 
-```text
+```bash
 (env)$ python manage.py startapp porteiros
 ```
 
@@ -225,13 +225,13 @@ admin.site.register(Porteiro)
 
 Feito isso, vamos agora validar o código escrito e criar as migrações do modelo criado utilizando o comando `makemigrations`.
 
-```python
+```bash
 (env)$ python manage.py makemigrations porteiros
 ```
 
 Se ocorrer bem, vamos receber as seguintes informações em nosso terminal:
 
-```python
+```text
 Migrations for 'porteiros':
   porteiros/migrations/0001_initial.py
     - Create model Porteiro
@@ -239,13 +239,13 @@ Migrations for 'porteiros':
 
 Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos pedir ao Django que efetue essas alterações em nosso banco. Para isso vamos executar o comando `migrate`.
 
-```python
+```bash
 (env)$ python manage.py migrate
 ```
 
 E, se tudo ocorrer bem, vamos receber em nosso terminal:
 
-```python
+```text
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, porteiros, sessions, usuarios
 
