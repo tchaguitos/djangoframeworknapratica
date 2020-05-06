@@ -2,76 +2,86 @@
 
 ## Capítulo 01
 
-* [x] Conhecendo o instrutor e sabendo mais sobre o curso
-  * [x] Sobre o instrutor
-  * [x] Sobre o curso
-* [x] A linguagem de programação Python
-* [x] O que é Django Framework?
-* [x] Instalando e configurando o ambiente para iniciar o projeto
-  * [x] Python 3.6
-  * [x] Virtualenv
-  * [ ] Pip \(dizer que ele já vem instalado ao instalarmos o virtualenv\)
-  * [x] Django framework
+* Conhecendo o instrutor e sabendo mais sobre o curso
+  * Sobre o instrutor
+  * Sobre o curso
+  * O que iremos construir?
+* A linguagem de programação Python
+* O que é Django Framework?
+* Instalando e configurando o ambiente para iniciar o projeto
+  * Python 3.8
+  * Virtualenv
+  * Pip
+  * Django framework
 
-## Módulo 2
+## Capítulo 02
 
-* [x] Iniciando seu primeiro projeto Django
-* [x] Entendendo a estrutura do projeto
-* [x] Criando nosso primeiro aplicativo Django
-* [x] Criando nosso "Hello World"
-* [x] Escrevendo as models
-  * [x] Escrevendo a classe modelo
-  * [x] Escrevendo um manager personalizado
-  * [x] Alterando o modelo padrão nas configurações
-  * [x] Criando as tabelas do nosso banco de dados
-* [x] Criando um super usuário
-* [x] Conhecendo o Django Admin
-* [x] Boas práticas e alterações necessárias nas configurações
+* Iniciando seu primeiro projeto Django
+  * Um pouco mais sobre o django-admin
+* Entendendo a estrutura do projeto
+* Criando nosso primeiro aplicativo Django
+* Criando nosso "Hello World"
+* Escrevendo as models
+  * Escrevendo a classe modelo
+  * Escrevendo um manager personalizado
+  * Alterando o modelo padrão nas configurações
+  * Criando as tabelas do nosso banco de dados
+* Criando um super usuário
+* Conhecendo o Django Admin
+* Alterações necessárias nas configurações
 
-## Módulo 3
 
-* [x] Criando aplicativo para gerenciar porteiros
-* [x] Escrevendo as models do nosso aplicativo de porteiros
-  * [x] Conhecendo o campo DateField
-  * [x] Conhecendo o campo OneToOneField
-* [x] Registrando nossa aplicação no Admin do Django
-* [x] Aplicando as alterações em nosso banco de dados
-* [x] Criando porteiro através do Admin do Django
 
-## Módulo 4
+## Capítulo 03
 
-* [x] Configurando a aplicação para trabalhar com arquivos estáticos e pasta templates
-* [x] Explicando as adaptações realizadas no template para funcionar no Django
-  * [x] Alterar o caminho para arquivos estáticos
-* [x] Atualizar função de home para usar o template
-* [x] Passando variáveis para o template
+* Criando aplicativo para gerenciar porteiros
+* Escrevendo as models do nosso aplicativo de porteiros
+  * Conhecendo o campo DateField
+  * Conhecendo o campo OneToOneField
+* Registrando nossa aplicação no Admin do Django
+* Aplicando as alterações em nosso banco de dados
+* Criando porteiro através do Admin do Django
 
-## Módulo 5
+## Capítulo 04
 
-* [x] Criando nosso aplicativo para gerenciar visitantes
-* [x] Escrevendo as models do nosso aplicativo de visitantes
-  * [x] Conhecendo o campo ForeignKey
-  * [x] Conhecendo o campo DateTimeField
-* [x] Aplicando as alterações nas models no banco de dados
-* [x] Registrando nossa aplicação no Admin do Django
-* [x] Registrando um visitante utilizando o Django Admin
-* [x] Listando visitantes na página inicial da dashboard
-  * [x] Buscando registros de visitantes no banco de dados
-    * [x] Falar sobre Queryset API
-  * [x] Listando registros de visitantes no HTML
+* Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
+  * Criando a pasta templates em nosso projeto
+  * Criando a pasta static em nosso projeto
+* Criando views que renderizam templates
+  * Conhecendo a função render
+* Entendendo as adaptações necessárias no template
+  * Conhecendo a tag static
+  * Alterando o caminho dos arquivos estáticos
+    * Alterando as importações dos arquivos CSS
+    * Alterando as importações dos arquivos JS
+* Exibindo variáveis no template
+  * Definindo nosso dicionário de contexto
+  * Exibindo as informações nos templates
 
-## Módulo 6
+## Capítulo 05
 
-* [x] Criando tela para registro de visitante
-* [x] Adaptando o template para trabalhar com a template engine do Django
-  * [x] Criando o template "base.html"
-  * [x] Adaptando template "registrar\_visitante.html" para trabalhar com a engine do Django
-* [x] Criando view para registrar visitante
-* [x] Trabalhando com formulários no Django
-  * [x] Preparando view para receber requisição do tipo POST \(falar sobre "request", validações dos formulários do Django \(modelForm\), falar sobre redirect e csrf\_token\)
-  * [x] Criando intimidade com os formulários \(falar sobre atributo fields e alterar para se adequar às nossas necessidades\)
-* [x] Conhecendo um pouco mais dos formulários \(tratar problema de valor nulo para campo "autorizado\_por"\)
-  * [x] Falar sobre relacionamento entre FKs
+* Criando o aplicativo para gerenciar visitantes
+* Escrevendo as models do nosso aplicativo de visitantes
+  * Conhecendo o campo DateTimeField
+  * Conhecendo o campo ForeignKey
+* Registrando nossa aplicação no Admin do Django
+* Aplicando as alterações em nosso banco de dados
+* Adicionando visitante utilizando o Django Admin
+* Listando visitantes na página inicial da dashboard
+  * Buscando registros de visitantes no banco de dados
+  * Listando registros de visitantes no template HTML
+    * Conhecendo a tag for e acessando atributos do visitante
+
+## Capítulo 06
+
+* Criando tela para registro de novo visitante
+* Criando view para registrar visitante
+  * Criando URL para mapear view
+* Adaptando nossos templates para trabalhar com a template engine do Django
+  * Criando o template base
+  * Adaptando template index
+  * Adaptando template base
+  * Adaptando template registrar\_visitante
 
 ## Módulo 7
 
