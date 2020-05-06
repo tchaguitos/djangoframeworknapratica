@@ -6,10 +6,15 @@ Apostila que guiará o desenvolvimento do curso "Django framework na prática" e
 
 ## Pré requisitos
 
-* Possuir conta e saber trabalhar com Git e Github
-* Possuir conhecimentos básicos da linguagem Python
-* Possuir conhecimentos básicos em Programação Orientada a Objetos \(POO\) com Python
-  * Classes
-  * Atributos
-  * Métodos
+* Possuir conta e saber trabalhar com Git e [Github](https://github.com/)
+* Conhecimentos básicos da linguagem Python
+  * Funções
+  * Noções de Programação Orientada a Objetos
+    * Classes
+    * Instância de classe
+    * Atributos
+    * Métodos
+    * Sobrescrita de métodos
+* Conhecimentos básicos em HTML, CSS e JS
+  * Noções de [Bootstrap](https://getbootstrap.com/)
 
