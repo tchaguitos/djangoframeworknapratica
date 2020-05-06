@@ -61,13 +61,13 @@ O status `default` será `AGUARDANDO` pois sempre que um visitante chega à port
 
 Como vimos anteriormente, sempre que mudamos a estrutura do nosso modelo, precisamos criar um arquivo que registra essas alterações em formato de migração para que seja possível efetuar as alterações no banco de dados posteriormente. Mais uma vez, utilizaremos o comando `makemigrations`:
 
-```python
+```bash
 (env)$ python manage.py makemigrations visitantes
 ```
 
 O terminal deverá mostrar algo parecido com isto:
 
-```python
+```text
 Migrations for 'visitantes':
   visitantes/migrations/0005_visitante_status.py
     - Add field status to visitante
@@ -77,7 +77,7 @@ Migrations for 'visitantes':
 
 Nada diferente do que já vimos, vamos agora utiliza o comando `migrate` para efetuar as mudanças em nosso banco de dados:
 
-```python
+```bash
 (env)$ python manage.py migrate
 ```
 
