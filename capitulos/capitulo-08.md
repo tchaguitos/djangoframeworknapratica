@@ -107,7 +107,7 @@ Como passamos a variável `visitante` no contexto, podemos acessá-la diretament
 
 Antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro responsável pelo registro e o horário que o visitante foi registrado. Para isso, vamos alterar o texto de "Visitante registrado em 15/10/2020 por Jack Torrance" para "Visitante registrado em `{{ visitante.horario_chegada }}` por `{{ visitante.registrado_por }}`". O template ficará assim:
 
-```python
+```markup
 <div class="card-body">
     <h4 class="mb-3 text-primary">
         Informações gerais
@@ -259,7 +259,7 @@ Com nossos métodos criados, temos que alterar o template `informacoes_visitante
 
 Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_saida` e `placa_veiculo`, vamos alterar para métodos criados. Ou seja, ao invés de `{{ visitante.horario_autorizacao }}`, utilizaremos `{{ visitante.get_horario_autorizacao }}`. O template ficará assim:
 
-```python
+```markup
 <div class="card-body">
     <h4 class="mb-3 text-primary">
         Informações gerais
@@ -354,7 +354,7 @@ Para nossa sorte, o pessoal responsável pelo Django já pensou em tudo por nós
 
 Vamos abrir o arquivo `index.html` e utilizar a tag `{% url %}` para renderizar a URL que irá nos direcionar para o template de informações de cada visitante. Na tabela que exibe as informações dos visitantes recentes existe um link que exibe o texto "Ver detalhes". Vamos alterar o valor de `href` do elemento `<a>` de `#` para `{% url 'informacoes_visitante' id=visitante.id %}`. Primeiro passamos nome da URL e depois podemos passar argumentos necessários que, para esse caso, é somente a `id`. Note também que, dentro do loop, o `id` de cada visitante é acessado da mesma forma que os outros atributos. O loop ficará assim:
 
-```python
+```markup
 {% for visitante in todos_visitantes %}
     <td>{{ visitante.nome_completo }}</td>
     <td>{{ visitante.cpf }}</td>
@@ -371,7 +371,7 @@ Vamos abrir o arquivo `index.html` e utilizar a tag `{% url %}` para renderizar 
 
 Para facilitar o acesso à URL de registro de visitantes, vamos inserir um botão ao lado do nome da página que deverá nos direcionar para a página [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-vistante/). Abaixo do elemento `<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>` vamos inserir o seguinte trecho de código:
 
-```python
+```markup
 <a href="{% url 'registrar_visitante' %}" class="btn btn-primary btn-icon-split btn-sm">
     <span class="text">Registrar visitante</span>
 
