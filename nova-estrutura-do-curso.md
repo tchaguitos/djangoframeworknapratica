@@ -20,7 +20,7 @@
   * Um pouco mais sobre o django-admin
 * Entendendo a estrutura do projeto
 * Criando nosso primeiro aplicativo Django
-* Criando nosso "Hello World"
+* Escrevendo nosso "Hello World"
 * Escrevendo as models
   * Escrevendo a classe modelo
   * Escrevendo um manager personalizado
