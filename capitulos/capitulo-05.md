@@ -8,7 +8,7 @@ Como já definimos os usuários do sistema, os porteiros e fizemos as configura�
 
 Antes de mais nada, como já sabemos, devemos isolar as responsabilidades e, por isso, vamos criar um aplicativo para administrar toda a parte referente aos nossos visitantes. Vamos criar um novo aplicativo com nome de **visitantes** utilizando o `manage.py`:
 
-```text
+```bash
 (env)$ python manage.py startapp visitantes
 ```
 
@@ -286,13 +286,13 @@ admin.site.register(Visitante)
 
 Feito isso, mais uma vez vamos criar as migrações do modelo criado utilizando o comando `makemigrations`.
 
-```python
+```bash
 (env)$ python manage.py makemigrations visitantes
 ```
 
 Se tudo ocorrer bem, vamos receber as seguintes informações em nosso terminal:
 
-```python
+```text
 Migrations for 'visitantes':
   porteiros/migrations/0001_initial.py
     - Create model Visitante
@@ -300,13 +300,13 @@ Migrations for 'visitantes':
 
 Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos aplicar as alterações em nosso banco de dados com o comando `migrate`.
 
-```python
+```bash
 (env)$ python manage.py migrate
 ```
 
 Devemos receber as seguintes informações em nosso terminal:
 
-```python
+```text
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, porteiros, sessions,
   usuarios, visitantes
