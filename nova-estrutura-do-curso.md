@@ -52,8 +52,6 @@
 * Entendendo as adaptações necessárias no template
   * Conhecendo a tag static
   * Alterando o caminho dos arquivos estáticos
-    * Alterando as importações dos arquivos CSS
-    * Alterando as importações dos arquivos JS
 * Exibindo variáveis no template
   * Definindo nosso dicionário de contexto
   * Exibindo as informações nos templates
@@ -70,7 +68,6 @@
 * Listando visitantes na página inicial da dashboard
   * Buscando registros de visitantes no banco de dados
   * Listando registros de visitantes no template HTML
-    * Conhecendo a tag for e acessando atributos do visitante
 
 ## Capítulo 06
 
@@ -120,96 +117,55 @@
   * Utilizando métodos personalizados no template
 * Utilizando o Django para renderizar nossas URLs
 
-## Módulo 10
+## Capítulo 09
 
-* [x] Criando função para finalizar visita
-  * [x] Escrevendo view para finalizar visita 
-  * [x] Criando URL
-* [x] Alterando template para enviar uma requisição do tipo POST ao confirmar encerramento da visita
-* [x] Prevenindo erros e operações desnecessárias
-  * [x] Exibição condicional de botões para autorizar entrada e finalizar visita
+* Criando funcionalidade para autorização de entrada de visitante
+* Criando um status diferente para cada estágio da visita
+  * Criando o arquivo de migrações
+  * Efetuando as alterações no banco de dados
+* Criando formulário para atualizar atributos específicos do visitante
+* Alterando view para autorizar entrada de visitante
+* Alterando template para exibir modal com formulário
+* Atualizando os campos horario\_autorizacao e status diretamente
+  * Atualizando o status
+  * Conhecendo o datetime do Python
 
-## Módulo 11
+## Capítulo 10
 
-* [x] Implementando melhorias em nossos templates
-  * [x] Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante 
-    * [x] Explicar que utilizaremos apenas um link para a página inicial da dashboard devido ao fato de que a única maneira de chegar até as duas páginas é pela página inicial da dashboard
-  * [ ] Melhorando a exibição do CPF do visitante
-    * [ ] Criando método get\_cpf
-    * [ ] Conhecendo o f-strings do Python
-  * [ ] Exibindo informações do usuário logado diretamente no template
-* [ ] Implementando melhorias na estrutura do nosso projeto
-  * [ ] Criar pasta "apps"
-* [ ] Criando métodos para organizar melhor nosso código
-  * [ ] get\_absolute\_url, etc \(revisar\)
+* Criando função para finalizar visita
+* Criando URL
+* Alterando template para exibir botão e modal para finalizar visita
+* Prevenindo erros e operações desnecessárias
+  * Exibição condicional de botões para autorizar entrada e finalizar visita
+* Bloqueando o acesso à URL por métodos diferentes do POST
 
-## Módulo 12
+## Capítulo 11
 
-* [ ] Criando aplicativos para administrar informações da dashboard
-  * [ ] Falar um pouco mais sobre a função dos apps django para realizar tarefas específicas, etc
-* [ ] Migrando view "index" para aplicativo dashboard
-* [ ] Buscando quantidade de visitantes para exibir na dashboard
-  * [ ] Conhecendo o método count\(\)
-  * [ ] Exibindo número de visitantes no template
-* [ ] Conhecendo o método filter\(\)
-  * [ ] Filtrando nossos visitantes por nome e CPF
-* [ ] Filtrando nossos visitantes por status
-  * [ ] Filtrando e contando visitantes em visita
-  * [ ] Filtrando e contando visitantes aguardando autorização
-  * [ ] Filtrando e contando visitas finalizadas
+* Implementando melhorias em nossos templates
+  * Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
+  * Melhorando a exibição do CPF do visitante
+  * Criando método para exibir status do visitante
+* Implementando melhorias na estrutura do nosso projeto
 
-## Módulo 13
+## Capítulo 12
 
-* [ ] Filtrando nossos visitantes por data
-  * [ ] Conhecendo o field lookups da Queryset API \(horario\_chegada\_\_date\)
-* [ ] Filtrando apenas os registros do mês atual
-* [ ] Utilizando o datetime para descobrir o mês atual
-* [ ] Ordenando nossa busca por data e hora
+* Criando aplicativos para administrar informações da dashboard
+* Migrando view "index" para aplicativo dashboard
+* Conhecendo o método filter das querysets
+  * Filtrando nossos visitantes por status
+  * Contando os resultados de uma queryset
 
-## Módulo 14
+## Capítulo 13
 
-* [ ] Bloqueando o acesso para usuários não autenticados nas nossas views
-* [ ] Utilizando o sistema de autenticação do Django para nos fornecer a view de login
-  * [ ] Criando a URL
-    * [ ] Utilizando o método as\_view\(\)
-* [ ] Criando o template de login
-  * [ ] Renderizando formulário de login
-* [ ] Alterando a URL padrão para login e redirecionamento após login
-* [ ] Adicionando mensagem de erro em formulário de login
-* [ ] Criando URL para logout
-* [ ] Criando template de logout
-* [ ] Inserindo link para logout em dashboard
+* Aprendendo a filtrar nossos visitantes por data
+* Conhecendo o field lookups da Queryset API
+* Filtrando apenas os registros do mês atual
+  * Utilizando o datetime para descobrir o mês atual
+* Ordenando nossa lista de visitantes por horário de chegada
 
-## Módulo 15
+## Capítulo 14
 
-* [ ] Paginando listagem de visitantes 
-  * [ ] Conhecendo a classe Paginator
-* [ ] Alterando template para exibir resultados paginados \(10 em 10 itens\)
-* [ ] Adicionando links no template para navegar nos resultados paginados
-
-## Módulo 16
-
-* [ ] Criando função para filtrar e buscar visitantes com django-filter
-  * [ ] Como instalar \(inserindo nas configurações\)
-* [ ] Criando nossos filtros
-  * [ ] Criando o arquivo filters.py
-* [ ] Utilizando o filtro na view
-  * [ ] falar sobre ordem de operação e porque a queryset vem antes do filtro e depois dele vem a paginação\)
-  * [ ] falar sobre request.GET \(somente lembrar do objeto request\)
-  * [ ] Passando o resultado do filtro para a classe Paginator
-* [ ] Testando o filtro passando parâmetros pela URL e acessando no navegador
-* [ ] Criando interface para usuário realizar busca ou filtro na dashboard
-  * [ ] Utilizando o django-widget-tweaks para renderizar nosso formulário
-* [ ] Adicionando os campos "numero\_casa" e "status"
-
-## Módulo 17
-
-* [ ] Criando botão para "limpar filtro"
-  * [ ] Identificando quando o usuário está solicitando os resultados filtrados
-* [ ] Mantendo a query ao voltar da página de informações de visitante
-  * [ ] Conhecendo um pouco mais o objeto request \(request.META.HTTP\_REFERER\)
-* [ ] Melhorando nossos filtros
-  * [ ] Tornando possível pesquisa por parte de nome
+## Capítulo 15
 
 
 
