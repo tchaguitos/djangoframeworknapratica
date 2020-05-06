@@ -165,7 +165,23 @@
 
 ## Capítulo 14
 
+* Bloqueando o acesso para usuários não autenticados nas nossas views
+  * Conhecendo o decorator login\_required
+* Alterando a URL padrão para login e redirecionamento após login
+* Utilizando o sistema de autenticação do Django para nos fornecer a view de login
+* Criando o template de login
+  * Renderizando formulário de login
+* Adicionando mensagem de erro em formulário de login
+* Criando URL para logout
+* Criando template de logout
+* Inserindo link para logout em dashboard
+
 ## Capítulo 15
+
+* Paginando listagem de visitantes
+* Conhecendo a classe Paginator
+* Alterando template para exibir resultados paginados
+* Adicionando links no template para navegar nos resultados
 
 
 
