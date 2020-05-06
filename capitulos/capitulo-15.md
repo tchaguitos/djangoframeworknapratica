@@ -52,7 +52,7 @@ context = {
 
 Agora vamos partir para o template `index.html` e antes de acessar qualquer página, vamos substituir a variável `todos_visitantes` pela variável `pagina_obj`, pois vamos exibir os resultados que estiverem na página que buscamos.
 
-```python
+```markup
 # alterar de:
 {% for visitante in todos_visitantes %}
 
