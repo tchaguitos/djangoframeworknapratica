@@ -83,50 +83,42 @@
   * Adaptando template base
   * Adaptando template registrar\_visitante
 
-## Módulo 7
+## Capítulo 07 - Parte 1
 
-* [x] Melhorando a exibição do nosso formulário
-* [x] Estilizando nosso formulário com django-widget-tweaks
-  * [x] Como instalar \(inserindo nas configurações\)
-  * [x] Importando no template \(tags, etc\)
-  * [x] Utilizando o render\_field
-* [x] Exibindo uma mensagem para o usuário ao cadastrar novo visitante \([https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b](https://github.com/tchaguitos/controle-visitantes/commit/c414e3068e2fffd9272c4e8fee306d287a21219b)\)
-  * [x] Conhecendo o Django messages
-  * [x] Adicionando uma mensagem
-  * [x] Alterando o template para exibir as mensagens
-* [x] Tratando possíveis erros em nosso formulário
-  * [x] Alterando template para exibir mensagem de erro em formulário
-* [x] Deixando nossas mensagens de erro mais claras \(error\_messages\)
+* Trabalhando com formulários no Django
+* Criando nosso formulário
+* Renderizando nosso formulário automaticamente
+* Melhorando a exibição do nosso formulário
+* Estilizando nosso formulário com django-widget-tweaks
+  * Como instalar
+  * Importando no template
+  * Utilizando o render\_field
 
-## Módulo 8
+## Capítulo 07 - Parte 2
 
-* [x] Criando tela para exibir informações de visitante
-  * [x] Criando view
-    * [x] Recebendo token em view
-    * [x] Utilizando o get\_model\_or\_404
-  * [x] Criando template
-  * [x] Criando URL para acessar informações de visitante
-    * [x] Recebendo variáveis através da URL no Django
-* [x] Utilizando o Django para renderizar nossas URLs
-* [x] Aprendendo um pouco mais sobre URLs no Django
-* [x] Modelos do Django e seus métodos \([https://docs.djangoproject.com/en/2.2/ref/models/instances/\#django.db.models.Model.get\_FOO\_display](https://docs.djangoproject.com/en/2.2/ref/models/instances/#django.db.models.Model.get_FOO_display)\)
-  * [x] get\_status\_display\(\)
-* [x] Criando métodos personalizados para exibir informações do nosso modelo de Visitante
-  * [x] Exibindo atributos somente quando preenchidos
-    * [x] Criando método get\_horario\_autorizacao
-    * [x] Criando método get\_autorizado\_por
-    * [x] Criando método get\_horario\_saida
-* [x] Utilizando métodos para exibir informações no template
+* Preparando view para receber requisição do tipo POST
+  * Conhecendo o objeto request
+* Conhecendo um pouco mais dos formulários
+  * Tratando problema com atributo nulo
+* Exibindo uma mensagem para o usuário ao cadastrar novo visitante
+  * Conhecendo o Django messages
+  * Alterando o template para exigir as mensagens
+* Tratando possíveis erros em nosso formulário
+* Deixando nossas mensagens de erro mais claras
 
-## Módulo 9
+## Capítulo 08
 
-* [x] Criando função para autorizar entrada de visitante
-* [x] Utilizando formulários para atualizar atributos específico
-* [x] Alterando template para exibir modal com formulário
-* [x] Alterando formulário HTML para se adequar às nossas necessidades
-  * [x] Alterar método
-* [x] Atualizando os campos horario\_autorizacao e status
-  * [x] Conhecendo o datetime do Python
+* Criando tela para exibir informações de visitante
+* Criando a view
+  * Conhecendo o atalho get\_model\_or\_404
+* Criando URL para acessar informações de visitante
+* Criando template para exibir informações de visitante
+* Criando métodos personalizados para exibir informações do Visitante
+  * Criando método para exibir horário de saída
+  * Criando métodos para exibir horário de autorização de entrada e morador responsável por autorizar a entrada
+  * Criando método para exibir placa do veículo utilizado na visita
+  * Utilizando métodos personalizados no template
+* Utilizando o Django para renderizar nossas URLs
 
 ## Módulo 10
 
