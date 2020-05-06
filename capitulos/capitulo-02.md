@@ -139,7 +139,7 @@ INSTALLED_APPS += [
 ]
 ```
 
-## Criando nosso "Hello World"
+## Escrevendo nosso "Hello World"
 
 O "Hello world" \(ou "Olá mundo"\) é aquele famoso programa de computador que imprime na tela o texto "Hello world" e é sempre utilizado como exemplo minimalista de determinada linguagem ou framework. Não vamos deixar a tradição de lado e vamos implementar a nossa versão do programa em Django. A diferença é que, como estamos trabalhando na web, vamos exibir o texto no navegador, acessando a URL que vamos configurar. Mão na massa!
 
