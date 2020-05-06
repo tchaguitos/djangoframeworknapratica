@@ -23,6 +23,10 @@ Nesse curso a gente vai construir junto uma aplicação web do zero com Python u
 
 Depois desse curso você estará apto para desenvolver aplicações web robustas utilizando Django framework, tendo visão ampla das principais funcionalidades e facilidades que o framework nos permite aproveitar.
 
+### O que iremos construir?
+
+Um condomínio...
+
 ## A linguagem de programação Python
 
 Python é uma linguagem de programação de código aberto poderosa, amigável e bastante popular. Com ela é possível desenvolver sistemas web, trabalhar com análise de dados, inteligência artificial e machine learning, nomes muito falados ultimamente, além de desenvolver aplicativos móveis e aplicações para desktop.
