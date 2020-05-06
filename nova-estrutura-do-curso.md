@@ -1,6 +1,6 @@
 # Tópicos da apostila
 
-## Módulo 1
+## Capítulo 01
 
 * [x] Conhecendo o instrutor e sabendo mais sobre o curso
   * [x] Sobre o instrutor
