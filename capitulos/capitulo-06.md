@@ -76,7 +76,7 @@ Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templat
 
 Com o template `base.html` criado, vamos fazer algumas adaptações em nosso template `index.html` para garantir que ele seja exibido corretamente fazendo uso da engine de templates do Django. Apague todo o conteúdo existente no arquivo `index.html` deixando apenas o conteúdo dentro do elemento HTML `<div class="container-fluid">`. O arquivo `index.html` ficará assim:
 
-```python
+```markup
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
@@ -194,7 +194,7 @@ Com os templates devidamente separados, vamos trabalhar agora nas adaptações n
 
 Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizado para substituição. Faremos isso utilizando as tags `{% block %}` e `{% endblock %}` passando um nome a elas. Logo abaixo da tag `{% extends "base.html" %}` vamos inserir a tag `{% block conteudo %}` e ao final do arquivo a tag `{% endblock conteudo %}`. Fazendo isso estamos deixando claro para o Django qual trecho deverá ser colocado no template `base.html` quando acessarmos a view que renderiza o template `index.html`.  Nosso arquivo ficará assim após as adaptações:
 
-```python
+```markup
 {% extends "base.html" %}
 
 {% block conteudo %}
@@ -316,7 +316,7 @@ Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizad
 
 Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para ele e o deixamos de lado, mas agora é hora de trabalharmos nele. O que temos que fazer é substituir o elemento HTML `<div class="container-fluid">` pelas tags `{% block conteudo %}` e `{% endblock conteudo %}.` O template `base.html` ficará assim:
 
-```python
+```markup
 <!DOCTYPE html>
 
 {% load static %}
@@ -428,7 +428,7 @@ Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para
 
 Faremos o mesmo que fizemos com o template `index.html`, mas agora deixando apenas o conteúdo existente dentro do elemento HTML `<div class="container">` e inserindo as tags `{% extends "base.html" %}`, `{% block conteudo %}` e `{% endblock conteudo %}`. O template `registrar_visitante.html` ficará assim:
 
-```python
+```markup
 {% extends "base.html" %}
 
 {% block conteudo %}
