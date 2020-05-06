@@ -92,7 +92,7 @@ Para instalar o **django-widget-tweaks** utilizaremos nosso já conhecido gerenc
 
 Caso ocorra bem tudo, você terá instalado o **django-widget-tweaks** em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para uma melhor organização, vamos criar uma lista separada da lista dos nossos aplicativos.
 
-```bash
+```python
 # código acima omitido
 
 INSTALLED_APPS += [
