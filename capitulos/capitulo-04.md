@@ -233,13 +233,13 @@ Para exibirmos os valores contidos no dicionário `context` basta utilizarmos a 
 
 Vamos abrir o arquivo `index.html` e procurar pela seguinte linha:
 
-```python
+```markup
 <h1 class="h3 mb-0 text-gray-800">Página inicial</h1>
 ```
 
 Vamos alterar o texto da tag `h1` \(o texto **Página inicial**\) para exibir também o valor da nossa variável `nome_pagina` passada na variável `context` da view. A linha deverá ficar assim:
 
-```python
+```markup
 <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
 ```
 
