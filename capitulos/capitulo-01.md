@@ -25,7 +25,7 @@ Depois desse curso você estará apto para desenvolver aplicações web robustas
 
 ### O que iremos construir?
 
-Um condomínio...
+A administração de um famoso condomínio entrou em contato conosco para que fosse...
 
 ## A linguagem de programação Python
 
