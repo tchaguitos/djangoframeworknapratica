@@ -5,7 +5,7 @@
 ## Geral
 
 * [Tópicos da apostila](nova-estrutura-do-curso.md)
-* [Documento de requisitos](documento-de-requisitos.md)
+* [Proposta de desenvolvimento](proposta-de-desenvolvimento.md)
 
 ## Capítulos
 

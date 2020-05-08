@@ -1,8 +1,8 @@
-# Documento de requisitos
+# Proposta de desenvolvimento
 
 O condomínio {{ }} é um conceituado empreendimento que oferece conforto, qualidade e segurança para seus moradores. O condomínio nos procurou com o intuito de melhorar a experiência de trabalho de seus porteiros e tornar informatizado o processo de registro e administração de visitantes, de modo que os porteiros tenham acesso a uma página web e essas informações possam ser acessadas de qualquer lugar. Além do mais, desta forma, é possível garantir a segurança e a confiabilidade dos registros.
 
-## Introdução
+## Entendendo o processo
 
 Quando um visitante chega à portaria do condomínio, o mesmo deve informar alguns dados pessoais para que o porteiro anote estas informações no caderno de visitantes. Feito isso, o porteiro deve comunicar um morador que esteja na casa no momento e que possa autorizar a entrada deste visitante. Com a autorização concedida, o porteiro deve anotar o nome do morador e o horário em que a autorização ocorreu. Somente após esta etapa que o visitante pode adentrar ao condomínio e iniciar sua visita. Ao final da visita, o porteiro deve registrar o horário em que o visitante saiu das dependências do condomínio e ainda escrever seu nome para registrar que ele é o responsável pelo registro.
 
@@ -10,15 +10,19 @@ Todo esse processo, atualmente, ocorre de forma manual e através de um caderno 
 
 Ter um sistema web para registro e administração de visitantes é um projeto importante para o condomínio pois será um diferencial frente a outros concorrentes e ainda vai melhorar bastante a experiência de trabalho dos porteiros que, com o sistema em funcionamento, terão menos informações para preencher e, consequentemente, menos tempo será perdido com as atividades relacionadas ao registro de visitantes.
 
-## Proposta de desenvolvimento
+## Levantamento de requisitos
 
 Com todo esse cenário em mente, precisamos desenvolver uma página web que seja acessível por meio das credenciais **e-mail** e **senha** e que possibilite o **registro dos visitantes**, conforme é feito atualmente no caderno. Para cadastrar um visitante é necessário informar seu **nome completo**, **CPF**, **data de nascimento**, o **número da casa a ser visitada,** a **placa do veículo do visitante**, se houver, e ainda o **horário em que o visitante se apresentou à portaria**.
 
 Após o registro, o porteiro deve entrar em contato com um morador que esteja na casa no momento e informar à respeito da visita para que o morador autorize a entrada do visitante. Com a autorização concedida, o porteiro deve colocar no caderno o **nome do morador que autorizou a entrada do visitante** e o **horário em que essa autorização ocorreu**. Ao final da visita, o **horário em que o visitante deixou as dependências do condomínio** deve ser registrado junto do **nome do porteiro responsável pelo registro**. O fluxo e as etapas de todo o processo são as seguintes:
 
-![](.gitbook/assets/diagrama.jpeg)
+![Imagem contendo fluxograma de etapas do processo de visita ao condom&#xED;nio](.gitbook/assets/diagrama.jpeg)
 
-Ao receber as primeiras informações para o registro
+A divisão do processo por etapas faz com que fiquem mais claras as atividades e a ordem em que elas devem ocorrer. Enxergando desta forma, podemos pensar em formas de dividir o preenchimento das informações e a automatização de determinadas informações.
+
+Para poupar tempo do porteiro, ao receber as primeiras informações para o registro, é desejável que o horário de chegada seja preenchido automaticamente pois, desta forma, o porteiro fica preocupado somente em receber as informações pessoais do vistante, a casa a ser visitada e informar o placa do veículo, se houver.
+
+Outro ponto interessante seria o registro automático do horário de autorização, assim que o porteiro informar o nome do morador responsável por autorizar a entrada do visitante. Essa informação pode ser preenchida num segundo momento, pois o visitante ficará aguardando o contato do porteiro com um morador que autorize a sua entrada na recepção. Além disto, observando as etapas é possível verificar que o preenchimento destas informações ocorrem na mesma etapa, antes da entrada do visitante ao condomínio...
 
 Automatizando esse processo, podemos economizar tempo no registro dos visitantes e ainda conseguimos manter as informações seguras.
 
