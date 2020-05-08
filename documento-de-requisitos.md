@@ -14,7 +14,11 @@ Ter um sistema web para registro e administração de visitantes é um projeto i
 
 Com todo esse cenário em mente, precisamos desenvolver uma página web que seja acessível por meio das credenciais **e-mail** e **senha** e que possibilite o **registro dos visitantes**, conforme é feito atualmente no caderno. Para cadastrar um visitante é necessário informar seu **nome completo**, **CPF**, **data de nascimento**, o **número da casa a ser visitada,** a **placa do veículo do visitante**, se houver, e ainda o **horário em que o visitante se apresentou à portaria**.
 
-Após o registro, o porteiro deve entrar em contato com um morador que esteja na casa no momento e informar à respeito da visita para que o morador autorize a entrada do visitante. Com a autorização concedida, o porteiro deve colocar no caderno o **nome do morador que autorizou a entrada do visitante** e o **horário em que essa autorização ocorreu**. Ao final da visita, claro, o **horário em que o visitante deixou as dependências do condomínio** deve ser registrado junto do **nome do porteiro responsável pelo registro**.
+Após o registro, o porteiro deve entrar em contato com um morador que esteja na casa no momento e informar à respeito da visita para que o morador autorize a entrada do visitante. Com a autorização concedida, o porteiro deve colocar no caderno o **nome do morador que autorizou a entrada do visitante** e o **horário em que essa autorização ocorreu**. Ao final da visita, o **horário em que o visitante deixou as dependências do condomínio** deve ser registrado junto do **nome do porteiro responsável pelo registro**. O fluxo e as etapas de todo o processo são as seguintes:
+
+![](.gitbook/assets/diagrama.jpeg)
+
+Ao receber as primeiras informações para o registro
 
 Automatizando esse processo, podemos economizar tempo no registro dos visitantes e ainda conseguimos manter as informações seguras.
 
