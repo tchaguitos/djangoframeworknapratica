@@ -22,9 +22,9 @@ A divisão do processo por etapas faz com que fiquem mais claras as atividades e
 
 Para poupar tempo do porteiro, ao receber as primeiras informações para o registro, é desejável que o horário de chegada seja preenchido automaticamente pois, desta forma, o porteiro fica preocupado somente em receber as informações pessoais do vistante, a casa a ser visitada e informar o placa do veículo, se houver.
 
-Outro ponto interessante seria o registro automático do horário de autorização, assim que o porteiro informar o nome do morador responsável por autorizar a entrada do visitante. Essa informação pode ser preenchida num segundo momento, pois o visitante ficará aguardando o contato do porteiro com um morador que autorize a sua entrada na recepção. Além disto, observando as etapas é possível verificar que o preenchimento destas informações ocorrem na mesma etapa, antes da entrada do visitante ao condomínio...
+Outro ponto interessante seria o registro automático do horário de autorização, assim que o porteiro informar o nome do morador responsável por autorizar a entrada do visitante. Essa informação pode ser preenchida num segundo momento, pois o visitante ficará aguardando o contato do porteiro com um morador que autorize a sua entrada na recepção. Além disto, observando as etapas é possível verificar que o preenchimento destas informações ocorrem na mesma etapa, antes da entrada do visitante ao condomínio. Preenchendo o nome do morador, vamos atualizar essa informação junto do horário de autorização e a visita se inicia. Ao final, claro, nós vamos atualizar o horário de saída e inserir o nome do porteiro responsável pelo registro, tudo de forma automática.
 
-Automatizando esse processo, podemos economizar tempo no registro dos visitantes e ainda conseguimos manter as informações seguras.
+Tudo isso deverá ocorrer em uma interface web onde seja possível visualizar os últimos visitantes registrados, ver informações detalhadas de cada visitante e ainda autorizar e finalizar suas visitas. Além destas informações, é desejável que o sistema web exiba um resumo das informações como número de visitantes aguardando autorização, número de visitantes no condomínio, número de visitas finalizadas e ainda o número de registros no mês.
 
 
 
