@@ -25,7 +25,11 @@ Depois desse curso você estará apto para desenvolver aplicações web robustas
 
 ### O que iremos construir?
 
-A administração de um famoso condomínio entrou em contato conosco para que fosse...
+A partir da necessidade de informatizar o processo de registro de visitantes, um famoso condomínio entrou em contato conosco para desenvolver um sistema web que pudesse suprir essa necessidade. Ao encontrar problemas na confiabilidade das informações e até melhorar o fluxo de trabalho dos porteiros, o condomínio resolveu buscar ajuda.
+
+Nosso sistema web deverá ser capaz de possibilitar o registro de visitantes, exibir os últimos visitantes registrados, ver informações detalhadas de cada visitante e ainda autorizar e finalizar suas visitas no condomínio, registrando informações a cada etapa do processo de visita no condomínio. É interessante lembrar que existem algumas regras que os porteiros seguem à risca para manter a segurança dos moradores e nosso sistema deverá obedecer a essas regras e etapas.
+
+Além destas informações, nosso sistema web deverá exibir um resumo das informações como o número de visitantes aguardando autorização, o número de visitantes realizando visitas no condomínio, o número de visitas finalizadas e ainda o número de registros realizados no mês.
 
 ## A linguagem de programação Python
 
