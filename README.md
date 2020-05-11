@@ -16,7 +16,7 @@ O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/cont
 
 O projeto consiste em uma página web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem o fluxo executado pelo porteiro assim que um visitante chega à portaria do condomínio. Na imagem abaixo é possível visualizar o fluxo executado e suas etapas:
 
-![](.gitbook/assets/diagrama.jpeg)
+![](.gitbook/assets/processo-registro.png)
 
 Esse processo deve ser mantido, mas podemos melhorar e muito suas etapas...
 
