@@ -1,6 +1,6 @@
 # Proposta de desenvolvimento
 
-O condomínio Montanhas azuis é um conceituado empreendimento que oferece conforto, qualidade e segurança para seus moradores. O condomínio nos procurou com o intuito de melhorar a experiência de trabalho de seus porteiros e tornar informatizado o processo de registro e administração de visitantes, de modo que os porteiros tenham acesso a uma página web e essas informações possam ser acessadas de qualquer lugar. Além do mais, desta forma, é possível garantir a segurança e a confiabilidade dos registros.
+O condomínio Montanhas Azuis é um conceituado empreendimento que oferece conforto, qualidade e segurança para seus moradores. O condomínio nos procurou com o intuito de melhorar a experiência de trabalho de seus porteiros e tornar informatizado o processo de registro e administração de visitantes, de modo que os porteiros tenham acesso a uma página web e essas informações possam ser acessadas de qualquer lugar. Além do mais, desta forma, é possível garantir a segurança e a confiabilidade dos registros.
 
 ## Entendendo o processo
 
@@ -8,7 +8,7 @@ Quando um visitante chega à portaria do condomínio, o mesmo deve informar algu
 
 Todo esse processo, atualmente, ocorre de forma manual e através de um caderno que é destinado ao registro de visitantes. Devido a isso, o processo acaba levando mais tempo que deveria e as informações podem ter sua confiabilidade questionada e segurança ameaçada, pois problemas podem acontecer com o caderno ou as folhas deste caderno e até mesmo rasuras podem acontecer e prejudicar as informações ali contidas. Além dos pontos levantados, com um sistema web podemos automatizar algumas funções para poupar tempo e reduzir as informações que devem ser preenchidas pelo porteiro.
 
-Ter um sistema web para registro e administração de visitantes é um projeto importante para o condomínio pois será um diferencial frente a outros concorrentes e ainda vai melhorar bastante a experiência de trabalho dos porteiros que, com o sistema em funcionamento, terão menos informações para preencher e, consequentemente, menos tempo será perdido com as atividades relacionadas ao registro de visitantes.
+Ter um sistema web para registro e administração de visitantes é um projeto importante para o condomínio pois será um diferencial frente aos seus concorrentes e ainda vai melhorar bastante a experiência de trabalho dos porteiros que, com o sistema em funcionamento, terão menos informações para preencher e, consequentemente, menos tempo será perdido com as atividades relacionadas ao registro de visitantes.
 
 ## Levantamento de requisitos
 
@@ -16,13 +16,13 @@ Com todo esse cenário em mente, precisamos desenvolver uma página web que seja
 
 Após o registro, o porteiro deve entrar em contato com um morador que esteja na casa no momento e informar à respeito da visita para que o morador autorize a entrada do visitante. Com a autorização concedida, o porteiro deve colocar no caderno o **nome do morador que autorizou a entrada do visitante** e o **horário em que essa autorização ocorreu**. Ao final da visita, o **horário em que o visitante deixou as dependências do condomínio** deve ser registrado junto do **nome do porteiro responsável pelo registro**. O fluxo e as etapas de todo o processo são as seguintes:
 
-![Imagem contendo fluxograma de etapas do processo de visita ao condom&#xED;nio](.gitbook/assets/diagrama.jpeg)
+![](.gitbook/assets/processo-registro.png)
 
 A divisão do processo por etapas faz com que fiquem mais claras as atividades e a ordem em que elas devem ocorrer. Enxergando desta forma, podemos pensar em formas de dividir o preenchimento das informações e a automatização de determinadas informações.
 
 Para poupar tempo do porteiro, ao receber as primeiras informações para o registro, seria interessante que o horário de chegada fosse preenchido automaticamente pois, desta forma, o porteiro fica preocupado somente em receber as informações pessoais do visitante, a casa a ser visitada e informar o placa do veículo, se houver.
 
-Outro ponto interessante seria o registro automático do horário de autorização, assim que o porteiro informar o nome do morador responsável por autorizar a entrada do visitante. Essa informação pode ser preenchida num segundo momento, pois o visitante ficará na recepção aguardando o contato do porteiro com um morador que autorize a sua entrada. Além disto, observando as etapas é possível verificar que o preenchimento destas informações ocorrem na mesma etapa, antes da entrada do visitante ao condomínio. Preenchendo o nome do morador, vamos atualizar essa informação junto do horário de autorização e a visita se inicia. Ao final, claro, podemos atualizar o horário de saída e inserir o nome do porteiro responsável pelo registro, tudo de forma automática.
+Outro ponto interessante seria o registro automático do horário de autorização, assim que o porteiro informar o nome do morador responsável por autorizar a entrada do visitante. Essa informação pode ser preenchida num segundo momento, pois o visitante ficará na recepção aguardando o contato do porteiro com um morador que autorize a sua entrada. Preenchendo o nome do morador, vamos atualizar essa informação junto do horário de autorização e a visita se inicia. Ao final, claro, quando o visitante retorna à portaria para finalizar sua visita, devemos atualizar o horário de saída e inserir o nome do porteiro responsável pelo registro, tudo de forma automática.
 
 Tudo isso deverá ocorrer em uma interface web onde seja possível visualizar os últimos visitantes registrados, ver informações detalhadas de cada visitante e ainda autorizar e finalizar suas visitas. Além destas informações, é desejável que o sistema web exiba um resumo das informações como número de visitantes aguardando autorização, número de visitantes no condomínio, número de visitas finalizadas e ainda o número de registros no mês.
 
