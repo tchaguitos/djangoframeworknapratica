@@ -72,7 +72,7 @@ Os botões "autorizar entrada" e "finalizar visita" são exibidos somente quando
 
 ## Tecnologias utilizadas
 
-O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) utiliza as seguintes tecnologias e recursos:
+O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) utiliza as seguintes tecnologias e recursos de código aberto:
 
 * [Django framework](https://www.djangoproject.com/)
 * [Django widget tweaks](https://github.com/jazzband/django-widget-tweaks)
