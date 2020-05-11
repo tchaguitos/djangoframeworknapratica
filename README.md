@@ -12,9 +12,13 @@ Esta apostila está licenciada sob a licença [Creative Commons Atribuição-Nã
 
 ## Conhecendo o processo
 
-O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) visa informatizar o processo de registro e administração de visitantes do condomínio Montanhas azuis. Hoje o condomínio conta com um processo manual e por meio de cadernos que são utilizados para registrar as informações referentes aos visitantes e informatizar esse processo é importante para ganhar tempo, melhorar a experiência de trabalho dos porteiros e ainda manter as informações mais seguras.
+O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) visa informatizar o processo de registro e administração de visitantes do condomínio Montanhas Azuis. 
 
-O projeto consiste em uma página web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem o fluxo executado pelo porteiro assim que um visitante chega à portaria do condomínio. Na imagem abaixo é possível visualizar o fluxo executado e suas etapas:
+Hoje o condomínio conta com um processo manual e por meio de cadernos que são utilizados para registrar as informações referentes aos visitantes e informatizar esse processo é importante para ganhar tempo, melhorar a experiência de trabalho dos porteiros e ainda armazenar as informações de forma segura e confiável.
+
+O projeto consiste em uma página web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem o fluxo executado pelo porteiro assim que um visitante chega à portaria do condomínio.
+
+Na imagem abaixo é possível visualizar o fluxo executado pelos porteiros e suas etapas:
 
 ![](.gitbook/assets/processo-registro.png)
 
@@ -22,23 +26,49 @@ O projeto consiste em uma página web em que seja possível registrar visitantes
 
 ### Registro de visitantes
 
-AAA...
+O formulário de registro de visitantes deve abstrair a etapa 01 do processo, onde o visitante informa **nome completo**, **CPF**, **data de nascimento**, o **número da casa** que deseja visitar e ainda a **placa do veículo**, se estiver utilizando durante a visita. Além desta informações, o formulário salva o **horário de chegada** do visitante automaticamente.
+
+![](.gitbook/assets/screenshot-from-2020-05-11-14-09-52.png)
 
 ### Listagem de visitantes
 
-AAA...
+A listagem de visitantes exibe, por meio de uma tabela, os visitantes recentes classificados por horário de chegada, do mais recente para o mais antigo.
+
+![](.gitbook/assets/screenshot-from-2020-05-11-16-26-59.png)
 
 ### Visualização de informações de visitante
 
-AAA...
+A partir da tabela que lista os visitantes recentes, é possível acessar a página que exibe as informações detalhadas de cada visitante. No exemplo abaixo um visitante com a visita já finalizada:
+
+![](.gitbook/assets/screenshot-from-2020-05-11-16-41-43.png)
 
 ### Autorização de entrada
 
-AAA...
+A tela de informações de vistante é importante pois a partir dela é possível utilizar as funcionalidades de autorização de entrada e finalização de visita.
+
+Quando um visitante está aguardando autorização, o botão para autorizar a entrada fica disponível na tela de informações deste visitante. Para autorizar a entrada, basta clicar no botão para abrir o formulário que deve ser preenchido com o nome do morador que autorizou a entrada do visitante e confirmar a ação.
+
+No exemplo a seguir o visitante está aguardando autorização:
+
+![](.gitbook/assets/screenshot-from-2020-05-11-16-42-04.png)
+
+Assim como quando o porteiro anotava o nome do morador responsável por autorizar a entrada e o horário de contato com esse morador, a funcionalidade recebe o nome do morador através de um formulário e salva o horário de contato e autorização de forma automática.
+
+![](.gitbook/assets/screenshot-from-2020-05-11-16-42-33.png)
 
 ### Finalização de visita
 
-AAA...
+Assim como conseguimos utilizar a funcionalidade para autorizar a entrada do visitante, podemos finalizar sua visita. A funcionalidade funciona de forma parecida, com a diferença que é necessário apenas confirmar a ação, sem necessidade de informações adicionais.
+
+Ao clicar no botão para finalizar uma visita, um alerta será exibido solicitando que o porteiro confirme a ação.
+
+![](.gitbook/assets/screenshot-from-2020-05-11-16-42-56.png)
+
+Ao confirmar a ação clicando no botão "finalizar visita", o porteiro encerra o processo referente a este visitante.
+
+Os botões "autorizar entrada" e "finalizar visita" são exibidos somente quando é possível executar a ação para o visitante em questão. Caso contrário, como quando o visitante já deixou as dependências do condomínio, nenhum botão é exibido.
+
+![](.gitbook/assets/screenshot-from-2020-05-11-16-43-16.png)
 
 ## Tecnologias utilizadas
 
