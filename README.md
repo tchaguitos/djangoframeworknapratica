@@ -12,7 +12,7 @@ Apesar do projeto ser de código aberto e estar sob a licença [MIT](https://ope
 
 ## Conhecendo o projeto
 
-O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) visa informatizar o processo de registro e administração de visitantes do condomínio {{  }}. Hoje o condomínio conta com um processo manual e por meio de cadernos que são utilizados para registrar as informações referentes aos visitantes e informatizar esse processo é importante para ganhar tempo, melhorar a experiência de trabalho dos porteiros e ainda manter as informações mais seguras.
+O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) visa informatizar o processo de registro e administração de visitantes do condomínio Montanhas azuis. Hoje o condomínio conta com um processo manual e por meio de cadernos que são utilizados para registrar as informações referentes aos visitantes e informatizar esse processo é importante para ganhar tempo, melhorar a experiência de trabalho dos porteiros e ainda manter as informações mais seguras.
 
 O projeto consiste em uma página web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem o fluxo executado pelo porteiro assim que um visitante chega à portaria do condomínio. Na imagem abaixo é possível visualizar o fluxo executado e suas etapas:
 
@@ -23,6 +23,10 @@ Esse processo deve ser mantido, mas podemos melhorar e muito suas etapas...
 ## Principais funcionalidades
 
 ### Registro de visitantes
+
+AAA...
+
+### Listagem de visitantes
 
 AAA...
 
@@ -50,7 +54,6 @@ O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/cont
 
 Para um bom aproveitamento de todo material e atividades aqui propostas, é desejável que você tenha os  seguintes conhecimentos:
 
-* Possuir conta e saber trabalhar com Git e [Github](https://github.com/)
 * Conhecimentos básicos da linguagem Python
   * Funções
   * Noções de Programação Orientada a Objetos
@@ -58,7 +61,6 @@ Para um bom aproveitamento de todo material e atividades aqui propostas, é dese
     * Instância de classe
     * Atributos
     * Métodos
-    * Sobrescrita de métodos
 * Conhecimentos básicos em HTML, CSS e JS
   * Noções de [Bootstrap](https://getbootstrap.com/)
 
