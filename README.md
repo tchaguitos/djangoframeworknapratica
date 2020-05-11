@@ -8,17 +8,15 @@ O objetivo do curso é explorar as principais funcionalidades do framework Djang
 
 Vamos construir juntos uma aplicação web do zero com Python utilizando o framework Django. Essa aplicação consiste num sistema de controle de visitantes para condomínio e ela deverá ser capaz de, basicamente, registrar e administrar os visitantes de um condomínio, além de todas as operações necessárias como autorizar entrada e finalizar as visitas.
 
-Apesar do projeto ser de código aberto e estar sob a licença [MIT](https://opensource.org/licenses/MIT), esta apostila está licenciada sob a licença [Creative Commons Atribuição-NãoComercial-SemDerivações 4.0 Internacional](http://creativecommons.org/licenses/by-nc-nd/4.0/).
+Esta apostila está licenciada sob a licença [Creative Commons Atribuição-NãoComercial-SemDerivações 4.0 Internacional](http://creativecommons.org/licenses/by-nc-nd/4.0/).
 
-## Conhecendo o projeto
+## Conhecendo o processo
 
 O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) visa informatizar o processo de registro e administração de visitantes do condomínio Montanhas azuis. Hoje o condomínio conta com um processo manual e por meio de cadernos que são utilizados para registrar as informações referentes aos visitantes e informatizar esse processo é importante para ganhar tempo, melhorar a experiência de trabalho dos porteiros e ainda manter as informações mais seguras.
 
 O projeto consiste em uma página web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem o fluxo executado pelo porteiro assim que um visitante chega à portaria do condomínio. Na imagem abaixo é possível visualizar o fluxo executado e suas etapas:
 
 ![](.gitbook/assets/processo-registro.png)
-
-Esse processo deve ser mantido, mas podemos melhorar e muito suas etapas...
 
 ## Principais funcionalidades
 
