@@ -253,7 +253,7 @@ def get_placa_veiculo(self):
     return "Veículo não registrado"
 ```
 
-### Utilizando métodos personalizados no template
+### Utilizando métodos personalizados nos templates
 
 Com nossos métodos criados, temos que alterar o template `informacoes_visitante.html` para que exiba os métodos os invés dos atributos. A sintaxe para exibição de métodos nos templates é bem parecida com a que utilizamos para os atributos, inclusive.
 
@@ -338,6 +338,27 @@ Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_s
         </a>
     </div>
 </div>
+```
+
+Não podemos esquecer do template `index.html`, onde também vamos utilizar os métodos `get_horario_autorizacao` e `get_morador_responsavel`. O trecho de código ficará assim:
+
+```markup
+<tbody>
+    {% for visitante in todos_visitantes %}
+        <tr>
+            <td>{{ visitante.nome_completo }}</td>
+            <td>{{ visitante.cpf }}</td>
+            <td>{{ visitante.horario_chegada }}</td>
+            <td>{{ visitante.get_horario_autorizacao }}</td>
+            <td>{{ visitante.get_morador_responsavel }}</td>
+            <td>
+                <a href="{% url 'informacoes_visitante' id=visitante.id %}">
+                    Ver informações
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
 ```
 
 Você pode criar os métodos que quiser e exibir as informações conforme precisar. Existem diversas possibilidades e aplicações, então sinta-se livre para explorar essas possibilidades!
