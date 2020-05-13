@@ -153,6 +153,12 @@ E agora no `informacoes_visitante.html`:
 <!-- código abaixo omitido -->
 ```
 
+### Utilizando método para exibir o status do visitante
+
+Ao contrário de alguns atributos que tivemos que criar métodos para exibi-los de maneira personalizada, para o atributo `status` isso não é necessário.
+
+Quando definimos as opções de escolha para o `status`, definimos uma string para ser salva no banco de dados e uma para funcionar como `label` da string salva, como um nome descritivo mesmo. Por baixo dos panos o Django cria um método para exibir o label que nós definimos, bastando apenas que a gente utilize exatamente como fizemos com os outros. Por padrão, o nome do método é get\_nomeatributo\_display que, para o nosso caso, é
+
 ## Implementando melhorias na estrutura do nosso projeto
 
 Uma alteração interessante que vamos implementar é criar uma pasta de nome `apps` na raiz do nosso projeto para agrupar todos os nossos aplicativos. Vamos começar alterando o arquivo `settings.py`. Vamos importar o módulo `sys` e depois adicionar a pasta `apps` ao projeto.
