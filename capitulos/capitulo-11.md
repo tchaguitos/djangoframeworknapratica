@@ -20,7 +20,7 @@ Nossa primeira melhoria será inserir os botões com as ações **cancelar** e *
 </div>
 ```
 
-Acima do elemento `<button class="btn btn-primary" type="submit">` vamos inserir um link para a página inicial da nossa dashboard com o texto "Cancelar", aproveitando algumas classes do bootstrap para que o link tenha a aparência de um botão. O código ficará assim:
+Acima do elemento `<button class="btn btn-primary" type="submit">` vamos inserir um link para a página inicial da nossa dashboard com o texto "Cancelar", aproveitando algumas classes do Bootstrap para que o link tenha a aparência de um botão. O código ficará assim:
 
 ```markup
 <div class="text-right">
@@ -157,7 +157,80 @@ E agora no `informacoes_visitante.html`:
 
 Ao contrário de alguns atributos que tivemos que criar métodos para exibi-los de maneira personalizada, para o atributo `status` isso não é necessário.
 
-Quando definimos as opções de escolha para o `status`, definimos uma string para ser salva no banco de dados e uma para funcionar como `label` da string salva, como um nome descritivo mesmo. Por baixo dos panos o Django cria um método para exibir o label que nós definimos, bastando apenas que a gente utilize exatamente como fizemos com os outros. Por padrão, o nome do método é get\_nomeatributo\_display que, para o nosso caso, é...
+Quando definimos as opções de escolha para o `status`, definimos uma string para ser salva no banco de dados e uma para funcionar como `label` da string salva, como se fosse um nome descritivo mesmo. Por baixo dos panos o Django cria um método para exibir o label que nós definimos, bastando apenas que a gente utilize exatamente como fizemos com os outros método. Por padrão, o nome do método é `get_nomeatributo_display` que, para o nosso caso, é o get\_status\_display. 
+
+Agora que sabemos como utilizar o método, vamos alterar alguns templates para que a gente exiba o status do visitante juntamente das informações do mesmo. Primeiro vamos abrir o arquivo `informacoes_visitante.html` e procurar pelo seguinte trecho de código:
+
+```markup
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label>Horário de chegada</label>
+        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
+    </div>
+        
+    <div class="form-group col-md-6">
+        <label>Número da casa a ser visitada</label>
+        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
+    </div>
+</div>
+```
+
+O trecho de código acima é o responsável por renderizar a primeira linha das informações gerais a respeito da visita no template em questão. Vamos alterá-lo para exibir ao lado do número da casa, o status em que o visitante se encontra. Para fazer isso, primeiro vamos alterar a classe `col-md-6` presente nos elementos `<div class="form-group col-md-6">` para `col-md-4`. Essa é uma classe de estilo do Bootstrap e nos ajuda a organizar as colunas de um template de modo que se dividam na tela. Caso você queira saber mais sobre o sistema de grid do Bootstrap, pode acessar [esse link](https://getbootstrap.com.br/docs/4.1/layout/grid/).
+
+Feito isso, o que vamos fazer é inserir mais um elemento `<div class="form-group col-md-4">` abaixo do que exiba o número da casa, desta vez para exibir o status do visitante. O código ficará assim:
+
+```markup
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label>Horário de chegada</label>
+        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
+    </div>
+        
+    <div class="form-group col-md-4">
+        <label>Número da casa a ser visitada</label>
+        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
+    </div>
+    
+    <div class="form-group col-md-4">
+        <label>Status</label>
+        <input type="text" class="form-control" value="{{ visitante.get_status_display }}" disabled>
+    </div>
+</div>
+```
+
+Agora só precisamos inserir mais uma coluna na tabela do template `index.html` para exibir o status do usuário logo ali na página inicial. Primeiro vamos procurar pelo elemento `<thead>` e, abaixo do elemento `<th>` com o texto "Horário de chegada", vamos inserir um elemento `<th>` com texto "Status". O código ficará assim:
+
+```markup
+<thead>
+    <th>Nome</th>
+    <th>CPF</th>
+    <th>Horário de chegada</th>
+    <th>Status</th>
+    <th>Horário da autorização</th>
+    <th>Autorizado por</th>
+    <th>Mais informações</th>
+</thead>
+```
+
+Agora, claro, vamos adicionar também uma linha que será responsável por exibir o status utilizando o método `get_status_display`. Ficará assim: 
+
+```markup
+{% for visitante in pagina_obj %}
+    <tr>
+        <td>{{ visitante.nome_completo }}</td>
+        <td>{{ visitante.get_cpf }}</td>
+        <td>{{ visitante.horario_chegada }}</td>
+        <td>{{ visitante.get_status_display }}</td>
+        <td>{{ visitante.get_horario_autorizacao }}</td>
+        <td>{{ visitante.get_morador_responsavel }}</td>
+        <td>
+            <a href="{% url 'informacoes_visitante' id=visitante.id %}">
+                Ver informações
+            </a>
+        </td>
+    </tr>
+{% endfor %}
+```
 
 ## Implementando melhorias na estrutura do nosso projeto
 
