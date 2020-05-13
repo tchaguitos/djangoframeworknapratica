@@ -25,10 +25,9 @@
 * [Capítulo 13](capitulos/capitulo-13.md)
 * [Capítulo 14](capitulos/capitulo-14.md)
 * [Capítulo 15](capitulos/capitulo-15.md)
+* [Capítulo final](capitulos/capitulo-final.md)
 
 ## Links úteis
 
 * [Links úteis](links-uteis/links-uteis.md)
-* [Pré requisitos](links-uteis/pre-requisitos.md)
-* [Links recomendados](links-uteis/links-recomendados.md)
 
