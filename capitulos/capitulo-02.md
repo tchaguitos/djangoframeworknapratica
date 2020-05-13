@@ -216,12 +216,21 @@ from django.contrib.auth.models import (
 )
 ```
 
-Vamos começar criando nossa classe `Usuario` como subclasse de `AbstractBaseUser` e `PermissionsMixin` e definir os atributos `e-mail` e `tipo de usuário`, sendo o primeiro um campo do tipo e-mail e o segundo apenas um campo de texto simples.
+Vamos começar criando nossa classe `Usuario` como subclasse de `AbstractBaseUser` e `PermissionsMixin` e definir o atributo `e-mail`.
 
-Nosso modelo terá suporte para diferentes tipo de usuário, sendo este tipo definido pelo campo `tipo_usuario`. Este campo é do tipo texto e deverá aceitar somente 1 caractere. Por hora, teremos apenas o tipo "porteiro" que será definido pela letra `P` e vamos colocá-lo como valor padrão no nosso atributo. Ou seja, caso a gente não especifique, o tipo de usuário que será criado será do tipo "porteiro". 
+```python
+class Usuario(AbstractBaseUser, PermissionsMixin):
+
+    email = models.EmailField(
+        verbose_name="E-mail do usuário",
+        max_length=254,
+        unique=True,
+    )
+    
+```
 
 {% hint style="info" %}
-Mais a frente, esse tipo será importante para definirmos páginas que porteiros podem ou não acessar. Ou para criarmos tipos de usuários diferentes para acessar uma dashboard com informações diferentes...
+Existem inúmeros tipos de campos que o Django traz por padrão, sendo eles classes contidas no pacote models do Django. O EmailField é apenas um deles e no decorrer do curso vamos conhecer mais deles.
 {% endhint %}
 
 ```python
@@ -233,60 +242,17 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         unique=True,
     )
     
-    tipo_usuario = models.CharField(
-        verbose_name="Tipo de usuário",
-        max_length=1,
-        default="P",
-    )
 ```
 
-{% hint style="info" %}
-Existem inúmeros tipos de campos que o Django traz por padrão, sendo eles classes contidas no pacote models do Django. EmailField e CharField são apenas alguns exemplos, no decorrer do curso vamos conhecer mais deles.
-{% endhint %}
-
-Para delimitar as opções referentes ao tipo do usuário, utilizaremos o argumento `choices` que pode ser passado para campos do tipo texto simples \(`CharField`\). O argumento deve ser passado junto de uma tupla, uma estrutura de dados conhecida no mundo Python. Vamos criar uma variável chamada `TIPO_USUARIO` que será uma tupla com a opção `P` e o label para a opção que será "Porteiro". Feito isso, vamos adicionar o argumento ao campo `tipo_usuario`.
+Após definirmos o atributo `email`, vamos definir alguns outros que são obrigatórios para um modelo de usuário do Django. Os campos `is_active`, `is_staff` e `is_superuser` são herdados das classes `AbstractBaseUser` e `PermissionsMixin`, todavia, vamos defini-los aqui pois vamos alterar o comportamento padrão de alguns deles. Vamos aproveitar também para criar a variável `USERNAME_FIELD` que é quem especifica para o Django qual campo deve ser utilizado como nome de usuário que, no nosso caso, é o campo `email`.
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    
-    TIPO_USUARIO = (
-        ("P", "Porteiro"),
-    )
 
     email = models.EmailField(
         verbose_name="E-mail do usuário",
         max_length=254,
         unique=True,
-    )
-    
-    tipo_usuario = models.CharField(
-        verbose_name="Tipo de usuário",
-        max_length=1,
-        choices=TIPO_USUARIO
-        default="P",
-    )
-```
-
-Após definirmos estes campos, vamos definir alguns que são obrigatórios para um modelo de usuário do Django. Os campos `is_active`, `is_staff` e `is_superuser` são herdados das classes `AbstractBaseUser` e `PermissionsMixin`, todavia, vamos defini-los aqui pois vamos alterar o comportamento padrão de alguns deles. Vamos aproveitar também para criar a variável `USERNAME_FIELD` que é quem especifica para o Django qual campo deve ser utilizado como nome de usuário que, no nosso caso, é o campo `email`.
-
-```python
-class Usuario(AbstractBaseUser, PermissionsMixin):
-    
-    TIPO_USUARIO = (
-        ("P", "Porteiro"),
-    )
-
-    email = models.EmailField(
-        verbose_name="E-mail do usuário",
-        max_length=254,
-        unique=True,
-    )
-    
-    tipo_usuario = models.CharField(
-        verbose_name="Tipo de usuário",
-        max_length=1,
-        choices=TIPO_USUARIO,
-        default="P",
     )
     
     is_active = models.BooleanField(
@@ -330,10 +296,9 @@ Vamos escrever nossa classe _manager_ em cima da classe `Usuario`:
 ```python
 class UsuarioManager(BaseUserManager):
 
-    def create_user(self, email, tipo_usuario, password=None):
+    def create_user(self, email, password=None):
         usuario = self.model(
             email=self.normalize_email(email),
-            tipo_usuario=tipo_usuario,
         )
 
         usuario.is_active = False
@@ -351,7 +316,6 @@ class UsuarioManager(BaseUserManager):
         usuario = self.create_user(
             email=self.normalize_email(email),
             password=password,
-            tipo_usuario="P",
         )
         
         usuario.is_active = True
@@ -373,22 +337,11 @@ O Django utiliza o nome `objects` para o manager padrão da classe, sendo assim,
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    
-    TIPO_USUARIO = (
-        ("P", "Porteiro"),
-    )
 
     email = models.EmailField(
         verbose_name="E-mail do usuário",
         max_length=254,
         unique=True,
-    )
-    
-    tipo_usuario = models.CharField(
-        verbose_name="Tipo de usuário",
-        max_length=1,
-        choices=TIPO_USUARIO
-        default="P",
     )
     
     is_active = models.BooleanField(
