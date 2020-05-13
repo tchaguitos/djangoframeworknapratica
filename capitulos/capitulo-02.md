@@ -172,14 +172,14 @@ O primeiro passo será importar o arquivo de views do nosso aplicativo `usuarios
 from django.urls import path
 from django.contrib import admin
 
-import usuarios.views
+from usuarios.views import index
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     
     path(
         "",
-        usuarios.views.index,
+        index,
         name="index"
     ),
 ]
