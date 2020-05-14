@@ -223,7 +223,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(
         verbose_name="E-mail do usuário",
-        max_length=254,
+        max_length=194,
         unique=True,
     )
     
@@ -233,18 +233,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 Existem inúmeros tipos de campos que o Django traz por padrão, sendo eles classes contidas no pacote models do Django. O EmailField é apenas um deles e no decorrer do curso vamos conhecer mais deles.
 {% endhint %}
 
-```python
-class Usuario(AbstractBaseUser, PermissionsMixin):
-
-    email = models.EmailField(
-        verbose_name="E-mail do usuário",
-        max_length=254,
-        unique=True,
-    )
-    
-```
-
-Após definirmos o atributo `email`, vamos definir alguns outros que são obrigatórios para um modelo de usuário do Django. Os campos `is_active`, `is_staff` e `is_superuser` são herdados das classes `AbstractBaseUser` e `PermissionsMixin`, todavia, vamos defini-los aqui pois vamos alterar o comportamento padrão de alguns deles. Vamos aproveitar também para criar a variável `USERNAME_FIELD` que é quem especifica para o Django qual campo deve ser utilizado como nome de usuário que, no nosso caso, é o campo `email`.
+Após definirmos o atributo `email`, vamos definir alguns outros que são obrigatórios para um modelo de usuário do Django, os campos `is_active`, `is_staff` e `is_superuser`. Vamos aproveitar também para criar a variável `USERNAME_FIELD` que é quem especifica para o Django qual campo deve ser utilizado como nome de usuário que, no nosso caso, é o campo `email`.
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -257,7 +246,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     
     is_active = models.BooleanField(
         "usuario ativo?",
-        default=False
+        default=True
     )
         
     is_staff = models.BooleanField(
@@ -301,7 +290,7 @@ class UsuarioManager(BaseUserManager):
             email=self.normalize_email(email),
         )
 
-        usuario.is_active = False
+        usuario.is_active = True
         usuario.is_staff = False
         usuario.is_superuser = False
 
@@ -346,7 +335,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     
     is_active = models.BooleanField(
         "usuario ativo?",
-        default=False
+        default=True
     )
         
     is_staff = models.BooleanField(
