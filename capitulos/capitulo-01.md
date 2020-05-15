@@ -15,7 +15,7 @@ Olá, meu nome é Thiago Brasil e na internet eu sou o @tchaguitos. Cursei Ciên
 
 ### **Sobre o curso**
 
-Com o curso "Django Framework na prática" você vai poder iniciar sua carreira como desenvolvedor web utilizando a linguagem Python e desenvolver aplicações web seguras e escaláveis numa velocidade incrível. O objetivo do curso é explorar as principais funcionalidades do framework por meio da construção de um projeto real e aprender ao longo de seu desenvolvimento o que são as ferramentas que o framework nos dá e como utilizá-las. 
+Com o curso "Django Framework na prática" você vai poder iniciar sua carreira como desenvolvedor web utilizando a linguagem Python e aprender a desenvolver aplicações web seguras e escaláveis numa velocidade incrível. O objetivo do curso é explorar as principais funcionalidades do framework por meio da construção de um projeto real e aprender ao longo de seu desenvolvimento o que são as ferramentas que o framework nos dá e como utilizá-las. 
 
 Nesse curso a gente vai construir junto uma aplicação web do zero com Python que consiste num sistema de controle de visitantes para condomínio. A aplicação deverá ser capaz de possibilitar o registro e administração de visitantes e ainda contar com funcionalidades como visualização de informações de visitantes, autorização de entrada e finalização de visitas.
 
