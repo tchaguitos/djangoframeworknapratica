@@ -245,24 +245,24 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
     
     is_active = models.BooleanField(
-        "usuario ativo?",
+        verbose_name="Usuario ativo?",
         default=True
     )
         
     is_staff = models.BooleanField(
-        "usuario é da equipe de desenvolvimento?",
+        verbose_name="Usuário é da equipe de desenvolvimento?",
         default=False
     )
 
     is_superuser = models.BooleanField(
-        "usuario é um superusuário?",
+        verbose_name="Usuário é um superusuário?"
         default=False
     )
     
     USERNAME_FIELD = "email"
     
     class Meta:
-        verbose_name="Usuário"
+        verbose_name = "Usuário"
         verbose_name_plural = "Usuários"
         db_table = "usuario"
     
@@ -326,7 +326,6 @@ O Django utiliza o nome `objects` para o manager padrão da classe, sendo assim,
 
 ```python
 class Usuario(AbstractBaseUser, PermissionsMixin):
-
     email = models.EmailField(
         verbose_name="E-mail do usuário",
         max_length=254,
