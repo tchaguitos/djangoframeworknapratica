@@ -6,6 +6,7 @@ Aprendemos como instalar nossas dependências, como iniciar um novo projeto e j�
 
 A partir dos requisitos que temos, é possível identificar que existe a necessidade de que os porteiros do condomínio tenham acesso a uma página para registrar os visitantes. Com isso em mente, podemos concluir:
 
+* Os porteiros terão um usuário para acessar o sistema
 * Deverá existir um modelo para representar os porteiros do condomínio
 * Os porteiros deverão ter acesso a uma dashboard com funcionalidades específicas
 * Deverá existir uma página para um porteiro registrar um visitante no condomínio
