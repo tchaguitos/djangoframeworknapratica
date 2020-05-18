@@ -256,7 +256,7 @@ Running migrations:
 
 ## Criando porteiro através do Admin do Django
 
-Como sabemos, o Django disponibiliza uma interface de administraçao para as classes de modelo criadas e registradas nos arquivos `admin.py`. Até agora, tudo que fizemos foi apenas visualizar e alterar informações de usuários, mas é possível fazer bem mais com o Admin do Django. Vamos acessar o admin através do navegador e clicar no item porteiros.
+Como sabemos, o Django disponibiliza uma interface de administração para as classes de modelo criadas e registradas nos arquivos `admin.py`. Até agora, tudo que fizemos foi apenas visualizar e alterar informações de usuários, mas é possível fazer bem mais com o Admin do Django. Vamos acessar o admin através do navegador e clicar no item porteiros.
 
 ![](../.gitbook/assets/screenshot_2020-01-29_22-03-05.png)
 
