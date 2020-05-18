@@ -62,8 +62,8 @@ class Visitante(models.Model):
         auto_now_add=False,
     )
 
-    numero_casa = models.CharField(
-        verbose_name="Número da casa a ser visitada",
+    numero_casa = models.IntegerField(
+        verbose_name="Número da casa a ser visitada"
     )
 
     placa_veiculo = models.CharField(
@@ -76,7 +76,7 @@ class Visitante(models.Model):
 
 ### Conhecendo o campo DateTimeField
 
-Antes de prosseguirmos, vamos conhecer um pouco mais do campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumentos, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
+Antes de prosseguirmos, vamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumentos, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
 
 Primeiro vamos definir o atributo `horario_chegada`, que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja preenchido no exato momento que registrarmos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
 
@@ -94,7 +94,8 @@ class Visitante(models.Model):
     )
     
     horario_chegada = models.DateTimeField(
-        verbose_name="Horário de chegada na portaria", auto_now_add=True
+        verbose_name="Horário de chegada na portaria",
+        auto_now_add=True
     )
 ```
 
@@ -217,9 +218,8 @@ class Visitante(models.Model):
         auto_now=False
     )
 
-    numero_casa = models.CharField(
+    numero_casa = models.IntegerField(
         verbose_name="Número da casa a ser visitada",
-        max_length=3,
     )
 
     placa_veiculo = models.CharField(
