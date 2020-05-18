@@ -41,7 +41,7 @@ Precisamos guardar uma série de informações a respeito de quem deseja adentra
 9. Nome do morador responsável por autorizar a entrada do visitante
 10. Porteiro responsável por registrar visitante
 
-Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar e escrever por partes o modelo de visitantes. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois são todos tipos de dados que já conhecemos. Nossa classe `Visitante` ficará assim:
+Inicialmente, vamos nos concentrar nas informações de 1 a 7 para que possamos avaliar e escrever por partes o modelo de visitantes. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois a gente já conhece a maioria desses tipos de dados. Nossa classe `Visitante` ficará assim:
 
 ```python
 from django.db import models
@@ -62,7 +62,7 @@ class Visitante(models.Model):
         auto_now_add=False,
     )
 
-    numero_casa = models.IntegerField(
+    numero_casa = models.PositiveSmallIntegerField(
         verbose_name="Número da casa a ser visitada"
     )
 
@@ -218,7 +218,7 @@ class Visitante(models.Model):
         auto_now=False
     )
 
-    numero_casa = models.IntegerField(
+    numero_casa = models.PositiveSmallIntegerField(
         verbose_name="Número da casa a ser visitada",
     )
 
