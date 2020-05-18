@@ -62,8 +62,8 @@ class Visitante(models.Model):
         auto_now_add=False,
     )
 
-    numero_casa = models.IntegerField(
-        verbose_name="Número da casa a ser visitada"
+    numero_casa = models.CharField(
+        verbose_name="Número da casa a ser visitada",
     )
 
     placa_veiculo = models.CharField(
