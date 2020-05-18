@@ -58,12 +58,12 @@ class Visitante(models.Model):
 
     data_nascimento = models.DateField(
         verbose_name="Data de nascimento",
-        auto_now=False
+        auto_now=False,
+        auto_now_add=False,
     )
 
-    numero_casa = models.CharField(
-        verbose_name="Número da casa a ser visitada",
-        max_length=3,
+    numero_casa = models.IntegerField(
+        verbose_name="Número da casa a ser visitada"
     )
 
     placa_veiculo = models.CharField(
@@ -347,7 +347,6 @@ Antes de tudo, vamos importar o modelo no arquivo `views.py` do aplicativo **usu
 
 ```python
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from visitantes.models import Visitante
 
