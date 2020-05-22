@@ -222,11 +222,8 @@ Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div cla
 ```markup
 {% if messages %}
     {% for message in messages %}
-        <div class="alert alert-dismissible alert-{{ message.tags }}" role="alert">
+        <div class="alert alert-success" role="alert">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
     {% endfor %}
 {% endif %}
