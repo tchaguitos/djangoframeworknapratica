@@ -248,11 +248,8 @@ Como nosso formulário de registro de visitante está no arquivo `registrar_visi
     {% for field in form %}
         {% if field.errors %}
             {% for error in field.errors %}
-                <div class="alert alert-dismissible alert-warning" role="alert">
+                <div class="alert alert-warning" role="alert">
                     {{ error | escape }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
             {% endfor %}
         {% endif %}
@@ -282,13 +279,13 @@ class VisitanteForm(forms.ModelForm):
         ]
         error_messages = {
             "nome_completo": {
-                "required": "O nome completo do visitante é obrigatório para cadastro",
+                "required": "O nome completo do visitante é obrigatório para o registro",
             },
             "cpf": {
-                "required": "O CPF do visitante é obrigatório para cadastro"
+                "required": "O CPF do visitante é obrigatório para o registro"
             },
             "data_nascimento": {
-                "required": "A data de nascimento do visitante é obrigatória para cadastro",
+                "required": "A data de nascimento do visitante é obrigatória para o registro",
                 "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
             },
             "numero_casa": {
