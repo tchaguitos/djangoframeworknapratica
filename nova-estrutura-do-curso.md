@@ -114,7 +114,7 @@
   * Criando método para exibir horário de saída
   * Criando métodos para exibir horário de autorização de entrada e morador responsável por autorizar a entrada
   * Criando método para exibir placa do veículo utilizado na visita
-  * Utilizando métodos personalizados no template
+* Utilizando métodos personalizados no template
 * Utilizando o Django para renderizar nossas URLs
 
 ## Capítulo 09
