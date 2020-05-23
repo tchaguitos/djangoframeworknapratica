@@ -91,7 +91,7 @@ Antes de tudo, vamos recortar as partes que compõem o CPF. Vamos utilizar os í
 ```python
 def get_cpf(self):
     if self.cpf:
-        cpf = self.cpf
+        cpf = str(self.cpf)
         
         cpf_parte_um = cpf[0:3]
         cpf_parte_dois = cpf[3:6]
