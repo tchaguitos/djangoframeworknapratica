@@ -43,33 +43,37 @@ A URL que irá mapear a função `finalizar_visita` será bem parecida com a URL
 from django.contrib import admin
 from django.urls import path
 
-import usuarios.views
-import visitantes.views
+from usuarios.views import index
+
+from visitantes.views import (
+    registrar_visitante, informacoes_visitante,
+    finalizar_visita
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 
     path(
         "",
-        usuarios.views.index,
+        index,
         name="index",
     ),
 
     path(
         "registrar-vistante/",
-        visitantes.views.registrar_visitante,
+        vegistrar_visitante,
         name="registrar_visitante",
     ),
 
     path(
         "visitantes/<int:id>/",
-        visitantes.views.informacoes_visitante,
+        informacoes_visitante,
         name="informacoes_visitante",
     ),
 
     path(
         "visitantes/<int:id>/finalizar-visita/",
-        visitantes.views.finalizar_visita,
+        finalizar_visita,
         name="finalizar_visita"
     )
 ]
@@ -150,7 +154,7 @@ Vai em frente e teste a nova funcionalidade implementada!
 
 ## Prevenindo erros e operações desnecessárias
 
-Nos passos anteriores, implementamos a criação da funcionalidade que finaliza as visitas dentro da nossa dashboard. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
+Nos passos anteriores, implementamos a funcionalidade que finaliza as visitas dentro da nossa dashboard. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
 
 Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir os botões com base no valor desse status. Funcionará assim:
 
