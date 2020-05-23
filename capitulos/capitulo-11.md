@@ -246,7 +246,9 @@ import sys
 Feito isso tudo que precisamos fazer é adicionar a seguinte linha de código abaixo da variável `ALLOWED_HOSTS`:
 
 ```python
-sys.path.append(os.path.join(BASE_DIR, "apps"))
+sys.path.append(
+    os.path.join(BASE_DIR, "apps")
+)
 ```
 
 Agora, vamos criar a pasta **apps** e mover as pastas dos nossos aplicativos para ela.
