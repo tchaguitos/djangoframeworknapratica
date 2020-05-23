@@ -73,21 +73,24 @@ O primeiro passo nós já fizemos, que é receber o argumento na função de vie
 from django.urls import path
 from django.contrib import admin
 
-import usuarios.views
-import visitantes.views
+from usuarios.views import index
+
+from visitantes.views import (
+    registrar_visitante, informacoes_visitante
+)
 
 urlpatterns = [
     # codigo acima omitido...
     
     path(
-        "registrar-visitante",
-        visitantes.views.registrar_visitante,
+        "registrar-visitante/",
+        registrar_visitante,
         name="registrar_visitante",
     ),
-    
+
     path(
         "visitantes/<int:id>/",
-        visitantes.views.informacoes_visitante,
+        informacoes_visitante,
         name="informacoes_visitante",
     )
 ]
