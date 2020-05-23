@@ -201,7 +201,7 @@ Métodos são funções que existem dentro das classes e podem definir comportam
 
 ### Criando método para exibir horário de saída
 
-Vamos criar métodos que vão substituir a exibição de alguns atributos, começando pelo horário de autorização. Antes de tudo, você precisa saber que para criar um método dentro de uma classe, tudo que precisamos fazer é criar uma função dentro dessa classe que receberá o argumento `self`. Esse argumento nos possibilita acessar as propriedades da própria classe.
+Vamos criar métodos que vão substituir a exibição de alguns atributos, começando pelo horário de saída. Antes de tudo, você precisa saber que para criar um método dentro de uma classe, tudo que precisamos fazer é criar uma função dentro dessa classe que receberá o argumento `self`. Esse argumento nos possibilita acessar as propriedades da própria classe.
 
 Os métodos que buscam informações, em geral, recebem o nome de **getters** e mantemos sempre a chave "get" no início de seus nomes. Abaixo do atributo `registrado_por`, vamos escrever o método `get_horario_saida()`. Esse método, antes de tudo, precisa verificar se o atributo `horario_saida` está preenchido e, caso não esteja, retornar o texto "Horário de saída não registrado". Para fazer isso, vamos utilizar a estrutura condicional `if`. O método ficará assim:
 
