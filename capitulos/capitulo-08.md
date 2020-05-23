@@ -108,7 +108,7 @@ Ao abrir o arquivo, você vai perceber que as informações estão definidas dir
 
 Como passamos a variável `visitante` no contexto, podemos acessá-la diretamente utilizando a sintaxe `{{ visitante.nome_do_atributo }}`. Vamos alterar os valores estáticos para a sintaxe de template do Django e tornar nosso template dinâmico. Se você ficar na dúvida sobre qual atributo deve exibir, o elemento  `<label>` pode te ajudar!
 
-Antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro responsável pelo registro e o horário que o visitante foi registrado. Para isso, vamos alterar o texto de "Visitante registrado em 15/10/2020 por Jack Torrance" para "Visitante registrado em `{{ visitante.horario_chegada }}` por `{{ visitante.registrado_por }}`". O template ficará assim:
+Antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro responsável pelo registro e o horário que o visitante foi registrado. Para isso, vamos alterar o texto de "Visitante registrado em 15/05/2018 por Walter White" para "Visitante registrado em `{{ visitante.horario_chegada }}` por `{{ visitante.registrado_por }}`". O template ficará assim:
 
 ```markup
 <div class="card-body">
