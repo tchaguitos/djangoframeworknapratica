@@ -256,7 +256,7 @@ def get_placa_veiculo(self):
     return "Veículo não registrado"
 ```
 
-### Utilizando métodos personalizados nos templates
+## Utilizando métodos personalizados nos templates
 
 Com nossos métodos criados, temos que alterar o template `informacoes_visitante.html` para que exiba os métodos os invés dos atributos. A sintaxe para exibição de métodos nos templates é bem parecida com a que utilizamos para os atributos, inclusive.
 
