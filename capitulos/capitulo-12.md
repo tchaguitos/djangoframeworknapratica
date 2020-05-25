@@ -30,7 +30,7 @@ INSTALLED_APPS += [
 ```
 
 {% hint style="info" %}
-Não vamos executar as operações `makemigrations` e `migrations` pois não fizemos nenhuma alteração relacionada com o banco de dados. Estamos apenas acessando e buscando os dados já existentes.
+Não vamos executar as operações `makemigrations` e `migrate` pois não fizemos nenhuma alteração relacionada com o banco de dados. Estamos apenas acessando e buscando os dados já existentes.
 {% endhint %}
 
 ## Migrando view "index" para aplicativo dashboard
