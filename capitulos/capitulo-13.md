@@ -90,7 +90,7 @@ Ao voltar para a página inicial da dashboard, o número de visitantes registrad
 
 ## Ordenando nossa lista de visitantes por horário de chegada
 
-O último passo antes da gente finalizar mais um capítulo é ordenar a lista de visitante por horário de chegada. Isto é, queremos que os registros de visitantes sigam uma certa ordem e essa ordem seja baseada no horário de chegada, de forma que os registros mais recentes fiquem sempre no topo.
+O último passo antes da gente finalizar mais um capítulo é ordenar a lista de visitantes recentes por horário de chegada. Isto é, queremos que os registros de visitantes sigam uma certa ordem e essa ordem seja baseada no horário de chegada, de forma que os registros mais recentes fiquem sempre no topo.
 
 Para isso vamos utilizar o método `order_by()` que funciona de forma parecida com o `filter()`, com a diferença que precisamos passar somente o nome do atributo que queremos utilizar como parâmetro. Vamos utilizá-lo em substituição ao método `all()`: 
 
