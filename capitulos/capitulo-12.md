@@ -82,7 +82,7 @@ urlpatterns = [
 
 ## Conhecendo o método filter das querysets
 
-Agora que migramos a view para o aplicativo dashboard, vamos conhecer métodos para filtrar os vistitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes registrados no mês atual.
+Agora que migramos a view para o aplicativo dashboard, vamos conhecer métodos para filtrar os visitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes registrados no mês atual.
 
 O primeiro método das querysets que vamos conhecer é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
 
