@@ -10,7 +10,7 @@ Pense na dashboard que estamos criando: as informações que estamos exibindo al
 
 ### Conhecendo o decorator login\_required
 
-Para bloquear o acesso não autenticado às views, o Django nos fornece um caminho rápido para que a gente consiga implementar essa função. Nós vamos utilizar o decorator login\_required para tornar nossas views acessíveis somente após autenticação. Caso o usuário não esteja autenticado, não poderá acessar a view e será direcionado para uma tela de login.
+Para bloquear o acesso não autenticado às views, o Django nos fornece um caminho rápido para que a gente consiga implementar essa funcionalidade. Nós vamos utilizar o decorator `login_required` para tornar nossas views acessíveis somente após autenticação. Caso o usuário não esteja autenticado, não poderá acessar a view e será direcionado para uma tela de login.
 
 Um decorator nada mais é que um método que envolve e modifica comportamentos de uma função. É isso que estamos fazendo: pedindo que o decorator `login_required` faça a função ser acessível somente após autenticação e, com isso, estamos alterando o comportamento da função.
 
@@ -76,7 +76,7 @@ Vamos fazer isso em todas as view criadas que fazem parte da dashboard. São ela
 
 ## Alterando a URL padrão para login e redirecionamento após login
 
-Agora que bloqueamos o acesso às views utilizando o docorator, precisamos definir as informações citadas anteriormente no arquivo `settings.py`. Vamos configurar as variáveis `LOGIN_URL` e `LOGIN_REDIRECT_URL`. e definir seus valores como `"login"` e `"index"`. O arquivo ficará assim:
+Agora que bloqueamos o acesso às views utilizando o decorator, precisamos definir as informações citadas anteriormente no arquivo `settings.py`. Vamos configurar as variáveis `LOGIN_URL` e `LOGIN_REDIRECT_URL`. e definir seus valores como `"login"` e `"index"`. O arquivo ficará assim:
 
 ```python
 # código acima omitido
@@ -197,7 +197,7 @@ Vamos criar o arquivo `login.html` com o seguinte código:
 
 ### Renderizando formulário de login
 
-Quando utilizamos a classe `LoginView` o Django nos dá tudo que precisamos parar exibir o template, tratar a requisição, os possíveis erros do formulário e ainda autenticar o usuário. Junto disso tudo, temos a possibilidade de utilização da variável form que representa nosso formulário de autenticação.
+Quando utilizamos a classe `LoginView` o Django nos dá tudo que precisamos para exibir o template, tratar a requisição, os possíveis erros do formulário e ainda autenticar o usuário. Junto disso tudo, temos a possibilidade de utilização da variável `form` que representa nosso formulário de autenticação.
 
 Quando criamos nosso modelo personalizado de usuário, o Django preparou um formulário baseado nesse modelo, de forma bem parecida com que fizemos nos formulários que criamos. Vamos utilizar a mesma estratégia que utilizamos para renderizar o formulário de registro de visitante. O código do formulário ficará assim e deverá substituir o elemento `<p>` dentro do `<form>`:
 
@@ -259,12 +259,8 @@ Agora que estamos exibindo nosso formulário, vamos adicionar só mais uma coisa
                                         </div>
                                         
                                         {% if form.errors %}
-                                            <div class="alert alert-dismissible alert-warning" role="alert">
+                                            <div class="alert alert-warning" role="alert">
                                                 E-mail ou senha incorretos
-                                                
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
                                             </div>
                                         {% endif %}
     
