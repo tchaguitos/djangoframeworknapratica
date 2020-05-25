@@ -59,16 +59,21 @@ Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls
 from django.contrib import admin
 from django.urls import path
 
-import dashboard.views
-import visitantes.views
+from dashboard.views import index
+
+from visitantes.views import (
+    registrar_visitante,
+    informacoes_visitante,
+    finalizar_visita,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 
     path(
         "",
-        dashboard.views.index,
-        name="index",
+        index,
+        name="index"
     ),
     
     # código abaixo omitido
