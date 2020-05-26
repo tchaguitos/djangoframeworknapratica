@@ -17,7 +17,7 @@ def finalizar_visita(request, id):
         visitante = get_object_or_404(Visitante, id=id)
 
         visitante.status = "FINALIZADO"
-        visitante.horario_saida = datetime.now()
+        visitante.horario_saida = timezone.now()
 
         visitante.save()
 
@@ -31,7 +31,7 @@ def finalizar_visita(request, id):
 
 A função `finalizar_visita` deverá receber um `id` como argumento e utilizar a função `get_object_or_404` para buscar o visitante do `id` que foi passado. Após isso vamos atualizar os atributos `status` e `horario_saida` diretamente e salvar o visitante. A diferença aqui é que não utilizaremos um formulário e nossa view será acessada somente através do método `POST`. Todo o resto continuará bem parecido com as funções que já escrevemos antes.
 
-Para garantir que as operações serão realizadas somente quando o método `POST` for utilizado, vamos escrever um `if` para certificar essa informação \(`if request.method == "POST":`\) e, caso seja verdadeira, vamos executar as operações necessárias. Note que, mais uma vez, estamos utilizando o método `datetime.now()` mas, desta vez, para o atributo `horario_saida`, e setando diretamente o `status` que agora deve receber o status `FINALIZADO`. 
+Para garantir que as operações serão realizadas somente quando o método `POST` for utilizado, vamos escrever um `if` para certificar essa informação \(`if request.method == "POST":`\) e, caso seja verdadeira, vamos executar as operações necessárias. Note que, mais uma vez, estamos utilizando o método `timezone.now()` mas, desta vez, para o atributo `horario_saida`, e setando diretamente o `status` que agora deve receber o status `FINALIZADO`. 
 
 ## Criando URL
 
@@ -233,7 +233,7 @@ from visitantes.forms import (
     VisitanteForm, AutorizaVisitanteForm
 )
 
-from datetime import datetime
+from django.utils import timezone
 
 # código abaixo omitido
 ```
@@ -247,7 +247,7 @@ def finalizar_visita(request, id):
         visitante = get_object_or_404(Visitante, id=id)
 
         visitante.status = "FINALIZADO"
-        visitante.horario_saida = datetime.now()
+        visitante.horario_saida = timezone.now()
 
         visitante.save()
 
