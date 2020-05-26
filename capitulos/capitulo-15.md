@@ -122,7 +122,7 @@ Os métodos `has_previous` e `has_next` servem para verificar se existem página
 
 ![](../.gitbook/assets/screenshot_2020-04-13_19-51-06.png)
 
-Com poucos itens não parece fazer diferença, mas se você registrar mais alguns visitantes, vai perceber que o template muda conforme a quantidade de registros. Experimente criar mais alguns itens \(eu sugiro 15\) e navegar nas páginas através dos botões que adicionamos.
+Só com essas pequenas alterações os resultados já são exibidos de forma paginada e a gente ainda consegue navegar através das páginas. Com poucos itens não parece fazer tanta diferença, mas se você registrar mais alguns visitantes, vai perceber que o template muda conforme a quantidade de registros. Experimente, claro, criar mais alguns visitantes e navegar nas páginas através dos botões que adicionamos.
 
-Com isso 
+Com isso finalizamos nosso projeto e agora podemos entregá-lo para o cliente testar e, posteriormente, implantar nas rotinas de administração de visitantes do condomínio.
 
