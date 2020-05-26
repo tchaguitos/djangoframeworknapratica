@@ -47,7 +47,7 @@ def index(request):
     )
 
     # filtrando visitantes por data (mês atual)
-    hora_atual = datetime.now()
+    hora_atual = timezone.now()
     mes_atual = hora_atual.month
 
     visitantes_mes = todos_visitantes.filter(
