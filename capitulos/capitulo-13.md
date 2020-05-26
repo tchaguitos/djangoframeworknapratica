@@ -30,21 +30,21 @@ visitantes_mes = todos_visitantes.filter(
 )
 ```
 
-### Utilizando o datetime para descobrir o mês atual
+### Utilizando o timezone para descobrir o mês atual
 
 Descobrimos como filtrar nossos visitantes pelo mês em que foram registrados, mas ainda precisamos fazer com que o método filtre os visitantes do mês atual de forma automática, isto é, que o mês atual seja reconhecido e passado para o método `filter()` como uma variável.
 
-Para fazer isso vamos utilizar um velho conhecido, o `datetime.now()`. Esse método retorna o valor referente a data e hora em que foi invocado e, a partir dessa data e hora, podemos buscar o mês. Para importar o módulo `datetime` basta utilizar o seguinte código:
+Para fazer isso vamos utilizar um velho conhecido, o `timezone.now()`. Esse método retorna o valor referente a data e hora em que foi invocado e, a partir dessa data e hora, podemos buscar o mês. Para importar o módulo `timezone` basta utilizar o seguinte código:
 
 ```python
-from datetime import datetime
+from django.utils import timezone
 ```
 
-Feito isso, vamos criar a variável `hora_atual` sendo igual ao método `datetime.now()` e depois acessar a propriedade `month` da variável `hora_atual` para passá-la à variável que vamos criar de nome `mes_atual`.
+Feito isso, vamos criar a variável `hora_atual` sendo igual ao método `timezone.now()` e depois acessar a propriedade `month` da variável `hora_atual` para passá-la à variável que vamos criar de nome `mes_atual`.
 
 ```python
 # filtrando visitantes por data (mês atual)
-hora_atual = datetime.now()
+hora_atual = timezone.now()
 mes_atual = hora_atual.month
 
 visitantes_mes = todos_visitantes.filter(
