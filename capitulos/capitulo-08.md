@@ -407,3 +407,14 @@ Para facilitar o acesso à URL de registro de visitantes, vamos inserir um botã
 
 Como nossa URL `registrar_visitante` não recebe argumentos, passamos para a tag apenas o nome da mesma.
 
+### Renderizando a URL para retornar à página inicial
+
+Agora que já sabemos utilizar a tag {% url %}, vamos utilizá-la também para renderizar o endereço para nos direcionar à página inicial da dashboard. No menu lateral à esquerda existe um texto com um ícone e o escrito "Início", e é ele que vamos buscar em nosso template `base.html`. O trecho de código ficará assim:
+
+```markup
+<a class="nav-link" href="{% url 'index' %}">
+    <i class="fas fa-home"></i>
+    <span>Início</span>
+</a>
+```
+
