@@ -265,9 +265,9 @@ if form.is_valid():
 
 Dessa forma, já estamos definindo o valor que o status receberá caso o formulário seja válido e salvando o novo visitante, mas ainda precisamos registrar o horário em que essa autorização ocorreu, ou seja, o horário em que o formulário atualizou o atributo `morador_responsavel` e alterou o status para `EM_VISITA`.
 
-### Conhecendo o datetime do Python
+### Conhecendo o timezone do Django
 
-O Python, por padrão, possui um módulo para trabalhar com datas e horas que é o `datetime`. Esse módulo nos fornece inúmeras ferramentas para trabalharmos com esses tipos de forma bem facilitada. O primeiro passo é importarmos o módulo na view.
+O Python, por padrão, possui um módulo para trabalhar com datas e horas que é o `datetime`, mas por algumas questões referentes aos horários diferentes que são suportados, o Django nos recomenda a utilização do módulo `timezone`. Esse módulo nos fornece inúmeras ferramentas para trabalharmos com datas de forma bem facilitada já considerando a `timezone` em que nossa aplicação está contextualizada. O primeiro passo é importarmos o módulo na view.
 
 ```python
 from django.contrib import messages
@@ -280,12 +280,12 @@ from visitantes.forms import (
     VisitanteForm, AutorizaVisitanteForm
 )
 
-from datetime import datetime
+from django.utils import timezone
 
 # código abaixo omitido
 ```
 
-O `datetime` possui um método chamado `now()` que nos retorna data e hora do momento em que a chamada ao método ocorreu. Sendo assim, caso o registro do visitante ocorra no dia `21 de agosto de 2020 às 15:00`, o método `datetime.now()` retornará exatamente essa data. Dessa forma, tudo que precisamos fazer é igualar o atributo `horario_autorizacao` à chamada do método `datetime.now()`. Nossa view ficará assim:
+O `timezone` possui um método chamado `now()` que nos retorna data e hora do momento em que a chamada ao método ocorreu. Sendo assim, caso o registro do visitante ocorra no dia `21 de agosto de 2020 às 15:00:00`, o método `timezone.now()` retornaria exatamente essa data e hora. Dessa forma, tudo que precisamos fazer é igualar o atributo `horario_autorizacao` à chamada do método `timezone.now()`. Nossa view ficará assim:
 
 ```python
 # código acima omitido
@@ -294,7 +294,7 @@ if form.is_valid():
     visitante = form.save(commit=False)
     
     visitante.status = "EM_VISITA"
-    visitante.horario_autorizacao = datetime.now()
+    visitante.horario_autorizacao = timezone.now()
 
     visitante.save()
 
