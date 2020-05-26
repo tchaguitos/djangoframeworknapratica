@@ -76,7 +76,7 @@ O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/cont
 
 ## Requisitos desejáveis
 
-Para um bom aproveitamento de todo material e atividades aqui propostas, é desejável que você tenha os  seguintes conhecimentos:
+Para um bom aproveitamento de todo material e atividades aqui propostas, é desejável que você tenha os seguintes conhecimentos:
 
 * Conhecimentos básicos da linguagem Python
   * Funções
