@@ -297,7 +297,7 @@ class UsuarioManager(BaseUserManager):
         if password:
             usuario.set_password(password)
 
-        usuario.save(using=self._db)
+        usuario.save()
 
         return usuario
     
@@ -312,7 +312,7 @@ class UsuarioManager(BaseUserManager):
         usuario.is_superuser = True
         
         usuario.set_password(password)
-        usuario.save(using=self._db)
+        usuario.save()
         
         return usuario
 
