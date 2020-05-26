@@ -128,7 +128,7 @@
 * Alterando template para exibir modal com formulário
 * Atualizando os campos horario\_autorizacao e status diretamente
   * Atualizando o status
-  * Conhecendo o datetime do Python
+  * Conhecendo o timezone do Django
 
 ## Capítulo 10
 
@@ -160,7 +160,7 @@
 * Aprendendo a filtrar nossos visitantes por data
 * Conhecendo o field lookups da Queryset API
 * Filtrando apenas os registros do mês atual
-  * Utilizando o datetime para descobrir o mês atual
+  * Utilizando o timezone para descobrir o mês atual
 * Ordenando nossa lista de visitantes por horário de chegada
 
 ## Capítulo 14
