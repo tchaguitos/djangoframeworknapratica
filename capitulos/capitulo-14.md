@@ -195,6 +195,10 @@ Vamos criar o arquivo `login.html` com o seguinte código:
 </html>
 ```
 
+Se você preferir, pode fazer download do arquivo zipado e colocar na pasta **templates** do seu projeto clicando no link abaixo:
+
+{% file src="../.gitbook/assets/login.zip" caption="Iniciar o download" %}
+
 ### Renderizando formulário de login
 
 Quando utilizamos a classe `LoginView` o Django nos dá tudo que precisamos para exibir o template, tratar a requisição, os possíveis erros do formulário e ainda autenticar o usuário. Junto disso tudo, temos a possibilidade de utilização da variável `form` que representa nosso formulário de autenticação.
@@ -392,6 +396,10 @@ O processo será bem parecido com o executado para criação da URL da login. Co
 ```
 
 Nosso template de logout exibe apenas uma mensagem dizendo que o usuário saiu do sistema e mostra um botão para ele voltar para a página de login, caso queira.
+
+Mais uma vez, se você preferir, você pode fazer o download do arquivo zipado:
+
+{% file src="../.gitbook/assets/logout.zip" caption="Iniciar o download" %}
 
 ## Inserindo link para logout em dashboard
 
