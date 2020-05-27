@@ -52,7 +52,7 @@ TEMPLATES = [
 
 Para facilitar as coisas e economizar um pouquinho de tempo, você pode fazer download da pasta **templates** zipada, extrair os arquivos e colocá-la na raíz do seu projeto:
 
-{% file src="../.gitbook/assets/templates \(1\).zip" caption="Iniciar o download" %}
+{% file src="../.gitbook/assets/templates \(2\).zip" caption="Iniciar o download" %}
 
 ### Criando a pasta static em nosso projeto
 
@@ -76,7 +76,7 @@ STATICFILES_DIRS = [
 
 Desta forma estamos dizendo para o Django que os arquivos estáticos devem ser procurados na pasta **static** na raiz do projeto. Para facilitar e economizar tempo novamente, faça download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e a coloque na raiz do projeto:
 
-{% file src="../.gitbook/assets/static.zip" caption="Iniciar o download" %}
+{% file src="../.gitbook/assets/static \(1\).zip" caption="Iniciar o download" %}
 
 Faça o download e coloque a pasta **static** na raiz do projeto, juntamente com a pasta **templates**. Feito isso, já podemos utilizar templates HTML e arquivos estáticos em nosso projeto.
 
