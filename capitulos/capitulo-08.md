@@ -100,7 +100,7 @@ urlpatterns = [
 
 Com nossa view pronta, agora precisamos criar o arquivo `informacoes_visitante.html` na pasta **templates** do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
 
-{% file src="../.gitbook/assets/informacoes\_visitante.html.zip" caption="Iniciar o download" %}
+{% file src="../.gitbook/assets/informacoes\_visitante.zip" caption="Iniciar o download" %}
 
 Após o download, coloque o arquivo na pasta **templates** do projeto e abra em seu editor de texto, pois ainda vamos alterar algumas coisas nele.
 
