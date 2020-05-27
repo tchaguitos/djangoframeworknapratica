@@ -26,7 +26,7 @@ def registrar_visitante(request):
 
 Assim como fizemos anteriormente, vamos baixar o arquivo HTML e agora colocá-lo na pasta **templates** localizada na raiz do nosso projeto:
 
-{% file src="../.gitbook/assets/registrar\_visitante.html.zip" caption="Iniciar o download" %}
+{% file src="../.gitbook/assets/registrar\_visitante.zip" caption="Iniciar o download" %}
 
 ### Criando URL para mapear view
 
@@ -462,7 +462,7 @@ Faremos o mesmo que fizemos com o template `index.html`, mas agora deixando apen
 
 Caso prefira, você pode fazer download da pasta templates com as alterações realizadas até aqui clicando no link abaixo:
 
-{% file src="../.gitbook/assets/templates.zip" caption="Iniciar o download" %}
+{% file src="../.gitbook/assets/templates \(2\).zip" caption="Iniciar o download" %}
 
 Agora que adaptamos todos os nossos templates, vamos voltar ao desenvolvimento da view responsável por registrar nossos visitantes.
 

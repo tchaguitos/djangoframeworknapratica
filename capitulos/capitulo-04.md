@@ -52,7 +52,7 @@ TEMPLATES = [
 
 Para facilitar as coisas e economizar um pouquinho de tempo, você pode fazer download da pasta **templates** zipada, extrair os arquivos e colocá-la na raíz do seu projeto:
 
-{% file src="../.gitbook/assets/templates \(2\).zip" caption="Iniciar o download" %}
+{% file src="../.gitbook/assets/templates \(3\).zip" caption="Iniciar o download" %}
 
 ### Criando a pasta static em nosso projeto
 
