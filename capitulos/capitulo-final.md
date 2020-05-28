@@ -1,16 +1,16 @@
 # Capítulo final
 
-Chegamos ao capítulo final da nossa apostila e agora temos um projeto web completo pronto para ser entregue para o cliente, testado e implantado. 
+Chegamos ao capítulo final da nossa apostila e agora temos um projeto web completo pronto para ser entregue para o cliente, testado e implantado em ambiente de produção. 
 
-No decorrer do curso vimos muitos recursos que o framework nos dá e aprendemos a utilizar as principais ferramentas.
+No decorrer do material aprendemos e utilizamos vários recursos que o Django framework nos dá e aprendemos a utilizar as principais ferramentas na prática com o projeto que desenvolvemos. Daqui para frente, ainda temos muito chão para trilhar, é claro, mas com certeza iniciamos com uma base sólida e concisa.
+
+Agora que temos uma base sólida, podemos aprender muito mais e nos aprofundar em diversos assuntos que permeiam o desenvolvimento web com a linguagem Python.
 
 O objetivo do curso é explorar as principais funcionalidades do framework Django por meio da construção de uma dashboard para registro e administração de visitantes de um determinado condomínio. Vamos desenvolver um projeto real e aprender ao longo de seu desenvolvimento o que são as ferramentas que o framework nos dá e como utilizá-las. Seguindo o roteiro aqui apresentado, você vai poder iniciar a sua carreira como desenvolvedor web utilizando a linguagem Python e desenvolver aplicações seguras e escaláveis em tempo recorde.
 
 
 
-### **Sobre o curso**
 
-Com o curso "Django Framework na prática" você vai poder iniciar sua carreira como desenvolvedor web utilizando a linguagem Python e aprender a desenvolver aplicações web seguras e escaláveis numa velocidade incrível. O objetivo do curso é explorar as principais funcionalidades do framework por meio da construção de um projeto real e aprender ao longo de seu desenvolvimento o que são as ferramentas que o framework nos dá e como utilizá-las. 
 
 Nesse curso a gente vai construir junto uma aplicação web do zero com Python que consiste num sistema de controle de visitantes para condomínio. A aplicação deverá ser capaz de possibilitar o registro e administração de visitantes e ainda contar com funcionalidades como visualização de informações de visitantes, autorização de entrada e finalização de visitas.
 
