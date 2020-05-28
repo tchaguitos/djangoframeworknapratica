@@ -39,7 +39,7 @@ Por enquanto, vamos ignorar os avisos referentes às migrações de banco de dad
 
 Com o servidor de desenvolvimento rodando, vamos acessar o endereço [http://127.0.0.1:8000/](http://127.0.0.1:8000/). Caso a tela abaixo apareça, significa que está tudo funcionando corretamente.
 
-![](../.gitbook/assets/screenshot_2020-04-23_19-02-59.png)
+![Tela de boas vindas do Django framework onde &#xE9; exibido um foguete em dire&#xE7;&#xE3;o ao c&#xE9;u e uma mensagem informando que a aplica&#xE7;&#xE3;o est&#xE1; funcionando](../.gitbook/assets/screenshot_2020-04-23_19-02-59.png)
 
 ## Entendendo a estrutura do projeto
 
@@ -441,15 +441,15 @@ Como a administração do Django não foi desenvolvida para ser utilizada pelos 
 
 Ao executar o comando, o terminal ficará travado esperando que a gente informe o e-mail a ser utilizado pelo super usuário. Após o e-mail, temos que definir a senha e repetir essa senha. Não ocorrendo erros, temos o nosso super usuário criado e pronto para acessar o painel administrativo do Django.
 
-![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-50-37.png)
+![Tela de um terminal Linux ap&#xF3;s a execu&#xE7;&#xE3;o do comando createsuperuser do Django. O terminal espera que o usu&#xE1;rio insira E-mail e Senha para criar um super usu&#xE1;rio](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-50-37.png)
 
 Vamos iniciar novamente nosso servidor de desenvolvimento e acessar o endereço [`http://127.0.0.1:8000/admin/`](http://127.0.0.1:8000/admin/) em nosso navegador e vamos nos deparar com a tela de login do Djando Admin.
 
-![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-42-34.png)
+![Formul&#xE1;rio de autentica&#xE7;&#xE3;o para acesso ao Django Admin. O formul&#xE1;rio exibe os campos &quot;E-mail do usu&#xE1;rio&quot; e &quot;Senha&quot;, al&#xE9;m de um bot&#xE3;o para Log in](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-42-34.png)
 
 Utilize e-mail e senha informados na hora da criação do super usuário para acessar e, dando tudo certo, você será direcionado para a página inicial da administração do Django:
 
-![](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-43-37.png)
+![Tela inicial do Django Admin, onde &#xE9; exibida as a&#xE7;&#xF5;es recentes do usu&#xE1;rio, al&#xE9;m de uma mensagem de boas vindas e links para alterar senha e sair do Admin](../.gitbook/assets/captura-de-tela-em-2019-11-25-23-43-37.png)
 
 ## Conhecendo o Django Admin
 
@@ -487,7 +487,7 @@ LANGUAGE_CODE = "pt-br"
 
 Com isso, todas as mensagens e textos exibidos no painel administrativo já serão traduzidos automaticamente pelo módulo de internacionalização.
 
-![](../.gitbook/assets/captura-de-tela-em-2019-11-26-00-07-41.png)
+![Tela inicial do Admin agora com o aplicativo Usu&#xE1;rios sendo exibido](../.gitbook/assets/captura-de-tela-em-2019-11-26-00-07-41.png)
 
 Nosso próximo passo é alterar o fuso horário padrão do projeto. Essa configuração é importante pois não queremos que datas erradas sejam exibidas para nossos usuários. Por padrão, o Django trabalha e exibe as datas no fuso horário `America/Chicago` \(ou `UTC`\) mas como esse não é o fuso horário para a nossa região, vamos inserir a configuração correta para nós. Existe também uma lista de fuso horários disponíveis e como podemos especificar eles através de uma string simples, como acontece no caso dos identificadores de idioma. Vamos utilizar o fuso horário `America/Sao_Paulo`. Ainda no arquivo `settings.py,` vamos encontrar a variável `TIME_ZONE` e alterar seu valor para o da nossa região:
 
