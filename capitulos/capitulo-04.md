@@ -182,7 +182,9 @@ E alterá-las para que fiquem da seguinte forma:
 <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 ```
 
-Com isso, ao acessarmos [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) novamente no navegador, teremos o template exibido de forma estruturada com os arquivos CSS \(exibição\) e JS \(comportamento\) devidamente carregados.
+Com isso, ao acessarmos [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) novamente no navegador, teremos o template exibido de forma estruturada com os arquivos CSS \(exibição\) e JS \(comportamento\) devidamente carregados. Nosso template será exibido desta forma no navegador:
+
+![Tela inicial da dashboard contento uma tabela que lista os visitantes recentes, nela &#xE9; poss&#xED;vel observar o visitante &quot;Don Corleone&quot;](../.gitbook/assets/screenshot-from-2020-05-28-20-45-37.png)
 
 ## Exibindo variáveis no template
 
