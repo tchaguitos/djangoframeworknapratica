@@ -258,11 +258,11 @@ Running migrations:
 
 Como sabemos, o Django disponibiliza uma interface de administração para as classes de modelo criadas e registradas nos arquivos `admin.py`. Até agora, tudo que fizemos foi apenas visualizar e alterar informações de usuários, mas é possível fazer bem mais com o Admin do Django. Vamos acessar o admin através do navegador e clicar no item porteiros.
 
-![](../.gitbook/assets/screenshot_2020-01-29_22-03-05.png)
+![Captura tirada do Admin do Django focando nos links para a exibi&#xE7;&#xE3;o de Grupos, Usu&#xE1;rio e agora Porteiros tamb&#xE9;m](../.gitbook/assets/screenshot_2020-01-29_22-03-05.png)
 
 A próxima tela deverá exibir a lista de porteiros registrados em nosso sistema. Como ainda não temos porteiros registrados, temos apenas a informação de que existem "0 Porteiros" e opção de adicionar um porteiro. 
 
-![](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
+![Tela listando os porteiros registrados em nosso banco de dados](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
 
 Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros. Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
 
