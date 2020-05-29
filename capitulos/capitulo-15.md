@@ -120,7 +120,7 @@ Vamos também executar um `{% for %}` no método `pagina_obj.paginator.page_rang
 
 Os métodos `has_previous` e `has_next` servem para verificar se existem página anterior ou próxima com relação à página que estamos exibindo. Vamos criar condições para verificar se existem as páginas e renderizar elementos `<li class="page-item">` que vão corresponder aos links para "página anterior" e "próxima página". O template ficará assim:
 
-![](../.gitbook/assets/screenshot_2020-04-13_19-51-06.png)
+![Tabela que lista os visitantes recentes agora exibindo apenas 10 itens por vez e com links para navega&#xE7;&#xE3;o entre os resultados. Al&#xE9;m disso, acima da tabela a informa&#xE7;&#xF5;es de quantos resultados existem e abaixo qual p&#xE1;gina est&#xE1; sendo exibida e o total de p&#xE1;ginas](../.gitbook/assets/screenshot_2020-04-13_19-51-06.png)
 
 Só com essas pequenas alterações os resultados já são exibidos de forma paginada e a gente ainda consegue navegar através das páginas. Com poucos itens não parece fazer tanta diferença, mas se você registrar mais alguns visitantes, vai perceber que o template muda conforme a quantidade de registros. Experimente, claro, criar mais alguns visitantes e navegar nas páginas através dos botões que adicionamos.
 
