@@ -16,7 +16,7 @@ Com todo esse cenário em mente, precisamos desenvolver uma página web que seja
 
 Após o registro, o porteiro deve entrar em contato com um morador que esteja na casa no momento e informar à respeito da visita para que o morador autorize a entrada do visitante. Com a autorização concedida, o porteiro deve colocar no caderno o **nome do morador que autorizou a entrada do visitante** e o **horário em que essa autorização ocorreu**. Ao final da visita, o **horário em que o visitante deixou as dependências do condomínio** deve ser registrado junto do **nome do porteiro responsável pelo registro**. O fluxo e as etapas de todo o processo são as seguintes:
 
-![](.gitbook/assets/processo-registro.png)
+![Imagem com etapas do processo de registro de visitantes, onde temos quatro etapas: chegada na portaria, aguardando autoriza&#xE7;&#xE3;o, realizando visita e visita finalizada](.gitbook/assets/processo-registro.png)
 
 A divisão do processo por etapas faz com que fiquem mais claras as atividades e a ordem em que elas devem ocorrer. Enxergando desta forma, podemos pensar em formas de dividir o preenchimento das informações e a automatização de determinadas informações.
 
