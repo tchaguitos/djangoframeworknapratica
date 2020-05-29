@@ -219,7 +219,7 @@ Quando criamos nosso modelo personalizado de usuário, o Django preparou um form
 
 Vamos acessar novamente a URL [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e agora podemos notar que fomos direcionados para a tela de login que acabamos de criar. Essa é a nossa tela de login:
 
-![](../.gitbook/assets/screenshot_2020-04-11_20-59-45.png)
+![P&#xE1;gina de login com escritos de boas vindas e um formul&#xE1;rio contendo E-mail e Senha, al&#xE9;m do bot&#xE3;o azul para acesso &#xE0; dashboard escrito &quot;Acessar dashboard&quot;. O fundo da tela &#xE9; azul e h&#xE1; tamb&#xE9;m a foto de uma cachorrinho ao lado do formul&#xE1;rio, como se estivesse encarando o usu&#xE1;rio](../.gitbook/assets/screenshot_2020-04-11_20-59-45.png)
 
 ## Adicionando mensagem de erro em formulário de login
 
@@ -405,7 +405,7 @@ Mais uma vez, se você preferir, você pode fazer o download do arquivo zipado:
 
 Se em algum momento anterior você clicou no ícone da engrenagem, no canto superior direito, descobriu o botão `sair`.  Ele abre um modal pedindo que o usuário confirme se realmente deseja sair:
 
-![](../.gitbook/assets/screenshot_2020-04-11_21-17-29.png)
+![Template da p&#xE1;gina inicial da dashboard ao fundo com um alerta pedindo a confirma&#xE7;&#xE3;o de que o usu&#xE1;rio realmente deseja sair do sistema](../.gitbook/assets/screenshot_2020-04-11_21-17-29.png)
 
 Vamos inserir o link para a página logout no botão que confirma a ação que o usuário deseja sair. No template `base.html`, vamos procurar pelo modal de id `logoutModal` e depois o link "sair" dentro do elemento `<div class="modal-footer">`. O HTML do botão ficará assim:
 
@@ -415,5 +415,5 @@ Vamos inserir o link para a página logout no botão que confirma a ação que o
 
 Com isso, quando o usuário clicar no botão "sair" confirmando que deseja sair da dashboard, será direcionado para a página de logout.
 
-![](../.gitbook/assets/screenshot_2020-04-11_21-20-36.png)
+![Tela de logout contendo uma mensagem de despedida e dizendo que o usu&#xE1;rio pode clicar no bot&#xE3;o abaixo para retornar &#xE0; p&#xE1;gina de login. Abaixo um bot&#xE3;o azul escrito &quot;Voltar para login&quot; e &#xE0; esquerda a foto do cachorro como na p&#xE1;gina de login](../.gitbook/assets/screenshot_2020-04-11_21-20-36.png)
 
