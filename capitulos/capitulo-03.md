@@ -262,7 +262,7 @@ Como sabemos, o Django disponibiliza uma interface de administração para as cl
 
 A próxima tela deverá exibir a lista de porteiros registrados em nosso sistema. Como ainda não temos porteiros registrados, temos apenas a informação de que existem "0 Porteiros" e opção de adicionar um porteiro. 
 
-![Tela listando os porteiros registrados em nosso banco de dados](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
+![Tela listando os porteiros registrados em nosso banco de dados \(no caso, ainda n&#xE3;o temos porteiros registrados e, por isso, o texto &quot;0 porteiros&quot; &#xE9; exibido](../.gitbook/assets/screenshot_2020-01-29_22-03-39.png)
 
 Vamos clicar no botão "adicionar porteiro" para ter acesso ao formulário de cadastro de porteiros. Para adicionar um porteiro, basta preencher as informações obrigatórias que são usuário, nome completo, CPF e data de nascimento. Note que os campos obrigatórios ficam destacados em negrito.
 
@@ -278,7 +278,7 @@ Você deve utilizar o formato DD/MM/AAAA para a data de nascimento do porteiro
 
 Se tudo estiver certo com os dados informados, o Django Admin vai nos redirecionar para a tela que lista os porteiros e mostrar uma mensagem de sucesso. Note que o Django já exibe a mensagem personalizada com o nome do porteiro criado e link para visualização das informações.
 
-![](../.gitbook/assets/screenshot_2020-01-29_22-12-22.png)
+![Tela listando os porteiros registrados em nosso banco de dados, agora com nosso primeiro porteiro registrado](../.gitbook/assets/screenshot_2020-01-29_22-12-22.png)
 
 Agora que temos um porteiro criado, podemos partir para a construção da dashboard que contará com as funções descritas em nosso documento de requisitos.
 
