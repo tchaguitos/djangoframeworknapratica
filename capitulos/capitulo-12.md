@@ -6,7 +6,7 @@ No capítulo anterior nós começamos a implementar algumas melhorias visando um
 
 Apesar da gente ter finalizado as principais funcionalidades, ainda precisamos buscar alguns números para que sejam mostrados na página inicial. Se você observar o template, vai perceber que existem elementos que nos sugerem que devemos exibir o número de visitantes de cada status e quantos visitantes foram registrados no mês atual. Queremos fazer algo desse tipo, mas com dados dinâmicos:
 
-![](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
+![Captura de tela realizada a partir do template inicial da dashboard onde foca apenas nos blocos que exibem o n&#xFA;mero de visitantes aguardando autoriza&#xE7;&#xE3;o, em visita, visita finalizada e o total de visitantes registrados no m&#xEA;s](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
 
 {% hint style="info" %}
 Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos.
