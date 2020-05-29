@@ -4,7 +4,7 @@
 
 ## Geral
 
-* [Tópicos da apostila](nova-estrutura-do-curso.md)
+* [Tópicos da apostila](topicos-da-apostila.md)
 * [Proposta de desenvolvimento](proposta-de-desenvolvimento.md)
 
 ## Capítulos
