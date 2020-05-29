@@ -87,4 +87,6 @@ Para um bom aproveitamento de todo material e atividades aqui propostas, é dese
     * Métodos
 * Conhecimentos básicos em HTML, CSS e JS
   * Noções de [Bootstrap](https://getbootstrap.com/)
+* Sistema operacional baseado em Unix
+* Conhecimentos básicos em terminal
 
