@@ -187,7 +187,7 @@ Antes de tudo, vamos adicionar o botão que será responsável por exibir o moda
 
 O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link \(elemento `<a>`\) para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página. O template ficará parecido com isso:
 
-![](../.gitbook/assets/screenshot_2020-03-30_20-35-34.png)
+![Cabe&#xE7;alho com t&#xED;tulo da p&#xE1;gina e bot&#xE3;o verde escrito &quot;Registrar visitante&quot;](../.gitbook/assets/screenshot_2020-03-30_20-35-34.png)
 
 Feito isso, adicione também o código HTML do modal antes do fechamento da tag do elemento `<div class="container">`:
 
@@ -233,7 +233,7 @@ Note que o template baixado no capítulo anterior já possui a tag de importaç�
 
 Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado. Note que, quando clicamos no botão, o modal com o formulário aparece na tela:
 
-![](../.gitbook/assets/screenshot_2020-03-30_20-37-15.png)
+![Template de informa&#xE7;&#xF5;es de visitante ao fundo e alerta bom formul&#xE1;rio para registro do nome do morador respons&#xE1;vel](../.gitbook/assets/screenshot_2020-03-30_20-37-15.png)
 
 ## Atualizando os campos horario\_autorizacao e status diretamente
 
