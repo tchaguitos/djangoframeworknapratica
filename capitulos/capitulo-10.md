@@ -97,7 +97,7 @@ Assim como inserimos um botão para quando queremos autorizar a entrada de um vi
 
 O template ficará assim:
 
-![](../.gitbook/assets/screenshot_2020-04-06_19-42-46.png)
+![Template de informa&#xE7;&#xF5;es de visitante agora tamb&#xE9;m com bot&#xE3;o amarelo escrito &quot;Finalizar visita&quot;](../.gitbook/assets/screenshot_2020-04-06_19-42-46.png)
 
 Note que a estrutura é bem parecida com a que utilizamos no outro botão, mas quando observamos o atributo `data-target` podemos notar que agora ele é igual a `#modal2`. Isso porque vamos também criar um outro modal para ser exibido quando o usuário clicar no botão para finalizar uma visita. A função desse modal é obter a confirmação se é isso mesmo que o usuário deseja fazer.
 
@@ -140,7 +140,7 @@ Ainda no mesmo arquivo, mas agora ao final do arquivo, vamos colocar o seguinte 
 
 Nosso segundo modal será exibido da seguinte maneira:
 
-![](../.gitbook/assets/screenshot_2020-04-06_19-45-04.png)
+![Template de informa&#xE7;&#xF5;es de visitante ao fundo com alerta solicitando confirma&#xE7;&#xE3;o do usu&#xE1;rio de que realmente deseja finalizar a visita](../.gitbook/assets/screenshot_2020-04-06_19-45-04.png)
 
 Esse segundo modal deverá exibir a mensagem "Realmente deseja encerrar a visita?" e conter um formulário que enviará uma requisição do tipo `POST` para a URL que criamos anteriormente. Esse formulário precisa ter apenas o campo renderizado pela tag `{% csrf_token %}` para identificar que as requisições podem ser aceitas pelo nosso servidor.
 
