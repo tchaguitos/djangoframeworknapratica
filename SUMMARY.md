@@ -27,7 +27,3 @@
 * [Capítulo 15](capitulos/capitulo-15.md)
 * [Capítulo final](capitulos/capitulo-final.md)
 
-## Links úteis
-
-* [Links úteis](links-uteis/links-uteis.md)
-
