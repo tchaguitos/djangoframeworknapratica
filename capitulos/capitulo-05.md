@@ -319,11 +319,11 @@ Running migrations:
 
 Da mesma forma que cadastramos um porteiro utilizando o Admin do Django, vamos adicionar também um visitante. Vamos novamente acessar [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) e agora veremos o aplicativo **visitantes** disponível para nós.
 
-![](../.gitbook/assets/screenshot_2020-02-20_20-48-46.png)
+![Captura tirada do Admin do Django focando nos links para a exibi&#xE7;&#xE3;o de Grupos, Usu&#xE1;rios, Porteiros e agora Visitantes tamb&#xE9;m](../.gitbook/assets/screenshot_2020-02-20_20-48-46.png)
 
 Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá direto para o formulário de cadastro de visitantes. O formulário a ser exibido deverá se parecer com isto:
 
-![](../.gitbook/assets/screenshot_2020-02-20_20-56-30.png)
+![Formul&#xE1;rio para registro de visitante. O formul&#xE1;rio apresenta os campos da classe modelo](../.gitbook/assets/screenshot_2020-02-20_20-56-30.png)
 
 Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e definir o **porteiro** responsável por registrar o visitante. Fique livre para preencher as informações à sua maneira. Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado.
 
