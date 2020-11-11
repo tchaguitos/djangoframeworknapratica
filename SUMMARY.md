@@ -4,6 +4,8 @@
 
 ## Geral
 
+---
+
 * [Tópicos da apostila](topicos-da-apostila.md)
 * [Proposta de desenvolvimento](proposta-de-desenvolvimento.md)
 

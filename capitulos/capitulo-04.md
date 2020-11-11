@@ -192,6 +192,10 @@ Quando conhecemos a função `render` falamos que ela é responsável por combin
 
 Um dicionário de contexto é a variável do tipo dicionário que pode ser passada como argumento para a função `render`. Quando passada, é possível acessarmos os valores contidos na variável diretamente no template através de tags específicas, diferentes das tags utilizadas anteriormente.
 
+{% hint style="success" %}
+Dicionário é uma estrutura de dados em Python de elementos \(ou propriedades\) não ordenados e que podemos acessar utilizando chaves. Os dicionários são estruturas poderosas e muito utilizadas. Existem linguagens que este tipo é conhecido como "matrizes associativas" ou apenas "objetos"
+{% endhint %}
+
 ### Definindo nosso dicionário de contexto
 
 Para fazer isso, vamos no arquivo `views.py` e vamos criar a variável `context` acima do retorno da função. A função `index` ficará da seguinte forma:
@@ -226,10 +230,6 @@ A partir de agora, vamos aprender um pouco mais sobre a linguagem de templates d
 Essencialmente, templates são arquivos de texto, geralmente no formato HTML. Para o Django, um template pode conter variáveis que devem ser substituídas por valores quando o template for interpretado e tags que controlam a lógica do template.
 
 Agora que já definimos o nosso dicionário de contexto e passamos ele como argumento para a função `render`, vamos exibir essas informações no template `index.html`.
-
-{% hint style="success" %}
-Dicionário é uma estrutura de dados em Python de elementos \(ou propriedades\) não ordenados e que podemos acessar utilizando chaves. Os dicionários são estruturas poderosas e muito utilizadas. Existem linguagens que este tipo é conhecido como "matrizes associativas" ou apenas "objetos"
-{% endhint %}
 
 Para exibirmos os valores contidos no dicionário `context` basta utilizarmos a sintaxe para variáveis da linguagem de templates do Django: `{{ propriedade_do_dicionario }}`. Para nosso caso, vamos exibir o valor da propriedade `nome_pagina` que, dentro do dicionário `context`, corresponde ao texto **Início da dashboard**. 
 
