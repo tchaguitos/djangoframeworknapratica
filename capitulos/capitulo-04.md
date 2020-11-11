@@ -227,7 +227,7 @@ def index(request):
 
 A partir de agora, vamos aprender um pouco mais sobre a linguagem de templates do Django. Ela foi projetada para ser poderosa e fácil de forma que seja confortável trabalhar com a linguagem HTML.
 
-Essencialmente, templates são arquivos de texto, geralmente no formato HTML. Para o Django, um template pode conter variáveis que devem ser substituídas por valores quando o template for interpretado e tags que controlam a lógica do template.
+Essencialmente, templates são arquivos de texto, geralmente no formato HTML. Para o Django, um template pode conter variáveis que devem ser substituídas por valores quando o template for interpretado.
 
 Agora que já definimos o nosso dicionário de contexto e passamos ele como argumento para a função `render`, vamos exibir essas informações no template `index.html`.
 
