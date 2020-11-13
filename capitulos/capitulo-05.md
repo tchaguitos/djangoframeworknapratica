@@ -68,7 +68,7 @@ class Visitante(models.Model):
 
     placa_veiculo = models.CharField(
         verbose_name="Placa do veículo",
-        max_length=10,
+        max_length=7,
         blank=True,
         null=True,
     )
@@ -88,7 +88,7 @@ class Visitante(models.Model):
 
     placa_veiculo = models.CharField(
         verbose_name="Placa do veículo",
-        max_length=10,
+        max_length=7,
         blank=True,
         null=True,
     )
@@ -109,7 +109,7 @@ class Visitante(models.Model):
 
     placa_veiculo = models.CharField(
         verbose_name="Placa do veículo",
-        max_length=10,
+        max_length=7,
         blank=True,
         null=True,
     )
@@ -224,7 +224,7 @@ class Visitante(models.Model):
 
     placa_veiculo = models.CharField(
         verbose_name="Placa do veículo",
-        max_length=10,
+        max_length=7,
         blank=True,
         null=True,
     )
