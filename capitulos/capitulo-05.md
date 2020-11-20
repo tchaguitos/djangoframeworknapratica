@@ -335,7 +335,7 @@ Como já definimos nosso modelo e até registramos visitantes através do Admin,
 
 Quando precisamos buscar registros em nosso banco de dados, devemos construir uma **Queryset** utilizando o **Manager** da classe modelo em questão. A classe Manager, conforme visto, define como as interações com o banco de dados devem acontecer e, por padrão, é um atributo da classe chamado `objects`. Já uma queryset nada mais é que uma lista de objetos de um determinado tipo existentes em nosso banco de dados. 
 
-Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros. Automaticamente o Django nos disponibiliza uma classe Manager para realizar todas essas operações e, por hora, vamos nos concentrar em buscar os registros de visitantes.
+Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros, mas por hora, vamos nos concentrar apenas em buscar os registros de visitantes.
 
 ### Buscando registros de visitantes no banco de dados
 
