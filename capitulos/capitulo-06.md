@@ -4,7 +4,7 @@
 
 Assim como quando registramos um novo visitante através do Admin, precisaremos de um formulário para inserir as informações. Por isso, vamos trabalhar agora na tela que será responsável por exibir um formulário e registrar o visitante em nosso banco de dados.
 
-Uma view é um tipo de função dentro da aplicação que geralmente exibe um template específico. Até agora escrevemos apenas views que buscam informações e renderizam o template utilizando essas informações.
+Vimos que uma view é um tipo de função dentro da aplicação que conecta a camada de modelo à camada de template e, geralmente, renderiza um template específico com informações buscadas no banco de dados. Até agora escrevemos apenas views que buscam informações e renderizam o template utilizando essas informações, mas agora vamos trabalhar em views que também salvam informações no banco de dados.
 
 A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a responsabilidade de exibir um formulário, identificar e tratar uma requisição do tipo POST, validar o formulário com base das informações enviadas na requisição e salvar o novo visitante no banco de dados. Não se assuste, você vai ver como o Django nos ajuda abstraindo a maior parte desses requisitos.
 
