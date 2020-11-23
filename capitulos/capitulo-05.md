@@ -391,7 +391,7 @@ No nosso caso, buscamos todos os registros de visitantes que temos em nosso banc
 Para acessarmos as informações dos visitantes nos templates, utilizaremos o nome dos atributos definidos da classe modelo.
 {% endhint %}
 
-Vamos abrir o arquivo de template `index.html` e buscar pelo elemento HTML `<tbody>`. É dentro dele, acima dos elementos `<td>` que vamos definir o início da tag `{% for %}`. Para utilizar essa tag, precisamos também evidenciar onde o loop deve ser parado e fazemos isso utilizando a tag `{% endfor %}`.
+Vamos abrir o arquivo de template `index.html` e buscar pelo elemento HTML `<tbody>`. É dentro dele, acima dos elementos `<tr>` que vamos definir o início da tag `{% for %}`. Para utilizar essa tag, precisamos também evidenciar onde o loop deve ser parado e fazemos isso utilizando a tag `{% endfor %}`.
 
 Logo abaixo do elemento `<tbody>` insira o trecho `{% for visitante in todos_visitantes %}`. Lembra que falamos da variável que a tag `{% for %}` disponibiliza para que possamos acessar as informações? Pois bem, podemos dar nome a ela e, neste caso, utilizaremos o nome `visitante`. O trecho de código ficará assim:
 
