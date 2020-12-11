@@ -11,7 +11,7 @@ description: >-
 
 ### **Sobre o instrutor**
 
-Olá, meu nome é Thiago Brasil e na internet eu sou o @tchaguitos. Cursei Ciência da Computação e sou desenvolvedor web há aproximadamente 4 anos. Nesse tempo trabalhei principalmente com as linguagens Python e Javascript e me aventurei em vários projetos utilizando Django, NodeJS, Vue e mais algumas outras tecnologias da web. 
+Olá, meu nome é Thiago Brasil e na internet eu sou o @tchaguitos. Cursei Ciência da Computação e sou desenvolvedor web há aproximadamente 4 anos. Nesse tempo trabalhei principalmente com as linguagens Python e Javascript e me aventurei em vários projetos utilizando Django, NodeJS, ReactJS e mais algumas outras tecnologias da web. Além disso, trabalhei também com análise e visualização de dados geográficos.
 
 Se você quiser ver alguns dos meus códigos, dá uma passadinha aqui no meu [Github](https://github.com/tchaguitos/)
 
