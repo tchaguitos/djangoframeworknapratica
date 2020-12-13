@@ -173,6 +173,10 @@ A tag `{% csrf_token %}` fornece proteção para nossa aplicação, de modo a im
 
 Logo abaixo da tag `{% csrf_token %}`, estamos utilizando novamente a tag `{% for %}` para realizar um loop, mas desta vez na variável `form`. Quando realizamos um loop em nosso formulário, conseguimos acessar seus campos, e é exatamente o que precisamos fazer: executar um loop e acessar as informações de cada campo para que possamos passá-las para a tag `{% render_field %}` fazer o trabalho de renderização destes campos.
 
+{% hint style="info" %}
+Aqui temos uma novidade, a utilização da tag `{% if %}`. Uma estrutura condicional que pode ser utilizada em templates. O que estiver dentro dela só será exibido caso o resultado da expressão seja verdadeiro. Ou seja, quando existem mensagens e a variável `messages` está definida, exibimos o trecho HTML
+{% endhint %}
+
 Para cada campo \(_variável field_\) em nosso formulário, criamos a estrutura padrão para campos de um formulário do nosso tema. Acessamos também a propriedade `label`  para exibir o nome e o _placeholder_ do `input` e passamos a variável que representa o campo para a tag `{% render_field %}`. Veja como ficará estrutura de cada campo:
 
 ```markup
