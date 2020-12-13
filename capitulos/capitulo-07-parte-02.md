@@ -211,7 +211,7 @@ def registrar_visitante(request):
     return render(request, "registrar_visitante.html", context)
 ```
 
-### Alterando o template para exigir as mensagens
+### Alterando o template para exibir as mensagens
 
 Nossa view para registro de visitantes está completa: estamos exibindo o formulário corretamente, verificando quando ocorre uma requisição do tipo POST, validando as informações enviadas, definindo automaticamente o porteiro que registrou o visitante, exibindo uma mensagem e ainda redirecionamos a requisição quando finalizamos todo o processo com sucesso. Ufa! É tanta coisa que ficou até difícil de listar.
 
