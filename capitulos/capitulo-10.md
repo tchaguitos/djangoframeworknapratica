@@ -1,224 +1,117 @@
 # Capítulo 10
 
-## Criando função para finalizar visita
+## Criando funcionalidade para autorização de entrada de visitante
 
-Agora que criamos a função para autorizar a entrada do visitante, precisamos também criar a função que finaliza a visita. Para a primeira, utilizamos o formulário `AutorizaVisitanteForm` para atualiza o nome do morador responsável e definimos manualmente o status e o horário de autorização.
+Nos capítulos anteriores, nos dedicamos à criação das funcionalidades para registro e visualização de informações de visitantes. Aprendemos um pouco sobre como requisições funcionam, aprendemos a utilizar os formulários do Django, adaptamos os templates e aprendemos um pouco mais como eles funcionam, conhecemos o `django-widget-tweaks`, o Django `messages` e o `get_object_or_404` e ainda criamos métodos personalizados para nosso modelo de visitantes. Olha só quanta coisa conseguimos absorver somente nesses últimos capítulos!
 
-Desta vez, precisamos atualizar apenas o valor do atributo `horario_saida` e alterar o status para `FINALIZADO`, que é o status para quando o visitante deixa o condomínio. Sendo assim, vamos criar uma outra view que será responsável por receber um `id`, buscar um visitante com este `id` e atualizar essas informações. A view será um pouco parecida com a view `informacoes_visitante`. 
+Com essas funcionalidades criadas, precisamos seguir o roteiro que criamos com base nas necessidades do cliente, de modo que, agora, trabalharemos na funcionalidade que autoriza a entrada do visitante no condomínio. Quando um visitante chega na portaria e se identifica, o mesmo deve aguardar que o colaborador responsável, no caso o porteiro, entre em contato com um morador da casa a ser visitada e autorize que este visitante adentre ao condomínio.
 
-Abaixo da função `informacoes_visitante` crie e função `finalizar_visita`:
+Ao receber a informação de que o visitante pode adentrar ao condomínio, o porteiro deverá registrar na dashboard qual o nome do morador que autorizou a entrada deste visitante. Para fins de controle, também é necessário que o sistema registre o horário em que essa autorização ocorreu. Sendo assim, no momento da autorização do visitante, devemos registrar o horário e o nome do morador responsável pela autorização.
 
-```python
-# código acima omitido
+## Criando um status diferente para cada estágio da visita
 
-def finalizar_visita(request, id):
+Antes de seguir em frente, precisamos analisar o cenário e extrair algumas informações com base nos fluxos e eventos que ocorrem em uma visita. Existem três cenários para o visitante: quando ele chega na portaria e está aguardando autorização \(status 1\), quando ele está dentro do condomínio realizando a visita \(status 2\) e quando ele vai embora e finaliza a visita \(status 3\).
 
-    if request.method == "POST":
-        visitante = get_object_or_404(Visitante, id=id)
+Definir e tornar esses status explícitos é interessante pois assim podemos diferenciar os estágios em que cada visitante se encontra e ainda contabilizar visitantes estão aguardando autorização, em visita dentro do condomínio e quantos já foram embora. Assim temos mais clareza com relação às informações e ainda conseguimos contabilizar esses números para exibir na página inicial da nossa dashboard.
 
-        visitante.status = "FINALIZADO"
-        visitante.horario_saida = timezone.now()
-
-        visitante.save()
-
-        messages.success(
-            request,
-            "Visita finalizada com sucesso"
-        )
-
-        return redirect("index")
-```
-
-A função `finalizar_visita` deverá receber um `id` como argumento e utilizar a função `get_object_or_404` para buscar o visitante do `id` que foi passado. Após isso vamos atualizar os atributos `status` e `horario_saida` diretamente e salvar o visitante. A diferença aqui é que não utilizaremos um formulário e nossa view será acessada somente através do método `POST`. Todo o resto continuará bem parecido com as funções que já escrevemos antes.
-
-Para garantir que as operações serão realizadas somente quando o método `POST` for utilizado, vamos escrever um `if` para certificar essa informação \(`if request.method == "POST":`\) e, caso seja verdadeira, vamos executar as operações necessárias. Note que, mais uma vez, estamos utilizando o método `timezone.now()` mas, desta vez, para o atributo `horario_saida`, e setando diretamente o `status` que agora deve receber o status `FINALIZADO`. 
-
-## Criando URL
-
-Assim como todas as outras funções de view que escrevemos, essa também será mapeada por meio de uma URL para que a gente possa acessá-la pelo navegador. Vamos para o nosso arquivos `urls.py` e criar essa nova URL. 
-
-A URL que irá mapear a função `finalizar_visita` será bem parecida com a URL `informacoes_visitante`, mas a diferença é que adicionaremos, após o `id`, o trecho `finalizar-visita/`. Com isso, conseguimos diferenciar qual função de view chamar para quando o usuário desejar apenas visualizar as informações de um visitante e para quando desejar finalizar uma visita. Nosso arquivo `urls.py` ficará assim:
+Vamos voltar ao nosso arquivo `models.py` do aplicativos **visitantes** e adicionar o atributo `status` ao modelo de Visitante. Ele será do tipo `CharField`, mas com a diferença que receberá uma lista pré determinada de opções disponíveis para escolha. Essa lista deverá guardar as opções disponíveis e devemos definir sempre o valor que será salvo em nosso banco de dados e o valor que será exibido para o usuário final. Antes de criar o atributo, vamos criar a variável `STATUS_VISITANTE`, que ficará da seguinte forma:
 
 ```python
-from django.contrib import admin
-from django.urls import path
+class Visitante(models.Model):
 
-from usuarios.views import index
-
-from visitantes.views import (
-    registrar_visitante, informacoes_visitante,
-    finalizar_visita
-)
-
-urlpatterns = [
-    path("admin/", admin.site.urls),
-
-    path(
-        "",
-        index,
-        name="index",
-    ),
-
-    path(
-        "registrar-vistante/",
-        vegistrar_visitante,
-        name="registrar_visitante",
-    ),
-
-    path(
-        "visitantes/<int:id>/",
-        informacoes_visitante,
-        name="informacoes_visitante",
-    ),
-
-    path(
-        "visitantes/<int:id>/finalizar-visita/",
-        finalizar_visita,
-        name="finalizar_visita"
-    )
-]
+    STATUS_VISITANTE = [
+        ("AGUARDANDO", "Aguardando autorização"),
+        ("EM_VISITA", "Em visita"),
+        ("FINALIZADO", "Visita finalizada"),
+    ]
+    
+    # código abaixo omitido
 ```
-
-## Alterando template para exibir botão e modal para finalizar visita
-
-Agora que temos a URL para onde devemos enviar uma requisição para sinalizar que queremos finalizar uma visita, vamos alterar as partes do template que vão possibilitar a interação do usuário com essa funcionalidade.
-
-Assim como inserimos um botão para quando queremos autorizar a entrada de um visitante, vamos inserir um botão para quando quisermos finalizar a visita. Abra o template `informacoes_visitante.html` e insira o seguinte trecho de código abaixo do botão responsável por autorizar a entrada do visitante:
-
-```markup
-<a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
-    <span class="text">Finalizar visita</span>
-                    
-    <span class="icon text-white-50">
-        <i class="fas fa-door-open"></i>
-    </span>
-</a>
-```
-
-O template ficará assim:
-
-![Template de informa&#xE7;&#xF5;es de visitante agora tamb&#xE9;m com bot&#xE3;o amarelo escrito &quot;Finalizar visita&quot;](../.gitbook/assets/screenshot_2020-04-06_19-42-46.png)
-
-Note que a estrutura é bem parecida com a que utilizamos no outro botão, mas quando observamos o atributo `data-target` podemos notar que agora ele é igual a `#modal2`. Isso porque vamos também criar um outro modal para ser exibido quando o usuário clicar no botão para finalizar uma visita. A função desse modal é obter a confirmação se é isso mesmo que o usuário deseja fazer.
-
-Ainda no mesmo arquivo, mas agora ao final do arquivo, vamos colocar o seguinte trecho de código logo abaixo da estrutura HTML do primeiro modal:
-
-```markup
-<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Finalizar visita</h5>
-                    
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                <div class="modal-body">
-                    <h5 class="mb-3">
-                        Realmente deseja encerrar a visita?
-                    </h5>
-
-                    <form method="post" action="{% url 'finalizar_visita' id=visitante.id %}">
-                        {% csrf_token %}
-
-                        <input hidden>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Finalizar visita</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-```
-
-Nosso segundo modal será exibido da seguinte maneira:
-
-![Template de informa&#xE7;&#xF5;es de visitante ao fundo com alerta solicitando confirma&#xE7;&#xE3;o do usu&#xE1;rio de que realmente deseja finalizar a visita](../.gitbook/assets/screenshot_2020-04-06_19-45-04.png)
-
-Esse segundo modal deverá exibir a mensagem "Realmente deseja encerrar a visita?" e conter um formulário que enviará uma requisição do tipo `POST` para a URL que criamos anteriormente. Esse formulário precisa ter apenas o campo renderizado pela tag `{% csrf_token %}` para identificar que as requisições podem ser aceitas pelo nosso servidor.
 
 {% hint style="info" %}
-Estamos enviando uma requisição do tipo `POST` para URL pois é recomendada a utilização deste método sempre que precisamos alterar informações em nosso banco de dados
+A lista `STATUS_VISITANTE` segue o que foi dito anteriormente e define os status `Aguardando autorização`, `Em visita` e `Finalizado`. O primeiro valor, em letras maiúsculas, será guardado no banco de dados e o segundo é o texto que será exibido para o usuário final. Sendo assim, quando o visitante receber o status `AGUARDANDO`, o texto **Aguardando autorização** será exibido.
 {% endhint %}
 
-O que muda tudo aqui é o atributo `action` do formulário HTML. Graças a ele podemos direcionar um formulário para uma URL diferente da que estamos, diferentemente de como fizemos com os outros formulários. Dessa forma, conseguimos enviar uma requisição do tipo `POST` para a URL `{% url 'finalizar_visita' id=visitante.id %}` com toda informação que precisamos para identificar o visitante a ser atualizado assim que o usuário clicar no botão "Finalizar visita" dom modal confirmando a ação.
+Com isso, agora vamos adicionar o atributo `status` ao nosso modelo. Além dos argumentos `verbose_name` e `max_length` que já conhecemos, também vamos passar os argumentos `choices` e `default`. O primeiro é a lista que criamos com as opções disponíveis para escolha e o segundo é o valor padrão a ser definido quando uma instância do modelo for criada. Nosso código ficará assim:
 
-Vai em frente e teste a nova funcionalidade implementada!
+```python
+class Visitante(models.Model):
 
-## Prevenindo erros e operações desnecessárias
-
-Nos passos anteriores, implementamos a funcionalidade que finaliza as visitas dentro da nossa dashboard. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
-
-Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir os botões com base no valor desse status. Funcionará assim:
-
-* Se o visitante estiver com status `AGUARDANDO`, vamos exibir o botão para **autorizar a entrada**
-* Se o visitante estiver com status `EM_VISITA`, vamos exibir o botão para **finalizar a visita** 
-* E, finalmente, se o visitante estiver com status `FINALIZADO`, não vamos exibir botões
-
-### Exibição condicional de botões para autorizar entrada e finalizar visita
-
-Para fazer isso, vamos utilizar a tag `{% if %}` para verificar o status do visitante e renderizar um botão por vez. Primeiro, vamos criar a instrução `if` para verificar se o status é `AGUARDANDO` e renderizar o botão para autorizar a entrada do visitante.
-
-Utilizando a tag `{% if %}` vamos definir a condição `visitante.status == "AGUARDANDO"` para que o botão apareça. Isto é, o HTML referente ao botão só será renderizado no template caso o status do visitante seja `AGUARDANDO`. Nosso código ficará assim:
-
-```markup
-{% if visitante.status == "AGUARDANDO" %}
-    <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
-        <span class="text">Autorizar entrada</span>
-                
-        <span class="icon text-white-50">
-            <i class="fas fa-user-check"></i>
-        </span>
-    </a>
-{% endif %}
+    STATUS_VISITANTE = [
+        ("AGUARDANDO", "Aguardando autorização"),
+        ("EM_VISITA", "Em visita"),
+        ("FINALIZADO", "Visita finalizada"),
+    ]
+    
+    status = models.CharField(
+        verbose_name="Status",
+        max_length=10,
+        choices=STATUS_VISITANTE,
+        default="AGUARDANDO",
+    )
+    
+    # código abaixo omitido
 ```
 
-Abaixo do código que escrevemos, vamos criar uma outra condição com a tag `{% if %}`. Dessa vez, queremos verificar se o status é o `EM_VISITA`. O código completo ficará assim:
+{% hint style="warning" %}
+O status `default` será `AGUARDANDO` pois sempre que um visitante chega à portaria, fica aguardando a autorização de um morador
+{% endhint %}
 
-```markup
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
-        
-    <div class="">
-        {% if visitante.status == "AGUARDANDO" %}
-            <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
-                <span class="text">Autorizar entrada</span>
-                    
-                <span class="icon text-white-50">
-                    <i class="fas fa-user-check"></i>
-                </span>
-            </a>
-        {% endif %}
+### Criando o arquivo de migrações
 
-        {% if visitante.status == "EM_VISITA" %}
-            <a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
-                <span class="text">Finalizar visita</span>
-                    
-                <span class="icon text-white-50">
-                    <i class="fas fa-door-open"></i>
-                </span>
-            </a>
-        {% endif %}
-    </div>
-</div>
+Como vimos anteriormente, sempre que mudamos a estrutura do nosso modelo, precisamos criar um arquivo que registra essas alterações em formato de migração para que seja possível efetuar as alterações no banco de dados posteriormente. Mais uma vez, utilizaremos o comando `makemigrations`:
+
+```bash
+(env)$ python manage.py makemigrations visitantes
 ```
 
-Se você acessar a página de informação de algum visitante, notará que os botões não estão aparecendo juntos mais. Além disso, se você for na página de informação de um visitante que já deixou as dependências do condomínio, isto é, finalizou sua visita, notará que nenhum botão é exibido. 
+O terminal deverá mostrar algo parecido com isto:
 
-Dessa forma conseguimos evitar que operações desnecessárias sejam realizadas e que as informações do nosso banco de dados sejam alteradas de forma indevida.
+```text
+Migrations for 'visitantes':
+  visitantes/migrations/0005_visitante_status.py
+    - Add field status to visitante
+```
 
-## Bloqueando o acesso à URL por métodos diferentes do POST
+### Efetuando as alterações no banco de dados
 
-Ao contrário das outras funções que escrevemos, a função `finalizar_visita` não poderá ser acessada através do método `GET`. O método `GET` é utilizado por uma requisição sempre que precisamos buscar informações em um servidor, como é o caso nas outras funções \(estamos buscando o template e todo o contexto relacionado a ele antes de enviar informações para o usuário\). Se você notar as funções `registrar_visitante` e `informacoes_visitante`, vai perceber que definimos algumas variáveis fora da instrução `if` que verifica se o método utilizado é o `POST`. Isso porque precisamos dessas variáveis quando o usuário acessa a página, como é o caso do formulário que deverá ser exibido mesmo que uma requisição `POST` não seja enviada.
+Nada diferente do que já vimos, vamos agora utiliza o comando `migrate` para efetuar as mudanças em nosso banco de dados:
 
-Para garantir que nossa view possa ser acessada somente pelo método `POST`, vamos utilizar a classe `HttpResponseNotAllowed` para nos ajudar. Ela é quem vai cuidar de toda parte de bloquear o acesso via método `GET` e retornar uma mensagem para o usuário quando isso ocorrer. Antes de tudo, precisamos importá-la em nosso arquivo `views.py` do aplicativo visitantes:
+```bash
+(env)$ python manage.py migrate
+```
+
+## Criando formulário para atualizar atributos específicos do visitante
+
+Sabemos que precisamos registrar o nome do morador responsável por autorizar a entrada do visitante, além de salvar data e hora e, agora que temos um status, alterar esse status. Por padrão e uma questão lógica, como falamos no tópico anterior, sempre que criamos um visitante o mesmo recebe o status `AGUARDANDO` e, quando sua entrada for autorizada, vamos alterar esse status para `EM_VISITA`.
+
+Criaremos a funcionalidade na tela que exibe as informações do visitante, de forma que, quando o visitante estiver aguardando autorização, vamos exibir um botão para executar a funcionalidade que autorizará sua entrada. Utilizaremos um formulário para receber o nome do morador responsável e as informações referentes ao horário de autorização e status serão definidas diretamente na view.
+
+Para começar, vamos abrir o arquivo `forms.py` do aplicativos **visitantes** e criar o formulário `AutorizaVisitanteForm`, uma subclasse de `ModelForm` bem parecida com a que já criamos, com a diferença que terá apenas o campo `morador_responsavel` na lista `fields`:
+
+```python
+class AutorizaVisitanteForm(forms.ModelForm):
+    morador_responsavel = forms.CharField(required=True)
+
+    class Meta:
+        model = Visitante
+        fields = [
+            "morador_responsavel",
+        ]
+        error_messages = {
+            "morador_responsavel": {
+                "required": "Por favor, informe o nome do morador responsável por autorizar a entrada do visitante"
+            }
+        }
+```
+
+Ao criamos um formulário, podemos também sobrescrever os campos definidos automaticamente por causa da classe modelo, caso a gente queira complementar alguma informação ou personalizar algum comportamento. No nosso caso, como o atributo `morador_responsavel` não é obrigatório no modelo, também não será no formulário, mesmo que a gente esteja recebendo apenas ele. Por isso vamos sobrescrever o campo no formulário, afim de explicitar que ele deve ser obrigatório. Além disso, também vamos definir uma mensagem de erro para caso o campo não seja preenchido. Feito isso, já podemos utilizar o formulário em nossa view.
+
+## Alterando view para autorizar entrada de visitante
+
+Agora que criamos um formulário para receber o nome do morador responsável, temos que realizar algumas alterações em nossa view e em nosso template para que o formulário seja exibido e funcione corretamente.
+
+Já escrevemos um código bem parecido com o que vamos escrever agora, o da view `registrar_visitante`. Desta vez, vamos importar o formulário `AutorizaVisitanteForm` no arquivo `views.py` do aplicativo **visitantes**. O trecho onde as importações são feitas ficará assim:
 
 ```python
 from django.contrib import messages
@@ -226,7 +119,161 @@ from django.shortcuts import (
     render, redirect, get_object_or_404
 )
 
-from django.http import HttpResponseNotAllowed
+from visitantes.models import Visitante
+from visitantes.forms import (
+    VisitanteForm, AutorizaVisitanteForm
+)
+
+# código abaixo omitido
+```
+
+Com o formulário importado no arquivo `views.py`, vamos trabalhar na função `informacoes_visitante()`, exatamente da forma que fizemos na função `registrar_visitante()`: criar a variável form, verificar se o método POST está sendo utilizado na requisição, passar o corpo da requisição para o formulário, verificar se as informações são válidas, salvar o formulário, exibir a mensagem de sucesso e redirecionar o usuário. Não podemos nos esquecer, claro, de passar o formulário no contexto da view. A função ficará assim:
+
+```python
+def informacoes_visitante(request, id):
+    
+    visitante = get_object_or_404(Visitante, id=id)
+    
+    form = AutorizaVisitanteForm()
+    
+    if request.method == "POST":
+        form = AutorizaVisitanteForm(
+            request.POST, instance=visitante
+        )
+        
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                "Entrada de visitante autorizada com sucesso"
+            )
+
+            return redirect("index")
+    
+    context = {
+        "nome_pagina": "Informações de visitante",
+        "visitante": visitante,
+        "form": form,
+    }
+    
+    return render(request, "informacoes_visitante.html", context)
+```
+
+Note que, desta vez, passamos também o argumento `instance` para o nosso formulário. Quando fazemos isso, o Django entende que queremos atualizar o objeto em questão \(o visitante com `id` igual à passada para a função, no caso\). Estamos dizendo para o Django atualizar o visitante em questão utilizando a informação do corpo da requisição.
+
+## Alterando template para exibir modal com formulário
+
+Como passamos a variável `form` no contexto, podemos agora alterar nosso template para que exiba esse formulário. Como as informações do visitante já ocupam grande parte do template, utilizaremos um elemento HTML conhecido como modal para exibir o formulário. Na verdade, ele é feito unindo as tecnologias HTML, CSS e Javascript e é um elemento que se sobrepõe aos outros, quase como um pop-up \(aquelas janelas chatas que piscam na tela\).
+
+Antes de tudo, vamos adicionar o botão que será responsável por exibir o modal com o formulário. Abra o arquivo `informacoes_visitante.html` e abaixo do elemento `<h1 class="h3 mb-0 text-gray-800">` insira o seguinte trecho de código:
+
+```markup
+<!-- código acima omitido -->
+<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+
+<!-- trecho de código a ser inserido -->
+<div>
+    <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+        <span class="text">Autorizar entrada</span>
+                    
+        <span class="icon text-white-50">
+            <i class="fas fa-user-check"></i>
+        </span>
+    </a>
+</div>
+<!-- código abaixo omitido -->
+```
+
+O que estamos fazendo é adicionar um elemento `<div>` ao lado do título da página que possui um link \(elemento `<a>`\) para um elemento modal chamado de `#modal1`, que ainda vamos inserir na página. O template ficará parecido com isso:
+
+![Cabe&#xE7;alho com t&#xED;tulo da p&#xE1;gina e bot&#xE3;o verde escrito &quot;Registrar visitante&quot;](../.gitbook/assets/screenshot_2020-03-30_20-35-34.png)
+
+Feito isso, adicione também o código HTML do modal antes do fechamento da tag do elemento `<div class="container">`:
+
+```markup
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Autorizar entrada de visitante</h5>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="id_morador_responsavel" class="col-form-label">Nome do morador responsável por autorizar a entrada do visitante:</label>
+                        {% render_field form.morador_responsavel placeholder="Nome do morador responsável por autorizar a entrada do visitante" class="form-control" %}
+                    </div>
+                        
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Autorizar entrada</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Conforme falado, esse modal deve exibir nosso formulário de cadastro de morador responsável, e é isso que estamos fazendo. Criamos a estrutura HTML para o formulário dentro do elemento `<div class="modal-body">` de forma bem parecida com que foi feito anteriormente para renderizar o campo, com a diferença que agora estamos acessando o campo `morador_responsavel` do formulário diretamente para passá-lo para a tag `{% render_field %}`.
+
+Já utilizamos a tag `{% render_field %}` anteriormente, quando renderizamos nosso formulário para registro de novos visitantes. A dinâmica utilizada aqui será a mesma, com a diferença que vamos acessar o campo do formulário diretamente \(`form.morador_responsavel`\).
+
+{% hint style="info" %}
+Note que o template baixado no capítulo anterior já possui a tag de importação do django-widget-tweaks \(`{% load widget_tweaks %}`\).
+{% endhint %}
+
+Feito isso, vamos agora visualizar as informações de um visitante qualquer e tentar autorizar sua entrada por meio do formulário que criado. Note que, quando clicamos no botão, o modal com o formulário aparece na tela:
+
+![Template de informa&#xE7;&#xF5;es de visitante ao fundo e alerta bom formul&#xE1;rio para registro do nome do morador respons&#xE1;vel](../.gitbook/assets/screenshot_2020-03-30_20-37-15.png)
+
+## Atualizando os campos horario\_autorizacao e status diretamente
+
+Ao testar o formulário e constatar que tudo ocorreu bem, você deve ter notado que, apesar do nome do morador responsável ter sido atualizado, os valores de `horario_autorizacao` e `status` continuaram os mesmos. Isso porque nosso formulário está atualizando apenas o campo `morador_responsavel`, e era isso que estávamos esperando, visto que colocamos apenas este campo na propriedade `fields` do formulário em questão. Mas como vamos atualizar estes outros campos?
+
+### Atualizando o status
+
+Quando criamos o formulário para registro de visitantes, definimos o valor do atributo `registrado_por` diretamente e é o que faremos neste caso também. Para isso, vamos alterar a view para que seja possível setar esses valores diretamente.
+
+```python
+# código acima omitido
+
+if form.is_valid():
+    visitante = form.save(commit=False)
+    
+    visitante.status = "EM_VISITA"
+
+    visitante.save()
+
+    messages.success(
+        request,
+        "Entrada de visitante autorizada com sucesso"
+    )
+
+    return redirect("index")
+
+# código abaixo omitido
+```
+
+Dessa forma, já estamos definindo o valor que o status receberá caso o formulário seja válido e salvando o novo visitante, mas ainda precisamos registrar o horário em que essa autorização ocorreu, ou seja, o horário em que o formulário atualizou o atributo `morador_responsavel` e alterou o status para `EM_VISITA`.
+
+### Conhecendo o timezone do Django
+
+O Python, por padrão, possui um módulo para trabalhar com datas e horas que é o `datetime`, mas por algumas questões referentes aos horários diferentes que são suportados, o Django nos recomenda a utilização do módulo `timezone`. Esse módulo nos fornece inúmeras ferramentas para trabalharmos com datas de forma bem facilitada já considerando a `timezone` em que nossa aplicação está contextualizada. O primeiro passo é importarmos o módulo na view.
+
+```python
+from django.contrib import messages
+from django.shortcuts import (
+    render, redirect, get_object_or_404
+)
 
 from visitantes.models import Visitante
 from visitantes.forms import (
@@ -238,34 +285,28 @@ from django.utils import timezone
 # código abaixo omitido
 ```
 
-Feito isso, tudo que precisamos fazer é utilizar a instrução `else` e retornar a classe `HttpResponseNotAllowed` passando uma lista com os métodos permitidos e uma mensagem a ser exibida caso o método utilizado pela requisição seja diferente. Nosso código ficará assim:
+O `timezone` possui um método chamado `now()` que nos retorna data e hora do momento em que a chamada ao método ocorreu. Sendo assim, caso o registro do visitante ocorra no dia `21 de agosto de 2020 às 15:00:00`, o método `timezone.now()` retornaria exatamente essa data e hora. Dessa forma, tudo que precisamos fazer é igualar o atributo `horario_autorizacao` à chamada do método `timezone.now()`. Nossa view ficará assim:
 
 ```python
-def finalizar_visita(request, id):
+# código acima omitido
 
-    if request.method == "POST":
-        visitante = get_object_or_404(Visitante, id=id)
+if form.is_valid():
+    visitante = form.save(commit=False)
+    
+    visitante.status = "EM_VISITA"
+    visitante.horario_autorizacao = timezone.now()
 
-        visitante.status = "FINALIZADO"
-        visitante.horario_saida = timezone.now()
+    visitante.save()
 
-        visitante.save()
+    messages.success(
+        request,
+        "Entrada de visitante autorizada com sucesso"
+    )
 
-        messages.success(
-            request,
-            "Visita finalizada com sucesso"
-        )
+    return redirect("index")
 
-        return redirect("index")
-
-    else:
-        return HttpResponseNotAllowed(
-            ["POST"],
-            "Método não permitido"
-        )
+# código abaixo omitido
 ```
 
-Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view vai retornar o código `HTTP 405` e exibir a mensagem "Método não permitido".
-
-Se você quiser, teste em seu navegador: [http://127.0.0.1:8000/visitantes/4/finalizar-visita/](http://127.0.0.1:8000/visitantes/4/finalizar-visita/).
+Dessa forma, atualizamos o nome do morador responsável através do formulário e, caso a informação seja válida, atualizamos os atributos `status` e `horario_autorizacao` diretamente.
 

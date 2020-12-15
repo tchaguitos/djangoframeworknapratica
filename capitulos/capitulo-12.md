@@ -1,230 +1,255 @@
 # Capítulo 12
 
-## Criando aplicativos para administrar informações da dashboard
+## Implementando melhorias em nossos templates
 
-No capítulo anterior nós começamos a implementar algumas melhorias visando uma melhor experiência de utilização da nossa dashboard e ainda atuamos de forma a melhorar a estrutura do projeto para facilitar futuras manutenções. Seguindo nesse mesmo caminho, vamos criar um aplicativo chamado **dashboard** para administrar melhor as informações relacionadas principalmente à página inicial da dashboard. É importante também a gente lembrar que os aplicativos de um projeto Django devem dividir responsabilidades e cada um deles ter um único objetivo. 
+Olha só que legal: finalizamos as funcionalidades de maior valor da nossa dashboard. Os porteiros já podem registrar visitantes, autorizar a entrada deles após contato com um morador e ainda sinalizar que a visita foi encerrada. Bem bacana, não?
 
-Apesar da gente ter finalizado as principais funcionalidades, ainda precisamos buscar alguns números para que sejam mostrados na página inicial. Se você observar o template, vai perceber que existem elementos que nos sugerem que devemos exibir o número de visitantes de cada status e quantos visitantes foram registrados no mês atual. Queremos fazer algo desse tipo, mas com dados dinâmicos:
+Agora que temos as principais funcionalidades prontas, vamos nos concentrar em melhorar a experiência de utilização da dashboard e ainda melhorar a estrutura do nosso projeto, de modo que seja mais fácil realizar futuras manutenções.
 
-![Captura de tela realizada a partir do template inicial da dashboard onde foca apenas nos blocos que exibem o n&#xFA;mero de visitantes aguardando autoriza&#xE7;&#xE3;o, em visita, visita finalizada e o total de visitantes registrados no m&#xEA;s](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
+Começaremos com algumas alterações nos templates que visam melhorar a experiência de utilização da dashboard.
 
-{% hint style="info" %}
-Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos.
-{% endhint %}
+### Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
 
-Para começar vamos criar o aplicativo utilizando o `manage.py`:
-
-```bash
-(env)$ python manage.py startapp dashboard
-```
-
-E depois adicionar o novo aplicativo ao arquivo de configurações, o `settings.py`:
-
-```python
-INSTALLED_APPS += [
-    "usuarios",
-    "porteiros",
-    "visitantes",
-    "dashboard",
-]
-```
-
-{% hint style="info" %}
-Não vamos executar as operações `makemigrations` e `migrate` pois não fizemos nenhuma alteração relacionada com o banco de dados. Estamos apenas acessando e buscando os dados já existentes.
-{% endhint %}
-
-## Migrando view "index" para aplicativo dashboard
-
-Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view `index` para o aplicativo **dashboard**. Para isso, vamos copiar o código do arquivo `usuarios/views.py` para `dashboard/views.py`. O arquivo `views.py` do aplicativo usuários \(`usuarios/views.py`\) ficará vazio e o arquivo `views.py` do aplicativo dashboard \(`dashboard/views.py`\) ficará assim:
-
-```python
-from django.shortcuts import render
-from visitantes.models import Visitante
-
-def index(request):
-
-    todos_visitantes = Visitante.objects.all()
-
-    context = {
-        "nome_pagina": "Início da dashboard",
-        "todos_visitantes": todos_visitantes,
-    }
-
-    return render(request, "index.html", context)
-```
-
-Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar `dashboard.views` e fazer essa alteração também na função `path()` que cria a URL. O arquivo ficará assim:
-
-```python
-from django.contrib import admin
-from django.urls import path
-
-from dashboard.views import index
-
-from visitantes.views import (
-    registrar_visitante,
-    informacoes_visitante,
-    finalizar_visita,
-)
-
-urlpatterns = [
-    path("admin/", admin.site.urls),
-
-    path(
-        "",
-        index,
-        name="index"
-    ),
-    
-    # código abaixo omitido
-]
-```
-
-## Conhecendo o método filter das querysets
-
-Agora que migramos a view para o aplicativo dashboard, vamos conhecer métodos para filtrar os visitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes registrados no mês atual.
-
-O primeiro método das querysets que vamos conhecer é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
-
-Na view que estamos trabalhando já existe uma queryset, que é a variável `todos_visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados, o que precisamos fazer é filtrar essa lista de modo que seja possível classificar os visitantes por status. Ou seja, precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com as visitas finalizadas.
-
-### Filtrando nossos visitantes por status
-
-O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois por agora queremos apenas os visitantes que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `todos_visitantes` passando a condição `status="AGUARDANDO"`como argumento para o método. Isto é, vamos filtrar da queryset `todos_visitantes` apenas os visitantes que estão com `status` igual a `AGUARDANDO`.
-
-```python
-def index(request):
-    
-    todos_visitantes = Visitante.objects.all()
-    
-    visitantes_aguardando = todos_visitantes.filter(
-        status="AGUARDANDO"
-    )
-    
-    context = {
-        "nome_pagina": "Início da dashboard",
-        "todos_visitantes": todos_visitantes,
-    }
-    
-    return render(request, "index.html", context)
-```
-
-Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes para cada status e passar as variáveis criadas para o contexto da função.
-
-```python
-def index(request):
-    
-    todos_visitantes = Visitante.objects.all()
-    
-    # filtrando os visitantes por status
-    visitantes_aguardando = todos_visitantes.filter(
-        status="AGUARDANDO"
-    )
-
-    visitantes_em_visita = todos_visitantes.filter(
-        status="EM_VISITA"
-    )
-
-    visitantes_finalizado = todos_visitantes.filter(
-        status="FINALIZADO"
-    )
-    
-    context = {
-        "nome_pagina": "Início da dashboard",
-        "todos_visitantes": todos_visitantes,
-        "visitantes_aguardando": visitantes_aguardando,
-        "visitantes_em_visita": visitantes_em_visita,
-        "visitantes_finalizado": visitantes_finalizado,
-    }
-    
-    return render(request, "index.html", context)
-```
-
-### Contando os resultados de uma queryset
-
-Agora que nós já filtramos os visitantes por status, precisamos contar quantos registros existem em cada queryset, certo? É isso que o método `count()` faz por nós. Tudo que precisamos fazer é utilizá-lo nas querysets `visitantes_aguardando`, `visitantes_em_visita` e `visitantes_finalizado`. Podemos fazer isso no contexto mesmo:
-
-```python
-context = {
-    "nome_pagina": "Início da dashboard",
-    "todos_visitantes": todos_visitantes,
-    "visitantes_aguardando": visitantes_aguardando.count(),
-    "visitantes_em_visita": visitantes_em_visita.count(),
-    "visitantes_finalizado": visitantes_finalizado.count(),
-}
-```
-
-Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o template `index.html` e utilizar a sintaxe para exibição de variáveis. O trecho de código ficará assim:
+Nossa primeira melhoria será inserir os botões com as ações **cancelar** e **voltar** nas páginas de registro de visitante e informações de visitante. Vamos primeiro abrir o arquivo `registrar_visitante.html` e procurar pelo seguinte trecho de código:
 
 ```markup
-<div class="row">
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_aguardando }}</div>
-                    </div>
-                        
-                    <div class="col-auto">
-                        <i class="fas fa-user-lock fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="text-right">
+    <button class="btn btn-primary" type="submit">
+        <span class="text">Registrar visitante</span>
+    </button>
+</div>
+```
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_em_visita }}</div>
-                    </div>
-                        
-                    <div class="col-auto">
-                        <i class="fas fa-user-clock fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+Acima do elemento `<button class="btn btn-primary" type="submit">` vamos inserir um link para a página inicial da nossa dashboard com o texto "Cancelar", aproveitando algumas classes do Bootstrap para que o link tenha a aparência de um botão. O código ficará assim:
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_finalizado }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-user-check fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+```markup
+<div class="text-right">
+    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
+        <span class="text">Cancelar</span>
+    </a>
+
+    <button class="btn btn-primary" type="submit">
+        <span class="text">Registrar visitante</span>
+    </button>
+</div>
+```
+
+{% hint style="info" %}
+Como a única maneira que podemos chegar até a página de registro de um novo visitante é pelo início da dashboard, faz sentido utilizarmos apenas um link fixo para a home da dashboard
+{% endhint %}
+
+O template `informacoes_visitante.html` já possui o botão com a ação **voltar** visível, mas não temos um link para onde o botão deve enviar o usuário. Vamos procurar pelo seguinte trecho de código e inserir o link para a URL `index` em seu atributo `href`:
+
+```markup
+<div class="mr-1 text-right">
+    <a href="#" class="btn btn-secondary text-white" type="button">
+        <span class="text">Voltar</span>
+    </a>
+</div>
+```
+
+O código ficará assim:
+
+```markup
+<div class="mr-1 text-right">
+    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
+        <span class="text">Voltar</span>
+    </a>
+</div>
+```
+
+### Melhorando a exibição do CPF do visitante
+
+Uma outra melhoria interessante seria na exibição do CPF do visitante. Estamos exibindo os números todos sem nenhuma separação, como geralmente o número de CPF é apresentado. Aprendemos que é possível criar métodos nas classes modelo para alterar comportamentos e até já criamos métodos que utilizamos para melhorar a exibição de alguns atributos. Agora vamos criar o método `get_cpf` que deverá retornar o CPF do visitante já formatado com pontos e traço.
+
+Vamos abrir o arquivo `models.py` e abaixo do método `get_placa_veiculo` vamos criar o método `get_cpf` que, por enquanto, irá retornar o CPF caso o mesmo exista. O código ficará assim:
+
+```python
+# código acima omitido
+
+def get_placa_veiculo(self):
+    if self.placa_veiculo:
+        return self.placa_veiculo
+
+    return "Veículo não registrado"
+
+def get_cpf(self):
+    if self.cpf:
+        return self.cpf
+
+    return "CPF não registrado"
+
+# código abaixo omitido
+```
+
+#### Conhecendo o f-strings do Python
+
+Precisamos recortar a string algumas vezes, separar esses recortes e depois montar uma outra string com cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(`XXX.XXX.XXX-XX`\). Esse processo pode parecer um pouco complicado mas não é.
+
+Antes de tudo, vamos recortar as partes que compõem o CPF. Vamos utilizar os índices da variável `cpf` \(que será igual ao CPF do visitante\) para recortar cada parte, os intervalos \(`[0:3]`, `[3:6]`, `[6:9]` e `[9:]`\). Além disso, vamos também criar variáveis para guardar as partes do CPF:
+
+```python
+def get_cpf(self):
+    if self.cpf:
+        cpf = str(self.cpf)
+        
+        cpf_parte_um = cpf[0:3]
+        cpf_parte_dois = cpf[3:6]
+        cpf_parte_tres = cpf[6:9]
+        cpf_parte_quatro = cpf[9:]
+        
+        # código abaixo omitido
+```
+
+Com as quatro partes do CPF recortadas e guardadas em variáveis, temos agora que colocá-las em ordem no formato padrão do CPF. Para nos ajudar com isso, vamos utilizar um recurso do Python chamado strings literais ou `f-strings`.
+
+Uma f-string \(ou string literal\) é toda cadeia de caracteres prefixada por `f` ou `F`, onde pode conter também campos para substituição de variáveis ou expressões, delimitadas por chaves `{}`. Utilizando uma string literal, podemos criar a string já formatada e inserir os intervalos recortados do CPF na ordem por meio dos campos de substituição. Abaixo temos a variável que vamos retornar no método, onde cada par de chaves `{}` será substituído por um intervalo da string que representa o CPF do visitante:
+
+```python
+cpf_formatado = f"{}.{}.{}-{}"
+```
+
+Agora vamos inserir as variáveis que representam as partes do CPF do vistante na ordem e dentro das chaves `{}` da variável `cpf_formatado`, nossa string literal. E já que nosso objetivo é retornar o CPF já formatado, vamos retornar essa variável. O método ficará assim:
+
+```python
+def get_cpf(self):
+    if self.cpf:
+        cpf = self.cpf
+        
+        cpf_parte_um = cpf[0:3]
+        cpf_parte_dois = cpf[3:6]
+        cpf_parte_tres = cpf[6:9]
+        cpf_parte_quatro = cpf[9:]
+
+        cpf_formatado = f"{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_parte_quatro}"
+
+        return cpf_formatado
+    
+    return "CPF não registrado"
+```
+
+Feito isso, temos agora que substituir os acessos ao atributo `cpf` do modelo pela chamada ao método `get_cpf`. Primeiro no template `index.html` e depois no `informacoes_visitante.html`.
+
+```markup
+<!-- código acima omitido -->
+
+<tbody>
+    {% for visitante in pagina_obj %}
+        <tr>
+            <td>{{ visitante.nome_completo }}</td>
+            <td>{{ visitante.get_cpf }}</td>
+            
+            <!-- código abaixo omitido -->
+```
+
+E agora no `informacoes_visitante.html`:
+
+```markup
+<!-- código acima omitido -->
+<div class="form-group col-md-6">
+    <label>CPF</label>
+    <input type="text" class="form-control" value="{{ visitante.get_cpf }}" disabled>
+</div>
+<!-- código abaixo omitido -->
+```
+
+### Utilizando método para exibir o status do visitante
+
+Ao contrário de alguns atributos que tivemos que criar métodos para exibi-los de maneira personalizada, para o atributo `status` isso não é necessário.
+
+Quando definimos as opções de escolha para o `status`, definimos uma string para ser salva no banco de dados e uma para funcionar como `label` da string salva, como se fosse um nome descritivo mesmo. Por baixo dos panos o Django cria um método para exibir o label que nós definimos, bastando apenas que a gente utilize exatamente como fizemos com os outros método. Por padrão, o nome do método é `get_nomeatributo_display` que, para o nosso caso, é o get\_status\_display. 
+
+Agora que sabemos como utilizar o método, vamos alterar alguns templates para que a gente exiba o status do visitante juntamente das informações do mesmo. Primeiro vamos abrir o arquivo `informacoes_visitante.html` e procurar pelo seguinte trecho de código:
+
+```markup
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label>Horário de chegada</label>
+        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
     </div>
         
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">X</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-users fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="form-group col-md-6">
+        <label>Número da casa a ser visitada</label>
+        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
     </div>
 </div>
 ```
 
-Se você atualizar a página inicial da dashboard, vai observar que agora os números estão dinâmicos e aparecendo conforme os registros do nosso banco de dados. Foi bem tranquilo resolver essa, certo? Então vamos para o próximo desafio!
+O trecho de código acima é o responsável por renderizar a primeira linha das informações gerais a respeito da visita no template em questão. Vamos alterá-lo para exibir ao lado do número da casa, o status em que o visitante se encontra. Para fazer isso, primeiro vamos alterar a classe `col-md-6` presente nos elementos `<div class="form-group col-md-6">` para `col-md-4`. Essa é uma classe de estilo do Bootstrap e nos ajuda a organizar as colunas de um template de modo que se dividam na tela. Caso você queira saber mais sobre o sistema de grid do Bootstrap, pode acessar [esse link](https://getbootstrap.com.br/docs/4.1/layout/grid/).
+
+Feito isso, o que vamos fazer é inserir mais um elemento `<div class="form-group col-md-4">` abaixo do que exiba o número da casa, desta vez para exibir o status do visitante. O código ficará assim:
+
+```markup
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label>Horário de chegada</label>
+        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
+    </div>
+        
+    <div class="form-group col-md-4">
+        <label>Número da casa a ser visitada</label>
+        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
+    </div>
+    
+    <div class="form-group col-md-4">
+        <label>Status</label>
+        <input type="text" class="form-control" value="{{ visitante.get_status_display }}" disabled>
+    </div>
+</div>
+```
+
+Agora só precisamos inserir mais uma coluna na tabela do template `index.html` para exibir o status do usuário logo ali na página inicial. Primeiro vamos procurar pelo elemento `<thead>` e, abaixo do elemento `<th>` com o texto "Horário de chegada", vamos inserir um elemento `<th>` com texto "Status". O código ficará assim:
+
+```markup
+<thead>
+    <th>Nome</th>
+    <th>CPF</th>
+    <th>Horário de chegada</th>
+    <th>Status</th>
+    <th>Horário da autorização</th>
+    <th>Autorizado por</th>
+    <th>Mais informações</th>
+</thead>
+```
+
+Agora, claro, vamos adicionar também uma linha que será responsável por exibir o status utilizando o método `get_status_display`. Ficará assim: 
+
+```markup
+{% for visitante in pagina_obj %}
+    <tr>
+        <td>{{ visitante.nome_completo }}</td>
+        <td>{{ visitante.get_cpf }}</td>
+        <td>{{ visitante.horario_chegada }}</td>
+        <td>{{ visitante.get_status_display }}</td>
+        <td>{{ visitante.get_horario_autorizacao }}</td>
+        <td>{{ visitante.get_morador_responsavel }}</td>
+        <td>
+            <a href="{% url 'informacoes_visitante' id=visitante.id %}">
+                Ver informações
+            </a>
+        </td>
+    </tr>
+{% endfor %}
+```
+
+## Implementando melhorias na estrutura do nosso projeto
+
+Uma alteração interessante que vamos implementar é criar uma pasta de nome `apps` na raiz do nosso projeto para agrupar todos os nossos aplicativos. Vamos começar alterando o arquivo `settings.py`. Vamos importar o módulo `sys` e depois adicionar a pasta `apps` ao projeto.
+
+```python
+import os
+import sys
+
+# código abaixo omitido
+```
+
+Feito isso tudo que precisamos fazer é adicionar a seguinte linha de código abaixo da variável `ALLOWED_HOSTS`:
+
+```python
+sys.path.append(
+    os.path.join(BASE_DIR, "apps")
+)
+```
+
+Agora, vamos criar a pasta **apps** e mover as pastas dos nossos aplicativos para ela.
 

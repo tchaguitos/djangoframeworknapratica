@@ -1,255 +1,271 @@
 # Capítulo 11
 
-## Implementando melhorias em nossos templates
+## Criando função para finalizar visita
 
-Olha só que legal: finalizamos as funcionalidades de maior valor da nossa dashboard. Os porteiros já podem registrar visitantes, autorizar a entrada deles após contato com um morador e ainda sinalizar que a visita foi encerrada. Bem bacana, não?
+Agora que criamos a função para autorizar a entrada do visitante, precisamos também criar a função que finaliza a visita. Para a primeira, utilizamos o formulário `AutorizaVisitanteForm` para atualiza o nome do morador responsável e definimos manualmente o status e o horário de autorização.
 
-Agora que temos as principais funcionalidades prontas, vamos nos concentrar em melhorar a experiência de utilização da dashboard e ainda melhorar a estrutura do nosso projeto, de modo que seja mais fácil realizar futuras manutenções.
+Desta vez, precisamos atualizar apenas o valor do atributo `horario_saida` e alterar o status para `FINALIZADO`, que é o status para quando o visitante deixa o condomínio. Sendo assim, vamos criar uma outra view que será responsável por receber um `id`, buscar um visitante com este `id` e atualizar essas informações. A view será um pouco parecida com a view `informacoes_visitante`. 
 
-Começaremos com algumas alterações nos templates que visam melhorar a experiência de utilização da dashboard.
-
-### Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
-
-Nossa primeira melhoria será inserir os botões com as ações **cancelar** e **voltar** nas páginas de registro de visitante e informações de visitante. Vamos primeiro abrir o arquivo `registrar_visitante.html` e procurar pelo seguinte trecho de código:
-
-```markup
-<div class="text-right">
-    <button class="btn btn-primary" type="submit">
-        <span class="text">Registrar visitante</span>
-    </button>
-</div>
-```
-
-Acima do elemento `<button class="btn btn-primary" type="submit">` vamos inserir um link para a página inicial da nossa dashboard com o texto "Cancelar", aproveitando algumas classes do Bootstrap para que o link tenha a aparência de um botão. O código ficará assim:
-
-```markup
-<div class="text-right">
-    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
-        <span class="text">Cancelar</span>
-    </a>
-
-    <button class="btn btn-primary" type="submit">
-        <span class="text">Registrar visitante</span>
-    </button>
-</div>
-```
-
-{% hint style="info" %}
-Como a única maneira que podemos chegar até a página de registro de um novo visitante é pelo início da dashboard, faz sentido utilizarmos apenas um link fixo para a home da dashboard
-{% endhint %}
-
-O template `informacoes_visitante.html` já possui o botão com a ação **voltar** visível, mas não temos um link para onde o botão deve enviar o usuário. Vamos procurar pelo seguinte trecho de código e inserir o link para a URL `index` em seu atributo `href`:
-
-```markup
-<div class="mr-1 text-right">
-    <a href="#" class="btn btn-secondary text-white" type="button">
-        <span class="text">Voltar</span>
-    </a>
-</div>
-```
-
-O código ficará assim:
-
-```markup
-<div class="mr-1 text-right">
-    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
-        <span class="text">Voltar</span>
-    </a>
-</div>
-```
-
-### Melhorando a exibição do CPF do visitante
-
-Uma outra melhoria interessante seria na exibição do CPF do visitante. Estamos exibindo os números todos sem nenhuma separação, como geralmente o número de CPF é apresentado. Aprendemos que é possível criar métodos nas classes modelo para alterar comportamentos e até já criamos métodos que utilizamos para melhorar a exibição de alguns atributos. Agora vamos criar o método `get_cpf` que deverá retornar o CPF do visitante já formatado com pontos e traço.
-
-Vamos abrir o arquivo `models.py` e abaixo do método `get_placa_veiculo` vamos criar o método `get_cpf` que, por enquanto, irá retornar o CPF caso o mesmo exista. O código ficará assim:
+Abaixo da função `informacoes_visitante` crie e função `finalizar_visita`:
 
 ```python
 # código acima omitido
 
-def get_placa_veiculo(self):
-    if self.placa_veiculo:
-        return self.placa_veiculo
+def finalizar_visita(request, id):
 
-    return "Veículo não registrado"
+    if request.method == "POST":
+        visitante = get_object_or_404(Visitante, id=id)
 
-def get_cpf(self):
-    if self.cpf:
-        return self.cpf
+        visitante.status = "FINALIZADO"
+        visitante.horario_saida = timezone.now()
 
-    return "CPF não registrado"
+        visitante.save()
 
-# código abaixo omitido
+        messages.success(
+            request,
+            "Visita finalizada com sucesso"
+        )
+
+        return redirect("index")
 ```
 
-#### Conhecendo o f-strings do Python
+A função `finalizar_visita` deverá receber um `id` como argumento e utilizar a função `get_object_or_404` para buscar o visitante do `id` que foi passado. Após isso vamos atualizar os atributos `status` e `horario_saida` diretamente e salvar o visitante. A diferença aqui é que não utilizaremos um formulário e nossa view será acessada somente através do método `POST`. Todo o resto continuará bem parecido com as funções que já escrevemos antes.
 
-Precisamos recortar a string algumas vezes, separar esses recortes e depois montar uma outra string com cada parte obedecendo aos pontos e ao traço do formato padrão para exibição de CPF \(`XXX.XXX.XXX-XX`\). Esse processo pode parecer um pouco complicado mas não é.
+Para garantir que as operações serão realizadas somente quando o método `POST` for utilizado, vamos escrever um `if` para certificar essa informação \(`if request.method == "POST":`\) e, caso seja verdadeira, vamos executar as operações necessárias. Note que, mais uma vez, estamos utilizando o método `timezone.now()` mas, desta vez, para o atributo `horario_saida`, e setando diretamente o `status` que agora deve receber o status `FINALIZADO`. 
 
-Antes de tudo, vamos recortar as partes que compõem o CPF. Vamos utilizar os índices da variável `cpf` \(que será igual ao CPF do visitante\) para recortar cada parte, os intervalos \(`[0:3]`, `[3:6]`, `[6:9]` e `[9:]`\). Além disso, vamos também criar variáveis para guardar as partes do CPF:
+## Criando URL
+
+Assim como todas as outras funções de view que escrevemos, essa também será mapeada por meio de uma URL para que a gente possa acessá-la pelo navegador. Vamos para o nosso arquivos `urls.py` e criar essa nova URL. 
+
+A URL que irá mapear a função `finalizar_visita` será bem parecida com a URL `informacoes_visitante`, mas a diferença é que adicionaremos, após o `id`, o trecho `finalizar-visita/`. Com isso, conseguimos diferenciar qual função de view chamar para quando o usuário desejar apenas visualizar as informações de um visitante e para quando desejar finalizar uma visita. Nosso arquivo `urls.py` ficará assim:
 
 ```python
-def get_cpf(self):
-    if self.cpf:
-        cpf = str(self.cpf)
-        
-        cpf_parte_um = cpf[0:3]
-        cpf_parte_dois = cpf[3:6]
-        cpf_parte_tres = cpf[6:9]
-        cpf_parte_quatro = cpf[9:]
-        
-        # código abaixo omitido
-```
+from django.contrib import admin
+from django.urls import path
 
-Com as quatro partes do CPF recortadas e guardadas em variáveis, temos agora que colocá-las em ordem no formato padrão do CPF. Para nos ajudar com isso, vamos utilizar um recurso do Python chamado strings literais ou `f-strings`.
+from usuarios.views import index
 
-Uma f-string \(ou string literal\) é toda cadeia de caracteres prefixada por `f` ou `F`, onde pode conter também campos para substituição de variáveis ou expressões, delimitadas por chaves `{}`. Utilizando uma string literal, podemos criar a string já formatada e inserir os intervalos recortados do CPF na ordem por meio dos campos de substituição. Abaixo temos a variável que vamos retornar no método, onde cada par de chaves `{}` será substituído por um intervalo da string que representa o CPF do visitante:
-
-```python
-cpf_formatado = f"{}.{}.{}-{}"
-```
-
-Agora vamos inserir as variáveis que representam as partes do CPF do vistante na ordem e dentro das chaves `{}` da variável `cpf_formatado`, nossa string literal. E já que nosso objetivo é retornar o CPF já formatado, vamos retornar essa variável. O método ficará assim:
-
-```python
-def get_cpf(self):
-    if self.cpf:
-        cpf = self.cpf
-        
-        cpf_parte_um = cpf[0:3]
-        cpf_parte_dois = cpf[3:6]
-        cpf_parte_tres = cpf[6:9]
-        cpf_parte_quatro = cpf[9:]
-
-        cpf_formatado = f"{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_parte_quatro}"
-
-        return cpf_formatado
-    
-    return "CPF não registrado"
-```
-
-Feito isso, temos agora que substituir os acessos ao atributo `cpf` do modelo pela chamada ao método `get_cpf`. Primeiro no template `index.html` e depois no `informacoes_visitante.html`.
-
-```markup
-<!-- código acima omitido -->
-
-<tbody>
-    {% for visitante in pagina_obj %}
-        <tr>
-            <td>{{ visitante.nome_completo }}</td>
-            <td>{{ visitante.get_cpf }}</td>
-            
-            <!-- código abaixo omitido -->
-```
-
-E agora no `informacoes_visitante.html`:
-
-```markup
-<!-- código acima omitido -->
-<div class="form-group col-md-6">
-    <label>CPF</label>
-    <input type="text" class="form-control" value="{{ visitante.get_cpf }}" disabled>
-</div>
-<!-- código abaixo omitido -->
-```
-
-### Utilizando método para exibir o status do visitante
-
-Ao contrário de alguns atributos que tivemos que criar métodos para exibi-los de maneira personalizada, para o atributo `status` isso não é necessário.
-
-Quando definimos as opções de escolha para o `status`, definimos uma string para ser salva no banco de dados e uma para funcionar como `label` da string salva, como se fosse um nome descritivo mesmo. Por baixo dos panos o Django cria um método para exibir o label que nós definimos, bastando apenas que a gente utilize exatamente como fizemos com os outros método. Por padrão, o nome do método é `get_nomeatributo_display` que, para o nosso caso, é o get\_status\_display. 
-
-Agora que sabemos como utilizar o método, vamos alterar alguns templates para que a gente exiba o status do visitante juntamente das informações do mesmo. Primeiro vamos abrir o arquivo `informacoes_visitante.html` e procurar pelo seguinte trecho de código:
-
-```markup
-<div class="form-row">
-    <div class="form-group col-md-6">
-        <label>Horário de chegada</label>
-        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
-    </div>
-        
-    <div class="form-group col-md-6">
-        <label>Número da casa a ser visitada</label>
-        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
-    </div>
-</div>
-```
-
-O trecho de código acima é o responsável por renderizar a primeira linha das informações gerais a respeito da visita no template em questão. Vamos alterá-lo para exibir ao lado do número da casa, o status em que o visitante se encontra. Para fazer isso, primeiro vamos alterar a classe `col-md-6` presente nos elementos `<div class="form-group col-md-6">` para `col-md-4`. Essa é uma classe de estilo do Bootstrap e nos ajuda a organizar as colunas de um template de modo que se dividam na tela. Caso você queira saber mais sobre o sistema de grid do Bootstrap, pode acessar [esse link](https://getbootstrap.com.br/docs/4.1/layout/grid/).
-
-Feito isso, o que vamos fazer é inserir mais um elemento `<div class="form-group col-md-4">` abaixo do que exiba o número da casa, desta vez para exibir o status do visitante. O código ficará assim:
-
-```markup
-<div class="form-row">
-    <div class="form-group col-md-4">
-        <label>Horário de chegada</label>
-        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
-    </div>
-        
-    <div class="form-group col-md-4">
-        <label>Número da casa a ser visitada</label>
-        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
-    </div>
-    
-    <div class="form-group col-md-4">
-        <label>Status</label>
-        <input type="text" class="form-control" value="{{ visitante.get_status_display }}" disabled>
-    </div>
-</div>
-```
-
-Agora só precisamos inserir mais uma coluna na tabela do template `index.html` para exibir o status do usuário logo ali na página inicial. Primeiro vamos procurar pelo elemento `<thead>` e, abaixo do elemento `<th>` com o texto "Horário de chegada", vamos inserir um elemento `<th>` com texto "Status". O código ficará assim:
-
-```markup
-<thead>
-    <th>Nome</th>
-    <th>CPF</th>
-    <th>Horário de chegada</th>
-    <th>Status</th>
-    <th>Horário da autorização</th>
-    <th>Autorizado por</th>
-    <th>Mais informações</th>
-</thead>
-```
-
-Agora, claro, vamos adicionar também uma linha que será responsável por exibir o status utilizando o método `get_status_display`. Ficará assim: 
-
-```markup
-{% for visitante in pagina_obj %}
-    <tr>
-        <td>{{ visitante.nome_completo }}</td>
-        <td>{{ visitante.get_cpf }}</td>
-        <td>{{ visitante.horario_chegada }}</td>
-        <td>{{ visitante.get_status_display }}</td>
-        <td>{{ visitante.get_horario_autorizacao }}</td>
-        <td>{{ visitante.get_morador_responsavel }}</td>
-        <td>
-            <a href="{% url 'informacoes_visitante' id=visitante.id %}">
-                Ver informações
-            </a>
-        </td>
-    </tr>
-{% endfor %}
-```
-
-## Implementando melhorias na estrutura do nosso projeto
-
-Uma alteração interessante que vamos implementar é criar uma pasta de nome `apps` na raiz do nosso projeto para agrupar todos os nossos aplicativos. Vamos começar alterando o arquivo `settings.py`. Vamos importar o módulo `sys` e depois adicionar a pasta `apps` ao projeto.
-
-```python
-import os
-import sys
-
-# código abaixo omitido
-```
-
-Feito isso tudo que precisamos fazer é adicionar a seguinte linha de código abaixo da variável `ALLOWED_HOSTS`:
-
-```python
-sys.path.append(
-    os.path.join(BASE_DIR, "apps")
+from visitantes.views import (
+    registrar_visitante, informacoes_visitante,
+    finalizar_visita
 )
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path(
+        "",
+        index,
+        name="index",
+    ),
+
+    path(
+        "registrar-vistante/",
+        vegistrar_visitante,
+        name="registrar_visitante",
+    ),
+
+    path(
+        "visitantes/<int:id>/",
+        informacoes_visitante,
+        name="informacoes_visitante",
+    ),
+
+    path(
+        "visitantes/<int:id>/finalizar-visita/",
+        finalizar_visita,
+        name="finalizar_visita"
+    )
+]
 ```
 
-Agora, vamos criar a pasta **apps** e mover as pastas dos nossos aplicativos para ela.
+## Alterando template para exibir botão e modal para finalizar visita
+
+Agora que temos a URL para onde devemos enviar uma requisição para sinalizar que queremos finalizar uma visita, vamos alterar as partes do template que vão possibilitar a interação do usuário com essa funcionalidade.
+
+Assim como inserimos um botão para quando queremos autorizar a entrada de um visitante, vamos inserir um botão para quando quisermos finalizar a visita. Abra o template `informacoes_visitante.html` e insira o seguinte trecho de código abaixo do botão responsável por autorizar a entrada do visitante:
+
+```markup
+<a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
+    <span class="text">Finalizar visita</span>
+                    
+    <span class="icon text-white-50">
+        <i class="fas fa-door-open"></i>
+    </span>
+</a>
+```
+
+O template ficará assim:
+
+![Template de informa&#xE7;&#xF5;es de visitante agora tamb&#xE9;m com bot&#xE3;o amarelo escrito &quot;Finalizar visita&quot;](../.gitbook/assets/screenshot_2020-04-06_19-42-46.png)
+
+Note que a estrutura é bem parecida com a que utilizamos no outro botão, mas quando observamos o atributo `data-target` podemos notar que agora ele é igual a `#modal2`. Isso porque vamos também criar um outro modal para ser exibido quando o usuário clicar no botão para finalizar uma visita. A função desse modal é obter a confirmação se é isso mesmo que o usuário deseja fazer.
+
+Ainda no mesmo arquivo, mas agora ao final do arquivo, vamos colocar o seguinte trecho de código logo abaixo da estrutura HTML do primeiro modal:
+
+```markup
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Finalizar visita</h5>
+                    
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-body">
+                    <h5 class="mb-3">
+                        Realmente deseja encerrar a visita?
+                    </h5>
+
+                    <form method="post" action="{% url 'finalizar_visita' id=visitante.id %}">
+                        {% csrf_token %}
+
+                        <input hidden>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Finalizar visita</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Nosso segundo modal será exibido da seguinte maneira:
+
+![Template de informa&#xE7;&#xF5;es de visitante ao fundo com alerta solicitando confirma&#xE7;&#xE3;o do usu&#xE1;rio de que realmente deseja finalizar a visita](../.gitbook/assets/screenshot_2020-04-06_19-45-04.png)
+
+Esse segundo modal deverá exibir a mensagem "Realmente deseja encerrar a visita?" e conter um formulário que enviará uma requisição do tipo `POST` para a URL que criamos anteriormente. Esse formulário precisa ter apenas o campo renderizado pela tag `{% csrf_token %}` para identificar que as requisições podem ser aceitas pelo nosso servidor.
+
+{% hint style="info" %}
+Estamos enviando uma requisição do tipo `POST` para URL pois é recomendada a utilização deste método sempre que precisamos alterar informações em nosso banco de dados
+{% endhint %}
+
+O que muda tudo aqui é o atributo `action` do formulário HTML. Graças a ele podemos direcionar um formulário para uma URL diferente da que estamos, diferentemente de como fizemos com os outros formulários. Dessa forma, conseguimos enviar uma requisição do tipo `POST` para a URL `{% url 'finalizar_visita' id=visitante.id %}` com toda informação que precisamos para identificar o visitante a ser atualizado assim que o usuário clicar no botão "Finalizar visita" dom modal confirmando a ação.
+
+Vai em frente e teste a nova funcionalidade implementada!
+
+## Prevenindo erros e operações desnecessárias
+
+Nos passos anteriores, implementamos a funcionalidade que finaliza as visitas dentro da nossa dashboard. Você deve ter notado que mesmo quando a visita já foi finalizada, os botões são exibidos. Isso não é bom pois o usuário pode se confundir e clicar em um dos botões, alterando as informações existentes no nosso banco de dados.
+
+Para prevenir que isso aconteça, vamos verificar o status do visitante e exibir os botões com base no valor desse status. Funcionará assim:
+
+* Se o visitante estiver com status `AGUARDANDO`, vamos exibir o botão para **autorizar a entrada**
+* Se o visitante estiver com status `EM_VISITA`, vamos exibir o botão para **finalizar a visita** 
+* E, finalmente, se o visitante estiver com status `FINALIZADO`, não vamos exibir botões
+
+### Exibição condicional de botões para autorizar entrada e finalizar visita
+
+Para fazer isso, vamos utilizar a tag `{% if %}` para verificar o status do visitante e renderizar um botão por vez. Primeiro, vamos criar a instrução `if` para verificar se o status é `AGUARDANDO` e renderizar o botão para autorizar a entrada do visitante.
+
+Utilizando a tag `{% if %}` vamos definir a condição `visitante.status == "AGUARDANDO"` para que o botão apareça. Isto é, o HTML referente ao botão só será renderizado no template caso o status do visitante seja `AGUARDANDO`. Nosso código ficará assim:
+
+```markup
+{% if visitante.status == "AGUARDANDO" %}
+    <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+        <span class="text">Autorizar entrada</span>
+                
+        <span class="icon text-white-50">
+            <i class="fas fa-user-check"></i>
+        </span>
+    </a>
+{% endif %}
+```
+
+Abaixo do código que escrevemos, vamos criar uma outra condição com a tag `{% if %}`. Dessa vez, queremos verificar se o status é o `EM_VISITA`. O código completo ficará assim:
+
+```markup
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+        
+    <div class="">
+        {% if visitante.status == "AGUARDANDO" %}
+            <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+                <span class="text">Autorizar entrada</span>
+                    
+                <span class="icon text-white-50">
+                    <i class="fas fa-user-check"></i>
+                </span>
+            </a>
+        {% endif %}
+
+        {% if visitante.status == "EM_VISITA" %}
+            <a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
+                <span class="text">Finalizar visita</span>
+                    
+                <span class="icon text-white-50">
+                    <i class="fas fa-door-open"></i>
+                </span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+```
+
+Se você acessar a página de informação de algum visitante, notará que os botões não estão aparecendo juntos mais. Além disso, se você for na página de informação de um visitante que já deixou as dependências do condomínio, isto é, finalizou sua visita, notará que nenhum botão é exibido. 
+
+Dessa forma conseguimos evitar que operações desnecessárias sejam realizadas e que as informações do nosso banco de dados sejam alteradas de forma indevida.
+
+## Bloqueando o acesso à URL por métodos diferentes do POST
+
+Ao contrário das outras funções que escrevemos, a função `finalizar_visita` não poderá ser acessada através do método `GET`. O método `GET` é utilizado por uma requisição sempre que precisamos buscar informações em um servidor, como é o caso nas outras funções \(estamos buscando o template e todo o contexto relacionado a ele antes de enviar informações para o usuário\). Se você notar as funções `registrar_visitante` e `informacoes_visitante`, vai perceber que definimos algumas variáveis fora da instrução `if` que verifica se o método utilizado é o `POST`. Isso porque precisamos dessas variáveis quando o usuário acessa a página, como é o caso do formulário que deverá ser exibido mesmo que uma requisição `POST` não seja enviada.
+
+Para garantir que nossa view possa ser acessada somente pelo método `POST`, vamos utilizar a classe `HttpResponseNotAllowed` para nos ajudar. Ela é quem vai cuidar de toda parte de bloquear o acesso via método `GET` e retornar uma mensagem para o usuário quando isso ocorrer. Antes de tudo, precisamos importá-la em nosso arquivo `views.py` do aplicativo visitantes:
+
+```python
+from django.contrib import messages
+from django.shortcuts import (
+    render, redirect, get_object_or_404
+)
+
+from django.http import HttpResponseNotAllowed
+
+from visitantes.models import Visitante
+from visitantes.forms import (
+    VisitanteForm, AutorizaVisitanteForm
+)
+
+from django.utils import timezone
+
+# código abaixo omitido
+```
+
+Feito isso, tudo que precisamos fazer é utilizar a instrução `else` e retornar a classe `HttpResponseNotAllowed` passando uma lista com os métodos permitidos e uma mensagem a ser exibida caso o método utilizado pela requisição seja diferente. Nosso código ficará assim:
+
+```python
+def finalizar_visita(request, id):
+
+    if request.method == "POST":
+        visitante = get_object_or_404(Visitante, id=id)
+
+        visitante.status = "FINALIZADO"
+        visitante.horario_saida = timezone.now()
+
+        visitante.save()
+
+        messages.success(
+            request,
+            "Visita finalizada com sucesso"
+        )
+
+        return redirect("index")
+
+    else:
+        return HttpResponseNotAllowed(
+            ["POST"],
+            "Método não permitido"
+        )
+```
+
+Com isso, permitimos que a view seja acessada somente pelo método `POST` e que, quando outro método for utilizado, a view vai retornar o código `HTTP 405` e exibir a mensagem "Método não permitido".
+
+Se você quiser, teste em seu navegador: [http://127.0.0.1:8000/visitantes/4/finalizar-visita/](http://127.0.0.1:8000/visitantes/4/finalizar-visita/).
 
