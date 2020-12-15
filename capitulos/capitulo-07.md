@@ -1,4 +1,4 @@
-# Capítulo 07 - Parte 1
+# Capítulo 07
 
 ## Trabalhando com formulários no Django
 
