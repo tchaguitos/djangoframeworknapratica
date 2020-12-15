@@ -245,7 +245,7 @@ Como nosso formulário de registro de visitante está no arquivo `registrar_visi
         {% if field.errors %}
             {% for error in field.errors %}
                 <div class="alert alert-warning" role="alert">
-                    {{ error | escape }}
+                    {{ error }}
                 </div>
             {% endfor %}
         {% endif %}
