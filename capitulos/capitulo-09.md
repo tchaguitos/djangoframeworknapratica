@@ -4,7 +4,7 @@
 
 Seguindo as especificações que recebemos do cliente, sabemos que existe a necessidade de visualização das informações do visitante na dashboard. Sendo assim, é necessário que a gente trabalhe para que seja possível buscar as informações de cada visitante registrado e exibir essas informações em um template à parte, afim de mostrar mais detalhes de cada visitante.
 
-Se você observar a tabela que lista os visitantes recentes na página inicial da dashboard, vai notar que existe um link para ver informações detalhadas de cada visitante. O que vamos fazer é desenvolver a view que vai buscar a informação de um visitante por vez e exibir essas informações de forma estrutura em um template HTML.
+Se você observar a tabela que lista os visitantes recentes na página inicial da dashboard, vai notar que existe um link para ver informações detalhadas de cada visitante. O que vamos fazer é desenvolver a view que vai buscar a informação de um visitante por vez e exibir essas informações de forma estruturada em um template HTML.
 
 ## Criando a view
 
