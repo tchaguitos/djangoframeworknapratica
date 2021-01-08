@@ -26,5 +26,33 @@ Outro ponto interessante seria o registro automático do horário de autorizaç�
 
 Tudo isso deverá ocorrer em uma interface web onde seja possível visualizar os últimos visitantes registrados, ver informações detalhadas de cada visitante e ainda autorizar e finalizar suas visitas. Além destas informações, é desejável que o sistema web exiba um resumo das informações como número de visitantes aguardando autorização, número de visitantes no condomínio, número de visitas finalizadas e ainda o número de registros no mês.
 
+### Quais informações salvar
+
+Nosso sistema deve estar preparado para armazenar uma série de informações, tanto dos porteiros, quanto dos visitantes. Essas informações são úteis para fins de controle e segurança de todos os envolvidos e também para o setor responsável pelos recursos humanos do condomínio.
+
+#### Com relação aos porteiros, é necessário armazenar as seguintes informações para registro:
+
+* E-mail \(Utilizado na criação do usuário para acesso ao sistema\)
+* Nome completo
+* CPF
+* Telefone
+* Data de nascimento
+
+#### Com relação aos visitantes:
+
+* Nome completo
+* CPF
+* Data de nascimento
+* Casa a ser visitada
+* Placa do veículo utilizado, se houver
+
+Além das informações acima, ainda precisamos registrar as seguintes informações
+
+* Horário de chegada na portaria
+* Nome do morador responsável por autorizar a entrada do visitante
+* Horário em que a autorização ocorreu
+* Horário em que o visitante deixou as dependências do condomínio
+* Porteiro responsável pelo registro
+
 
 
