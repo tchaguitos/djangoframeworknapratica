@@ -32,7 +32,7 @@ A listagem de visitantes exibe, por meio de uma tabela, os visitantes recentes c
 
 ![Tela com lista de visitantes recentes](.gitbook/assets/screenshot-from-2020-05-11-16-26-59.png)
 
-### Widgets para resumo de informações de visitantes
+### Widgets para resumo de informações
 
 O widgets da página inicial da dashboard têm a função de exibir um resumo dos números referentes aos visitantes em cada status e ainda o número total de visitantes registrados no mês.
 
