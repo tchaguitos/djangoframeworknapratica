@@ -36,7 +36,7 @@ Agora que criamos e registramos nosso aplicativo, vamos partir para a construç�
 
 ## Escrevendo as models do nosso aplicativo de porteiros
 
-Assim como escrevemos a classe `Usuario` como subclasse de `models.Model` para representar e descrever nossos usuários, vamos escrever a classe `Porteiro` que será a representação de nossos porteiros. Em nosso documento de requisitos é possível verificar que os porteiros devem possuir os seguintes atributos:
+Assim como escrevemos a classe `Usuario` para representar e descrever nossos usuários, vamos escrever a classe `Porteiro` que será a representação de nossos porteiros. Em nosso documento de requisitos é possível verificar que os porteiros devem possuir os seguintes atributos:
 
 * Usuário para acesso ao sistema \(e-mail\)
 * Nome completo
