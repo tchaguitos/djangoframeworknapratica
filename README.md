@@ -4,8 +4,6 @@ Todo material aqui apresentado serve de guia para o desenvolvimento do curso [Dj
 
 O objetivo do curso é explorar as principais funcionalidades do framework Django por meio da construção de uma dashboard para registro e administração de visitantes de um determinado condomínio. Vamos desenvolver um projeto real e aprender ao longo de seu desenvolvimento o que são as ferramentas que o framework nos dá e como utilizá-las. Seguindo o roteiro aqui apresentado, você vai poder iniciar a sua carreira como desenvolvedor web utilizando a linguagem Python e desenvolver aplicações seguras e escaláveis em tempo recorde.
 
-Esta apostila está licenciada sob a licença [Creative Commons Atribuição-NãoComercial-SemDerivações 4.0 Internacional](http://creativecommons.org/licenses/by-nc-nd/4.0/).
-
 ## Conhecendo o processo
 
 O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/controle-visitantes) tem o objetivo informatizar o processo de registro e administração de visitantes do condomínio Montanhas Azuis. 
