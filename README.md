@@ -12,7 +12,7 @@ O projeto [controle-visitantes](https://github.com/djangoframeworknapratica/cont
 
 Hoje o condomínio conta com um processo manual e por meio de cadernos que são utilizados para registrar as informações referentes aos visitantes e informatizar esse processo é importante para ganhar tempo no processo, melhorar a experiência de trabalho dos porteiros e ainda armazenar as informações de forma segura e confiável.
 
-O projeto consiste em uma ou mais páginas web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem o fluxo executado pelo porteiro assim que um visitante chega à portaria do condomínio.
+O projeto consiste em uma ou mais páginas web em que seja possível registrar visitantes e visualizar suas informações. Além disso, precisamos disponibilizar algumas funcionalidades que seguem os fluxos executados pelo porteiro assim que um visitante chega à portaria e quando o mesmo deixa as dependências do condomínio.
 
 Na imagem abaixo é possível visualizar o fluxo executado pelos porteiros e suas etapas:
 
