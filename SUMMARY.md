@@ -26,6 +26,5 @@
 * [Capítulo 13](capitulos/capitulo-13.md)
 * [Capítulo 14](capitulos/capitulo-14.md)
 * [Capítulo 15](capitulos/capitulo-15.md)
-* [Capítulo 16](capitulos/capitulo-16.md)
 * [Capítulo final](capitulos/capitulo-final.md)
 
