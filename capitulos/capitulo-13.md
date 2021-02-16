@@ -53,7 +53,7 @@ def index(request):
     return render(request, "index.html", context)
 ```
 
-Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar `dashboard.views` e fazer essa alteração também na função `path()` que cria a URL. O arquivo ficará assim:
+Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar a nossa função de `dashboard.views`. O arquivo ficará assim:
 
 ```python
 from django.contrib import admin
