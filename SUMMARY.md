@@ -2,13 +2,7 @@
 
 * [Home](README.md)
 * [Tópicos do livro](topicos-do-livro-1.md)
-
-## Geral
-
----
-
-* [Tópicos do livro](topicos-do-livro.md)
-* [Proposta de desenvolvimento](proposta-de-desenvolvimento.md)
+* [Proposta de desenvolvimento](proposta-de-desenvolvimento-1.md)
 
 ## Capítulos
 
