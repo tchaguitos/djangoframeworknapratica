@@ -1,190 +1,468 @@
 # Capítulo 07
 
-## Trabalhando com formulários no Django
+## Criando tela para registro de novo visitante
 
-Manipular formulários não é uma tarefa tão fácil. Se observarmos o Admin do Django, podemos notar que existem diversos tipos de dados e maneiras diferentes de tratar e renderizar esses dados. Além disso, existe a estrutura HTML do formulário a ser renderizada no template, esse formulário deve validar as informações que são enviadas pelo usuário, salvar as informações ou exibir uma mensagem para o usuário caso os dados estejam inválidos, etc. Para simplificar nosso trabalho, o Django fornece ferramentas para automatizar e simplificar esse processo, garantindo também segurança para implementar as funcionalidades necessárias.
+Assim como quando registramos um novo visitante através do Admin, precisaremos de um formulário para inserir as informações. Por isso, vamos trabalhar agora na tela que será responsável por exibir um formulário e registrar o visitante em nosso banco de dados.
 
-Um formulário pode ser definido como um conjunto de elementos dentro do elemento HTML `<form>` que permitem que o usuário insira textos, números, escolha opções e, ao fim, envie essas informações de volta para o servidor. No contexto da nossa aplicação web, um formulário pode significar também o formulário que a classe `Form` do Django nos disponibiliza, que é quem faz toda mágica por nós. Da mesma maneira que uma classe `Model` descreve toda estrutura lógica de um objeto, seu comportamento e a maneira como suas partes são representadas para nós, uma classe `Form` descreve um formulário e determina como ele funciona e se parece.
+Vimos que uma view é um tipo de função dentro da aplicação que conecta a camada de modelo à camada de template e, geralmente, renderiza um template específico com informações buscadas no banco de dados. Até agora escrevemos apenas views que buscam informações e renderizam o template utilizando essas informações, mas agora vamos trabalhar em views que também salvam informações no banco de dados.
 
-## Criando formulário para registro de visitante
+A próxima view que vamos escrever, chamada de `registrar_visitante`, terá a responsabilidade de exibir um formulário, identificar e tratar uma requisição do tipo POST, validar o formulário com base das informações enviadas na requisição e salvar o novo visitante no banco de dados. Não se assuste, você vai ver como o Django nos ajuda abstraindo a maior parte desses requisitos.
 
-Assim como outras camadas importantes da arquitetura do nosso projeto, os formulários também devem ter um arquivo próprio para eles, mas que, neste caso, precisamos criar: o arquivo `forms.py`. Vamos abrir a pasta do nosso aplicativo **visitantes** e criar o arquivo `forms.py`. Após criarmos o arquivo, vamos abri-lo e importar o pacote forms do django. Ficará assim:
+## Criando view para registrar visitante
 
-```python
-from django import forms
-```
+Como você já deve ter percebido, existe um roteiro a ser seguido quando vamos criar novas funcionalidades num sistema web com Django, sendo o primeiro passo a criação da função de view no arquivo `views.py`. Como nossa função diz respeito ao registro de um novo vistante, vamos trabalhar dentro do aplicativo visitantes.
 
-De forma semelhante aos campos de uma classe `Model` que são mapeados para os campos do banco de dados, os campos de uma classe `Form` são mapeados para elementos HTML. É exatamente assim que toda a mágica do Admin do Django funciona: mapeando os campos da sua classe `Model`, criando classes `Form` e renderizando esses campos como elementos HTML. Muito bacana, não?
-
-Para quando queremos mapear automaticamente os campos de uma classe `Model`, o Django nos permite utilizar a classe `ModelForm.` Tudo que precisamos fazer é definir uma subclasse de `ModelForm` e depois identificarmos a classe `Model` a ser utilizada. Sendo assim, vamos também importar a classe **Visitante** e depois definir uma subclasse de `forms.ModelForm` de nome `VisitanteForm`. O arquivo `forms.py` ficará assim:
-
-```python
-from django import forms
-from visitantes.models import Visitante
-
-class VisitanteForm(forms.ModelForm):
-    class Meta:
-        model = Visitante
-        fields = "__all__"
-```
-
-Criamos a subclasse de `forms.ModelForm` chamada `VisitanteForm`, que é quem representa nosso formulário e definimos a classe interna `Meta` para explicitarmos qual classe `Model` deve ser utilizada \(`model = Visitante`\) e quais campos devem ser renderizados \(`fields = "__all__"`\). Por hora, vamos utilizar a string  `"__all__"` para renderizarmos todos os campos.
-
-## Renderizando nosso formulário automaticamente
-
-Agora que definimos a classe que vai representar nosso formulário, podemos partir para a segunda etapa, que é renderizar esse formulário diretamente no HTML. Para isso, vamos trabalhar no arquivo `views.py` do aplicativo **visitantes**, começando pela importação do formulário. Após isso, vamos criar uma variável de nome `form` que será igual à uma instância da classe `VisitanteForm` e passá-la dentro da variável `context` da view `registrar_visitante`. O arquivo ficará assim: 
+Vamos abrir o arquivo `views.py` do aplicativo visitantes e escrever a função de view `registrar_visitante`, que deverá renderizar o template `registrar_visitante.html`. Por hora, nossa view ficará assim:
 
 ```python
 from django.shortcuts import render
-from visitantes.forms import VisitanteForm
 
 def registrar_visitante(request):
 
-    form = VisitanteForm()
+    context = {}
     
-    context = {
-        "nome_pagina": "Registrar visitante",
-        "form": form,
-    }
-
     return render(request, "registrar_visitante.html", context)
 ```
 
-Apenas com as alterações realizadas, já podemos trabalhar no template `registrar_visitante.html` para que o formulário seja renderizado de forma automática. Vamos abrir o arquivo `registrar_visitante.html` dentro da pasta **templates** e procurar pelo elemento HTML `<form>`. Substitua todo o conteúdo existente dentro do elemento pela variável `{{ form }}` e acesse [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-visitante/) em seu navegador. O arquivo `registrar_visitante.html` ficará assim:
+Assim como fizemos anteriormente, vamos baixar o arquivo HTML e agora colocá-lo na pasta **templates** localizada na raiz do nosso projeto:
 
-```markup
-<!-- codigo acima omitido -->
-<div class="card-body">
-    <h4 class="mb-3 text-primary">
-        Formulário para registro de novo visitante
-    </h4>
+{% file src="../.gitbook/assets/registrar\_visitante.zip" caption="Iniciar o download" %}
 
-    <div class="container">
-        {{ form }}
-    </div>
-</div>
-<!-- codigo abaixo omitido -->
-```
+### Criando URL para mapear view
 
-{% hint style="success" %}
-Definimos no contexto também a variável `nome_pagina`, mas desta vez, como "Registrar visitante". Note como o Django reconhece o valor da variável de acordo com cada view e altera o valor no template `base.html`
-{% endhint %}
+Quando criamos nossa primeira view, criamos também uma URL que é responsável por mapear a view para acessarmos ela através do navegador. Caso não se lembre do processo, não se preocupe, pois vamos repeti-lo agora.
 
-## Melhorando a exibição do nosso formulário
+Vamos abrir o arquivo `urls.py` do nosso projeto e, abaixo da URL de nome **index**, utilizando a função `path`, vamos criar a URL de nome **registrar\_visitante** que deverá mapear a função de view ****`registrar_visitante`. Não podemos nos esquecer de importar as views do aplicativo visitantes!
 
-Quando o assunto é criar formulários, o Django faz esse papel muito bem, além de prover uma funcionalidade segura e estável. Veja bem, com menos de 10 linhas conseguimos criar e renderizar um formulário que se adapta totalmente às necessidades do nosso modelo. Desta forma, é altamente recomendado utilizar os formulários do Django para automatizar nosso trabalho.
-
-O Django faz muito bem o trabalho que se propõe a fazer: preparar e reestruturar os dados para renderização, criar o formulário para receber os dados e ainda processar e validar esses dados, mas quando precisamos renderizar essas informações no formato HTML de modo que fique mais atrativo para o usuário, faltam algumas opções. É aí que entra o **django-widget-tweaks**, um pacote Python muito interessante e útil disponibilizado pela comunidade para nos ajudar na renderização dos nossos formulários.
-
-## Estilizando nosso formulário com django-widget-tweaks
-
-O **django-widget-tweaks** nos ajuda tornando mais fácil o processo de adicionar atributos e classes aos campos de um formulário Django, afim de aplicar classes personalizadas para alterar aparência ou comportamento dos elementos, quando necessário. Como estamos utilizando um tema que utiliza o [Bootstrap](https://getbootstrap.com/) como base, podemos também utilizar suas classes CSS para alterar a aparência dos elementos.
-
-Isso resolve o problema do nosso formulário não estar sendo exibido de maneira atrativa para o usuário. Isso porque o Django renderiza um formulário HTML simples, sem adicionar classes para alterar o estilo dos elementos que compõem esse formulário. Sendo assim, utilizaremos o **django-widget-tweaks** para adicionar a classe `form-control` aos campos do nosso formulário, e assim aplicar as características descritas no arquivo de estilização \(CSS\) do tema utilizado.
-
-### Como instalar
-
-Para instalar o **django-widget-tweaks** utilizaremos nosso já conhecido gerenciador de pacotes: o `pip`. Para instalar vamos utilizar o seguinte comando:
-
-```bash
-(env)$ pip install django-widget-tweaks
-```
-
-Caso ocorra bem tudo, você terá instalado o **django-widget-tweaks** em seu ambiente virtual. Feito isso, também vamos adicionar o pacote à variável `INSTALLED_APPS` do nosso arquivo de configurações. Para uma melhor organização, vamos criar uma lista separada da lista dos nossos aplicativos.
+O arquivo `urls.py` ficará assim:
 
 ```python
-# código acima omitido
+from django.urls import path
+from django.contrib import admin
 
-INSTALLED_APPS += [
-    "widget_tweaks",
+import usuarios.views
+import visitantes.views
+
+urlpatterns = [
+    # codigo acima omitido...
+    
+    path(
+        "",
+        usuarios.views.index,
+        name="index",
+    ),
+    
+    path(
+        "registrar-visitante/",
+        visitantes.views.registrar_visitante,
+        name="registrar_visitante",
+    )
 ]
-
-INSTALLED_APPS += [
-    "usuarios",
-    "porteiros",
-    "visitantes",
-]
-
-# código abaixo omitido
 ```
 
-{% hint style="info" %}
-Utilizamos três variáveis de mesmo nome e as incrementamos pois assim separamos os aplicativos do Django \(primeira\), os pacotes Python instalados \(segunda\) e os aplicativos criados por nós \(terceira\). Lembre-se que é necessário utilizar o operador `+=` quando queremos incrementar os valores existentes na variável
-{% endhint %}
+Abra seu navegador e acesse [http://127.0.0.1:8000/registrar-visitante/ ](http://127.0.0.1:8000/registrar-visitante/)para verificar se está tudo funcionando corretamente. Se sim, o template baixado será exibido no navegador.
 
-### Importando no template
+## Adaptando nossos templates para trabalhar com a template engine do Django
 
-Agora que instalamos e registramos o pacote em nosso arquivo de configurações, temos que utilizar a tag `{% load widget_tweaks %}` sempre que precisarmos utilizar as funcionalidades do pacote num determinado template. Vamos adicionar a tag logo abaixo da primeira linha do template `registrar_visitante.html`. O arquivo ficará assim:
+Temos agora duas views que renderizam dois templates diferentes e expõem funcionalidades diferentes: uma delas, que é a página inicial da dashboard, exibe os visitantes registrados, e a segunda deverá possibilitar o registro de novos visitantes. Antes de seguir adiante, vamos realizar algumas alterações em nossos templates para que possamos aproveitar melhor as funcionalidades do framework que estamos utilizando.
+
+Além das funcionalidades que falamos e exploramos, a engine de templates do Django também nos dá a possibilidade de reaproveitarmos trechos de código contidos em outros templates. No nosso caso, se você observar os templates `index.html` e `registrar_visitante.html`, vai notar que existem partes iguais nos dois templates e, para evitar isso, a engine de templates do Django nos fornece as tags `{% extends %}` e `{% block %}`.
+
+### Criando o template base
+
+Antes de tudo, vamos criar um arquivo com nome de `base.html` na pasta **templates** e copiar o conteúdo do arquivo `index.html` para ele. O objetivo do nosso template `base.html` é armazenar a parte comum a todos os templates da dashboard. O que podemos chamar de parte central do nosso template, que é a parte que em um template exibe uma tabela e no outro um formulário, será trocada de acordo com a view acessada e as barras lateral e superior e o rodapé serão mantidos no template `base.html`. Por hora, vamos apenas copiar o conteúdo do arquivo `index.html` para o arquivo `base.html` e deixá-lo de lado.
+
+### Adaptando template index
+
+Com o template `base.html` criado, vamos fazer algumas adaptações em nosso template `index.html` para garantir que ele seja exibido corretamente fazendo uso da engine de templates do Django. Apague todo o conteúdo existente no arquivo `index.html` deixando apenas o conteúdo dentro do elemento HTML `<div class="container-fluid">`. O arquivo `index.html` ficará assim:
+
+```markup
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-lock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+            <h6 class="m-0 font-weight-bold text-primary">Visitantes recentes</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Horário de chegada</th>
+                        <th>Horário da autorização</th>
+                        <th>Autorizado por</th>
+                        <th>Mais informações</th>
+                    </thead>
+
+                    <tbody>
+                        {% for visitante in todos_visitantes %}
+                            <tr>
+                                <td>{{ visitante.nome_completo }}</td>
+                                <td>{{ visitante.cpf }}</td>
+                                <td>{{ visitante.horario_chegada }}</td>
+                                <td>{{ visitante.horario_autorizacao }}</td>
+                                <td>{{ visitante.morador_responsavel }}</td>
+                                <td>
+                                    <a href="#">
+                                        Ver informações
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Com os templates devidamente separados, vamos trabalhar agora nas adaptações necessárias ao template `index.html`. O primeiro passo é inserirmos a tag `{% extends %}` no início do nosso arquivo, que é quem dirá ao Django que o template em questão é uma extensão de outro. A tag `{% extends %}` funciona de modo que precisamos identificar o template "pai" ou "mãe" que será utilizado na extensão. Isto é, neste caso, o template `index.html` será extensão do template `base.html`, sendo este o "seu template pai ou mãe". Na primeira linha do arquivo `index.html` insira o trecho `{% extends "base.html" %}`.
+
+Além disto, precisamos também dizer ao Django qual trecho deverá ser utilizado para substituição. Faremos isso utilizando as tags `{% block %}` e `{% endblock %}` passando um nome a elas. Logo abaixo da tag `{% extends "base.html" %}` vamos inserir a tag `{% block conteudo %}` e ao final do arquivo a tag `{% endblock conteudo %}`. Fazendo isso estamos deixando claro para o Django qual trecho deverá ser colocado no template `base.html` quando acessarmos a view que renderiza o template `index.html`.  Nosso arquivo ficará assim após as adaptações:
 
 ```markup
 {% extends "base.html" %}
 
-{% load widget_tweaks %}
+{% block conteudo %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+    </div>
 
-<!-- código abaixo omitido -->
-```
-
-### Utilizando o render\_field
-
-Existem duas maneiras que o **django-widget-tweaks** nos permite utilizar suas funcionalidades, mas utilizaremos a tag personalizada `{% render_field %}`, com ela conseguimos descrever nossos campos de forma bem parecida com o HTML5.
-
-Vamos abrir o arquivo `registrar_visitante.html` e substituir a variável `{{ form }}` pelo elemento `<form method="post">` abaixo e seu conteúdo. O código ficará assim:
-
-```markup
-<!-- codigo acima omitido -->
-<div class="card-body">
-    <h4 class="mb-3 text-primary">
-        Formulário para registro de novo visitante
-    </h4>
-
-    <p class="mb-5 ml-1">
-        <small>
-            O asterisco (*) indica que o campo é obrigatório
-        </small>
-    </p>
-    
-    <form method="post">
-        <div class="form-row">
-            {% csrf_token %}
-
-            {% for field in form %}
-                <div class="form-group col-md-12">
-                    <label>{{ field.label }} {% if field.field.required %} * {% endif %}</label>
-                    {% render_field field placeholder=field.label class="form-control" %}
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-lock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
                 </div>
-            {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="text-right">
-            <button class="btn btn-primary" type="submit">
-                <span class="text">Registrar visitante</span>
-            </button>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+            <h6 class="m-0 font-weight-bold text-primary">Visitantes recentes</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Horário de chegada</th>
+                        <th>Horário da autorização</th>
+                        <th>Autorizado por</th>
+                        <th>Mais informações</th>
+                    </thead>
+
+                    <tbody>
+                        {% for visitante in todos_visitantes %}
+                            <tr>
+                                <td>{{ visitante.nome_completo }}</td>
+                                <td>{{ visitante.cpf }}</td>
+                                <td>{{ visitante.horario_chegada }}</td>
+                                <td>{{ visitante.horario_autorizacao }}</td>
+                                <td>{{ visitante.morador_responsavel }}</td>
+                                <td>
+                                    <a href="#">
+                                        Ver informações
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- codigo abaixo omitido -->
+{% endblock conteudo %}
 ```
 
-Vamos adicionar também um trecho de código HTML com um aviso sinalizando que o asterisco \(\*\) acima dos campos do formulário indica que o campo é obrigatório.
+### Adaptando template base
 
-{% hint style="info" %}
-A tag `{% csrf_token %}` fornece proteção para nossa aplicação, de modo a impedir que sites mal intencionados enviem requisições para ela. Caso a gente não coloque essa tag dentro dos nossos formulários, o Django não aceitará a requisição enviada e mostrará um erro pois não vai identificar a requisição como segura
-{% endhint %}
-
-Logo abaixo da tag `{% csrf_token %}`, estamos utilizando novamente a tag `{% for %}` para realizar um loop, mas desta vez na variável `form`. Quando realizamos um loop em nosso formulário, conseguimos acessar seus campos, e é exatamente o que precisamos fazer: executar um loop e acessar as informações de cada campo para que possamos passá-las para a tag `{% render_field %}` fazer o trabalho de renderização destes campos.
-
-{% hint style="info" %}
-Aqui temos uma novidade, a utilização da tag `{% if %}`. Uma estrutura condicional que pode ser utilizada em templates. O que estiver dentro dela só será exibido caso o resultado da expressão seja verdadeiro. Ou seja, quando existem mensagens e a variável `messages` está definida, exibimos o trecho HTML
-{% endhint %}
-
-Para cada campo \(_variável field_\) em nosso formulário, criamos a estrutura padrão para campos de um formulário do nosso tema. Acessamos também a propriedade `label`  para exibir o nome e o _placeholder_ do `input` e passamos a variável que representa o campo para a tag `{% render_field %}`. Veja como ficará estrutura de cada campo:
+Quando criamos o template `base.html`, copiamos o conteúdo de `index.html` para ele e o deixamos de lado, mas agora é hora de trabalharmos nele. O que temos que fazer é substituir o elemento HTML `<div class="container-fluid">` pelas tags `{% block conteudo %}` e `{% endblock conteudo %}.` O template `base.html` ficará assim:
 
 ```markup
-<div class="form-group col-md-12">
-    <label>{{ field.label }} {% if field.field.required %} * {% endif %}</label>
-    {% render_field field placeholder=field.label class="form-control" %}
-</div>
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Controle de Visitantes | Django Framework na prática</title>
+        
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    </head>
+
+    <body id="page-top">
+        <div id="wrapper">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    
+                    <div class="sidebar-brand-text">Controle de Visitantes</div>
+                </a>
+                
+                <hr class="sidebar-divider my-0">
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-home"></i>
+                        <span>Início</span>
+                    </a>
+                </li>
+                
+                <hr class="sidebar-divider">
+            </ul>
+
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-800 small">
+                                        <i class="fas fa-cog"></i>
+                                    </span>
+                                </a>
+                                
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Sair
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    {% block conteudo %} {% endblock conteudo %}
+
+                    <footer class="sticky-footer bg-white">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright © Django framework na prática</span>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Você realmente deseja sair?</h5>
+                            
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body">Selecione "sair" se realmente deseja sair</div>
+                        
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-primary" href="#">Sair</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    </body>
+</html>
 ```
 
-Note que definimos também os atributos `placeholder=field.label` e `class="form-control"`, além de verificarmos se o campo é obrigatório e, caso seja, colocamos um asterisco \(\*\) ao lado do nome do campo. Acesse a página e veja na prática como o layout do nosso formulário melhorou e muito!
+### Adaptando template registrar\_visitante
+
+Faremos o mesmo que fizemos com o template `index.html`, mas agora deixando apenas o conteúdo existente dentro do elemento HTML `<div class="container">` e inserindo as tags `{% extends "base.html" %}`, `{% block conteudo %}` e `{% endblock conteudo %}`. O template `registrar_visitante.html` ficará assim:
+
+```markup
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h4 class="mb-3 text-primary">
+                Formulário para registro de novo visitante
+            </h4>
+
+            <form method="post">
+                <div class="form-row">
+                    <p class="ml-2">Aqui deveria ter um formulário</p>
+                </div>
+
+                <div class="text-right">
+                    <button class="btn btn-primary" type="submit">
+                        <span class="text">Registrar visitante</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+```
+
+Caso prefira, você pode fazer download da pasta templates com as alterações realizadas até aqui clicando no link abaixo:
+
+{% file src="../.gitbook/assets/templates \(2\).zip" caption="Iniciar o download" %}
+
+Agora que adaptamos todos os nossos templates, vamos voltar ao desenvolvimento da view responsável por registrar nossos visitantes.
 

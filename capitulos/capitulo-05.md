@@ -1,356 +1,208 @@
 # Capítulo 05
 
-## Criando o aplicativo para gerenciar visitantes
+## Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
 
-No último capítulo configuramos o Django para trabalhar com templates HTML e arquivos estáticos e criamos as pastas **templates** e **static** na raiz do projeto. Além disso, ainda aprendemos como passar informações de uma função _view_ para o template através da variável **context**.
+Nos capítulos anteriores, iniciamos o projeto e criamos toda a estrutura necessária para administração de usuários do sistema e porteiros que serão os responsáveis por operar a dashboard proposta. Além disso, também preparamos o ambiente de desenvolvimento e aprendemos bastante sobre detalhes técnicos do funcionamento do Django.
 
-Como já definimos os usuários do sistema, os porteiros e fizemos as configurações dos templates que serão a base para construção da dashboard para controle de visitantes, podemos partir agora para a definição da classe modelo que irá representar os visitantes em nosso sistema.
+Focamos nosso trabalho nos arquivos `models.py` e `admin.py` e também conhecemos o poder existente do Admin que o Django nos disponibiliza. Como nosso objetivo é desenvolver uma dashboard personalizada para exibir as informações dos visitantes do condomínio e implementar funcionalidades específicas, a partir de agora, trabalharemos para desenvolver os templates que irão apresentar as informações necessárias e executar as funcionalidades que vamos desenvolver. Sendo assim, posso dizer que a partir de agora as coisas começam a ficar mais interessantes!
 
-Antes de mais nada, como já sabemos, devemos isolar as responsabilidades e, por isso, vamos criar um aplicativo para administrar toda a parte referente aos nossos visitantes. Vamos criar um novo aplicativo com nome de **visitantes** utilizando o `manage.py`:
+Neste próximo módulo, aprenderemos a configurar o Django para trabalhar com arquivos estáticos \(CSS e JS\) e templates HTML.
 
-```bash
-(env)$ python manage.py startapp visitantes
-```
+{% hint style="warning" %}
+O Django, por padrão, vem configurado para que já seja possível trabalhar com templates HTML, mas vamos alterar as configurações para que a haja uma maior organização dos arquivos e de modo que a gente agrupe todos os template numa só pasta
+{% endhint %}
 
-Após criarmos o aplicativo utilizando o `manage.py`, vamos registrá-lo no arquivo de configurações, o `settings.py`, logo abaixo do aplicativo **porteiros**:
+### Criando a pasta templates em nosso projeto
+
+Sendo um framework web, o Django precisa fornecer uma maneira de gerar os templates de forma dinâmica, de modo que seja possível exibir valores específicos e atender os diversos cenários. Essencialmente, um template é constituído por uma parte estática, que são os arquivos CSS e JS e partes que se repetem, e uma parte onde serão exibidas as informações desejadas, que variam de acordo com cada cenário.
+
+{% hint style="success" %}
+Imagine em nosso caso em que os porteiros deverão registrar visitantes. Para cada visitante, teremos informações diferentes e, desta forma, o template deverá ser capaz de exibir essas informações de acordo com o contexto de cada visitante
+{% endhint %}
+
+Para resolver esse problema, o Django nos fornece uma _engine_ rica e poderosa capaz de executar funções condicionais, loops, exibir valores e ainda possui diversas funcionalidades que podem ser utilizadas diretamente nos templates HTML através de tags.
+
+{% hint style="info" %}
+Uma engine de template nada mais é que uma aplicação que visa facilitar o processo de criação de templates HTML dinâmicos e tornar o processo de envio e exibição de informações nos templates menos burocrático
+{% endhint %}
+
+Por padrão, o Django vem configurado para procurar os templates dentro de cada aplicativo. Isto é, em cada aplicativo deverá existir uma pasta **templates** para armazenar os templates referentes ao aplicativo em questão. Todavia, para uma melhor organização, utilizaremos uma pasta externa para armazenar todos os arquivos de templates do projeto.
+
+Para isso, começaremos alterando o arquivo `settings.py` do nosso projeto. Nesse arquivo é possível encontrar a variável `TEMPLATES`, que é responsável por definir as configurações de template do projeto, como _engine_ a ser utilizada, diretórios que armazenam os templates, dentre outras.
+
+A variável `TEMPLATES` é uma lista que recebe um dicionário contendo valores específicos, tais como `BACKEND`, `DIRS`, `APP_DIRS` e `OPTIONS`, cada um com uma função específica. No nosso caso, vamos alterar o valor `DIRS` de uma lista vazia para uma lista contendo a string "templates", que é o nome da pasta que utilizaremos para armazenar os templates na raiz do projeto. A variável `TEMPLATES` ficará da seguinte forma:
 
 ```python
-INSTALLED_APPS += [
-    "usuarios",
-    "porteiros",
-    "visitantes",
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
 ]
 ```
 
-Feito isso, vamos começar os trabalhos no arquivos `models.py` para definirmos as informações necessárias para o modelo de visitantes.
+Para facilitar as coisas e economizar um pouquinho de tempo, você pode fazer download da pasta **templates** zipada, extrair os arquivos e colocá-la na raíz do seu projeto:
 
-## Escrevendo as models do nosso aplicativo de visitantes
+{% file src="../.gitbook/assets/templates \(3\).zip" caption="Iniciar o download" %}
 
-Conforme falamos, a camada _model_ ****\(ou camada de modelo\) é nossa fonte segura de dados e onde definimos o formato das informações que serão disponibilizadas para outras camadas da aplicação.
+### Criando a pasta static em nosso projeto
 
-Precisamos guardar uma série de informações a respeito de quem deseja adentrar ao condomínio para realizar visitas a moradores, além da autorização de um morador que esteja na casa no momento da visita. O procedimento faz parte de normas do condomínio para fins de fiscalização, controle e segurança dos moradores. Segundo normas do condomínio, devemos guardar as seguintes informações referentes à visita:
+Feito isso, vamos agora definir as configurações para os arquivos estáticos do nosso projeto. Assim como para os templates, o Django também nos dá toda a estrutura necessária para trabalharmos com arquivos estáticos.
 
-1. Nome completo do visitante
-2. CPF do visitante
-3. Data de nascimento do visitante
-4. Número da casa a ser visitada
-5. Placa do veículo utilizado na visita, se houver
-6. Horário de chegada na portaria
-7. Horário de saída do condomínio
-8. Horário de autorização de entrada
-9. Nome do morador responsável por autorizar a entrada do visitante
-10. Porteiro responsável por registrar visitante
+Por "arquivos estáticos", entenda arquivos do tipo CSS, JS \(javascript\) e imagens que serão utilizadas em nossos templates, tais como logotipo, imagem padrão para avatar de usuários, dentre outras.
 
-Inicialmente, vamos nos concentrar nas informações de 1 a 5 para que possamos avaliar e escrever por partes o modelo de visitantes. Vamos escrever primeiro os atributos nome completo, CPF, data de nascimento, número da casa e placa do veículo, pois a gente já conhece a maioria desses tipos de dados. Nossa classe `Visitante` ficará assim:
+Para realizarmos a configuração, vamos novamente alterar o arquivo `settings.py.` Ao final do arquivo, você vai encontrar a variável `STATIC_URL` que é onde nossos arquivos estáticos devem ficar, ou seja, na pasta `static` na raiz do projeto:
 
 ```python
-from django.db import models
-
-class Visitante(models.Model):
-    nome_completo = models.CharField(
-        verbose_name="Nome completo", max_length=194
-    )
-
-    cpf = models.CharField(
-        verbose_name="CPF",
-        max_length=11,
-    )
-
-    data_nascimento = models.DateField(
-        verbose_name="Data de nascimento",
-        auto_now=False,
-        auto_now_add=False,
-    )
-
-    numero_casa = models.PositiveSmallIntegerField(
-        verbose_name="Número da casa a ser visitada"
-    )
-
-    placa_veiculo = models.CharField(
-        verbose_name="Placa do veículo",
-        max_length=7,
-        blank=True,
-        null=True,
-    )
+STATIC_URL = "/static/"
 ```
 
-### Conhecendo o campo DateTimeField
-
-Antes de prosseguirmos, vamos conhecer o campo `DateTimeField`, um cara bem parecido com o `DateField` que já conhecemos com a diferença que, além da data, salva também o horário exato do registro. Assim como o `DateField`, o `DateTimeField` aceita `auto_now` e `auto_now_add` como argumentos, além das opções `blank` e `null`. Vamos utilizar o `DateTimeField` para definirmos os atributos que vão representar o horário de chegada e o horário de saída do visitante.
-
-Primeiro vamos definir o atributo `horario_chegada`, que é quem representa o horário de chegada do visitante à portaria do condomínio. Como o atributo representa o horário de chegada do visitante à portaria, faz sentido que o mesmo seja preenchido no exato momento que registrarmos o visitante em nosso sistema. Para isso, utilizaremos a opção `auto_now_add` com o valor `True`, assim garantimos que o atributo receberá o valor da hora atual assim que o registro for adicionado ao banco de dados.
+Abaixo da variável `STATIC_URL`, coloque também o seguinte trecho de código:
 
 ```python
-from django.db import models
-
-class Visitante(models.Model):
-    # código acima omitido...
-
-    placa_veiculo = models.CharField(
-        verbose_name="Placa do veículo",
-        max_length=7,
-        blank=True,
-        null=True,
-    )
-    
-    horario_chegada = models.DateTimeField(
-        verbose_name="Horário de chegada na portaria",
-        auto_now_add=True
-    )
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 ```
 
-Para o caso do horário de saída, utilizaremos uma configuração diferente para o atributo. Como precisamos setar o valor somente após a saída do visitante do condomínio, esse valor precisa ser registrado inicialmente como um valor em branco. Para isso, o Django nos dá a possibilidade de utilização do atributo `auto_now` como `False` e dizer que podemos aceitar valores em branco e nulos. Utilizando o `auto_now` como `False`, o campo receberá um valor em branco no momento da criação do registro no banco de dados.
+Desta forma estamos dizendo para o Django que os arquivos estáticos devem ser procurados na pasta **static** na raiz do projeto. Para facilitar e economizar tempo novamente, faça download da pasta zipada clicando no link abaixo \(agora da pasta **static**, claro\) e a coloque na raiz do projeto:
 
-```python
-from django.db import models
+{% file src="../.gitbook/assets/static \(1\).zip" caption="Iniciar o download" %}
 
-class Visitante(models.Model):
-    # código acima omitido...
+Faça o download e coloque a pasta **static** na raiz do projeto, juntamente com a pasta **templates**. Feito isso, já podemos utilizar templates HTML e arquivos estáticos em nosso projeto.
 
-    placa_veiculo = models.CharField(
-        verbose_name="Placa do veículo",
-        max_length=7,
-        blank=True,
-        null=True,
-    )
-    
-    horario_chegada = models.DateTimeField(
-        verbose_name="Horário de chegada na portaria",
-        auto_now_add=True
-    )
-    
-    horario_saida = models.DateTimeField(
-        verbose_name="Horário de saída do condomínio",
-        auto_now=False,
-        blank=True,
-        null=True,
-    )
-```
+## Criando views que renderizam templates
 
-Conforme visto, além destas informações, precisamos guardar também o nome do morador que autorizou a entrada do visitante e o horário da autorização. Sendo assim, teremos mais dois atributos:
+O HTML \(Linguagem de Marcação de HiperTexto\) é o bloco de construção mais básico da pilha de tecnologias que compõem a web, mas é ela que dá significado e define a estrutura do conteúdo das páginas. Existem também tecnologias que descrevem aparência/apresentação \(CSS\) e funcionalidade/comportamento \(Javascript\) de uma página web \(inclusive já falamos um pouquinho delas por aqui quando falamos sobre arquivos estáticos\).
 
-* Horário de autorização de entrada
-* Nome do morador responsável por autorizar a entrada do visitante
+Basicamente, um arquivo de template é um arquivo de texto com extensão `.html`. Os navegadores interpretam esses arquivos de texto e cuidam de exibir exatamente da maneira que você enxerga pelo seu monitor. 
 
-Utilizaremos os campos já conhecidos `DateTimeField` e `CharField` para definir os atributos:
-
-```python
-from django.db import models
-
-class Visitante(models.Model):
-    # código acima omitido...
-    
-    horario_saida = models.DateTimeField(
-        verbose_name="Horário de saída do condomínio",
-        auto_now=False,
-        blank=True,
-        null=True,
-    )
-    
-    horario_autorizacao = models.DateTimeField(
-        verbose_name="Horário de autorização de entrada",
-        auto_now=False,
-        blank=True,
-        null=True,
-    )
-    
-    morador_responsavel = models.CharField(
-        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
-        max_length=194,
-        blank=True,
-    )
-```
-
-Nada de novo por enquanto: utilizamos um campo do tipo `CharField` para armazenar o nome do morador responsável por autorizar a entrada e utilizamos um `DateTimeField` para armazenar o horário em que a autorização ocorreu. Conforme vimos, se não queremos que o campo `DateTimeField` seja preenchido na hora da criação ou atualização do registro, setamos o argumento `auto_now` como `False`. Isso garante também que o campo possa ser preenchido com um texto vazio.
-
-### Conhecendo o campo ForeignKey
-
-Seguindo a lista de requisitos, o próximo atributo que devemos adicionar ao nosso modelo é a informação referente ao **porteiro responsável por registrar a entrada do visitante**.
-
-Como criamos um modelo que representa nossos porteiros dentro do sistema, podemos associar esse modelo ao modelo de **visitante** por meio do campo `ForeignKey`. Esse campo cria um atributo que vincula um registro de modelo a outro registro de modelo. Neste caso, queremos vincular o modelo `Porteiro` ao modelo `Visitante` para representar o porteiro responsável pelo registro.
-
-O campo `ForeignKey` é importante pois assim não precisamos replicar as informações do porteiro no registro de visitante, apenas referenciamos essas informações inserindo o `id` referente ao registro do **porteiro**. Como os modelos são representações das tabelas do nosso banco de dados, estamos dizendo algo como: _"hey, Django, procure essas informações na tabela de porteiros usando esse id!"_ e o Django faz todo o trabalho de trazer essas informações por nós.
+Bacana não? Além disso, o HTML ajuda a dizer para os motores de busca o que é relevante, o que é texto, o que é imagem e tudo mais. Sendo assim, o HTML tem um papel fundamental dentro da web! 
 
 {% hint style="info" %}
-É importante lembrar que tudo isso é possível devido à ORM do Django, que é quem abstrai todas as funcionalidades do banco de dados e manipula todas as interações necessárias
+E ah, não se assuste com a palavra **HiperTexto** no nome, hipertexto são apenas os links entre as páginas que se conectam na web. 
 {% endhint %}
 
-Abaixo do atributo `morador_responsavel`, vamos escrever o atributo  `registrado_por` sendo do tipo `ForeignKey`, que representará a informação do **porteiro** responsável por registrar a entrada do visitante:
+Como o Django já nos dá tudo que é necessário para criarmos aplicações web, ele também nos dá a possibilidade de criarmos views que renderizam templates. Isso significa que a partir de agora, ao invés de ser exibido um texto ao acessarmos uma URL através do navegador, como fizemos anteriormente, vamos dizer para o Django que é necessário exibir um template HTML, afim de exibir as informações de forma estruturada e de modo que fiquei fácil a compreensão para nossos usuários.
+
+### Conhecendo a função render
+
+Para que o Django exiba um template ao invés de um texto em tela, precisaremos alterar o retorno da nossa view chamada `index`. Antes de seguir, vamos trabalhar um pouco a memória e lembrar como a nossa view está:
 
 ```python
-from django.db import models
-
-class Visitante(models.Model):
-    # código acima omitido...
-    
-    morador_responsavel = models.CharField(
-        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
-        max_length=194,
-        blank=True,
-    )
-    
-    registrado_por = models.ForeignKey(
-        "porteiros.Porteiro",
-        verbose_name="Porteiro responsável pelo registro",
-        on_delete=models.PROTECT
-    )
-```
-
-Os argumentos que o campo `ForeignKey` recebe são bem parecidos com os do `OneToOneField` que já conhecemos. Primeiro informamos a classe modelo que deverá ser relacionada: a classe `Porteiro` do aplicativo **porteiros**. Depois utilizamos o `verbose_name` para dar um nome descritivo para o campo e informamos o que deve ser feito com o registro do visitante caso o registro do **porteiro** da relação seja excluído. Nesse caso, utilizaremos para o `on_delete` a ação `models.PROTECT`, pois assim protegemos também o modelo de visitantes. Sempre que houver tentativa de exclusão de um registro de porteiro que esteja vinculado a um visitante, o Django mostrará um erro. O atributo está protegido contra exclusão.
-
-Nosso próximo passo agora é apenas escrever a classe `Meta` e o método `__str__` da classe Visitante. Nosso modelo ficará assim:
-
-```python
-from django.db import models
-
-class Visitante(models.Model):
-    nome_completo = models.CharField(
-        verbose_name="Nome completo", max_length=194
-    )
-
-    cpf = models.CharField(
-        verbose_name="CPF",
-        max_length=11,
-    )
-
-    data_nascimento = models.DateField(
-        verbose_name="Data de nascimento",
-        auto_now=False
-    )
-
-    numero_casa = models.PositiveSmallIntegerField(
-        verbose_name="Número da casa a ser visitada",
-    )
-
-    placa_veiculo = models.CharField(
-        verbose_name="Placa do veículo",
-        max_length=7,
-        blank=True,
-        null=True,
-    )
-    
-    horario_chegada = models.DateTimeField(
-        verbose_name="Horário de chegada na portaria",
-        auto_now_add=True
-    )
-    
-    horario_saida = models.DateTimeField(
-        verbose_name="Horário de saída do condomínio",
-        auto_now=False,
-        blank=True,
-        null=True,
-    )
-    
-    horario_autorizacao = models.DateTimeField(
-        verbose_name="Horário de autorização de entrada",
-        auto_now=False,
-        blank=True,
-        null=True,
-    )
-    
-    morador_responsavel = models.CharField(
-        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
-        max_length=194,
-        blank=True,
-    )
-
-    registrado_por = models.ForeignKey(
-        "porteiros.Porteiro",
-        verbose_name="Porteiro responsável pelo registro",
-        on_delete=models.PROTECT
-    )
-    
-    class Meta:
-        verbose_name = "Visitante"
-        verbose_name_plural = "Visitantes"
-        db_table = "visitante"
-
-    def __str__(self):
-        return self.nome_completo
-```
-
-## Registrando nossa aplicação no Admin do Django
-
-O próximo passo a ser executado, como já vimos, é tornar o nosso modelo visível para o Admin do Django. Então vamos lá!
-
-Vamos abrir o arquivo `admin.py` do nosso aplicativo visitantes, importar a classe `Visitante` e passá-la como argumento da função `admin.site.register()`.
-
-```python
-from django.contrib import admin
-from visitantes.models import Visitante
-
-admin.site.register(Visitante)
-```
-
-## Aplicando as alterações em nosso banco de dados
-
-Feito isso, mais uma vez vamos criar as migrações do modelo criado utilizando o comando `makemigrations`.
-
-```bash
-(env)$ python manage.py makemigrations visitantes
-```
-
-Se tudo ocorrer bem, vamos receber as seguintes informações em nosso terminal:
-
-```text
-Migrations for 'visitantes':
-  porteiros/migrations/0001_initial.py
-    - Create model Visitante
-```
-
-Com todas as informações necessárias para executar as alterações no banco de dados armazenadas em forma de migração, vamos aplicar as alterações em nosso banco de dados com o comando `migrate`.
-
-```bash
-(env)$ python manage.py migrate
-```
-
-Devemos receber as seguintes informações em nosso terminal:
-
-```text
-Operations to perform:
-  Apply all migrations: admin, auth, contenttypes, porteiros, sessions,
-  usuarios, visitantes
-
-Running migrations:
-  Applying visitantes.0001_initial.py... OK
-```
-
-## Adicionando visitante utilizando o Django Admin
-
-Da mesma forma que cadastramos um porteiro utilizando o Admin do Django, vamos adicionar também um visitante. Vamos novamente acessar [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) e agora veremos o aplicativo **visitantes** disponível para nós.
-
-![Captura tirada do Admin do Django focando nos links para a exibi&#xE7;&#xE3;o de Grupos, Usu&#xE1;rios, Porteiros e agora Visitantes tamb&#xE9;m](../.gitbook/assets/screenshot_2020-02-20_20-48-46.png)
-
-Dessa vez, vamos clicar diretamente no botão "adicionar" para que a gente vá direto para o formulário de cadastro de visitantes. O formulário a ser exibido deverá se parecer com isto:
-
-![Formul&#xE1;rio para registro de visitante. O formul&#xE1;rio apresenta os campos da classe modelo](../.gitbook/assets/screenshot_2020-02-20_20-56-30.png)
-
-Por enquanto vamos preencher os campos obrigatórios **nome completo**, **CPF**, **data de nascimento** e **número da casa** a ser visitada e definir o **porteiro** responsável por registrar o visitante. Fique livre para preencher as informações à sua maneira. Após preencher os campos citados, clique em salvar e visualize a lista de visitantes agora com o novo visitante registrado.
-
-Essa foi a primeira e última vez utilizamos o Django Admin para registar um visitante, pois a partir de agora trabalharemos diretamente nos templates HTML da dashboard que vamos disponibilizar para os porteiros do condomínio.
-
-## Listando visitantes na página inicial da dashboard
-
-Como já definimos nosso modelo e até registramos visitantes através do Admin, agora vamos aprender como buscar esses registros em nosso banco de dados.
-
-Quando precisamos buscar registros em nosso banco de dados, devemos construir uma **Queryset** utilizando o **Manager** da classe modelo em questão. A classe Manager, conforme visto, define como as interações com o banco de dados devem acontecer e, por padrão, é um atributo da classe chamado `objects`. Já uma queryset nada mais é que uma lista de objetos de um determinado tipo existentes em nosso banco de dados. 
-
-Sempre que definimos uma subclasse de `django.db.models.Model`, que é o que todos os nossos modelos são, o Django nos fornece de forma automática uma interface para realizar operações em nosso banco de dados, tais como buscar, atualizar, criar e deletar registros, mas por hora, vamos nos concentrar apenas em buscar os registros de visitantes.
-
-### Buscando registros de visitantes no banco de dados
-
-Quando falamos da camada **view**, vimos que é ela quem deve encapsular toda a lógica necessária para apresentar os dados. Geralmente, as **views** devem buscar as informações no banco de dados, carregar o template e renderizar esse template com as informações buscadas. Uma view no Django tem a função de exatamente conectar a camada de modelo à camada de template.
-
-O primeiro passo para buscarmos os registros é criar uma variável para armazenar os registros que serão retornados, para isto utilizaremos a variável `todos_visitantes`. A variável receberá uma **queryset** que será retornada pelo método `all()` do **Manager** `objects` do modelo **Visitante**.
-
-Antes de tudo, vamos importar o modelo no arquivo `views.py` do aplicativo **usuarios**.
-
-```python
-from django.shortcuts import render
-
-from visitantes.models import Visitante
+from django.http import HttpResponse
 
 def index(request):
+    return HttpResponse("Olá, mundo!")
+```
+
+Até então, utilizamos o `HttpResponse` para retornar uma mensagem, mas a partir de agora utilizaremos a função `render` para exibir um template HTML no lugar dessa mensagem. 
+
+A função `render` é uma função de atalho do Django que nos possibilita combinar um template HTML e um dicionário de contexto. A função deve receber sempre a variável `request` e uma `string` representando o caminho do template a ser utilizado. Esses argumentos são obrigatórios e devem ser passados para a função `render` sempre que a mesma for utilizada.
+
+Vamos alterar a nova view para que retorne a função `render` ao invés da classe `HttpResponse` passando a variável `request` e o caminho para o template `index.html`:
+
+```python
+def index(request):
+    return render(request, "index.html")
+```
+
+Como já fizemos o download das pastas **static** e **templates** e toda a configuração necessária para funcionamento de ambas, o Django já reconhece a pasta e busca pelo template `index.html` dentro dela.
+
+## Entendendo as adaptações necessárias no template
+
+Como você deve ter percebido, o template não está sendo exibido como deveria. Isso porque os arquivos estáticos não foram carregados. Lembra que fizemos a configuração da variável `STATIC_URL`? Pois bem, precisamos falar dela aqui pois para que os arquivos sejam carregados corretamente, o caminho relativo até eles deve estar correto e é aqui que a `STATIC_URL` entra em cena.
+
+### Conhecendo a tag static
+
+Quando falamos anteriormente sobre a engine de templates do Django, falamos que ela é capaz de executar funções condicionais, loops, exibir valores e possui diversas outras funcionalidades que podem ser executadas diretamente nos templates através de tags. Vamos agora conhecer a primeira tag que vamos utilizar em nosso projeto, a tag **static**.
+
+A tag static é a representação da variável `STATIC_URL` nos templates. O Django fornece essa tag no intuito de facilitar o trabalho com arquivos estáticos. Vamos aprender como utilizar a tag e resolver o problema de exibição do template.
+
+O primeiro passo para utilizarmos a tag static é carregá-la no template. Para isso vamos inserir o seguinte trecho de código no topo do nosso HTML:
+
+```markup
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="pt-br">
+```
+
+{% hint style="success" %}
+Tags no Django são escritas dessa maneira: `{% %}`. Guarde isso, pois utilizaremos bastante no decorrer do curso. 
+{% endhint %}
+
+Com isso já podemos utilizar a tag no template `index.html`.
+
+### Alterando o caminho dos arquivos estáticos
+
+Como falamos, a tag `{% static %}` é a representação da pasta **static.** A tag nos dá um link para essa pasta para utilização no carregamento dos arquivos estáticos nos templates. Como é o Django que cuida de toda essa parte por nós, também vamos delegar a ele o carregamento dos nossos arquivos JS, CSS e imagens.
+
+#### Alterando as importações dos arquivos CSS
+
+Vamos alterar primeiro as importações dos arquivos CSS. As linhas que fazem o carregamento dos arquivos CSS no template são:
+
+```markup
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+```
+
+Vamos alterar os textos referentes a `href` para utilizarmos a tag `{% static %}`. As importações ficarão assim:
+
+```markup
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+```
+
+#### Alterando as importações dos arquivos JS
+
+Para alterarmos as importações dos arquivos JS, vamos encontrar as linhas:
+
+```markup
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+```
+
+E alterá-las para que fiquem da seguinte forma:
+
+```markup
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+```
+
+Com isso, ao acessarmos [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) novamente no navegador, teremos o template exibido de forma estruturada com os arquivos CSS \(exibição\) e JS \(comportamento\) devidamente carregados. Nosso template será exibido desta forma no navegador:
+
+![Tela inicial da dashboard contento uma tabela que lista os visitantes recentes, nela &#xE9; poss&#xED;vel observar o visitante &quot;Don Corleone&quot;](../.gitbook/assets/screenshot-from-2020-05-28-20-45-37.png)
+
+## Exibindo variáveis no template
+
+Quando conhecemos a função `render` falamos que ela é responsável por combinar um template HTML e um dicionário de contexto, mas não fomos a fundo a respeito do que é um dicionário de contexto.
+
+Um dicionário de contexto é a variável do tipo dicionário que pode ser passada como argumento para a função `render`. Quando passada, é possível acessarmos os valores contidos na variável diretamente no template através de tags específicas, diferentes das tags utilizadas anteriormente.
+
+{% hint style="success" %}
+Dicionário é uma estrutura de dados em Python de elementos \(ou propriedades\) não ordenados e que podemos acessar utilizando chaves. Os dicionários são estruturas poderosas e muito utilizadas. Existem linguagens que este tipo é conhecido como "matrizes associativas" ou apenas "objetos"
+{% endhint %}
+
+### Definindo nosso dicionário de contexto
+
+Para fazer isso, vamos no arquivo `views.py` e vamos criar a variável `context` acima do retorno da função. A função `index` ficará da seguinte forma:
+
+```python
+def index(request):
+    
     context = {
         "nome_pagina": "Início da dashboard",
     }
@@ -358,84 +210,40 @@ def index(request):
     return render(request, "index.html", context)
 ```
 
-Feito isso, vamos criar a variável `todos_visitantes` acima da variável `context` e definir seu valor como `Visitante.objects.all()`. Desta forma, estamos buscando todos os registros de visitantes existentes em nosso banco de dados.
-
-Não podemos nos esquecer de colocar a variável `todos_visitantes` dentro do nosso dicionário `context` para que possamos acessá-la através do template. A função `index` ficará assim:
+No código acima criamos a variável `context` já com o valor de `nome_pagina` definido como "Início da dashboard". Se a gente quisesse utilizar uma variável ao invés de um texto diretamente, poderíamos fazer desta forma: 
 
 ```python
-from visitantes.models import Visitante
-
 def index(request):
+    nome_pagina = "Início da dashboard"
 
-    todos_visitantes = Visitante.objects.all()
-    
     context = {
-        "nome_pagina": "Início da dashboard",
-        "todos_visitantes": todos_visitantes,
+        "nome_pagina": nome_pagina,
     }
     
     return render(request, "index.html", context)
 ```
 
-### Listando registros de visitantes no template HTML
+### Exibindo as informações nos templates
 
-#### Conhecendo a tag for e acessando atributos do visitante
+A partir de agora, vamos aprender um pouco mais sobre a linguagem de templates do Django. Ela foi projetada para ser poderosa e fácil de forma que seja confortável trabalhar com a linguagem HTML.
 
-Para exibir variáveis nos templates vimos que podemos utilizar a sintaxe de chaves \(`{{  }}`\), mas se tentarmos exibir uma queryset desta maneira, não será possível, pois uma queryset é uma lista que contém vários itens. É necessário percorrer os itens dessa lista e acessar item por item. Pra nossa sorte, o Django nos fornecer uma tag para que possamos executar loops em listas.
+Essencialmente, templates são arquivos de texto, geralmente no formato HTML. Para o Django, um template pode conter variáveis que devem ser substituídas por valores quando o template for interpretado.
 
-A tag `{% for %}` é quem vai nos ajudar agora. O que ela faz é justamente andar por todos os itens da lista e disponibilizar uma variável para que possamos acessar as informações da mesma. Parece um pouco confuso? Não se assuste, vamos entender melhor visualizando o código.
+Agora que já definimos o nosso dicionário de contexto e passamos ele como argumento para a função `render`, vamos exibir essas informações no template `index.html`.
 
-No nosso caso, buscamos todos os registros de visitantes que temos em nosso banco de dados e passamos essa lista como variável dentro do contexto da view. O que precisamos fazer agora é passar em cada item existente na lista de visitantes e exibir as informações como nome completo, CPF e data de nascimento.
+Para exibirmos os valores contidos no dicionário `context` basta utilizarmos a sintaxe para variáveis da linguagem de templates do Django: `{{ propriedade_do_dicionario }}`. Para nosso caso, vamos exibir o valor da propriedade `nome_pagina` que, dentro do dicionário `context`, corresponde ao texto **Início da dashboard**. 
 
-{% hint style="info" %}
-Para acessarmos as informações dos visitantes nos templates, utilizaremos o nome dos atributos definidos da classe modelo.
-{% endhint %}
-
-Vamos abrir o arquivo de template `index.html` e buscar pelo elemento HTML `<tbody>`. É dentro dele, acima dos elementos `<tr>` que vamos definir o início da tag `{% for %}`. Para utilizar essa tag, precisamos também evidenciar onde o loop deve ser parado e fazemos isso utilizando a tag `{% endfor %}`.
-
-Logo abaixo do elemento `<tbody>` insira o trecho `{% for visitante in todos_visitantes %}`. Lembra que falamos da variável que a tag `{% for %}` disponibiliza para que possamos acessar as informações? Pois bem, podemos dar nome a ela e, neste caso, utilizaremos o nome `visitante`. O trecho de código ficará assim:
+Vamos abrir o arquivo `index.html` e procurar pela seguinte linha:
 
 ```markup
-<tbody>
-    {% for visitante in todos_visitantes %}
-        <tr>
-            <td>Don Corleone</td>
-            <td>123.123.123.06</td>
-            <td>22 de agosto 15:30</td>
-            <td>22 de agosto 15:38</td>
-            <td>Darth Vader</td>
-            <td>
-                <a href="#">
-                    Ver detalhes
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-</tbody>
+<h1 class="h3 mb-0 text-gray-800">Página inicial</h1>
 ```
 
-Olha só que bacana: estamos dizendo para o Django "hey, cara, para cada `visitante` que existir na lista `todos_visitantes`, repita essa estrutura de elementos `<td>`. Com isso já estamos executando o loop na lista `todos_visitantes`, mas ainda não estamos exibindo os valores referentes a cada visitante existente no banco de dados. Para fazer isso, vamos utilizar a sintaxe de chaves \(`{{  }}`\) em conjunto com variável `visitante` que criamos dentro da tag `{% for %}`.
-
-Os atributos do visitante podem ser acessados utilizando a sintaxe `visitante.nome_do_atributo`. Se queremos exibir o nome completo do visitante, vamos utilizar `visitante.nome_completo`. Faremos o mesmo com os atributos **CPF**, **horário de chegada**, **horário de autorização de entrada** e **morador responsável**. Realizando as alterações para exibirmos os atributos, o código ficará assim:
+Vamos alterar o texto da tag `h1` \(o texto **Página inicial**\) para exibir também o valor da nossa variável `nome_pagina` passada na variável `context` da view. A linha deverá ficar assim:
 
 ```markup
-<tbody>
-    {% for visitante in todos_visitantes %}
-        <tr>
-            <td>{{ visitante.nome_completo }}</td>
-            <td>{{ visitante.cpf }}</td>
-            <td>{{ visitante.horario_chegada }}</td>
-            <td>{{ visitante.horario_autorizacao }}</td>
-            <td>{{ visitante.morador_responsavel }}</td>
-            <td>
-                <a href="#">
-                    Ver detalhes
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-</tbody>
+<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
 ```
 
-Agora quando atualizarmos a página, vamos visualizar as informações dos visitantes registrados através do Admin. Caso queira testar, fique à vontade para registrar outros visitantes. Quando você acessar novamente [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e atualizar a página, os novos visitantes serão adicionados à tabela de forma automática! Bem bacana, não?
+Volte para o navegador, atualize a página e veja a mágica acontecer: o valor `{{ nome_pagina }}` será substituído pelo texto "Início da dashboard" que definimos no dicionário `context`. Se alterarmos o valor no arquivo `views.py` o mesmo acontece no `index.html`.
 
