@@ -21,6 +21,9 @@
 * Entendendo a estrutura do projeto
 * Criando nosso primeiro aplicativo Django
 * Escrevendo nosso "Hello World"
+
+## Capítulo 03
+
 * Escrevendo as models
   * Escrevendo a classe modelo
   * Escrevendo um manager personalizado
@@ -32,7 +35,7 @@
 
 
 
-## Capítulo 03
+## Capítulo 04
 
 * Criando aplicativo para gerenciar porteiros
 * Escrevendo as models do nosso aplicativo de porteiros
@@ -163,7 +166,7 @@
   * Utilizando o timezone para descobrir o mês atual
 * Ordenando nossa lista de visitantes por horário de chegada
 
-## Capítulo 14
+## Capítulo 16
 
 * Bloqueando o acesso para usuários não autenticados nas nossas views
   * Conhecendo o decorator login\_required
@@ -175,13 +178,6 @@
 * Criando URL para logout
 * Criando template de logout
 * Inserindo link para logout em dashboard
-
-## Capítulo 15
-
-* Paginando listagem de visitantes
-* Conhecendo a classe Paginator
-* Alterando template para exibir resultados paginados
-* Adicionando links no template para navegar nos resultados
 
 
 
