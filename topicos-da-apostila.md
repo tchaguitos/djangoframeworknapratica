@@ -181,5 +181,9 @@
 * Criando template de logout
 * Inserindo link para logout em dashboard
 
+## Capítulo final
+
+* Encerramento e agradecimentos
+
 
 
