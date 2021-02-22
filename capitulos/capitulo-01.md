@@ -1,10 +1,3 @@
----
-description: >-
-  Nesse capítulo vamos conhecer o autor, as tecnologias que vamos utilizar, o
-  projeto que vamos desenvolver e ainda instalar e configurar todo o ambiente de
-  desenvolvimento
----
-
 # Capítulo 01
 
 ## Conhecendo o instrutor e sabendo mais sobre o curso
