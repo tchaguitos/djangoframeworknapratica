@@ -6,7 +6,7 @@
 
 ---
 
-* [Tópicos da apostila](topicos-da-apostila.md)
+* [Tópicos do livro](topicos-do-livro.md)
 * [Proposta de desenvolvimento](proposta-de-desenvolvimento.md)
 
 ## Capítulos
