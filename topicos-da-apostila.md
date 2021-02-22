@@ -119,6 +119,7 @@
   * Criando método para exibir placa do veículo utilizado na visita
 * Utilizando métodos personalizados no template
 * Utilizando o Django para renderizar nossas URLs
+  * Renderizando a URL para retornar à página inicial
 
 ## Capítulo 11
 
