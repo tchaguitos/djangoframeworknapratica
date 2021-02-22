@@ -45,7 +45,7 @@
 * Aplicando as alterações em nosso banco de dados
 * Criando porteiro através do Admin do Django
 
-## Capítulo 04
+## Capítulo 05
 
 * Configurando a aplicação para trabalhar com arquivos estáticos e templates HTML
   * Criando a pasta templates em nosso projeto
@@ -59,7 +59,7 @@
   * Definindo nosso dicionário de contexto
   * Exibindo as informações nos templates
 
-## Capítulo 05
+## Capítulo 06
 
 * Criando o aplicativo para gerenciar visitantes
 * Escrevendo as models do nosso aplicativo de visitantes
@@ -72,7 +72,7 @@
   * Buscando registros de visitantes no banco de dados
   * Listando registros de visitantes no template HTML
 
-## Capítulo 06
+## Capítulo 07
 
 * Criando tela para registro de novo visitante
 * Criando view para registrar visitante
@@ -83,7 +83,7 @@
   * Adaptando template base
   * Adaptando template registrar\_visitante
 
-## Capítulo 07 - Parte 1
+## Capítulo 08
 
 * Trabalhando com formulários no Django
 * Criando nosso formulário
@@ -94,7 +94,7 @@
   * Importando no template
   * Utilizando o render\_field
 
-## Capítulo 07 - Parte 2
+## Capítulo 09
 
 * Preparando view para receber requisição do tipo POST
   * Conhecendo o objeto request
@@ -106,7 +106,7 @@
 * Tratando possíveis erros em nosso formulário
 * Deixando nossas mensagens de erro mais claras
 
-## Capítulo 08
+## Capítulo 10
 
 * Criando tela para exibir informações de visitante
 * Criando a view
@@ -120,7 +120,7 @@
 * Utilizando métodos personalizados no template
 * Utilizando o Django para renderizar nossas URLs
 
-## Capítulo 09
+## Capítulo 11
 
 * Criando funcionalidade para autorização de entrada de visitante
 * Criando um status diferente para cada estágio da visita
@@ -133,7 +133,7 @@
   * Atualizando o status
   * Conhecendo o timezone do Django
 
-## Capítulo 10
+## Capítulo 12
 
 * Criando função para finalizar visita
 * Criando URL
@@ -142,7 +142,7 @@
   * Exibição condicional de botões para autorizar entrada e finalizar visita
 * Bloqueando o acesso à URL por métodos diferentes do POST
 
-## Capítulo 11
+## Capítulo 13
 
 * Implementando melhorias em nossos templates
   * Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
@@ -150,7 +150,7 @@
   * Criando método para exibir status do visitante
 * Implementando melhorias na estrutura do nosso projeto
 
-## Capítulo 12
+## Capítulo 14
 
 * Criando aplicativos para administrar informações da dashboard
 * Migrando view "index" para aplicativo dashboard
@@ -158,7 +158,7 @@
   * Filtrando nossos visitantes por status
   * Contando os resultados de uma queryset
 
-## Capítulo 13
+## Capítulo 15
 
 * Aprendendo a filtrar nossos visitantes por data
 * Conhecendo o field lookups da Queryset API
