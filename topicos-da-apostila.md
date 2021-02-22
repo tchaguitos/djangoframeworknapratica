@@ -148,7 +148,8 @@
 * Implementando melhorias em nossos templates
   * Exibindo botão com função de "voltar" e "cancelar" em páginas de informações e registro de visitante
   * Melhorando a exibição do CPF do visitante
-  * Criando método para exibir status do visitante
+    * Conhecendo o f-strings do Python
+  * Utilizando método para exibir status do visitante
 * Implementando melhorias na estrutura do nosso projeto
 
 ## Capítulo 14
