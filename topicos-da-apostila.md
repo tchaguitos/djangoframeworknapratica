@@ -86,7 +86,7 @@
 ## Capítulo 08
 
 * Trabalhando com formulários no Django
-* Criando nosso formulário
+* Criando formulário para registro de visitante
 * Renderizando nosso formulário automaticamente
 * Melhorando a exibição do nosso formulário
 * Estilizando nosso formulário com django-widget-tweaks
