@@ -1,420 +1,292 @@
 # Capítulo 09
 
-## Criando tela para exibir informações de visitante
+## Preparando view para receber requisição do tipo POST
 
-Seguindo as especificações que recebemos do cliente, sabemos que existe a necessidade de visualização das informações do visitante na dashboard. Sendo assim, é necessário que a gente trabalhe para que seja possível buscar as informações de cada visitante registrado e exibir essas informações em um template à parte, afim de mostrar mais detalhes de cada visitante.
+Agora que cuidamos da usabilidade do nosso formulário, podemos seguir com as outras partes da nossa view. Até o momento, apenas criamos a variável que representa o formulário e a passamos no contexto, o que faremos agora é preparar nossa view para receber os dados que serão enviados na requisição.
 
-Se você observar a tabela que lista os visitantes recentes na página inicial da dashboard, vai notar que existe um link para ver informações detalhadas de cada visitante. O que vamos fazer é desenvolver a view que vai buscar a informação de um visitante por vez e exibir essas informações de forma estruturada em um template HTML.
+### Conhecendo o objeto request
 
-## Criando a view
+Você já deve ter notado que sempre que criamos uma view, precisamos que ela receba a variável `request` como argumento. Isso porque, quando falamos do protocolo que sustenta a web, o HTTP, requisições são o que movimentam toda a estrutura. Quando acessamos uma página web estamos enviando uma requisição do tipo `GET`. Isso tudo acontece em questão de segundos e por baixo dos panos, nos fios que conectam a web.
 
-Como já sabemos, começaremos a trabalhar na funcionalidade pela função de view, no arquivo `views.py`. Abaixo da função `registrar_visitante()`, vamos criar a função `informacoes_visitante()`.
+A variável `request` é uma representação da requisição que é enviada à view acessada e contém diversas informações como usuário logado, método HTTP utilizado, navegador e sistema operacional, dentre outras. No momento, nos interessa o método da requisição e o corpo que é enviado. 
 
-Essa função de view terá uma pequena diferença com relação à função `registrar_visitante()`, desta vez, além do argumento `request`, vamos também receber um argumento de nome `id`, que representará o `id` do visitante a ser buscado em nosso banco de dados. É assim que vamos identificar qual visitante devemos buscar.
-
-Já vamos aproveitar para criar a view e deixar algumas coisas prontas, como a variável `context` e o retorno renderizando o template `informacoes_visitante.html`, que ainda vamos criar. Por hora, nossa função `informacoes_visitante()` ficará assim:
+Para prepararmos a view para receber as informações da requisição, vamos adicionar um `if` abaixo da linha `form = VisitanteForm()` para verificar se o método da requisição é do tipo `POST`. Podemos fazer isso dessa forma:
 
 ```python
-# código acima omitido
+from django.shortcuts import render
+from visitantes.forms import VisitanteForm
 
-def informacoes_visitante(request, id):
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        print("o método é post")
     
     context = {
-        "nome_pagina": "Informações de visitante",
+        "nome_pagina": "Registrar visitante",
+        "form": form,
     }
-    
-    return render(request, "informacoes_visitante.html", context)
+
+    return render(request, "registrar_visitante.html", context)
 ```
 
-### Conhecendo o atalho get\_model\_or\_404
+{% hint style="success" %}
+O método `POST` é utilizado sempre que precisamos enviar informações para o servidor. No nosso caso, por exemplo, queremos enviar as informações de um novo visitante a ser registrado e fazemos isso através do formulário HTML
+{% endhint %}
 
-Agora que nossa view está escrita e recebe um `id`, precisamos buscar o visitante em nosso banco de dados utilizando esse `id`. Existem várias formas de fazer isso, mas vamos utilizar o atalho `get_model_or_404()` do Django. Para utilizá-lo, temos que passar uma classe modelo a ser utilizada na busca e o parâmetro pelo qual queremos buscar \(em nosso caso, utilizaremos o `id` e, por isso, vamos passá-lo como segundo argumento da função `get_model_or_404()`\).
+Agora que verificamos se o método da requisição enviada é do tipo `POST`, vamos reutilizar a variável `form`, agora atribuindo a ela outra instância do formulário `VisitanteForm()`, mas agora passando o corpo da requisição à classe, e utilizar o método `is_valid()` do formulário para validar as informações. O código ficará o seguinte:
 
-Antes de tudo, claro, vamos importar a função `get_model_or_404()` em nossa view juntamente com a classe modelo `Visitante`, pois também precisaremos dela. A função `get_model_or_404()` está localizada no mesmo pacote que as funções `render` e `redirect`, desta forma, vamos alterar as primeiras linhas do nosso código para o seguinte:
+```python
+from django.shortcuts import render
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+    
+    context = {
+        "nome_pagina": "Registrar visitante",
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", context)
+```
+
+Para passar o corpo da requisição para o formulário, basta utilizarmos a propriedade POST do objeto `request` e passá-lo como argumento ao criarmos a nova instância do formulário, como feito na linha 9 \(`form = VisitanteForm(request.POST)`\). Feito isso, validamos as informações com o método `is_valid()` e salvamos o formulário utilizando o método `save()`.
+
+## Conhecendo um pouco mais dos formulários
+
+Ao acessarmos a página, podemos notar que todos os campos do modelo estão sendo exibidos no formulário, e não é isso que queremos, pois algumas das informações devem ser preenchidas mediante autorização de moradores e dependem outros eventos.
+
+Para especificar os campos que devem ser exibidos e utilizados no formulário, vamos voltar ao arquivo `forms.py` e alterar o atributo `fields` da classe `Meta` do nosso formulário. Abra o arquivo e substitua a string `"__all__"` por uma lista com os nomes dos campos que vamos exibir. O atributo `fields` ficará assim:
+
+```python
+from django import forms
+from visitantes.models import Visitante
+
+class VisitanteForm(forms.ModelForm):
+    class Meta:
+        model = Visitante
+        fields = [
+            "nome_completo", "cpf", "data_nascimento",
+            "numero_casa", "placa_veiculo",
+        ]
+```
+
+Ao voltar para a página, vamos notar que agora apenas os campos que estão na lista `fields` da classe `Meta` estão sendo exibidos.
+
+### Tratando problema com atributo nulo
+
+Quando criamos a classe modelo `Visitante`, falamos sobre o atributo `registrado_por` ser do tipo `ForeignKey`, um tipo de campo que cria um relacionamento entre as classes `Visitante` e `Porteiro`. Olhando a classe `VisitanteForm`, podemos notar que o atributo não é colocado nos campos do formulário \(`fields`\), mesmo este sendo uma informação obrigatória em nosso modelo. Se tentarmos adicionar um visitante por meio do formulário, o Django apresentará um erro nos informando que o atributo`registrado_por` do modelo não pode ser nulo.
+
+Para resolver o problema, o que vamos fazer é possibilitar que o campo seja preenchido de maneira automática. Isto é, o campo receberá o valor referente ao porteiro que está logado na dashboard no momento do cadastro.
+
+Para fazer isso, antes de salvar o formulário vamos definir diretamente um valor para o atributo `registrado_por` na função de view. Vamos abrir o arquivo `views.py` e criar uma variável para receber o retorno do método `save` do formulário. Esse método aceita também um argumento opcional de nome `commit`, que quando definido como `False`, retorna uma instância do modelo utilizado no formulário que ainda não foi gravada no banco de dados. Isso é bem útil para quando queremos executar um processamento personalizado antes de salvar o objeto ou até mesmo utilizar outros métodos do modelo. O código vai ficar assim:
+
+```python
+from django.shortcuts import render
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            visitante = form.save(commit=False)
+
+            visitante.registrado_por = request.user.porteiro
+            
+            visitante.save()    
+        
+    context = {
+        "nome_pagina": "Registrar visitante",
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", context)
+```
+
+Agora, ao invés de salvarmos o formulário diretamente, estamos guardando o resultado do método `save` com o argumento `commit=False`, definindo um valor para o atributo `registrado_por` diretamente e salvando o objeto através da variável `visitante`. Somente no momento em que chamamos o método `visitante.save()` que as alterações são registradas no banco de dados.
+
+{% hint style="warning" %}
+Lembra que falamos que a variável `request` guarda algumas informações da requisição, como usuário logado e método utilizado? Pois bem, conseguimos pegar informações do usuário logado acessando a propriedade `user` da variável `request` \(`request.user`\). No nosso caso, ainda estamos acessando uma outra propriedade do usuário, a propriedade `porteiro` \(`request.user.porteiro`\).
+
+Isso acontece devido à funcionalidade de acesso entre os modelos que o Django disponibiliza. Assim como podemos acessar `porteiro.usuario`, definido diretamente como atributo do modelo, podemos fazer o mesmo para o inverso da relação.
+{% endhint %}
+
+Feito isso, vamos apenas importar mais um dos `shortcuts` do Django, além do `render`, que é o `redirect`. O que ele faz é exatamente redirecionar a view para uma URL que quisermos. Vamos utilizá-lo para evitar que os mesmos dados sejam enviados mais de uma vez ao nosso servidor. Sempre que um formulário for enviado e as informações forem salvas no banco de dados, vamos redirecionar a página. Para isso, basta importar o `redirect` ao lado do `render` e utilizá-lo passando o nome da URL para onde queremos mandar o usuário. O código ficará assim:
+
+```python
+from django.shortcuts import render, redirect
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
+    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            visitante = form.save(commit=False)
+
+            visitante.registrado_por = request.user.porteiro
+            visitante.save()
+            
+            return redirect("index")
+        
+    context = {
+        "nome_pagina": "Registrar visitante",
+        "form": form,
+    }
+
+    return render(request, "registrar_visitante.html", context)
+```
+
+Agora vamos voltar à página [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-visitante) e registrar um visitante. O visitante deverá ser registrado e a requisição redirecionada para a página inicial da dashboard.
+
+{% hint style="warning" %}
+O visitante registrado deverá estar listado na tabela de visitantes recentes
+{% endhint %}
+
+## Exibindo uma mensagem para o usuário ao cadastrar novo visitante
+
+Agora que o formulário está sendo exibido e funcionando corretamente, inclusive salvando os visitantes em nosso banco de dados, vamos melhorar um pouco a usabilidade da nossa dashboard. Sempre que o sistema finaliza uma ação solicitada pelo usuário, é interessante que seja dado um feedback visual para facilitar o entendimento a respeito do que aconteceu. Desta forma, o que faremos agora é trabalhar na view para que, quando o visitante for registrado, uma mensagem seja exibida dizendo algo como "hey, cara, o visitante foi registrado com sucesso!".
+
+### Conhecendo o Django messages
+
+O Django já nos disponibiliza o módulo `messages` para resolver isso. Toda a configuração necessária para o funcionamento de suas funcionalidades já vêm por padrão quando criamos um novo projeto Django, então o que precisamos fazer é apenas inserir o código `from django.contrib import messages` para importar as funcionalidades e utilizá-las em nossas views. Vamos colocá-lo na primeira linha e o início do arquivo `views.py` do aplicativo **visitantes** ficará assim:
 
 ```python
 from django.contrib import messages
-from django.shortcuts import (
-    render, redirect, get_object_or_404
-)
-
-from visitantes.models import Visitante
+from django.shortcuts import render, redirect
 from visitantes.forms import VisitanteForm
 
 # código abaixo omitido
 ```
 
-Conforme vimos, para utilizar a função `get_object_or_404()`, precisamos passar a classe modelo e o atributo a ser utilizado para busca. Vamos passar a classe `Visitante` e dizer que vamos buscar o visitante pelo `id` e que o `id` é igual à variável que estamos recebendo como argumento da função `informacoes_visitante()`. Nosso código ficará assim:
+Com o módulo importado em nossa view, podemos utilizá-lo tranquilamente. Vamos adicionar uma mensagem de sucesso logo após a linha que salva a instância do visitante \(`visitante.save()`\) utilizando o método `success` do módulo `messages` e passando a ele a `request` e um texto para ser exibido. O arquivo `views.py` ficará assim:
 
 ```python
-def informacoes_visitante(request, id):
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from visitantes.forms import VisitanteForm
+
+def registrar_visitante(request):
+
+    form = VisitanteForm()
     
-    visitante = get_object_or_404(Visitante, id=id)
-    
+    if request.method == "POST":
+        form = VisitanteForm(request.POST)
+        
+        if form.is_valid():
+            visitante = form.save(commit=False)
+
+            visitante.registrado_por = request.user.porteiro
+
+            visitante.save()
+            
+            messages.success(
+                request,
+                "Visitante registrado com sucesso"
+            )
+            
+            return redirect("index")
+        
     context = {
-        "nome_pagina": "Informações de visitante",
-        "visitante": visitante
+        "nome_pagina": "Registrar visitante",
+        "form": form,
     }
-    
-    return render(request, "informacoes_visitante.html", context)
+
+    return render(request, "registrar_visitante.html", context)
 ```
 
-Não vamos nos esquecer de passar a variável `visitante` no contexto, para que possamos acessá-la nos templates.
+### Alterando o template para exibir as mensagens
 
-## Criando URL para acessar informações de visitante
+Nossa view para registro de visitantes está completa: estamos exibindo o formulário corretamente, verificando quando ocorre uma requisição do tipo POST, validando as informações enviadas, definindo automaticamente o porteiro que registrou o visitante, exibindo uma mensagem e ainda redirecionamos a requisição quando finalizamos todo o processo com sucesso. Ufa! É tanta coisa que ficou até difícil de listar.
 
-A essa altura você já deve ter percebido que precisamos mapear a nova view em uma URL para que a gente possa acessá-la através do navegador. Sendo assim, vamos trabalhar no arquivo `urls.py` do nosso projeto e criar a URL de nome `informacoes_visitante`.
+Com tudo isso feito, temos agora que disponibilizar um lugar em nosso template para que a mensagem seja exibida, como um alerta mesmo. Como estamos direcionando nosso usuário para a página inicial da dashboard, faz sentido que a gente coloque a mensagem no template `index.html`, pelo menos por hora.
 
-Essa URL vai ser um pouco diferente das que criamos até agora. Conforme visto, precisamos passar um `id` como argumento para a função que será o identificador do visitante a ser buscado no banco de dados. Isso pode ser feito através da URL que será acessada, pois podemos passar o `id` diretamente no endereço da URL. Por exemplo, se quisermos buscar as informações do visitante de `id=1`, podemos acessar a URL [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/).
-
-O primeiro passo nós já fizemos, que é receber o argumento na função de view que será mapeada na URL. Agora temos que criar a URL no arquivos `urls.py` e utilizar a sintaxe `<int:id>` para indicar que precisamos receber uma variável do tipo `int` e de nome `id`. Nossa URL ficará assim:
-
-```python
-from django.urls import path
-from django.contrib import admin
-
-from usuarios.views import index
-
-from visitantes.views import (
-    registrar_visitante, informacoes_visitante
-)
-
-urlpatterns = [
-    # codigo acima omitido...
-    
-    path(
-        "registrar-visitante/",
-        registrar_visitante,
-        name="registrar_visitante",
-    ),
-
-    path(
-        "visitantes/<int:id>/",
-        informacoes_visitante,
-        name="informacoes_visitante",
-    )
-]
-```
-
-## Criando template para exibir informações de visitante
-
-Com nossa view pronta, agora precisamos criar o arquivo `informacoes_visitante.html` na pasta **templates** do nosso projeto. Mais uma vez, você pode fazer download do template clicando no link abaixo:
-
-{% file src="../.gitbook/assets/informacoes\_visitante.zip" caption="Iniciar o download" %}
-
-Após o download, coloque o arquivo na pasta **templates** do projeto e abra em seu editor de texto, pois ainda vamos alterar algumas coisas nele.
-
-Ao abrir o arquivo, você vai perceber que as informações estão definidas diretamente no template. Para tornar o template dinâmico e funcional, vamos alterar os valores do atributo `value` dos elementos `field` do nosso HTML. A estrutura é bem parecida com a que utilizamos nos formulários, com a diferença que vamos renderizar todos os campos manualmente para que possamos personalizar melhor a estrutura do nosso template.
-
-Como passamos a variável `visitante` no contexto, podemos acessá-la diretamente utilizando a sintaxe `{{ visitante.nome_do_atributo }}`. Vamos alterar os valores estáticos para a sintaxe de template do Django e tornar nosso template dinâmico. Se você ficar na dúvida sobre qual atributo deve exibir, o elemento  `<label>` pode te ajudar!
-
-Antes que a gente esqueça, vamos alterar também o texto que exibe o porteiro responsável pelo registro e o horário que o visitante foi registrado. Para isso, vamos alterar o texto de "Visitante registrado em 15/05/2018 por Walter White" para "Visitante registrado em `{{ visitante.horario_chegada }}` por `{{ visitante.registrado_por }}`". O template ficará assim:
+Vamos abrir o template `index.html` e, logo acima do primeiro elemento `<div class="row">`do arquivo, vamos inserir o seguinte trecho de código:
 
 ```markup
-<div class="card-body">
-    <h4 class="mb-3 text-primary">
-        Informações gerais
-    </h4>
-
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Horário de chegada</label>
-                <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Número da casa a ser visitada</label>
-                <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
-            </div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
         </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label>Horário de autorização de entrada</label>
-                <input type="text" class="form-control" value="{{ visitante.horario_autorizacao }}" disabled>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label>Entrada autorizada por</label>
-                <input type="text" class="form-control" value="{{ visitante.morador_responsavel }}" disabled>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label>Horário de saída</label>
-                <input type="text" class="form-control" value="{{ visitante.horario_saida }}" disabled>
-            </div>
-        </div>
-    </form>
-
-    <h4 class="mb-3 mt-4 text-primary">
-        Informações pessoais
-    </h4>
-    
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Nome completo</label>
-                <input type="text" class="form-control" value="{{ visitante.nome_completo }}" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>CPF</label>
-                <input type="text" class="form-control" value="{{ visitante.cpf }}" disabled>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Data de nascimento</label>
-                <input type="text" class="form-control" value="{{ visitante.data_nascimento }}" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Placa do veículo</label>
-                <input type="text" class="form-control" value="{{ visitante.placa_veiculo }}" disabled>
-            </div>
-        </div>
-    </form>
-            
-    <p class="mr-2 mt-3 mb-4 text-right">
-        <small>
-            Visitante registrado em {{ visitante.horario_chegada }} por {{ visitante.registrado_por }}
-        </small>
-    </p>
-
-    <div class="mr-1 text-right">
-        <a href="#" class="btn btn-secondary text-white" type="button">
-            <span class="text">Voltar</span>
-        </a>
-    </div>
-</div>
-```
-
-Feito isso, vamos abrir o navegador e acessar o endereço [http://127.0.0.1:8000/visitantes/1/](http://127.0.0.1:8000/visitantes/1/). Você deverá visualizar as informações do primeiro visitante que registramos no banco de dados.
-
-## Criando métodos personalizados para exibir informações do Visitante
-
-Conforme exibimos os campos, você deve ter observado que alguns deles ainda não estão preenchidos no banco de dados e, por isso, exibem um valor em branco ou uma informação pouco clara do que, de fato, representa \(`None`\). Para melhorar a exibição destes campos e, consequentemente, a melhorar a usabilidade da nossa dashboard, criaremos métodos personalizados nas classes modelo para que possamos exibir uma informação útil e clara, mesmo quando o campo não está preenchido.
-
-Métodos são funções que existem dentro das classes e podem definir comportamentos para os objetos. Em nosso caso, criaremos métodos que alteram a forma com que as informações são exibidas para o usuário. Se, por exemplo, a entrada do morador ainda não tiver sido autorizada, podemos exibir algo como "Visitante aguardando autorização" nos campos `horario_autorizacao` e `morador_responsavel`. O mesmo vale para o campo `horario_saida`, que só será preenchido no momento que a visita for finalizada.
-
-### Criando método para exibir horário de saída
-
-Vamos criar métodos que vão substituir a exibição de alguns atributos, começando pelo horário de saída. Antes de tudo, você precisa saber que para criar um método dentro de uma classe, tudo que precisamos fazer é criar uma função dentro dessa classe que receberá o argumento `self`. Esse argumento nos possibilita acessar as propriedades da própria classe.
-
-Os métodos que buscam informações, em geral, recebem o nome de **getters** e mantemos sempre a chave "get" no início de seus nomes. Abaixo do atributo `registrado_por`, vamos escrever o método `get_horario_saida()`. Esse método, antes de tudo, precisa verificar se o atributo `horario_saida` está preenchido e, caso não esteja, retornar o texto "Horário de saída não registrado". Para fazer isso, vamos utilizar a estrutura condicional `if`. O método ficará assim:
-
-```python
-# codigo acima omitido
-def get_horario_saida(self):
-    if self.horario_saida:
-        return self.horario_saida
-
-    return "Horário de saída não registrado"
-
-class Meta:
-    verbose_name = "Visitante"
-    verbose_name_plural = "Visitantes"
-    db_table = "visitante"
-
-    def __str__(self):
-        return self.nome_completo
-```
-
-### Criando métodos para exibir horário de autorização de entrada e morador responsável por autorizar a entrada
-
-Faremos o mesmo para os atributos `horario_autorizacao` e `morador_responsavel`, que serão exibidos somente se existir um valor a ser exibido. Caso contrário, vamos exibir um texto padrão. Vamos começar escrevendo o método `get_horario_autorizacao()`, que será bem parecido com o método `get_horario_saida()`.  O método `get_horario_autorizacao()` ficará assim:
-
-```python
-def get_horario_autorizacao(self):
-    if self.horario_autorizacao:
-        return self.horario_autorizacao
-
-    return "Visitante aguardando autorização"
-```
-
-Para o método `get_morador_responsavel()` vamos fazer bem parecido. Nosso método ficará assim:
-
-```python
-def get_morador_responsavel(self):
-    if self.morador_responsavel:
-        return self.morador_responsavel
-
-    return "Visitante aguardando autorização"
-```
-
-### Criando método para exibir placa do veículo utilizado na visita
-
-O método `get_veiculo()` será parecido com os outros, mas também terá um outro texto padrão:
-
-```python
-def get_placa_veiculo(self):
-    if self.placa_veiculo:
-        return self.placa_veiculo
-
-    return "Veículo não registrado"
-```
-
-## Utilizando métodos personalizados nos templates
-
-Com nossos métodos criados, temos que alterar o template `informacoes_visitante.html` para que exiba os métodos os invés dos atributos. A sintaxe para exibição de métodos nos templates é bem parecida com a que utilizamos para os atributos, inclusive.
-
-Onde temos os atributos `horario_autorizacao`, `morador_responsavel`, `horario_saida` e `placa_veiculo`, vamos alterar para métodos criados. Ou seja, ao invés de `{{ visitante.horario_autorizacao }}`, utilizaremos `{{ visitante.get_horario_autorizacao }}`. O template ficará assim:
-
-```markup
-<div class="card-body">
-    <h4 class="mb-3 text-primary">
-        Informações gerais
-    </h4>
-
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Horário de chegada</label>
-                <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Número da casa a ser visitada</label>
-                <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label>Horário de autorização de entrada</label>
-                <input type="text" class="form-control" value="{{ visitante.get_horario_autorizacao }}" disabled>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label>Entrada autorizada por</label>
-                <input type="text" class="form-control" value="{{ visitante.get_morador_responsavel }}" disabled>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label>Horário de saída</label>
-                <input type="text" class="form-control" value="{{ visitante.get_horario_saida }}" disabled>
-            </div>
-        </div>
-    </form>
-
-    <h4 class="mb-3 mt-4 text-primary">
-        Informações pessoais
-    </h4>
-    
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Nome completo</label>
-                <input type="text" class="form-control" value="{{ visitante.nome_completo }}" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>CPF</label>
-                <input type="text" class="form-control" value="{{ visitante.cpf }}" disabled>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Data de nascimento</label>
-                <input type="text" class="form-control" value="{{ visitante.data_nascimento }}" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Placa do veículo</label>
-                <input type="text" class="form-control" value="{{ visitante.get_placa_veiculo }}" disabled>
-            </div>
-        </div>
-    </form>
-            
-    <p class="mr-2 mt-3 mb-4 text-right">
-        <small>
-            Visitante registrado em {{ visitante.horario_chegada }} por {{ visitante.registrado_por }}
-        </small>
-    </p>
-
-    <div class="mr-1 text-right">
-        <a href="#" class="btn btn-secondary text-white" type="button">
-            <span class="text">Voltar</span>
-        </a>
-    </div>
-</div>
-```
-
-Não podemos esquecer do template `index.html`, onde também vamos utilizar os métodos `get_horario_autorizacao` e `get_morador_responsavel`. O trecho de código ficará assim:
-
-```markup
-<tbody>
-    {% for visitante in todos_visitantes %}
-        <tr>
-            <td>{{ visitante.nome_completo }}</td>
-            <td>{{ visitante.cpf }}</td>
-            <td>{{ visitante.horario_chegada }}</td>
-            <td>{{ visitante.get_horario_autorizacao }}</td>
-            <td>{{ visitante.get_morador_responsavel }}</td>
-            <td>
-                <a href="{% url 'informacoes_visitante' id=visitante.id %}">
-                    Ver informações
-                </a>
-            </td>
-        </tr>
     {% endfor %}
-</tbody>
+{% endif %}
 ```
 
-Você pode criar os métodos que quiser e exibir as informações conforme precisar. Existem diversas possibilidades e aplicações, então sinta-se livre para explorar essas possibilidades!
+O módulo de mensagens do Django também nos disponibiliza uma variável chamada `messages` que pode ser acessada nos templates. Com ela, conseguimos verificar se existem mensagens e, por meio de um loop, verificar as informações de cada mensagem. É o que estamos fazendo, primeiro verificamos se existem mensagem \(`{% if messages %}`\), caso positivo, nós executamos um loop e acessamos a mensagem utilizando a variável criada no loop \(`{{ message }}`\).
 
-## Utilizando o Django para renderizar nossas URLs
+Agora você pode cadastrar mais um visitante e ver a mensagem de sucesso sendo exibida!
 
-Para acessar as informações de cada visitante, precisamos acessar a URL `http://127.0.0.1/visitantes/{id}/`, onde o `{id}` será um valor diferente para cada visitante. Até agora fizemos isso manualmente, mas você deve estar se perguntando: como vamos fazer para renderizar uma URL diferente para cada de visitante de forma automática?
+## Tratando possíveis erros em nosso formulário
 
-{% hint style="info" %}
-Quando criamos nosso modelo de visitante, não criamos o atributo `id`, mas o Django faz isso por nós para que possamos utilizá-lo como `primary_key`. Além disso, o atributo `id` deverá ser único e, para cada novo visitante registrado, o valor será aumentado em um. Sendo assim, não existirá dois visitante de mesmo `id`.
-{% endhint %}
+Nossa mensagem de sucesso já está sendo exibida corretamente, mas o que acontece se ocorrer algum erro e os dados enviados não forem aceitos? Não podemos deixar que a aplicação pare e precisamos indicar para o usuário que os dados que ele inseriu estão incorretos.
 
-Para nossa sorte, o pessoal responsável pelo Django já pensou em tudo por nós. Dentre as tags de template, existe a tag `{% url %}`. Ela tem a função de renderizar as URLs do nosso projeto de forma automática, bastando que a gente passe apenas o nome da URL da ser renderizada \(sim, é exatamente o valor que definimos para o argumento `name` na definição da URL no arquivos `urls.py`\).
-
-Vamos abrir o arquivo `index.html` e utilizar a tag `{% url %}` para renderizar a URL que irá nos direcionar para o template de informações de cada visitante. Na tabela que exibe as informações dos visitantes recentes existe um link que exibe o texto "Ver detalhes". Vamos alterar o valor de `href` do elemento `<a>` de `#` para `{% url 'informacoes_visitante' id=visitante.id %}`. Primeiro passamos nome da URL e depois podemos passar argumentos necessários que, para esse caso, é somente a `id`. Note também que, dentro do loop, o `id` de cada visitante é acessado da mesma forma que os outros atributos. O loop ficará assim:
+Como nosso formulário de registro de visitante está no arquivo `registrar_visitante.html`, trabalharemos nele. Logo acima do elemento `<form method="post">`, vamos inserir o seguinte trecho de código:
 
 ```markup
-{% for visitante in todos_visitantes %}
-    <td>{{ visitante.nome_completo }}</td>
-    <td>{{ visitante.cpf }}</td>
-    <td>{{ visitante.horario_chegada }}</td>
-    <td>{{ visitante.horario_autorizacao }}</td>
-    <td>{{ visitante.morador_responsavel }}</td>
-    <td>
-        <a href="{% url 'informacoes_visitante' id=visitante.id %}">
-            Ver detalhes
-        </a>
-    </td>
-{% endfor %}
+{% if form.errors %}
+    {% for field in form %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 ```
 
-Para facilitar o acesso à URL de registro de visitantes, vamos inserir um botão ao lado do nome da página que deverá nos direcionar para a página [http://127.0.0.1:8000/registrar-visitante/](http://127.0.0.1:8000/registrar-vistante/). Abaixo do elemento `<h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>` vamos inserir o seguinte trecho de código:
+A estrutura HTML é bem parecida com a utilizada para a mensagem de sucesso, mas com algumas pequenas diferenças. Mais uma vez, utilizaremos as tags `{% if %}` e `{% for %}`. Primeiro vamos verificar se existem erros no formulário \(`{% if form.errors %}`\) e, caso verdadeiro, realizar um loop nos seus campos \(`{% for field in form %}`\). Desta vez, verificamos também se existem erros em cada campo \(`{% if field.errors %}`\) e executamos um loop nesses erros \(`{% for error in field.errors %}`\), caso existam.
 
-```markup
-<a href="{% url 'registrar_visitante' %}" class="btn btn-primary btn-icon-split btn-sm">
-    <span class="text">Registrar visitante</span>
+## Deixando nossas mensagens de erro mais claras
 
-    <span class="icon text-white-50">
-        <i class="fas fa-user-plus"></i>
-    </span>
-</a>
-```
+Um último detalhe para melhorarmos ainda mais a experiência do usuário ao utilizar nossa dashboard é certamente melhorar os textos das mensagens que são exibidas para o usuário em caso de erro. Muito mais que informar que ocorreu um erro, essas mensagens devem direcionar o usuário para o correto preenchimento das informações.
 
-Como nossa URL `registrar_visitante` não recebe argumentos, passamos para a tag apenas o nome da mesma.
+Para fazer isso, vamos atuar diretamente no arquivo `forms.py` do aplicativo **visitantes**. O que faremos é adicionar o atributo `error_messages` à classe `Meta` da classe `VisitanteForm`, logo abaixo de `fields`.
 
-### Renderizando a URL para retornar à página inicial
+O `error_messages` é um dicionário que deve conter chaves com os nomes dos campos do modelo. Desta forma, cada valor do dicionário `error_messages` representa um campo do formulário e é também um dicionário, mas que, desta vez, recebe como chave os tipos de erros que podem acontecer nos formulários do Django seguido da mensagem a ser exibida para cada erro. Por hora utilizaremos os tipos `required`, que funciona para quando o campo não é preenchido e `invalid`, para quando o formato da informação enviada é inválido.
 
-Agora que já sabemos utilizar a tag {% url %}, vamos utilizá-la também para renderizar o endereço para nos direcionar à página inicial da dashboard. No menu lateral à esquerda existe um texto com um ícone e o escrito "Início", e é ele que vamos buscar em nosso template `base.html`. O trecho de código ficará assim:
+Nosso formulário, a classe `VisitanteForm`, ficará assim:
 
-```markup
-<a class="nav-link" href="{% url 'index' %}">
-    <i class="fas fa-home"></i>
-    <span>Início</span>
-</a>
+```python
+class VisitanteForm(forms.ModelForm):
+    class Meta:
+        model = Visitante
+        fields = [
+            "nome_completo", "cpf", "data_nascimento",
+            "numero_casa", "placa_veiculo",
+        ]
+        error_messages = {
+            "nome_completo": {
+                "required": "O nome completo do visitante é obrigatório para o registro",
+            },
+            "cpf": {
+                "required": "O CPF do visitante é obrigatório para o registro"
+            },
+            "data_nascimento": {
+                "required": "A data de nascimento do visitante é obrigatória para o registro",
+                "invalid": "Por favor, informe um formato válido para a data de nascimento (DD/MM/AAAA)"
+            },
+            "numero_casa": {
+                "required": "Por favor, informe o número da casa a ser visitada"
+            }
+        }
 ```
 

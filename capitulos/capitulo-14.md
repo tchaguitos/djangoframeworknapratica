@@ -1,84 +1,224 @@
 # Capítulo 14
 
-## Aprendendo a filtrar nossos visitantes por data
+## Criando aplicativo para administrar informações da dashboard
 
-No capítulo anterior nós aprendemos um pouco sobre os métodos `filter()` e `count()` e até já filtramos os visitantes por status. Agora o que precisamos fazer é filtrar os visitantes com base na data em que o mesmo foi cadastrado para que depois seja possível filtramos esses registros por um mês em específico, que é o nosso objetivo.
+No capítulo anterior nós começamos a implementar algumas melhorias visando uma melhor experiência de utilização da nossa dashboard e ainda atuamos de forma a melhorar a estrutura do projeto para facilitar futuras manutenções. Seguindo nesse mesmo caminho, vamos criar um aplicativo chamado **dashboard** para administrar melhor as informações relacionadas principalmente à página inicial da dashboard. É importante também a gente lembrar que os aplicativos de um projeto Django devem dividir responsabilidades e cada um deles ter um único objetivo. 
 
-Para fazer isso, vamos novamente utilizar o método `filter()`, mas dessa vez passando uma condição diferente, pois agora o que queremos é filtrar pela data de chegada. Por hora, vamos somente passar uma data para que o Django filtre somente os visitantes registrados nessa data em específico
+Apesar da gente ter finalizado as principais funcionalidades, ainda precisamos buscar alguns números para que sejam mostrados na página inicial. Se você observar o template, vai perceber que existem elementos que nos sugerem que devemos exibir o número de visitantes de cada status e quantos visitantes foram registrados no mês atual. Queremos fazer algo desse tipo, mas com dados dinâmicos:
 
-## Conhecendo o field lookups da Queryset API
+![Captura de tela realizada a partir do template inicial da dashboard onde foca apenas nos blocos que exibem o n&#xFA;mero de visitantes aguardando autoriza&#xE7;&#xE3;o, em visita, visita finalizada e o total de visitantes registrados no m&#xEA;s](../.gitbook/assets/screenshot_2020-04-08_12-21-52.png)
 
-Antes de filtrar o horário de chegada pela data, precisamos conhecer os `field lookups`. Eles são filtros que nos possibilitam especificar algumas condições para nossos campos ou acessar propriedades. Por exemplo, nosso campo `horario_chegada` também recebe uma data, pois é do tipo `DateTimeField`. Sendo assim, podemos acessar somente a data existente no valor do campo.
+{% hint style="info" %}
+Todas essas informações podem ser tiradas a partir da queryset que busca todos os visitantes no banco de dados. Em breve vamos aprender como podemos fazer isso e tornar os dados na nossa dashboard dinâmicos.
+{% endhint %}
 
-Podemos utilizá-los com alguns métodos das querysets e entre eles o método `filter()`. Nós vamos utilizar `__` após o nome do atributo que passamos como condição para o método `filter()`. Se a gente quiser filtrar os visitantes pela data contida no atributo `horario_chegada`, podemos fazer isso:
+Para começar vamos criar o aplicativo utilizando o `manage.py`:
+
+```bash
+(env)$ python manage.py startapp dashboard
+```
+
+E depois adicionar o novo aplicativo ao arquivo de configurações, o `settings.py`:
 
 ```python
-visitantes_mes = todos_visitantes.filter(
-    horario_chegada__date="2020-04-04"
+INSTALLED_APPS += [
+    "usuarios",
+    "porteiros",
+    "visitantes",
+    "dashboard",
+]
+```
+
+{% hint style="info" %}
+Não vamos executar as operações `makemigrations` e `migrate` pois não fizemos nenhuma alteração relacionada com o banco de dados. Estamos apenas acessando e buscando os dados já existentes.
+{% endhint %}
+
+## Migrando view "index" para aplicativo dashboard
+
+Agora que nós temos um aplicativo para gerenciar as informações da nossa dashboard, vamos migrar a função de view `index` para o aplicativo **dashboard**. Para isso, vamos copiar o código do arquivo `usuarios/views.py` para `dashboard/views.py`. O arquivo `views.py` do aplicativo usuários \(`usuarios/views.py`\) ficará vazio e o arquivo `views.py` do aplicativo dashboard \(`dashboard/views.py`\) ficará assim:
+
+```python
+from django.shortcuts import render
+from visitantes.models import Visitante
+
+def index(request):
+
+    todos_visitantes = Visitante.objects.all()
+
+    context = {
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
+    }
+
+    return render(request, "index.html", context)
+```
+
+Para finalizar a migração da nossa view, vamos também alterar o arquivo `urls.py`. Ao invés de `usuarios.views` vamos importar a nossa função de `dashboard.views`. O arquivo ficará assim:
+
+```python
+from django.contrib import admin
+from django.urls import path
+
+from dashboard.views import index
+
+from visitantes.views import (
+    registrar_visitante,
+    informacoes_visitante,
+    finalizar_visita,
 )
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path(
+        "",
+        index,
+        name="index"
+    ),
+    
+    # código abaixo omitido
+]
 ```
 
-Nesse caso, estamos buscando apenas os visitantes que foram registrados no dia 04 de maio de 2020. Existem vários outros _lookups_ e cada tipo de campo possui os seus.
+## Conhecendo o método filter das querysets
 
-## Filtrando apenas os registros do mês atual
+Agora que migramos a view para o aplicativo dashboard, vamos conhecer métodos para filtrar os visitantes de modo que a gente consiga buscar e exibir os dados que precisamos: o número de visitantes em cada status e o número total de visitantes registrados no mês atual.
 
-Agora que sabemos que é possível filtrar por propriedades contidas em alguns atributos e até filtramos os visitantes de um dia específico, vamos conhecer um outro `field lookup`, o `month`. Assim como nós podemos buscar somente pela data, que está contida no `DateTimeField`, podemos também buscar pelo mês, que é o que esse _lookup_ faz. Dessa vez vamos buscar todos os visitantes registrados no mês de maio \(mês 05\).
+O primeiro método das querysets que vamos conhecer é o método `filter()`. Ele nos ajuda a filtrar os resultados de uma queryset. Nos capítulos anteriores aprendemos que toda busca no banco de dados retorna uma queryset, um tipo específico do Django, e que podemos manipular esses resultados.
+
+Na view que estamos trabalhando já existe uma queryset, que é a variável `todos_visitantes`. Ela guarda a lista de todos os visitantes existentes em nosso banco de dados, o que precisamos fazer é filtrar essa lista de modo que seja possível classificar os visitantes por status. Ou seja, precisamos ter uma lista de visitantes com status aguardando, outra de visitantes com status em visita e outra com as visitas finalizadas.
+
+### Filtrando nossos visitantes por status
+
+O primeiro passo será criar uma variável para receber os resultados. Vamos utilizar o nome `visitantes_aguardando` pois por agora queremos apenas os visitantes que estão com o status `AGUARDANDO`. Para fazer isso vamos utilizar o método `filter()` na variável `todos_visitantes` passando a condição `status="AGUARDANDO"`como argumento para o método. Isto é, vamos filtrar da queryset `todos_visitantes` apenas os visitantes que estão com `status` igual a `AGUARDANDO`.
 
 ```python
-visitantes_mes = todos_visitantes.filter(
-    horario_chegada__month="05"
-)
+def index(request):
+    
+    todos_visitantes = Visitante.objects.all()
+    
+    visitantes_aguardando = todos_visitantes.filter(
+        status="AGUARDANDO"
+    )
+    
+    context = {
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
+    }
+    
+    return render(request, "index.html", context)
 ```
 
-### Utilizando o timezone para descobrir o mês atual
-
-Descobrimos como filtrar nossos visitantes pelo mês em que foram registrados, mas ainda precisamos fazer com que o método filtre os visitantes do mês atual de forma automática, isto é, que o mês atual seja reconhecido e passado para o método `filter()` como uma variável.
-
-Para fazer isso vamos utilizar um velho conhecido, o `timezone.now()`. Esse método retorna o valor referente a data e hora em que foi invocado e, a partir dessa data e hora, podemos buscar o mês. Para importar o módulo `timezone` basta utilizar o seguinte código:
+Vamos fazer isso com todos os outros status para que possamos ter uma lista de visitantes para cada status e passar as variáveis criadas para o contexto da função.
 
 ```python
-from django.utils import timezone
+def index(request):
+    
+    todos_visitantes = Visitante.objects.all()
+    
+    # filtrando os visitantes por status
+    visitantes_aguardando = todos_visitantes.filter(
+        status="AGUARDANDO"
+    )
+
+    visitantes_em_visita = todos_visitantes.filter(
+        status="EM_VISITA"
+    )
+
+    visitantes_finalizado = todos_visitantes.filter(
+        status="FINALIZADO"
+    )
+    
+    context = {
+        "nome_pagina": "Início da dashboard",
+        "todos_visitantes": todos_visitantes,
+        "visitantes_aguardando": visitantes_aguardando,
+        "visitantes_em_visita": visitantes_em_visita,
+        "visitantes_finalizado": visitantes_finalizado,
+    }
+    
+    return render(request, "index.html", context)
 ```
 
-Feito isso, vamos criar a variável `hora_atual` sendo igual ao método `timezone.now()` e depois acessar a propriedade `month` da variável `hora_atual` para passá-la à variável que vamos criar de nome `mes_atual`.
+### Contando os resultados de uma queryset
 
-```python
-# filtrando visitantes por data (mês atual)
-hora_atual = timezone.now()
-mes_atual = hora_atual.month
-
-visitantes_mes = todos_visitantes.filter(
-    horario_chegada__month=mes_atual
-)
-```
-
-Agora temos o valor referente ao mês atual numa variável e podemos passá-la como valor para a condição do método `filter()`. Com isso nós já temos uma lista com os visitantes que foram registrados no mês atual. Vamos agora passar essa variável no contexto da função e depois exibi-la no template.
+Agora que nós já filtramos os visitantes por status, precisamos contar quantos registros existem em cada queryset, certo? É isso que o método `count()` faz por nós. Tudo que precisamos fazer é utilizá-lo nas querysets `visitantes_aguardando`, `visitantes_em_visita` e `visitantes_finalizado`. Podemos fazer isso no contexto mesmo:
 
 ```python
 context = {
-    "nome_pagina": "Página inicial",
-    "visitantes": visitantes,
+    "nome_pagina": "Início da dashboard",
+    "todos_visitantes": todos_visitantes,
     "visitantes_aguardando": visitantes_aguardando.count(),
     "visitantes_em_visita": visitantes_em_visita.count(),
     "visitantes_finalizado": visitantes_finalizado.count(),
-    "visitantes_mes": visitantes_mes.count(),
 }
 ```
 
-Agora vamos voltar para o arquivo `index.html` e alterar o último trecho, onde vamos exibir a quantidade de visitantes registrados no mês atual:
+Feito isso, agora nós vamos exibir essas variáveis no template. Vamos abrir o template `index.html` e utilizar a sintaxe para exibição de variáveis. O trecho de código ficará assim:
 
 ```markup
-<div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-info shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_mes }}</div>
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes aguardando autorização</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_aguardando }}</div>
+                    </div>
+                        
+                    <div class="col-auto">
+                        <i class="fas fa-user-lock fa-2x text-gray-300"></i>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="col-auto">
-                    <i class="fas fa-users fa-2x text-gray-300"></i>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Visitantes no condomínio</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_em_visita }}</div>
+                    </div>
+                        
+                    <div class="col-auto">
+                        <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitas finalizadas</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ visitantes_finalizado }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Visitantes registrados no mês atual</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">X</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,19 +226,5 @@ Agora vamos voltar para o arquivo `index.html` e alterar o último trecho, onde 
 </div>
 ```
 
-Ao voltar para a página inicial da dashboard, o número de visitantes registrados no mês já estará sendo exibido.
-
-## Ordenando nossa lista de visitantes por horário de chegada
-
-O último passo antes da gente finalizar mais um capítulo é ordenar a lista de visitantes recentes por horário de chegada. Isto é, queremos que os registros de visitantes sigam uma certa ordem e essa ordem seja baseada no horário de chegada, de forma que os registros mais recentes fiquem sempre no topo.
-
-Para isso vamos utilizar o método `order_by()` que funciona de forma parecida com o `filter()`, com a diferença que precisamos passar somente o nome do atributo que queremos utilizar como parâmetro. Vamos utilizá-lo em substituição ao método `all()`: 
-
-```python
-todos_visitantes = Visitante.objects.order_by(
-    "-horario_chegada"
-)
-```
-
-Note que estamos utilizando o operador \(`-`\) antes do nome do atributo `horario_chegada`. O operador utilizado dessa forma faz com que os registros sejam listados em ordem descendente que, para data, tem o comportamento de ordenar do registro mais recente para o mais antigo.
+Se você atualizar a página inicial da dashboard, vai observar que agora os números estão dinâmicos e aparecendo conforme os registros do nosso banco de dados. Foi bem tranquilo resolver essa, certo? Então vamos para o próximo desafio!
 
