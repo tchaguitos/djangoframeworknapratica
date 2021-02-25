@@ -60,7 +60,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
 
     is_superuser = models.BooleanField(
-        verbose_name="Usuário é um superusuário?"
+        verbose_name="Usuário é um superusuário?",
         default=False
     )
     
